@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   init_ocl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/30 03:51:29 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/01 03:49:43 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/01 13:07:11 by cschoen           #+#    #+#             */
+/*   Updated: 2020/04/02 01:09:04 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#include "ocl.h"
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "ocl.h"
-
-typedef struct			s_rt
+void	init_ocl(t_ocl *ocl)
 {
-	t_ocl				ocl;
-	double				mouse_x;
-	double				mouse_y;
-}						t_rt;
+	int	i;
 
-#endif
+	i = -1;
+	ocl->device_id = NULL;
+	ocl->context = NULL;
+	ocl->command_queue = NULL;
+	while (++i < KERNEL_FILE_CNT)
+	{
+		ocl->kernel_size[i] = 0;
+		ocl->kernel_text[i] = NULL;
+	}
+	ocl->program = NULL;
+	ocl->kernel = NULL;
+	ocl->mem_obj[0] = NULL;
+	ocl->mem_obj[1] = NULL;
+	ocl->mem_length = 0;
+	ocl->mem[0] = NULL;
+	ocl->mem[1] = NULL;
+}

@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt.h                                               :+:      :+:    :+:   */
+/*   error_cl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/30 03:51:29 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/01 03:49:43 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/01 13:01:53 by cschoen           #+#    #+#             */
+/*   Updated: 2020/04/02 03:37:56 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RT_H
-# define RT_H
+#include "libft.h"
 
-# include <gtk/gtk.h>
-# include "libft.h"
-# include "ocl.h"
-
-typedef struct			s_rt
+void	check_error_cl(const int num, const char *message, char *path)
 {
-	t_ocl				ocl;
-	double				mouse_x;
-	double				mouse_y;
-}						t_rt;
-
-#endif
+	if (num)
+	{
+		ft_printf("Number:\t%d\nError:\t%s\n", num, message);
+		if (path)
++			ft_printf("Path:\t%s\n", path);
+		exit(1);
+	}
+}
