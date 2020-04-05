@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:30:21 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/02 04:52:30 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/05 00:06:39 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int argc, char **argv)
 	int				status;
 	t_ocl			ocl;
 
+	(argc != 1) ? usage(argv[0]) : 0;
 	init_ocl(&ocl);
 	create_cl(&ocl);
 	compile_cl(&ocl);
@@ -73,10 +74,15 @@ int	main(int argc, char **argv)
 
 	test_ocl(&ocl);
 
-	app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+ 	app = gtk_application_new("org.gtk.example", G_APPLICATION_FLAGS_NONE);
 	g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-	status = g_application_run(G_APPLICATION (app), argc, argv);
+	status = g_application_run(G_APPLICATION(app), argc, argv);
 	g_object_unref(app);
+
+	run_cl(&ocl);
+
+	test_ocl(&ocl);
+	parse(TEMP_SRC_JSON);
 
 	return (status);
 }

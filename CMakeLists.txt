@@ -94,7 +94,9 @@ set(SRCNAME_LIBFT
         ${LIBFT_SRC}/ft_dlstargv.c
         ${LIBFT_SRC}/ft_dlstlen.c
         ${LIBFT_SRC}/ft_strlen.c
-        ${LIBFT_SRC}/ft_strlcat.c)
+        ${LIBFT_SRC}/ft_strlcat.c
+        ${LIBFT_SRC}/ft_error.c
+        ${LIBFT_SRC}/ft_strsplit_del.c)
 
 set(LIBFTPRINTF_SRC ${LIBFT_SRC}/libftprintf)
 include_directories(${LIBFTPRINTF_SRC})
@@ -131,7 +133,10 @@ include_directories(${RT_INC})
 
 set(INCNAME_RT
         ${RT_INC}/ocl.h
-        ${RT_INC}/rt.h)
+        ${RT_INC}/rt.h
+        ${RT_INC}/parser.h
+        ${RT_INC}/utils.h
+        inc/scene.h)
 
 set(RT_SRC ./src)
 include_directories(${RT_SRC})
@@ -147,6 +152,18 @@ set(SRCNAME_OPEN_CL
         ${OPEN_CL_SRC}/set_params_cl.c
         ${OPEN_CL_SRC}/run_cl.c)
 
+set(PARSER_SRC ${RT_SRC}/parser)
+include_directories(${PARSER_SRC})
+
+set(SRCNAME_PARSER
+        ${PARSER_SRC}/parse.c src/parser/get_parsed_json.c src/parser/parent_dot_child.c src/parser/get_obj_by_key.c src/parser/get_float_by_obj.c src/parser/get_color_by_obj.c src/parser/get_vec3_by_obj.c src/parser/get_transform_by_obj.c src/parser/get_material_by_obj.c)
+
+set(UTILS_SRC ${RT_SRC}/utils)
+include_directories(${UTILS_SRC})
+
+set(SRCNAME_UTILS
+        ${UTILS_SRC}/usage.c)
+
 add_executable(RT
         main.c
         ${INCNAME_LIBFT}
@@ -154,6 +171,8 @@ add_executable(RT
         ${SRCNAME_LIBFTPRINTF}
         ${INCNAME_RT}
         ${SRCNAME_OPEN_CL}
+        ${SRCNAME_UTILS}
+        ${SRCNAME_PARSER}
 )
 
 foreach (CLKernelName "ray_tracing")
@@ -194,10 +213,25 @@ if (WIN32)
         target_link_libraries(RT ${GTK_LIBRARIES})
         add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
 
+        find_package(PkgConfig REQUIRED)
+        pkg_check_modules(PC_JSON-C REQUIRED json-c)
+        find_path(JSON-C_INCLUDE_DIR json.h
+                HINTS ${PC_JSON-C_INCLUDEDIR} ${PC_JSON-C_INCLUDE_DIRS} PATH_SUFFIXES json-c json)
+        find_library(JSON-C_LIBRARY NAMES json-c libjson-c
+                HINTS ${PC_JSON-C_LIBDIR} ${PC_JSON-C_LIBRARY_DIRS})
+        set(JSON-C_LIBRARIES ${JSON-C_LIBRARY})
+        set(JSON-C_INCLUDE_DIRS ${JSON-C_INCLUDE_DIR})
+        include(FindPackageHandleStandardArgs)
+        find_package_handle_standard_args(JSON-C DEFAULT_MSG JSON-C_LIBRARY JSON-C_INCLUDE_DIR)
+        mark_as_advanced(JSON-C_INCLUDE_DIR JSON-C_LIBRARY)
+        include_directories(${JSON-C_INCLUDE_DIR})
+        target_link_libraries(RT ${JSON-C_LIBRARIES})
+
+
         include(FindOpenCL)
         find_package(OpenCL REQUIRED)
         include_directories(${OPENCL_INCLUDE_DIR})
-        target_link_libraries(RT ${GTK_LIBRARIES} OpenCL::OpenCL)
+        target_link_libraries(RT OpenCL::OpenCL)
     else()
         message (FATAL_ERROR "Neither Intel nor NVIDIA nor AMD OpenCL SDK for Windows was found. Install one of those")
     endif()

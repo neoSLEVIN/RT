@@ -81,6 +81,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+void				ft_strsplit_del(char **split);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
@@ -98,6 +99,16 @@ void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
+t_dlist				*ft_dlstnew(void const *content, size_t content_size);
+void				ft_dlstdelone(t_dlist **adlst, void (*del)(void *, size_t),
+								void (*del_data)(void *));
+void				ft_dlstdel(t_dlist **adlst, void (*del)(void *, size_t),
+								void (*del_data)(void *));
+t_dlist				*ft_dlstsplit(char const *s, char c);
+t_dlist				*ft_dlstargv(int argc, char **argv,
+								int first_index, int last_index);
+size_t				ft_dlstlen(t_dlist *lst);
+
 int					ft_abs(int n);
 double				ft_dabs(double n);
 char				*ft_strrev(char *str);
@@ -110,15 +121,6 @@ int					get_next_line(const int fd, char **line);
 char				*ft_itoa_base(uintmax_t num, uintmax_t base, char c);
 int					ft_printf(const char *format, ...);
 void				ft_del(void *content, size_t content_size);
-
-t_dlist				*ft_dlstnew(void const *content, size_t content_size);
-void				ft_dlstdelone(t_dlist **adlst, void (*del)(void *, size_t),
-								void (*del_data)(void *));
-void				ft_dlstdel(t_dlist **adlst, void (*del)(void *, size_t),
-								void (*del_data)(void *));
-t_dlist				*ft_dlstsplit(char const *s, char c);
-t_dlist				*ft_dlstargv(int argc, char **argv,
-									int first_index, int last_index);
-size_t				ft_dlstlen(t_dlist *lst);
+void				ft_error(char *message);
 
 #endif

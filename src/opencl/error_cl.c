@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ocl.h"
 
 void	check_error_cl(const int num, const char *message, char *path)
 {

@@ -4,5 +4,5 @@ __kernel void ray_tracing(__global int *out, __global int *in)
 
 	gid = get_global_id(0);
 
-	out[gid] = in[gid] + gid;
+	out[gid] += in[gid] + gid;
 }

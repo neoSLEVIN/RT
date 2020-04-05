@@ -19,6 +19,8 @@
 #  include "CL/cl.h"
 # endif
 
+#include "libft.h"
+
 # define KERNEL_FILE_CNT 1
 # define KERNEL_FILE_SIZE 12000
 # define GLOBAL_WORK_SIZE 3001

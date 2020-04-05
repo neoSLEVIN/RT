@@ -6,12 +6,11 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 15:44:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/02 04:42:32 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/04 20:58:03 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
-#include "libft.h"
 
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {"kernel/ray_tracing.cl"};
 
@@ -31,7 +30,7 @@ static void	get_kernel_text(char **kernel_text, size_t *kernel_size)
 		if ((source_size = read(fd, kernel_text[i], KERNEL_FILE_SIZE)) < 0)
 			check_error_cl(source_size, "Can't read file", g_kernel_file_arr[i]);
 		if (source_size == 0 || source_size >= KERNEL_FILE_SIZE)
-			check_error_cl(source_size + 1, "Empty/Full file",
+			check_error_cl(source_size + 1, "Max size/Empty file",
 						g_kernel_file_arr[i]);
 		kernel_size[i] = source_size;
 		close(fd);
