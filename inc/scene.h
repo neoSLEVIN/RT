@@ -6,12 +6,18 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 02:17:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 03:41:42 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/05 19:33:44 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 #define SCENE_H
+
+# ifdef __APPLE__
+#  include "OpenCL/opencl.h"
+# else
+#  include "CL/cl.h"
+# endif
 
 typedef enum			e_light_type
 {
@@ -37,30 +43,23 @@ typedef struct			s_color
 	int					b;
 }						t_color;
 
-typedef struct	s_vec3
-{
-	float		x;
-	float		y;
-	float		z;
-}				t_vec3;
-
-typedef	struct			s_material
+typedef struct			s_material
 {
 	t_color				color;
 	float				specular;
 }						t_material;
 
-typedef	struct			s_transform
+typedef struct			s_transform
 {
-	t_vec3				position;
-	t_vec3				rotation;
+	cl_float3			position;
+	cl_float3			direction;
+	cl_float3			rotation;
 }						t_transform;
 
 typedef struct			s_light
 {
 	t_light_type		type;
 	t_transform			transform;
-	t_vec3				direction;
 	float				intensity;
 	float				radius;
 }						t_light;
@@ -106,7 +105,7 @@ typedef struct			s_cylinder
 typedef struct			s_list_shape
 {
 	t_shape_type		type;
-	int					id;
+	int					uid;
 	void				*shape;
 	_Bool				marker;
 	struct s_list_shape	*next;
@@ -115,22 +114,21 @@ typedef struct			s_list_shape
 typedef struct			s_camera
 {
 	t_transform			transform;
-	t_vec3				direction;
 	// float				h;
 	// float				w;
-	// t_vec3				origin;
-	// t_vec3				target;
-	// t_vec3				forward;
-	// t_vec3				up;
-	// t_vec3				right;
-	// t_vec3				upguide;
+	// float3				origin;
+	// float3				target;
+	// float3				forward;
+	// float3				up;
+	// float3				right;
+	// float3				upguide;
 }						t_cam;
 
 typedef struct			s_scene
 {
 	t_cam				cam;
 	t_list_light		*lights;
-	t_list_shape		*shape;
+	t_list_shape		*shapes;
 }						t_scene;
 
 #endif

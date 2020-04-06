@@ -19,6 +19,8 @@
 # include "ftprintf.h"
 
 # define BUFF_SIZE 50
+# define TRUE 1
+# define FALSE 0
 
 typedef struct		s_list
 {

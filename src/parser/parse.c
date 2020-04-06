@@ -6,52 +6,77 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 01:12:12 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 06:07:34 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/06 05:41:57 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static json_object	*get_obj_by_query(char *query, const json_object *parent)
-{
-	char		**split;
-	char		**elem;
-	json_object	*obj;
+int	g_uid = 0;
 
-	if (!query || !(split = ft_strsplit(query, '.')))
-		ft_error("Bad query for field");
-	elem = split;
-	obj = (json_object*)parent;
-	while (*elem)
+t_shape_type	jc_get_shape_type(const t_field *parent, const char *child_name)
+{
+	t_field			type_field;
+	const char		*str_type;
+	t_shape_type	type;
+
+	type_field = jc_get_field(child_name, parent, json_type_string);
+	str_type = json_object_get_string(type_field.obj);
+	if (ft_strequ(str_type, "PLANE"))
+		type = PLANE;
+	else if (ft_strequ(str_type, "SPHERE"))
+		type = SPHERE;
+	else if (ft_strequ(str_type, "CYLINDER"))
+		type = CYLINDER;
+	else if (ft_strequ(str_type, "CONE"))
+		type = CONE;
+	else
 	{
-		obj = get_obj_by_key(*elem, obj);
-		++elem;
+		ft_printf("Error:\tUndefined type of shape: %s\n\t%s%s\n",
+			type_field.full_name, "Valid types are: ",
+			"[\"PLANE\", \"SPHERE\", \"CYLINDER\", \"CONE\"]");
+		exit(1);
 	}
-	ft_strsplit_del(split);
-	return (obj);
+	jc_clear_field(&type_field);
+	return (type);
 }
 
-static t_cam	get_cam_by_obj()
+t_list_shape	*jc_get_shape(const t_field *parent, const int index)
 {
-	t_cam	cam;
-	// TODO
-	return (cam);
+	t_field			shape_field;
+	t_list_shape	*shape;
+
+	shape_field = jc_get_field_idx(index, parent, json_type_object);
+	if(!(shape = (t_list_shape*)malloc(sizeof(t_list_shape)))) {
+		ft_error("Can't allocate memory in parsing");
+	}
+	shape->uid = g_uid++;
+	shape->marker = FALSE;
+	shape->next = NULL;
+	shape->type = jc_get_shape_type(&shape_field, "type");
+//	shape->shape = (void *)jc_get_shape_fields_by_type()
+	jc_clear_field(&shape_field);
+	return (shape);
 }
 
-t_scene	parse(char *file_name)
+t_scene	jc_parse(const char *file_name)
 {
+	t_field		parsed_json;
+	t_field		scene_field;
 	t_scene		scene;
-	json_object	*parsed_json;
 
-	parsed_json = get_parsed_json(file_name);
-	scene.cam = get_cam_by_obj();
-	t_transform	trans = get_transform_by_obj(get_obj_by_key("transform", parsed_json), "transform");
-	ft_printf("%.15f %.15f %.15f\n%.15f %.15f %.15f\n",
-			trans.position.x, trans.position.y, trans.position.z,
-			trans.rotation.x, trans.rotation.y, trans.rotation.z);
-	t_material	material = get_material_by_obj(get_obj_by_key("material", parsed_json), "material");
-	ft_printf("%d %d %d\n%.15f\n",
-			  material.color.r, material.color.g, material.color.b,
-			  material.specular);
+	parsed_json = jc_get_parsed_json(file_name);
+	scene_field = jc_get_field("scene", &parsed_json, json_type_object);
+	scene.cam = jc_get_camera(&scene_field, "camera");
+	scene.shapes = jc_get_shapes(&scene_field, "shapes");
+	// TODO scene.lights = jc_get_lights(&scene_field, "lights");
+	jc_clear_field(&scene_field);
+	jc_clear_field(&parsed_json);
+	while (scene.shapes != NULL)
+	{
+		if (scene.shapes->type == PLANE)
+			ft_printf("%d\n", scene.shapes->uid);
+		scene.shapes = scene.shapes->next;
+	}
 	return (scene);
 }

@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_material_by_obj.c                              :+:      :+:    :+:   */
+/*   jc_get_material.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 06:07:36 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 06:07:36 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/06 01:15:56 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_material	get_material_by_obj(const json_object *obj, const char *parent_name)
+t_material	jc_get_material(const t_field *parent, const char *child_name)
 {
+	t_field		material_field;
 	t_material	material;
-	char		*child_name;
 
-	if (json_object_get_type(obj) != json_type_object)
-	{
-		ft_printf("Error:\tThe value type must be an object: %s",
-				parent_name);
-		exit(1);
-	}
-	child_name = parent_dot_child(parent_name, "color");
-	material.color =
-		get_color_by_obj(get_obj_by_key("color", obj), child_name);
-	ft_strdel(&child_name);
-	child_name = parent_dot_child(parent_name, "specular");
-	material.specular =
-		get_float_by_obj(get_obj_by_key("specular", obj), child_name);
-	ft_strdel(&child_name);
+	material_field = jc_get_field(child_name, parent, json_type_object);
+	material.color = jc_get_color(&material_field, "color");
+	material.specular = jc_get_float(&material_field, "specular");
+	jc_clear_field(&material_field);
 	return (material);
 }

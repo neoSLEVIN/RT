@@ -1,10 +1,20 @@
 {
-  "transform": {
-    "rotation": { "x": 1.0, "y": -0.5, "z": -0.3233253 },
-    "position": { "x": 1.0, "y": 0.5, "z": 3.645654 }
-  },
-  "material": {
-    "color": "adf",
-    "specular": 1
+  "scene": {
+    "camera": {
+      "transform": {
+        "rotation": { "x": 1.0, "y": -0.5, "z": -0.3233253 },
+        "position": { "x": 1.0, "y": 0.5, "z": 3.645654 },
+        "direction": { "x": 1.00001, "y": -0.00005, "z": 32.6456534 }
+      }
+    },
+    "shapes": [
+      {
+        "type": "PLANE"
+      },
+      {
+        "type": "PLANE"
+      }
+    ]
   }
 }
+

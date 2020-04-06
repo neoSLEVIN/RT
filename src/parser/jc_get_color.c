@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_color_by_obj.c                                 :+:      :+:    :+:   */
+/*   jc_get_color.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 05:59:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 05:59:10 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/06 00:50:54 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,20 @@ static int	str_to_rgb(t_color *col, const char *str)
 	return (1);
 }
 
-t_color		get_color_by_obj(json_object *obj, const char *field_name)
+t_color		jc_get_color(const t_field *parent, const char *child_name)
 {
-	t_color		res;
-	const char	*color;
+	t_field		field_color;
+	const char	*str_color;
+	t_color		color;
 
-	if (json_object_get_type(obj) != json_type_string)
+	field_color = jc_get_field(child_name, parent, json_type_string);
+	str_color = json_object_get_string(field_color.obj);
+	if (!str_to_rgb(&color, str_color))
 	{
-		ft_printf("Error:\tThe value type must be a string: %s",
-				field_name);
+		ft_printf("Error:\tIncorrect format of color: %s",
+				field_color.full_name);
 		exit(1);
 	}
-	color = json_object_get_string(obj);
-	if (!str_to_rgb(&res, color))
-	{
-		ft_printf("Error:\tIncorrect format of color: %s", field_name);
-		exit(1);
-	}
-	return (res);
+	jc_clear_field(&field_color);
+	return (color);
 }

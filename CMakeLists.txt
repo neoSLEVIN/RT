@@ -156,7 +156,7 @@ set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
 
 set(SRCNAME_PARSER
-        ${PARSER_SRC}/parse.c src/parser/get_parsed_json.c src/parser/parent_dot_child.c src/parser/get_obj_by_key.c src/parser/get_float_by_obj.c src/parser/get_color_by_obj.c src/parser/get_vec3_by_obj.c src/parser/get_transform_by_obj.c src/parser/get_material_by_obj.c)
+        ${PARSER_SRC}/parse.c src/parser/jc_get_parsed_json.c src/parser/jc_parent_dot_child.c src/parser/jc_get_obj_by_key.c src/parser/jc_get_float.c src/parser/jc_get_color.c src/parser/jc_get_transform.c src/parser/jc_get_material.c src/parser/jc_get_camera.c src/parser/jc_field_with_index.c src/parser/jc_get_shapes.c src/parser/jc_get_array_length.c src/parser/jc_get_cl_float3.c src/parser/jc_get_field.c src/parser/jc_clear_field.c)
 
 set(UTILS_SRC ${RT_SRC}/utils)
 include_directories(${UTILS_SRC})
@@ -226,7 +226,6 @@ if (WIN32)
         mark_as_advanced(JSON-C_INCLUDE_DIR JSON-C_LIBRARY)
         include_directories(${JSON-C_INCLUDE_DIR})
         target_link_libraries(RT ${JSON-C_LIBRARIES})
-
 
         include(FindOpenCL)
         find_package(OpenCL REQUIRED)
