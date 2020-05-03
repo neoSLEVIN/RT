@@ -6,26 +6,43 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/02 23:14:24 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/02 23:14:44 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 01:28:41 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jcp_parser.h"
 
-t_jcp_object	*jcp_get_elem_by_idx(const size_t idx, const t_jc_field *parent)
+static JCP_OBJ	*jcp_put_to_parent_trash(JCP_OBJ *obj, JCP_OBJ *parent)
 {
-	t_jcp_object	*obj;
+	JCP_OBJ	*temp;
 
-	if (parent == NULL || parent->obj == NULL)
+	obj->type = JC_NULL | JC_ELEM;
+	temp = parent->trash;
+	parent->trash = obj;
+	obj->trash = temp;
+	return (obj);
+}
+
+JCP_OBJ			*jcp_get_elem_by_idx(const size_t idx, JCP_OBJ *parent)
+{
+	JCP_OBJ	*obj;
+
+	if (parent == NULL)
 		ft_error("NPE: parent (jcp_get_elem_by_idx)");
-	if (parent->obj->child == NULL)
-		return (NULL);
-	obj = parent->obj->child;
+	if ((parent->type & JC_ARR) == FALSE)
+	{
+		ft_printf("Error:\tField \"%s\" has object type. %s\n",
+			parent->full_name, "Can't find child by index.");
+		exit(1);
+	}
+	if (parent->child == NULL)
+		return (jcp_put_to_parent_trash(jcp_create_t_jcp_object(), parent));
+	obj = parent->child;
 	while (obj != NULL)
 	{
 		if (obj->name.index == idx)
 			return (obj);
 		obj = obj->next;
 	}
-	return (NULL);
+	return (jcp_put_to_parent_trash(jcp_create_t_jcp_object(), parent));
 }

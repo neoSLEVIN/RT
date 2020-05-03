@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_clear_json_field.c                              :+:      :+:    :+:   */
+/*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/03 00:04:02 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 00:04:02 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/05 14:39:05 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 22:30:10 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "jcp_parser.h"
-#include "jc_parser.h"
+#include "parser.h"
 
-void	jc_clear_json_field(t_jc_field *json_field)
+t_cam	parse_camera(const JC_FIELD parent, const char *child_name)
 {
-	if (ft_strequ(json_field->full_name, "JSON"))
-		ft_strdel((char**)&json_field->obj->value.start);
-	jcp_free_tree(&json_field->obj);
-	ft_printf("%s\n", json_field->full_name);
-	ft_strdel(&json_field->full_name);
+	JC_FIELD	cam_field;
+	t_cam		cam;
+
+	cam_field = jc_get_field(child_name, parent, JC_OBJ);
+	cam.transform = parse_transform(cam_field, "transform");
+	return (cam);
 }

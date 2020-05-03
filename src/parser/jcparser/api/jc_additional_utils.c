@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_get_array_length.c                              :+:      :+:    :+:   */
+/*   jc_additional_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 16:43:37 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 01:14:17 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/03 15:54:34 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 18:36:51 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jc_parser.h"
 
-size_t	jc_get_array_length(const t_jc_field *field)
+char	*jc_full_name(const JC_FIELD field)
 {
-	if (jc_compare_types(field, JC_NULL) == TRUE)
+	return (field.full_name);
+}
+
+_Bool	jc_compare_types(const JC_FIELD field, const JC_TYPE types)
+{
+	if (field.obj == NULL)
+		return (JC_NULL & types);
+	return (field.obj->type & types);
+}
+
+_Bool	jc_is_null(const JC_FIELD field)
+{
+	return (jc_compare_types(field, JC_NULL));
+}
+
+size_t	jc_get_array_length(const JC_FIELD field)
+{
+	if (jc_is_null(field))
 		return (0);
 	if (jc_compare_types(field, (JC_ARR | JC_OBJ)) == FALSE)
 		return (0);
-	return (field->obj->cnt_of_nodes);
+	return (field.obj->cnt_of_nodes);
 }

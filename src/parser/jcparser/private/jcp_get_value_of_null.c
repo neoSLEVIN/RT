@@ -12,7 +12,7 @@
 
 #include "jcp_parser.h"
 
-void	jcp_get_value_of_null(const char *json, size_t *i, t_jcp_object *obj)
+void	jcp_get_value_of_null(const char *json, size_t *i, JCP_OBJ *obj)
 {
 	jcp_skip_whitespaces(json, i);
 	if (ft_strncmp(&json[*i], "null", 4))

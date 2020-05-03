@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 00:19:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 02:55:26 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 20:04:19 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,19 @@ static void		jcp_init_t_jcp_value(t_jcp_value *value)
 	value->empty = '\0';
 }
 
-t_jcp_object	*jcp_create_t_jcp_object(void)
+JCP_OBJ	*jcp_create_t_jcp_object(void)
 {
-	t_jcp_object	*obj;
+	JCP_OBJ	*obj;
 
-	if ((obj = (t_jcp_object*)malloc(sizeof(t_jcp_object))) == NULL)
+	if ((obj = (JCP_OBJ*)malloc(sizeof(JCP_OBJ))) == NULL)
 		ft_error("Can't allocate memory");
 	jcp_init_t_jcp_name(&obj->name);
 	jcp_init_t_jcp_value(&obj->value);
 	obj->type = 0;
 	obj->cnt_of_nodes = 0;
+	obj->full_name = NULL;
 	obj->child = NULL;
 	obj->next = NULL;
+	obj->trash = NULL;
 	return (obj);
 }

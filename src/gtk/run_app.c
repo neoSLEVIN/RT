@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 23:07:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/02 11:59:51 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/04 01:18:32 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,6 @@ void	rt_shapes_del(t_list_shape **list_shape)
 	rt_shapes_del(&(*list_shape)->next);
 	ft_memdel(&(*list_shape)->shape);
 	ft_memdel((void**)list_shape);
-}
-
-void	rt_scene_del(t_scene *scene)
-{
-	if (!scene)
-		return ;
-	rt_shapes_del(&scene->shapes);
-	rt_lights_del(&scene->lights);
 }
 
 void	run_app(GtkApplication *app, gpointer user_data)

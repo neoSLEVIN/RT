@@ -12,14 +12,13 @@
 
 #include "parser.h"
 
-t_material	parse_material(const t_jc_field *parent, const char *child_name)
+t_material	parse_material(const JC_FIELD parent, const char *child_name)
 {
-	t_jc_field	material_field;
+	JC_FIELD	material_field;
 	t_material	material;
 
 	material_field = jc_get_field(child_name, parent, JC_OBJ);
-	material.color = parse_color(&material_field, "color");
-	material.specular = jc_get_float(&material_field, "specular");
-	jc_clear_field(&material_field);
+	material.color = parse_color(material_field, "color");
+	material.specular = jc_get_float(material_field, "specular");
 	return (material);
 }

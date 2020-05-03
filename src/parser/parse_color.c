@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 05:59:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 03:44:12 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 19:18:51 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,18 +77,15 @@ static int	str_to_rgb(t_color *col, const char *str)
 	return (1);
 }
 
-t_color		parse_color(const t_jc_field *parent, const char *child_name)
+t_color		parse_color(const JC_FIELD parent, const char *child_name)
 {
-	char		*str_color;
-	t_color		color;
+	char	*str_color;
+	t_color	color;
 
 	str_color = jc_get_string(parent, child_name, FALSE);
 	if (!str_to_rgb(&color, str_color))
-	{
-		ft_printf("Error:\tIncorrect format of color: %s.%s\n",
-			parent->full_name, child_name);
-		exit(1);
-	}
+		parse_error(jc_full_name(parent), child_name,
+			" Incorrect format of color");
 	ft_strdel(&str_color);
 	return (color);
 }

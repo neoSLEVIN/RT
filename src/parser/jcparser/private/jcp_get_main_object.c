@@ -6,13 +6,13 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 00:29:01 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 02:55:25 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/03 03:19:41 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jcp_parser.h"
 
-static void		jcp_calculate_cnt_of_nodes(t_jcp_object *node, size_t *cnt)
+static void	jcp_calculate_cnt_of_nodes(JCP_OBJ *node, size_t *cnt)
 {
 	if (node == NULL)
 		return ;
@@ -22,8 +22,7 @@ static void		jcp_calculate_cnt_of_nodes(t_jcp_object *node, size_t *cnt)
 	jcp_calculate_cnt_of_nodes(node->next, cnt);
 }
 
-static void		jcp_print_neighbours_error(const char *name,
-											const size_t length)
+static void	jcp_print_neighbours_error(const char *name, const size_t length)
 {
 	char	*err_msg;
 
@@ -36,9 +35,9 @@ static void		jcp_print_neighbours_error(const char *name,
 	exit(1);
 }
 
-static void		jcp_check_for_same_neighbours(t_jcp_object *obj)
+static void	jcp_check_for_same_neighbours(JCP_OBJ *obj)
 {
-	t_jcp_object	*temp;
+	JCP_OBJ	*temp;
 
 	if (obj == NULL)
 		return ;
@@ -54,10 +53,10 @@ static void		jcp_check_for_same_neighbours(t_jcp_object *obj)
 	jcp_check_for_same_neighbours(obj->next);
 }
 
-t_jcp_object	*jcp_get_main_object(const char *json)
+JCP_OBJ		*jcp_get_main_object(const char *json)
 {
-	t_jcp_object	*main_obj;
-	size_t			i;
+	JCP_OBJ	*main_obj;
+	size_t	i;
 
 	i = 0;
 	main_obj = jcp_create_t_jcp_object();

@@ -12,7 +12,7 @@
 
 #include "jcp_parser.h"
 
-void	jcp_get_value_by_type(const char *json, size_t *i, t_jcp_object *obj)
+void	jcp_get_value_by_type(const char *json, size_t *i, JCP_OBJ *obj)
 {
 	jcp_skip_whitespaces(json, i);
 	if (json[*i] == '{' || json[*i] == '[')
