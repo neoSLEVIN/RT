@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   jcp_get_value_of_bool.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 17:15:58 by cschoen           #+#    #+#             */
-/*   Updated: 2018/12/30 20:27:51 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/03 02:32:40 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 02:32:40 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "jcp_parser.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+void	jcp_get_value_of_bool(const char *json, size_t *i, t_jcp_object *obj)
 {
-	char	*buff;
-
-	buff = dst;
-	while (*src && len > 0)
-	{
-		*dst++ = *src++;
-		len--;
-	}
-	while (len > 0)
-	{
-		*dst++ = '\0';
-		len--;
-	}
-	return (buff);
+	jcp_skip_whitespaces(json, i);
+	if (ft_strncmp(&json[*i], "false", 5) && ft_strncmp(&json[*i], "true", 4))
+		ft_error("Bad syntax of JSON");
+	obj->type |= JC_BOOL;
+	obj->value.start = &json[*i];
+	obj->value.length = (json[*i] == 'f') ? 5 : 4;
+	*i += (json[*i] == 'f') ? 5 : 4;
+	jcp_skip_whitespaces(json, i);
 }

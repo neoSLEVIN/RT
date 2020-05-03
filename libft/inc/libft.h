@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 15:23:55 by cschoen           #+#    #+#             */
-/*   Updated: 2020/03/29 16:42:17 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/04/12 22:26:34 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int					get_next_line(const int fd, char **line);
 char				*ft_itoa_base(uintmax_t num, uintmax_t base, char c);
 int					ft_printf(const char *format, ...);
 void				ft_del(void *content, size_t content_size);
+char				*ft_get_text_file(const char *filename, size_t max_size);
 void				ft_error(char *message);
 
 #endif

@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_get_cl_float3.c                                 :+:      :+:    :+:   */
+/*   jcp_get_object.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 19:42:37 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/06 01:15:56 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/03 02:43:35 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 02:43:35 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "jcp_parser.h"
 
-cl_float3	jc_get_cl_float3(const t_field *parent, const char *child_name)
+t_jcp_object	*jcp_get_object(const char *json, size_t *i)
 {
-	t_field		clf3_field;
-	cl_float3	clf3;
+	t_jcp_object	*obj;
 
-	clf3_field = jc_get_field(child_name, parent, json_type_object);
-	clf3.x = jc_get_float(&clf3_field, "x");
-	clf3.y = jc_get_float(&clf3_field, "y");
-	clf3.z = jc_get_float(&clf3_field, "z");
-	jc_clear_field(&clf3_field);
-	return (clf3);
+	obj = jcp_create_t_jcp_object();
+	jcp_get_object_name(json, i, obj);
+	if (json[(*i)++] != ':')
+		ft_error("Bad syntax of JSON");
+	jcp_get_value_by_type(json, i, obj);
+	if (json[*i] == ',')
+	{
+		++(*i);
+		obj->next = jcp_get_object(json, i);
+	}
+	return (obj);
 }

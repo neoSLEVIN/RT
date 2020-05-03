@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_clear_field.c                                   :+:      :+:    :+:   */
+/*   jcp_get_element.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/06 02:39:59 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/06 05:39:44 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/03 02:39:57 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 02:39:57 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "jcp_parser.h"
 
-void	jc_clear_field(t_field *field)
+t_jcp_object	*jcp_get_element(const char *json, size_t *i,
+								const size_t index)
 {
-//	json_object_put(field->obj);
-	ft_printf("%s\n", field->full_name);
-	ft_strdel(&field->full_name);
+	t_jcp_object	*obj;
+
+	obj = jcp_create_t_jcp_object();
+	obj->type |= JC_ELEM;
+	obj->name.index = index;
+	jcp_get_value_by_type(json, i, obj);
+	if (json[*i] == ',')
+	{
+		++(*i);
+		obj->next = jcp_get_element(json, i, index + 1);
+	}
+	return (obj);
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_get_obj_by_key.c                                :+:      :+:    :+:   */
+/*   parse_material.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 05:52:59 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 05:52:59 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/05 06:07:36 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 03:58:14 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-json_object	*jc_get_obj_by_key(const char *key, const t_field *parent)
+t_material	parse_material(const t_jc_field *parent, const char *child_name)
 {
-	json_object	*obj;
+	t_jc_field	material_field;
+	t_material	material;
 
-	if (!(json_object_object_get_ex(parent->obj, key, &obj))) {
-		ft_printf("Error:\t\"%s\" is not found in JSON\n",
-			jc_parent_dot_child(parent->full_name, key));
-		exit(1);
-	}
-	return (obj);
+	material_field = jc_get_field(child_name, parent, JC_OBJ);
+	material.color = parse_color(&material_field, "color");
+	material.specular = jc_get_float(&material_field, "specular");
+	jc_clear_field(&material_field);
+	return (material);
 }

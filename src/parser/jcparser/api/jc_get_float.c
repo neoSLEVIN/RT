@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jc_get_float.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/04/05 05:55:14 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/03 01:08:24 by cschoen          ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "jc_parser.h"
+
+static double	jcp_atof(const char *start, const size_t length)
+{
+	char	*dot;
+	char	*dbl_str;
+	double	dbl;
+
+	if (!(dbl_str = ft_strnew(length)))
+		ft_error("Can't allocate memory");
+	ft_strncat(dbl_str, (char*)start, length);
+	dot = ft_strchr(dbl_str, '.');
+	if (dot != NULL)
+		*dot = ',';
+	dbl = atof(dbl_str);
+	ft_strdel(&dbl_str);
+	return (dbl);
+}
+
+static void		jcp_print_error_if_bad_float(double dbl, const char *full_name)
+{
+	if (dbl < (-MAX_FLOAT) || dbl > (MAX_FLOAT) ||
+		(dbl > (-MIN_FLOAT) && dbl < (MIN_FLOAT) && dbl != 0.0))
+	{
+		ft_printf("Error:\tIncorrect value of float: %s\n%s%s\n",
+			full_name,
+			"Float value must be in (-MAX_FLOAT; -MIN_FLOAT)",
+			" U {0.0} U (MIN_FLOAT; MAX_FLOAT)");
+		exit(1);
+	}
+}
+
+float			jc_get_float_idx(const t_jc_field *parent, const size_t index)
+{
+	t_jc_field	dbl_field;
+	double		dbl;
+
+	dbl_field = jc_get_field_idx(index, parent, (JC_INT | JC_DBL));
+	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
+	jcp_print_error_if_bad_float(dbl, dbl_field.full_name);
+	jc_clear_field(&dbl_field);
+	return ((float)dbl);
+}
+
+float			jc_get_float(const t_jc_field *parent, const char *child_name)
+{
+	t_jc_field	dbl_field;
+	double		dbl;
+
+	dbl_field = jc_get_field(child_name, parent, (JC_INT | JC_DBL));
+	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
+	jcp_print_error_if_bad_float(dbl, dbl_field.full_name);
+	jc_clear_field(&dbl_field);
+	return ((float)dbl);
+}

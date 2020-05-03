@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_get_camera.c                                    :+:      :+:    :+:   */
+/*   jc_clear_field.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 14:39:05 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 03:53:32 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/06 02:39:59 by cschoen           #+#    #+#             */
+/*   Updated: 2020/04/12 18:46:47 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "jc_parser.h"
 
-//t_cam	jc_get_camera(const t_jc_field *parent, const char *child_name)
-//{
-//	t_jc_field	cam_field;
-//	t_cam	cam;
-//
-//	cam_field = jc_get_field(child_name, parent, json_type_object);
-//	cam.transform = parse_transform(&cam_field, "transform");
-//	jc_clear_field(&cam_field);
-//	return (cam);
-//}
+void	jc_clear_field(t_jc_field *field)
+{
+	ft_printf("%s\n", field->full_name);
+	ft_strdel(&field->full_name);
+}

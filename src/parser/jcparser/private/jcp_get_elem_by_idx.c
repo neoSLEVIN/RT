@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_get_camera.c                                    :+:      :+:    :+:   */
+/*   jcp_get_elem_by_idx.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 14:39:05 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 03:53:32 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/02 23:14:24 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/02 23:14:44 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "jcp_parser.h"
 
-//t_cam	jc_get_camera(const t_jc_field *parent, const char *child_name)
-//{
-//	t_jc_field	cam_field;
-//	t_cam	cam;
-//
-//	cam_field = jc_get_field(child_name, parent, json_type_object);
-//	cam.transform = parse_transform(&cam_field, "transform");
-//	jc_clear_field(&cam_field);
-//	return (cam);
-//}
+t_jcp_object	*jcp_get_elem_by_idx(const size_t idx, const t_jc_field *parent)
+{
+	t_jcp_object	*obj;
+
+	if (parent == NULL || parent->obj == NULL)
+		ft_error("NPE: parent (jcp_get_elem_by_idx)");
+	if (parent->obj->child == NULL)
+		return (NULL);
+	obj = parent->obj->child;
+	while (obj != NULL)
+	{
+		if (obj->name.index == idx)
+			return (obj);
+		obj = obj->next;
+	}
+	return (NULL);
+}

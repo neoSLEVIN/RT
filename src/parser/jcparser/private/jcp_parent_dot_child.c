@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   jc_field_with_index.c                              :+:      :+:    :+:   */
+/*   jcp_parent_dot_child.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 16:35:58 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/05 16:35:58 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/05 05:51:21 by cschoen           #+#    #+#             */
+/*   Updated: 2020/04/06 00:45:23 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "jcp_parser.h"
 
-char	*jc_field_with_index(const char *field, const int index)
+char	*jcp_parent_dot_child(const char *parent, const char *child)
 {
-	char	*index_str;
 	char	*result;
 
-	if (!(index_str = ft_itoa(index)))
-		ft_error("Can't allocate memory in parsing");
-	result = ft_strnew(ft_strlen(field) + 2 + ft_strlen(index_str));
+	result = ft_strnew(ft_strlen(parent) + 1 + ft_strlen(child));
 	if (!result)
-		ft_error("Can't allocate memory in parsing");
-	ft_strcat(result, field);
-	ft_strcat(result, "[");
-	ft_strcat(result, index_str);
-	ft_strcat(result, "]");
-	ft_strdel(&index_str);
+		ft_error("Can't allocate memory");
+	ft_strcat(result, parent);
+	ft_strcat(result, ".");
+	ft_strcat(result, child);
 	return (result);
 }

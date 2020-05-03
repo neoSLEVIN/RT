@@ -96,7 +96,7 @@ set(SRCNAME_LIBFT
         ${LIBFT_SRC}/ft_strlen.c
         ${LIBFT_SRC}/ft_strlcat.c
         ${LIBFT_SRC}/ft_error.c
-        ${LIBFT_SRC}/ft_strsplit_del.c)
+        ${LIBFT_SRC}/ft_strsplit_del.c libft/src/ft_get_text_file.c)
 
 set(LIBFTPRINTF_SRC ${LIBFT_SRC}/libftprintf)
 include_directories(${LIBFTPRINTF_SRC})
@@ -130,13 +130,14 @@ set(SRCNAME_LIBFTPRINTF
 
 set(RT_INC ./inc)
 include_directories(${RT_INC})
+include_directories(./src/parser/jcparser/include)
 
 set(INCNAME_RT
         ${RT_INC}/ocl.h
         ${RT_INC}/rt.h
         ${RT_INC}/parser.h
         ${RT_INC}/utils.h
-        inc/scene.h)
+        inc/scene.h inc/gtk_module.h src/parser/jcparser/include/jc_parser.h src/parser/jcparser/include/jcp_parser.h src/parser/jcparser/include/jc_data.h)
 
 set(RT_SRC ./src)
 include_directories(${RT_SRC})
@@ -156,7 +157,18 @@ set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
 
 set(SRCNAME_PARSER
-        ${PARSER_SRC}/parse.c src/parser/jc_get_parsed_json.c src/parser/jc_parent_dot_child.c src/parser/jc_get_obj_by_key.c src/parser/jc_get_float.c src/parser/jc_get_color.c src/parser/jc_get_transform.c src/parser/jc_get_material.c src/parser/jc_get_camera.c src/parser/jc_field_with_index.c src/parser/jc_get_shapes.c src/parser/jc_get_array_length.c src/parser/jc_get_cl_float3.c src/parser/jc_get_field.c src/parser/jc_clear_field.c)
+        src/parser/parse_scene.c src/parser/jcparser/api/jc_get_json_field.c src/parser/jcparser/private/jcp_parent_dot_child.c src/parser/jcparser/private/jcp_get_obj_by_key.c src/parser/jcparser/api/jc_get_float.c src/parser/parse_color.c src/parser/parse_transform.c src/parser/parse_material.c src/parser/jc_get_camera.c src/parser/jcparser/private/jcp_field_with_index.c src/parser/jc_get_shapes.c src/parser/jcparser/api/jc_get_array_length.c src/parser/jcparser/api/jc_get_cl_float3.c src/parser/jcparser/api/jc_get_field.c)
+
+set(JC_PARSER_SRC ${PARSER_SRC}/jcparser)
+include_directories(${JC_PARSER_SRC})
+
+set(SRCNAME_JC_PARSER src/parser/jcparser/private/jcp_create_t_jc_field.c src/parser/jcparser/private/jcp_create_t_jcp_object.c src/parser/jcparser/private/jcp_skip_whitespaces.c src/parser/jcparser/private/jcp_free_tree.c src/parser/jcparser/private/jcp_get_main_object.c src/parser/jcparser/api/jc_clear_field.c src/parser/jcparser/api/jc_compare_types.c src/parser/jcparser/private/jcp_get_elem_by_idx.c src/parser/jcparser/api/jc_clear_json_field.c src/parser/jcparser/private/jcp_check_for_number.c src/parser/jcparser/private/jcp_get_value_of_obj_or_arr.c src/parser/jcparser/private/jcp_get_value_of_null.c src/parser/jcparser/private/jcp_get_value_of_bool.c src/parser/jcparser/private/jcp_get_value_of_str.c src/parser/jcparser/private/jcp_get_value_of_num.c src/parser/jcparser/private/jcp_get_value_by_type.c src/parser/jcparser/private/jcp_get_object_name.c src/parser/jcparser/private/jcp_get_element.c src/parser/jcparser/private/jcp_get_object.c src/parser/jcparser/api/jc_get_string.c)
+
+set(GTK_SRC ${RT_SRC}/gtk)
+include_directories(${GTK_SRC})
+
+set(SRCNAME_GTK
+        src/gtk/run_app.c)
 
 set(UTILS_SRC ${RT_SRC}/utils)
 include_directories(${UTILS_SRC})
@@ -170,9 +182,11 @@ add_executable(RT
         ${SRCNAME_LIBFT}
         ${SRCNAME_LIBFTPRINTF}
         ${INCNAME_RT}
-        ${SRCNAME_OPEN_CL}
         ${SRCNAME_UTILS}
+        ${SRCNAME_GTK}
+        ${SRCNAME_JC_PARSER}
         ${SRCNAME_PARSER}
+        ${SRCNAME_OPEN_CL}
 )
 
 foreach (CLKernelName "ray_tracing")

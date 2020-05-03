@@ -15,6 +15,7 @@
       <w>ftprintf</w>
       <w>incname</w>
       <w>itoa</w>
+      <w>jcparser</w>
       <w>libft</w>
       <w>lstabi</w>
       <w>lstadd</w>
@@ -31,6 +32,7 @@
       <w>memcmp</w>
       <w>memcpy</w>
       <w>memdel</w>
+      <w>norminette</w>
       <w>putchar</w>
       <w>putendl</w>
       <w>putnbr</w>
@@ -63,6 +65,7 @@
       <w>strsub</w>
       <w>strtrim</w>
       <w>summand</w>
+      <w>upguide</w>
       <w>wordcnt</w>
     </words>
   </dictionary>
