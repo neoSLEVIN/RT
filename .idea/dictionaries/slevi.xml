@@ -33,10 +33,12 @@
       <w>memcpy</w>
       <w>memdel</w>
       <w>norminette</w>
+      <w>pixbuf</w>
       <w>putchar</w>
       <w>putendl</w>
       <w>putnbr</w>
       <w>putstr</w>
+      <w>rowstride</w>
       <w>strcat</w>
       <w>strchr</w>
       <w>strclr</w>

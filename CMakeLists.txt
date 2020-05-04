@@ -151,7 +151,7 @@ set(SRCNAME_OPEN_CL
         ${OPEN_CL_SRC}/create_cl.c
         ${OPEN_CL_SRC}/compile_cl.c
         ${OPEN_CL_SRC}/set_params_cl.c
-        ${OPEN_CL_SRC}/run_cl.c)
+        ${OPEN_CL_SRC}/run_cl.c src/opencl/new_ocl.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -168,13 +168,19 @@ set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
 
 set(SRCNAME_GTK
-        src/gtk/run_app.c)
+        src/gtk/new_scene.c src/gtk/draw_image.c src/gtk/new_gtk.c src/gtk/gtk_set_objects.c src/gtk/gtk_set_signals.c src/gtk/gtk_set_positions.c src/gtk/gtk_set_main_window.c src/gtk/gtk_set_default_params.c)
 
 set(UTILS_SRC ${RT_SRC}/utils)
 include_directories(${UTILS_SRC})
 
 set(SRCNAME_UTILS
-        ${UTILS_SRC}/usage.c)
+        )
+
+set(RT_RT_SRC ${RT_SRC}/rt)
+include_directories(${RT_RT_SRC})
+
+set(SRCNAME_RT_RT
+        src/rt/rt_del.c src/rt/rt_init.c)
 
 add_executable(RT
         main.c
@@ -182,6 +188,7 @@ add_executable(RT
         ${SRCNAME_LIBFT}
         ${SRCNAME_LIBFTPRINTF}
         ${INCNAME_RT}
+        ${SRCNAME_RT_RT}
         ${SRCNAME_UTILS}
         ${SRCNAME_GTK}
         ${SRCNAME_JC_PARSER}

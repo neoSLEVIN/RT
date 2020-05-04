@@ -25,6 +25,10 @@
 # define KERNEL_FILE_SIZE 12000
 # define GLOBAL_WORK_SIZE 3001
 
+# define ROWS 500
+# define COLS 800
+# define BYTES_PER_PIXEL 3
+
 typedef struct			s_opencl
 {
 	cl_device_id		device_id;
@@ -39,13 +43,14 @@ typedef struct			s_opencl
 	cl_int				*mem[2];
 }						t_ocl;
 
-void					check_error_cl(const int num, const char *message,
-									char *path);
-
+t_ocl					*new_ocl(void);
 void					init_ocl(t_ocl *ocl);
 void					create_cl(t_ocl *ocl);
 void					compile_cl(t_ocl *ocl);
 void					set_params_cl(t_ocl *ocl);
 void					run_cl(t_ocl *ocl);
+
+void					check_error_cl(const int num, const char *message,
+								char *path);
 
 #endif

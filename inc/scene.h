@@ -136,11 +136,20 @@ typedef struct	s_camera
 	FLT3		upguide;
 }				t_cam;
 
+typedef struct	s_options
+{
+	double		mouse_x;
+	double		mouse_y;
+	SHAPE_LIST	*s_marker;
+	LIGHT_LIST	*l_marker;
+}				t_options;
+
 typedef struct	s_scene
 {
 	t_cam		cam;
 	LIGHT_LIST	*lights;
 	SHAPE_LIST	*shapes;
+	t_options	options;
 }				t_scene;
 
 #endif

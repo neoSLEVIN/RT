@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   rt_del.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/29 17:30:21 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 21:51:44 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/04 15:16:56 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/04 15:16:56 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	usage(char *app_name)
+void	rt_lights_del(t_list_light **list_light)
 {
-	ft_printf("Usage:\t%s\n", app_name);
-	exit(1);
+	if (!list_light || !*list_light)
+		return ;
+	rt_lights_del(&(*list_light)->next);
+	ft_memdel((void**)&(*list_light)->light);
+	ft_memdel((void**)list_light);
 }
 
-int			main(int argc, char **argv)
+void	rt_shapes_del(t_list_shape **list_shape)
 {
-	t_rt	rt;
-
-	(argc != 1) ? usage(argv[0]) : 0;
-	gtk_init(&argc, &argv);
-	rt_init(&rt);
-	gtk_widget_show_all(rt.gtk->window);
-	gtk_main();
-	rt_clear(&rt);
-	return (0);
+	if (!list_shape || !*list_shape)
+		return ;
+	rt_shapes_del(&(*list_shape)->next);
+	ft_memdel(&(*list_shape)->shape);
+	ft_memdel((void**)list_shape);
 }

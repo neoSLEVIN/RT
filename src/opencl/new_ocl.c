@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_cl.c                                           :+:      :+:    :+:   */
+/*   new_ocl.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/01 15:51:37 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 00:53:50 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/04 21:56:37 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/04 22:31:08 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
-void	run_cl(t_ocl *ocl)
+t_ocl	*new_ocl(void)
 {
-	int	ret;
+	t_ocl	*ocl;
 
-	ret = clEnqueueNDRangeKernel(ocl->command_queue, ocl->kernel, 1, NULL,
-								&ocl->mem_length, NULL, 0, NULL, NULL);
-	check_error_cl(ret, "clEnqueueNDRangeKernel", NULL);
-	ret = clEnqueueReadBuffer(ocl->command_queue, ocl->mem_obj[0], CL_TRUE, 0,
-		ocl->mem_length * sizeof(cl_int), ocl->mem[0], 0, NULL, NULL);
-	check_error_cl(ret, "clEnqueueReadBuffer", NULL);
+	if (!(ocl = (t_ocl*)malloc(sizeof(t_ocl))))
+		ft_error("Can't allocate memory");
+	ft_printf("%{}s\n", FT_YELLOW, "(0%) OpenCL: Initialization");
+	init_ocl(ocl);
+	ft_printf("%{}s\n", FT_YELLOW, "(33%) OpenCL: Getting data");
+	create_cl(ocl);
+	ft_printf("%{}s\n", FT_YELLOW, "(66%) OpenCL: Compiling");
+	compile_cl(ocl);
+	ft_printf("%{}s\n", FT_GREEN, "(100%) OpenCL: All done");
+	return (ocl);
 }

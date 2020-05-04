@@ -28,10 +28,11 @@ static void	get_kernel_text(char **kernel_text, size_t *kernel_size)
 		if (!(kernel_text[i] = ft_strnew(KERNEL_FILE_SIZE)))
 			check_error_cl(1, "Can't allocate memory for kernel_text", NULL);
 		if ((source_size = read(fd, kernel_text[i], KERNEL_FILE_SIZE)) < 0)
-			check_error_cl(source_size, "Can't read file", g_kernel_file_arr[i]);
+			check_error_cl(source_size, "Can't read file",
+				g_kernel_file_arr[i]);
 		if (source_size == 0 || source_size >= KERNEL_FILE_SIZE)
 			check_error_cl(source_size + 1, "Max size/Empty file",
-						g_kernel_file_arr[i]);
+				g_kernel_file_arr[i]);
 		kernel_size[i] = source_size;
 		close(fd);
 	}

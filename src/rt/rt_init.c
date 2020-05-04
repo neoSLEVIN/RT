@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   rt_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/04 20:49:53 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/04 21:34:23 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/04 21:02:52 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/04 22:13:20 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-#define UTILS_H
+#include "rt.h"
 
-# include "libft.h"
+void	rt_clear(t_rt *rt)
+{
+	ft_memdel((void*)&rt->ocl);		//TODO clear_ocl(t_ocl **ocl);
+	ft_memdel((void*)&rt->scene);	//TODO clear_scene(t_scene **scene);
+	g_slice_free(GTK_DATA, rt->gtk);
+}
 
-
-#endif
+void	rt_init(t_rt *rt)
+{
+	rt->ocl = new_ocl();
+	rt->scene = new_scene();
+	rt->gtk = new_gtk(rt->scene, rt->ocl);
+}

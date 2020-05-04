@@ -20,7 +20,7 @@
 /*
 ** ================================ Main entity ================================
 */
-t_scene		parse_scene(const char *file_name);
+t_scene		*parse_scene(const char *file_name);
 /*
 ** =============================== Parse camera ================================
 */

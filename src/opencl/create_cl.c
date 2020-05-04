@@ -27,6 +27,6 @@ void	create_cl(t_ocl *ocl)
 	ocl->context = clCreateContext(NULL, 1, &ocl->device_id, NULL, NULL, &ret);
 	check_error_cl(ret, "clCreateContext", NULL);
 	ocl->command_queue = clCreateCommandQueueWithProperties(ocl->context,
-												ocl->device_id, NULL, &ret);
+		ocl->device_id, NULL, &ret);
 	check_error_cl(ret, "clCreateCommandQueueWithProperties", NULL);
 }
