@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pft_parse_width.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/29 17:30:21 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 07:13:49 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2019/10/21 06:13:10 by cschoen           #+#    #+#             */
+/*   Updated: 2019/11/30 20:24:30 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ftprintf.h"
 
-static void	usage(char *app_name)
+void	pft_parse_width(t_print *print)
 {
-	ft_printf("Usage:\t%s\n", app_name);
-	exit(1);
-}
-
-int			main(int argc, char **argv)
-{
-	GTK_DATA	*gtk;
-
-	(argc != 1) ? usage(argv[0]) : 0;
-	gtk_init(&argc, &argv);
-	gtk = new_gtk(new_scene(), new_ocl());
-	draw_image(NULL, &gtk->img);
-	gtk_widget_show_all(gtk->window);
-	gtk_main();
-	gtk_clear(&gtk);
-	return (0);
+	print->prop.width = 0;
+	while (print->cur[print->i] >= '0' && print->cur[print->i] <= '9')
+	{
+		print->prop.width *= 10;
+		print->prop.width += (print->cur[print->i] - 48);
+		++print->i;
+	}
+	if (print->prop.width < 0)
+		print->prop.width = 0;
 }

@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/29 17:30:21 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 07:13:49 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/04/05 14:39:05 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/05 07:37:29 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "parser.h"
 
-static void	usage(char *app_name)
+t_cam	parse_camera(const JC_FIELD parent, const char *child_name)
 {
-	ft_printf("Usage:\t%s\n", app_name);
-	exit(1);
-}
+	JC_FIELD	cam_field;
+	t_cam		cam;
 
-int			main(int argc, char **argv)
-{
-	GTK_DATA	*gtk;
-
-	(argc != 1) ? usage(argv[0]) : 0;
-	gtk_init(&argc, &argv);
-	gtk = new_gtk(new_scene(), new_ocl());
-	draw_image(NULL, &gtk->img);
-	gtk_widget_show_all(gtk->window);
-	gtk_main();
-	gtk_clear(&gtk);
-	return (0);
+	cam_field = jc_get_field(child_name, parent, JC_OBJ);
+	cam.transform = parse_transform(cam_field, "transform");
+	return (cam);
 }
