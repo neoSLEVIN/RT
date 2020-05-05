@@ -283,8 +283,9 @@ if (WIN32)
         set (WINDOWS_OPEN_CL_LIB_LOCATION "$ENV{AMDAPPSDKROOT}/lib/x86_64")
         include_directories ("$ENV{AMDAPPSDKROOT}/include")
         message ("Using AMD OpenCL SDK")
-    elseif (NOT("$ENV{OCL_ROOT}" STREQUAL ""))
-        message ("Using AMD OpenCL SDK Light")
+    else()
+#        message ("Using AMD OpenCL SDK Light")
+        message ("I hope you have msys2 :)")
 
         find_package(PkgConfig REQUIRED)
         pkg_check_modules(GTK REQUIRED "gtk+-3.0")
@@ -295,10 +296,10 @@ if (WIN32)
         find_package(OpenCL REQUIRED)
         include_directories(${OPENCL_INCLUDE_DIR})
         target_link_libraries(RT OpenCL::OpenCL)
-    else()
-        message (FATAL_ERROR
-            "Neither Intel nor NVIDIA nor AMD OpenCL SDK for Windows was found."
-            "\nInstall one of those")
+#    else()
+#        message (FATAL_ERROR
+#            "Neither Intel nor NVIDIA nor AMD OpenCL SDK for Windows was found."
+#            "\nInstall one of those")
     endif()
 
 endif()
