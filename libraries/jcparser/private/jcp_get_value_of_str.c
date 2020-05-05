@@ -12,7 +12,19 @@
 
 #include "jcp_parser.h"
 
-void	jcp_get_value_of_str(const char *json, size_t *i, JCP_OBJ *obj)
+static _Bool	jcp_full_check_for_valid_number(const char *value,
+												const size_t length)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < length)
+		if (!ft_isdigit(value[i]) && value[i] != '-' && value[i] != '.')
+			return (FALSE);
+	return (TRUE);
+}
+
+void			jcp_get_value_of_str(const char *json, size_t *i, JCP_OBJ *obj)
 {
 	jcp_skip_whitespaces(json, i);
 	if (json[(*i)++] != '"')
@@ -26,7 +38,8 @@ void	jcp_get_value_of_str(const char *json, size_t *i, JCP_OBJ *obj)
 		ft_error("Bad syntax of JSON");
 	if (obj->value.length == 0)
 		obj->value.start = &obj->value.empty;
-	if (ft_isdigit(*obj->value.start) || *obj->value.start == '-')
+	else if ((ft_isdigit(*obj->value.start) || *obj->value.start == '-') &&
+		jcp_full_check_for_valid_number(obj->value.start, obj->value.length))
 		obj->type |= jcp_check_for_number(obj->value.start);
 	jcp_skip_whitespaces(json, i);
 }

@@ -2,8 +2,8 @@
   "scene": {
     "camera": {
       "transform": {
-        "rotation": [ 1.0, -0.5, -0.3233253 ],
-        "position": [ 1.0, "0.5", 3.645654 ],
+        "rotation": [ "1.0", -0.5, -0.3233253 ],
+        "position": [ "0.22222", "0.5", 3.645654 ],
         "direction": [ 1.00001 , -0.00005, 32.6456534 ]
       }
     },
@@ -32,6 +32,7 @@
       },
       {
         "type": "SPHERE",
+        "comment": "cdth[er",
         "radius": 0.00000001,
         "transform": {
           "rotation": [1.0, -0.5, -0.3233253 ],
