@@ -284,7 +284,6 @@ if (WIN32)
         include_directories ("$ENV{AMDAPPSDKROOT}/include")
         message ("Using AMD OpenCL SDK")
     else()
-#        message ("Using AMD OpenCL SDK Light")
         message ("I hope you have msys2 :)")
 
         find_package(PkgConfig REQUIRED)
@@ -296,10 +295,6 @@ if (WIN32)
         find_package(OpenCL REQUIRED)
         include_directories(${OPENCL_INCLUDE_DIR})
         target_link_libraries(RT OpenCL::OpenCL)
-#    else()
-#        message (FATAL_ERROR
-#            "Neither Intel nor NVIDIA nor AMD OpenCL SDK for Windows was found."
-#            "\nInstall one of those")
     endif()
 
 endif()
