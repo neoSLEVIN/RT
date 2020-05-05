@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 20:41:43 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 23:15:28 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@
 
 # define ROWS 500
 # define COLS 800
+# define GROUP_SIZE 64
 # define BYTES_PER_PIXEL 3
 
 typedef struct			s_cl
 {
-
-	int					samples;
-
 	cl_mem				input_objects;
 	cl_mem				input_lights;
 	cl_mem				output_data;
@@ -50,9 +48,6 @@ typedef struct			s_cl
 //	t_object			*objects;
 //	tcl_light			*lights;
 //	tcl_cam				cam;
-
-	size_t				worksize;
-	size_t 				groupsize;
 
 	cl_float3 			*test;
 //	t_rt				*temp_rt;
@@ -68,8 +63,9 @@ typedef struct			s_opencl
 	size_t				kernel_size[KERNEL_FILE_CNT];
 	cl_program			program;
 	cl_kernel			kernel;
+	size_t				work_size;
+	size_t				group_size;
 	cl_mem				mem_obj[2];
-	size_t				mem_length;
 	cl_int				*mem[2];
 }						t_ocl;
 

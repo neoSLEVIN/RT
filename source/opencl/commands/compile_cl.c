@@ -6,13 +6,24 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 15:44:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 22:01:36 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 23:25:22 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {"kernel/ray_tracing.cl"};
+
+static void	free_kernel_text(char **kernel_text)
+{
+	int	i;
+
+	i = -1;
+	if (!kernel_text)
+		return ;
+	while (++i < KERNEL_FILE_CNT)
+		ft_strdel(&kernel_text[i]);
+}
 
 static void	get_kernel_text(char **kernel_text, size_t *kernel_size)
 {
@@ -50,6 +61,7 @@ void	compile_cl(t_ocl *ocl)
 	ocl->program = clCreateProgramWithSource(ocl->context, 1,
 		(const char **)&ocl->kernel_text, (const size_t *)&ocl->kernel_size, &err);
 	check_error_cl(err, "clCreateProgramWithSource", NULL);
+	free_kernel_text(ocl->kernel_text);
 	err = clBuildProgram(ocl->program, 1, &ocl->device_id, options, NULL, NULL);
 	if (err != CL_SUCCESS)
 	{

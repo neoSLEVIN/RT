@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 13:08:41 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 21:38:51 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 00:00:19 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	get_platform_info(cl_platform_id *platform, int cnt)
 		err = clGetPlatformInfo(platform[cnt], CL_PLATFORM_NAME,
 			sizeof(str), str, NULL);
 		check_error_cl(err ,"Can't get platform name", NULL);
-		ft_printf("\t%{}s%s\n", FT_CYAN, "Platform name - ", str);
+		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform name:", str);
 		ft_strclr(str);
 		err = clGetPlatformInfo(platform[cnt], CL_PLATFORM_VENDOR,
 			sizeof(str), str, NULL);
 		check_error_cl(err ,"Can't get platform vendor", NULL);
-		ft_printf("\t%{}s%s\n", FT_CYAN, "Platform vendor - ", str);
+		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform vendor:", str);
 		ft_strclr(str);
 	}
 }
@@ -47,7 +47,7 @@ static void	get_device_info(cl_device_id *device, int cnt)
 			ft_error("Can't allocate memory");
 		err = clGetDeviceInfo(device[cnt], CL_DEVICE_NAME, size_str, str, NULL);
 		check_error_cl(err ,"Can't get device name", NULL);
-		ft_printf("\t%{}s%s\n", FT_CYAN, "Device name - ", str);
+		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Device name:", str);
 		ft_strdel(&str);
 	}
 }

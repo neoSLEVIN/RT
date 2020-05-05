@@ -14,7 +14,7 @@
 
 void	test_ocl(t_ocl *ocl)
 {
-	for (int i = 0; i < ocl->mem_length; ++i)
+	for (int i = 0; i < ocl->work_size; ++i)
 		ft_printf("%{}d\t", (i % 2 ? FT_BLUE : FT_PURPLE), (int)ocl->mem[0][i]);
 	ft_putendl("\n");
 }

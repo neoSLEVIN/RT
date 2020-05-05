@@ -179,7 +179,6 @@ set(SRCNAME_JC_PARSER
 
 set(RT_INC include)
 include_directories(${RT_INC})
-include_directories(./libraries/jcparser/include)
 
 set(INCNAME_RT
         include/ocl.h
@@ -262,39 +261,20 @@ endforeach (CLKernelName)
 # ------------------------------------------------------------------------------
 
 # ---------------------------- OS Specific settings ----------------------------
-add_compile_definitions (
-        CL_HPP_MINIMUM_OPENCL_VERSION=120
-        CL_HPP_TARGET_OPENCL_VERSION=200
-)
-
 if (WIN32)
-    if (NOT ("$ENV{INTELOCLSDKROOT}" STREQUAL ""))
-        # Use the Intel SDK
-        set (WINDOWS_OPEN_CL_LIB_LOCATION "$ENV{INTELOCLSDKROOT}/lib/x64")
-        include_directories ("$ENV{INTELOCLSDKROOT}/include")
-        message ("Using Intel OpenCL SDK")
-    elseif (NOT ("$ENV{CUDA_LIB_PATH}" STREQUAL ""))
-        # Use the NVIDIA SDK
-        set (WINDOWS_OPEN_CL_LIB_LOCATION $ENV{CUDA_LIB_PATH})
-        include_directories ($ENV{CUDA_INC_PATH})
-        message ("Using NVIDIA OpenCL SDK")
-    elseif (NOT("$ENV{AMDAPPSDKROOT}" STREQUAL ""))
-        # Use the AMD SDK
-        set (WINDOWS_OPEN_CL_LIB_LOCATION "$ENV{AMDAPPSDKROOT}/lib/x86_64")
-        include_directories ("$ENV{AMDAPPSDKROOT}/include")
-        message ("Using AMD OpenCL SDK")
-    else()
-        message ("I hope you have msys2 :)")
+    message("I hope you have msys2 :)")
 
-        find_package(PkgConfig REQUIRED)
-        pkg_check_modules(GTK REQUIRED "gtk+-3.0")
-        target_link_libraries(RT ${GTK_LIBRARIES})
-        add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
+    add_compile_definitions(
+            CL_HPP_MINIMUM_OPENCL_VERSION=120
+            CL_HPP_TARGET_OPENCL_VERSION=200)
 
-        include(FindOpenCL)
-        find_package(OpenCL REQUIRED)
-        include_directories(${OPENCL_INCLUDE_DIR})
-        target_link_libraries(RT OpenCL::OpenCL)
-    endif()
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GTK REQUIRED "gtk+-3.0")
+    target_link_libraries(RT ${GTK_LIBRARIES})
+    add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
 
+    include(FindOpenCL)
+    find_package(OpenCL REQUIRED)
+    include_directories(${OPENCL_INCLUDE_DIR})
+    target_link_libraries(RT OpenCL::OpenCL)
 endif()
