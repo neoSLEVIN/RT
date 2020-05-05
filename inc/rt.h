@@ -13,7 +13,6 @@
 #ifndef RT_H
 # define RT_H
 
-# include "utils.h"
 # include "gtk_module.h"
 
 typedef struct	s_rt

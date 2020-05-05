@@ -78,6 +78,8 @@ JC_FIELD	jc_get_field_idx(const size_t index, const JC_FIELD parent,
 		ft_error("Index out of range (jc_get_field_idx)");
 	field.full_name = jcp_field_with_index(parent.full_name, index);
 	field.obj = jcp_get_elem_by_idx(index, parent.obj);
+	if (field.obj->full_name)
+		ft_strdel(&field.obj->full_name);
 	field.obj->full_name = field.full_name;
 	if (jc_compare_types(field, type) == FALSE)
 		jcp_print_bad_type_error(&field, type);
@@ -97,6 +99,8 @@ JC_FIELD	jc_get_field(const char *field_name, const JC_FIELD parent,
 		ft_error("NPE: field name (jc_get_field)");
 	field.full_name = jcp_parent_dot_child(parent.full_name, field_name);
 	field.obj = jcp_get_obj_by_key(field_name, parent.obj);
+	if (field.obj->full_name)
+		ft_strdel(&field.obj->full_name);
 	field.obj->full_name = field.full_name;
 	if (jc_compare_types(field, type) == FALSE)
 		jcp_print_bad_type_error(&field, type);

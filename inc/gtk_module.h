@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:47:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 00:12:34 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 00:46:38 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@
 
 # define IMG_DATA struct s_image_data
 # define GTK_DATA struct s_gtk_data
-
-//# define ROWS 500
-//# define COLS 800
-//# define BYTES_PER_PIXEL 3
 
 typedef struct	s_info
 {

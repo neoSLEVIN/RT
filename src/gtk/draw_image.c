@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:35:03 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 00:50:30 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 03:15:10 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	draw_image(GtkWidget *button, gpointer data)
 		set_params_cl(img->ocl);
 	img->info.update_ocl = FALSE;
 	run_cl(img->ocl);
-	//test_ocl(img->ocl);
 	row = -1;
 	while (++row < img->rows)
 	{

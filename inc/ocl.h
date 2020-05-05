@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/04/02 04:28:47 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 00:46:38 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 # define KERNEL_FILE_CNT 1
 # define KERNEL_FILE_SIZE 12000
-# define GLOBAL_WORK_SIZE 3001
 
 # define ROWS 500
 # define COLS 800

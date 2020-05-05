@@ -148,7 +148,9 @@ typedef struct	s_scene
 {
 	t_cam		cam;
 	LIGHT_LIST	*lights;
+	size_t		l_cnt;
 	SHAPE_LIST	*shapes;
+	size_t		s_cnt;
 	t_options	options;
 }				t_scene;
 

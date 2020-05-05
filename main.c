@@ -25,6 +25,7 @@ int			main(int argc, char **argv)
 	(argc != 1) ? usage(argv[0]) : 0;
 	gtk_init(&argc, &argv);
 	rt_init(&rt);
+	draw_image(NULL, &rt.gtk->img);
 	gtk_widget_show_all(rt.gtk->window);
 	gtk_main();
 	rt_clear(&rt);
