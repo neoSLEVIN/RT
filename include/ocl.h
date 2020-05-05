@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 00:46:38 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 08:07:10 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,21 @@ typedef struct			s_opencl
 	cl_int				*mem[2];
 }						t_ocl;
 
-t_ocl					*new_ocl(void);
+/*
+** ================================= Commands ==================================
+*/
 void					init_ocl(t_ocl *ocl);
 void					create_cl(t_ocl *ocl);
 void					compile_cl(t_ocl *ocl);
-void					set_params_cl(t_ocl *ocl);
 void					run_cl(t_ocl *ocl);
-
+/*
+** ================================= Settings ==================================
+*/
+void					set_params_cl(t_ocl *ocl);
+/*
+** =================================== Utils ===================================
+*/
+t_ocl					*new_ocl(void);
 void					check_error_cl(const int num, const char *message,
 								char *path);
 

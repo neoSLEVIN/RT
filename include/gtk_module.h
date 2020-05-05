@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:47:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 07:37:29 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/05 07:39:10 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,24 @@ struct			s_gtk_data
 	GtkWidget	*button;
 };
 
-t_scene			*new_scene(void);
-
-GTK_DATA		*new_gtk(t_scene *scene, t_ocl *ocl);
+/*
+** ================================= Settings ==================================
+*/
 void			gtk_set_default_params(GTK_DATA *gtk);
 void			gtk_set_main_window(GTK_DATA *gtk);
 void			gtk_set_objects(GTK_DATA *gtk);
 void			gtk_set_signals(GTK_DATA *gtk);
 void			gtk_set_positions(GTK_DATA *gtk);
-
+/*
+** ================================== Actions ==================================
+*/
 void			draw_image(GtkWidget *button, gpointer data);
-
+/*
+** =================================== Utils ===================================
+*/
+GTK_DATA		*new_gtk(t_scene *scene, t_ocl *ocl);
 void			gtk_clear(GTK_DATA **gtk);
+t_scene			*new_scene(void);
 void			clear_lights(LIGHT_LIST **list_light);
 void			clear_shapes(SHAPE_LIST **list_shape);
 

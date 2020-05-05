@@ -195,8 +195,8 @@ set(OPEN_CL_SRC ${RT_SRC}/opencl)
 include_directories(${OPEN_CL_SRC})
 
 set(SRCNAME_OPEN_CL
-        source/opencl/commands/error_cl.c
-        source/opencl/new_ocl.c
+        source/opencl/utils/error_cl.c
+        source/opencl/utils/new_ocl.c
         source/opencl/commands/init_ocl.c
         source/opencl/commands/create_cl.c
         source/opencl/commands/compile_cl.c
