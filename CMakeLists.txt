@@ -211,7 +211,10 @@ set(SRCNAME_OCLMATH
         libraries/oclmath/source/v3_cross.c
         libraries/oclmath/source/v3_scale.c
         libraries/oclmath/source/v3_norm.c
-        libraries/oclmath/source/v3_length_sq.c libraries/oclmath/source/v3_dot.c libraries/oclmath/source/v3_rotate.c)
+        libraries/oclmath/source/v3_length_sq.c
+        libraries/oclmath/source/v3_dot.c
+        libraries/oclmath/source/v3_rotate.c
+)
 
 # ==============================================================================
 # =============================== Project files ================================

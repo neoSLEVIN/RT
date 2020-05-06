@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 23:16:32 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 02:35:07 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@
 
 # ifdef __APPLE__
 # define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
+# define CREATE_QUEUE(ctxt, dev, prop, err) \
+	clCreateCommandQueue(ctxt, dev, prop, err)
 # else
 # define BUILD_OPTIONS_CL NULL
+# define CREATE_QUEUE(ctxt, dev, prop, err) \
+	clCreateCommandQueueWithProperties(ctxt, dev, prop, err)
 # endif
 
 /*
@@ -31,7 +35,7 @@
 ** #  define ROWS (HEIGHT)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 4
+# define GTK_IMAGE_SIZE 0
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -44,9 +48,12 @@
 # elif GTK_IMAGE_SIZE == 4
 #  define COLS 800
 #  define ROWS 600
-# else
+# elif GTK_IMAGE_SIZE == 5
 #  define COLS 640
 #  define ROWS 480
+# else
+#  define COLS 320
+#  define ROWS 200
 # endif
 
 # define BYTES_PER_PIXEL 3
@@ -104,7 +111,7 @@ typedef struct			s_dto
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
 	cl_mem				output_data;
-	cl_float3			*buffer;
+	cl_char4			*buffer;
 }						t_dto;
 
 /*

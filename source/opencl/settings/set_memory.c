@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 21:17:03 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 21:20:54 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 01:25:47 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_memory_output(t_ocl *ocl)
 	cl_int	err;
 
 	ocl->dto.output_data = clCreateBuffer(ocl->context, CL_MEM_WRITE_ONLY,
-		sizeof(FLT3) * ocl->work_size, NULL, &err);
+		sizeof(cl_char4) * ocl->work_size, NULL, &err);
 	check_error_cl(err,"clCreateBuffer", "output_data");
 }
 
@@ -36,9 +36,9 @@ void	set_memory_input(t_ocl *ocl, t_scene *scene)
 	//random
 	// TODO refactor
 	int i = 0;
-	unsigned int pixelCount = ocl->work_size;
-	unsigned int *seeds = (unsigned int *)malloc(sizeof(unsigned int) * pixelCount * 2);
-	while (i < pixelCount * 2) {
+	unsigned int *seeds =
+		(unsigned int *)malloc(sizeof(unsigned int) * ocl->work_size);
+	while (i < ocl->work_size) {
 		int rand1 = rand();
 		seeds[i] = rand1;
 		if (seeds[i] < 2)
@@ -46,9 +46,9 @@ void	set_memory_input(t_ocl *ocl, t_scene *scene)
 		i++;
 	}
 	ocl->dto.input_seeds = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
-		sizeof(unsigned int) * ocl->work_size * 2, NULL, &err);
+		sizeof(unsigned int) * ocl->work_size, NULL, &err);
 	check_error_cl(err,"clCreateBuffer", "input_seeds");
 	err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.input_seeds, CL_TRUE, 0,
-		sizeof(unsigned int) * ocl->work_size * 2, seeds, 0, NULL, NULL);
+		sizeof(unsigned int) * ocl->work_size, seeds, 0, NULL, NULL);
 	check_error_cl(err,"clEnqueueWriteBuffer", NULL);
 }

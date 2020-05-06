@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 13:08:41 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 14:26:07 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 02:39:23 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void		create_cl(t_ocl *ocl)
 	get_device(ocl);
 	ocl->context = clCreateContext(NULL, 1, &ocl->device, NULL, NULL, &err);
 	check_error_cl(err, "clCreateContext", NULL);
-	ocl->queue = clCreateCommandQueueWithProperties(ocl->context,
-													ocl->device, NULL, &err);
+	ocl->queue = CREATE_QUEUE(ocl->context,ocl->device, NULL, &err);
 	check_error_cl(err, "clCreateCommandQueueWithProperties", NULL);
 }

@@ -313,7 +313,7 @@ void init_ray(t_ray *ray, t_cam *cam, int work_id, float rand)
 }
 
 
-int convertColorFromFloat(float f) {
+char convertColorFromFloat(float f) {
 	return floor(f >= 1.0 ? 255 : f * 256.0);
 }
 
@@ -440,7 +440,7 @@ __kernel void render_kernel(__global t_object *objects,
 							__global t_light *lights,
 							int num_light,
 							t_cam cam,
-							__global float3* output,
+							__global char4* output,
 							__global unsigned int *seedsInput)
 {
 	float3 finalColor = 0;
@@ -451,7 +451,7 @@ __kernel void render_kernel(__global t_object *objects,
 
 
 	/*Сглаживание*/
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 6; i++) {
 		float rnd = (2 * get_random(&seed) - 1) / 2;
 		init_ray(&ray, &cam, work_item_id, rnd);
 
@@ -459,13 +459,14 @@ __kernel void render_kernel(__global t_object *objects,
 
 
 		if (ray.hit_id >= 0) {
-			if (objects[ray.hit_id].material.reflective > 0) {
+			float ref = objects[ray.hit_id].material.reflective;
+			if (ref > 0) {
 				t_ray ray1 = ray;
 				ray1.hit_id = -1;
 				ray1.dir = reflect(ray.dir, ray.hitNormal);
 				ray1.origin = ray.hitPoint + (ray.hitNormal * 0.01f);
 				float3 objCol = objects[ray.hit_id].material.color;
-				finalColor += objCol * send_ray(&ray1, objects, num_obj, lights, num_light) * 0.9f;
+				finalColor += finalColor1 * (1.0f - ref) + send_ray(&ray1, objects, num_obj, lights, num_light) * ref;
 
 			} else if (objects[ray.hit_id].material.transparency > 0) {
 
@@ -500,14 +501,15 @@ __kernel void render_kernel(__global t_object *objects,
 		}
 
 	}
-	finalColor /= 10.0f;
+	finalColor /= 6.0f;
 
 
-	int red = convertColorFromFloat(finalColor.x);
-	int green = convertColorFromFloat(finalColor.y);
-	int blue = convertColorFromFloat(finalColor.z);
+	char red = convertColorFromFloat(finalColor.x);
+	char green = convertColorFromFloat(finalColor.y);
+	char blue = convertColorFromFloat(finalColor.z);
+	char alfa = 255;
 
-	output[work_item_id] = (float3)(red, green, blue);
+	output[work_item_id] = (char4)(red, green, blue, alfa);
 
 	seedsInput[work_item_id] = seed;
 }

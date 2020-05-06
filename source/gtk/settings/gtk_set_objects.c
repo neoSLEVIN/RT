@@ -24,7 +24,7 @@ void		gtk_set_objects(GTK_DATA *gtk)
 	if (!gtk->rt.buffer)
 		ft_error("Can't allocate memory");
 	ft_bzero(gtk->rt.buffer,
-			 sizeof(guchar) * gtk->rt.rows * gtk->rt.stride);
+			sizeof(guchar) * gtk->rt.rows * gtk->rt.stride);
 	gtk->rt.pixbuf =
 		gdk_pixbuf_new_from_data(gtk->rt.buffer, GDK_COLORSPACE_RGB, FALSE, 8,
 								 gtk->rt.cols, gtk->rt.rows, gtk->rt.stride, free_pixels, NULL);
