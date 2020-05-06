@@ -6,46 +6,33 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 15:44:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 23:25:22 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 01:31:57 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
-static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {"kernel/ray_tracing.cl"};
-
-static void	free_kernel_text(char **kernel_text)
-{
-	int	i;
-
-	i = -1;
-	if (!kernel_text)
-		return ;
-	while (++i < KERNEL_FILE_CNT)
-		ft_strdel(&kernel_text[i]);
-}
-
 static void	get_kernel_text(char **kernel_text, size_t *kernel_size)
 {
-	int	i;
-	int	fd;
-	int	source_size;
+	int		i;
+	char	*temp;
+	char	*for_free;
 
 	i = -1;
 	while (++i < KERNEL_FILE_CNT)
 	{
-		if ((fd = open(g_kernel_file_arr[i], O_RDONLY)) < 0)
-			check_error_cl(fd, "Can't open file", g_kernel_file_arr[i]);
-		if (!(kernel_text[i] = ft_strnew(KERNEL_FILE_SIZE)))
+		temp = ft_get_text_file(g_kernel_file_arr[i], KERNEL_FILE_SIZE);
+		if (!*temp)
+			check_error_cl(1, "Empty file", g_kernel_file_arr[i]);
+		*kernel_size += ft_strlen(temp);
+		for_free = *kernel_text;
+		if (!(*kernel_text = ft_strnew(*kernel_size)))
 			check_error_cl(1, "Can't allocate memory for kernel_text", NULL);
-		if ((source_size = read(fd, kernel_text[i], KERNEL_FILE_SIZE)) < 0)
-			check_error_cl(source_size, "Can't read file",
-				g_kernel_file_arr[i]);
-		if (source_size == 0 || source_size >= KERNEL_FILE_SIZE)
-			check_error_cl(source_size + 1, "Max size/Empty file",
-				g_kernel_file_arr[i]);
-		kernel_size[i] = source_size;
-		close(fd);
+		if (for_free != NULL)
+			ft_strcat(*kernel_text, for_free);
+		ft_strdel(&for_free);
+		ft_strcat(*kernel_text, temp);
+		ft_strdel(&temp);
 	}
 }
 
@@ -57,11 +44,11 @@ void	compile_cl(t_ocl *ocl)
 	size_t	log_size;
 
 	options = BUILD_OPTIONS_CL;
-	get_kernel_text(ocl->kernel_text, ocl->kernel_size);
+	get_kernel_text(&ocl->kernel_text, &ocl->kernel_size);
 	ocl->program = clCreateProgramWithSource(ocl->context, 1,
 		(const char **)&ocl->kernel_text, (const size_t *)&ocl->kernel_size, &err);
 	check_error_cl(err, "clCreateProgramWithSource", NULL);
-	free_kernel_text(ocl->kernel_text);
+	ft_strdel(&ocl->kernel_text);
 	err = clBuildProgram(ocl->program, 1, &ocl->device_id, options, NULL, NULL);
 	if (err != CL_SUCCESS)
 	{

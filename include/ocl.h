@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 23:15:28 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 01:48:16 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,22 @@
 # define BUILD_OPTIONS_CL NULL
 # endif
 
-# define KERNEL_FILE_CNT 1
-# define KERNEL_FILE_SIZE 12000
-
 # define ROWS 500
 # define COLS 800
 # define GROUP_SIZE 64
 # define BYTES_PER_PIXEL 3
 
+# define KERNEL_FILE_SIZE 12000
+/*
+** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
+*/
+# define KERNEL_FILE_CNT 1
+static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
+		"kernel/ray_tracing.cl"
+};
+/*
+** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
+*/
 typedef struct			s_cl
 {
 	cl_mem				input_objects;
@@ -59,8 +67,8 @@ typedef struct			s_opencl
 	cl_device_id		device_id;
 	cl_context			context;
 	cl_command_queue	command_queue;
-	char				*kernel_text[KERNEL_FILE_CNT];
-	size_t				kernel_size[KERNEL_FILE_CNT];
+	char				*kernel_text;
+	size_t				kernel_size;
 	cl_program			program;
 	cl_kernel			kernel;
 	size_t				work_size;

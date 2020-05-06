@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 02:17:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 01:11:50 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 03:09:51 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@
 
 # define LIGHT_TYPE enum e_light_type
 # define SHAPE_TYPE enum e_shape_type
-# define LIGHT_LIST struct s_list_light
-# define SHAPE_LIST struct s_list_shape
+# define LIGHT struct s_light
+# define SHAPE struct s_shape
 # define TRANSFORM struct s_transform
 # define MATERIAL struct s_material
 # define FLT3 cl_float3
-
-int	g_uid;
 
 typedef enum	e_light_type
 {
@@ -46,17 +44,12 @@ typedef enum	e_shape_type
 	CNT_OF_TYPES
 }				t_shape_type;
 
-typedef struct	s_color
-{
-	int			r;
-	int			g;
-	int			b;
-}				t_color;
-
 typedef struct	s_material
 {
-	t_color		color;
+	FLT3		color;
 	float		specular;
+	float		reflective;
+	float		transparency;
 }				t_material;
 
 typedef struct	s_transform
@@ -66,62 +59,28 @@ typedef struct	s_transform
 	FLT3		rotation;
 }				t_transform;
 
-typedef struct	s_light
+struct			s_light
 {
+	int			uid;
+	_Bool		marker;
 	LIGHT_TYPE	type;
-	TRANSFORM	transform;
 	float		intensity;
+	FLT3		position;
+	FLT3		direction;
 	float		radius;
-}				t_light;
+	LIGHT		*next;
+};
 
-typedef struct	s_list_light
+struct			s_shape
 {
-	LIGHT_TYPE	type;
 	int			uid;
-	t_light		*light;
 	_Bool		marker;
-	LIGHT_LIST	*next;
-}				t_list_light;
-
-typedef struct	s_plane
-{
 	SHAPE_TYPE	type;
 	TRANSFORM	transform;
 	MATERIAL	material;
-}				t_plane;
-
-typedef struct	s_sphere
-{
-	SHAPE_TYPE	type;
-	TRANSFORM	transform;
-	MATERIAL	material;
-	float		radius;
-}				t_sphere;
-
-typedef struct	s_cone
-{
-	SHAPE_TYPE	type;
-	TRANSFORM	transform;
-	MATERIAL	material;
-	float		angle;
-}				t_cone;
-
-typedef struct	s_cylinder
-{
-	SHAPE_TYPE	type;
-	TRANSFORM	transform;
-	MATERIAL	material;
-	float		radius;
-}				t_cylinder;
-
-typedef struct	s_list_shape
-{
-	SHAPE_TYPE	type;
-	int			uid;
-	void		*shape;
-	_Bool		marker;
-	SHAPE_LIST	*next;
-}				t_list_shape;
+	float		param;
+	SHAPE		*next;
+};
 
 typedef struct	s_camera
 {
@@ -136,22 +95,15 @@ typedef struct	s_camera
 	FLT3		upguide;
 }				t_cam;
 
-typedef struct	s_options
-{
-	double		mouse_x;
-	double		mouse_y;
-	SHAPE_LIST	*s_marker;
-	LIGHT_LIST	*l_marker;
-}				t_options;
-
 typedef struct	s_scene
 {
 	t_cam		cam;
-	LIGHT_LIST	*lights;
+	LIGHT		*lights;
+	SHAPE		*shapes;
 	size_t		l_cnt;
-	SHAPE_LIST	*shapes;
 	size_t		s_cnt;
-	t_options	options;
+	LIGHT		*l_marker;
+	SHAPE		*s_marker;
 }				t_scene;
 
 #endif

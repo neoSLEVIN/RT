@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 15:51:37 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 23:14:22 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 00:05:24 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	run_cl(t_ocl *ocl)
 {
-	int	err;
+	int		err;
 
 	err = clEnqueueNDRangeKernel(ocl->command_queue, ocl->kernel, 1, NULL,
 		&ocl->work_size, &ocl->group_size, 0, NULL, NULL);

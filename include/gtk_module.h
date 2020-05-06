@@ -25,8 +25,10 @@
 
 typedef struct	s_info
 {
-	guint		key;
 	_Bool		update_ocl;
+	guint		key;
+	double		mouse_x;
+	double		mouse_y;
 }				t_info;
 
 struct			s_image_data
@@ -70,7 +72,7 @@ void			draw_image(GtkWidget *button, gpointer data);
 GTK_DATA		*new_gtk(t_scene *scene, t_ocl *ocl);
 void			gtk_clear(GTK_DATA **gtk);
 t_scene			*new_scene(void);
-void			clear_lights(LIGHT_LIST **list_light);
-void			clear_shapes(SHAPE_LIST **list_shape);
+void			clear_lights(LIGHT **light);
+void			clear_shapes(SHAPE **shape);
 
 #endif

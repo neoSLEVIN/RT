@@ -6,48 +6,61 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 00:29:45 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 07:37:29 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 02:48:25 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static void	*parse_shape_fields_by_type(const JC_FIELD parent, SHAPE_TYPE type)
+static float	parse_shape_param_by_type(const JC_FIELD shape_field,
+										SHAPE_TYPE type)
 {
+	float	param;
+
 	if (type == PLANE)
-		return (parse_plane(parent));
-	else if (type == SPHERE)
-		return (parse_sphere(parent));
+		param = 0.0f;
+	else if (type == SPHERE || type == CYLINDER)
+	{
+		param = jc_get_float(shape_field, "radius");
+		if (param <= 0.0f)
+			parse_error(jc_full_name(shape_field), "radius",
+				" Value must be positive.");
+	}
 	else if (type == CONE)
-		return (parse_cone(parent));
-	else if (type == CYLINDER)
-		return (parse_cylinder(parent));
+	{
+		param = jc_get_float(shape_field, "angle");
+		if (param <= 0.0f || param >= 180.0f)
+			parse_error(jc_full_name(shape_field), "angle",
+				" Value must be in range (0.0; 180.0).");
+	}
 	else
 		ft_error("Unknown action");
-	return (NULL);
+	return (param);
 }
 
-SHAPE_LIST	*parse_shape_idx(const JC_FIELD parent, const int index)
+SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 {
 	JC_FIELD	shape_field;
-	SHAPE_LIST	*shape;
+	SHAPE		*shape;
 
 	shape_field = jc_get_field_idx(index, parent, JC_OBJ);
-	if(!(shape = (SHAPE_LIST*)malloc(sizeof(SHAPE_LIST))))
+	if((shape = (SHAPE*)malloc(sizeof(SHAPE))) == NULL)
 		ft_error("Can't allocate memory");
-	shape->uid = g_uid++;
+	shape->uid = index;
 	shape->marker = FALSE;
 	shape->next = NULL;
+	shape->transform = parse_transform(shape_field, "transform");
+	shape->material = parse_material(shape_field, "material");
 	shape->type = parse_shape_type(shape_field, "type");
-	shape->shape = parse_shape_fields_by_type(shape_field, shape->type);
+	shape->param = parse_shape_param_by_type(shape_field, shape->type);
 	return (shape);
 }
 
-SHAPE_LIST	*parse_shapes(const JC_FIELD parent, const char *child_name)
+SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name)
 {
 	JC_FIELD	shapes_field;
-	SHAPE_LIST	*shapes;
-	SHAPE_LIST	*temp_shape;
+	SHAPE		*shapes;
+	SHAPE		*temp_shape;
 	size_t		length;
 	size_t		i;
 

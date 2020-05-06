@@ -12,20 +12,18 @@
 
 #include "gtk_module.h"
 
-void	clear_lights(LIGHT_LIST **list_light)
+void	clear_lights(LIGHT **light)
 {
-	if (!list_light || !*list_light)
+	if (!light || !*light)
 		return ;
-	clear_lights(&(*list_light)->next);
-	ft_memdel((void**)&(*list_light)->light);
-	ft_memdel((void**)list_light);
+	clear_lights(&(*light)->next);
+	ft_memdel((void**)light);
 }
 
-void	clear_shapes(SHAPE_LIST **list_shape)
+void	clear_shapes(SHAPE **shape)
 {
-	if (!list_shape || !*list_shape)
+	if (!shape || !*shape)
 		return ;
-	clear_shapes(&(*list_shape)->next);
-	ft_memdel(&(*list_shape)->shape);
-	ft_memdel((void**)list_shape);
+	clear_shapes(&(*shape)->next);
+	ft_memdel((void**)shape);
 }

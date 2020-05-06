@@ -49,7 +49,7 @@ static int	is_valid_hex(const char *str)
 	return (1);
 }
 
-static int	str_to_rgb(t_color *col, const char *str)
+static int	str_to_rgb(FLT3 *col, const char *str)
 {
 	size_t	len;
 
@@ -58,29 +58,29 @@ static int	str_to_rgb(t_color *col, const char *str)
 	len = ft_strlen(str);
 	if (len == 1)
 	{
-		col->r = atoi16(str, 1);
-		col->g = atoi16(str, 1);
-		col->b = atoi16(str, 1);
+		col->x = atoi16(str, 1) / 255.0;
+		col->y = atoi16(str, 1) / 255.0;
+		col->z = atoi16(str, 1) / 255.0;
 	}
 	else if (len == 3)
 	{
-		col->r = atoi16(str, 1);
-		col->g = atoi16(&str[1], 1);
-		col->b = atoi16(&str[2], 1);
+		col->x = atoi16(str, 1) / 255.0;
+		col->y = atoi16(&str[1], 1) / 255.0;
+		col->z = atoi16(&str[2], 1) / 255.0;
 	}
 	else if (len == 6)
 	{
-		col->r = atoi16(str, 2);
-		col->g = atoi16(&str[2], 2);
-		col->b = atoi16(&str[4], 2);
+		col->x = atoi16(str, 2) / 255.0;
+		col->y = atoi16(&str[2], 2) / 255.0;
+		col->z = atoi16(&str[4], 2) / 255.0;
 	}
 	return (1);
 }
 
-t_color		parse_color(const JC_FIELD parent, const char *child_name)
+FLT3		parse_color(const JC_FIELD parent, const char *child_name)
 {
 	char	*str_color;
-	t_color	color;
+	FLT3	color;
 
 	str_color = jc_get_string(parent, child_name, FALSE);
 	if (!str_to_rgb(&color, str_color))
