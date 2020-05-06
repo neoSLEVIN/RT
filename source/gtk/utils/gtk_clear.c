@@ -16,7 +16,7 @@ void	gtk_clear(GTK_DATA **gtk)
 {
 	if (!gtk || !*gtk)
 		return ;
-	ft_memdel((void*)&(*gtk)->img.ocl);		//TODO clear_ocl(t_ocl **ocl);
-	ft_memdel((void*)&(*gtk)->img.scene);	//TODO clear_scene(t_scene **scene);
+	ft_memdel((void*)&(*gtk)->rt.ocl);		//TODO clear_ocl(t_ocl **ocl);
+	ft_memdel((void*)&(*gtk)->rt.scene);	//TODO clear_scene(t_scene **scene);
 	g_slice_free(GTK_DATA, *gtk);
 }

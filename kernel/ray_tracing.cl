@@ -38,7 +38,6 @@ typedef struct			s_cam
 	float3				up;
 	float3				right;
 	float3				upguide;
-	t_transform			transform;
 }						t_cam;
 
 

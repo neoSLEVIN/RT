@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 14:39:05 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 06:07:07 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 06:46:32 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ t_cam	parse_camera(const JC_FIELD parent, const char *child_name)
 
 	cam_field = jc_get_field(child_name, parent, JC_OBJ);
 	cam.transform = parse_transform(cam_field, "transform");
+	// TODO validation for params
 	return (cam);
 }

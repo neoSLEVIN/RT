@@ -1,50 +1,54 @@
 {
   "scene": {
     "camera": {
-      "transform": {
-        "position": [0,0,-40],
-        "direction": [0,0,0],
-        "rotation": [0,0,0]
-      }
+      "transform": {"position": [0,0,-35], "direction": [0,0,0], "rotation": [0,0,0]}
     },
     "lights": [
-      {
-        "type": "AMBIENT",
-        "intensity": 0.9,
-        "position": [0,0,0],
-        "direction": [0,0,0]
-      }
+      {"type": "AMBIENT", "intensity": 0.1, "position": [0,0,0], "direction": [0,0,0]},
+      {"type": "POINT", "intensity": 0.5, "position": [-4,5,-13], "direction": [0,0,0]}
     ],
     "shapes": [
       {
-        "type": "SPHERE",
-        "transform": {
-          "position": [0,0,0],
-          "direction": [0,0,0],
-          "rotation": [0,0,0]
-        },
+        "type": "PLANE",
         "radius": 5,
-        "material": {
-          "color": "ee0",
-          "specular": 100,
-          "reflective": 0.5,
-          "transparency": 0.5
-        }
+        "transform": {"position": [0,-3,0], "direction": [0,1,0], "rotation": [0,0,0]},
+        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
         "type": "PLANE",
-        "transform": {
-          "position": [0,0,0],
-          "direction": [1,0,0],
-          "rotation": [0,0,0]
-        },
         "radius": 5,
-        "material": {
-          "color": "ff0",
-          "specular": 100,
-          "reflective": 0.5,
-          "transparency": 0.5
-        }
+        "transform": {"position": [0,0,90], "direction": [0,0,1], "rotation": [0,0,0]},
+        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "CONE",
+        "angle": 90,
+        "transform": {"position": [-5,2,5], "direction": [3,5,0], "rotation": [0,0,0]},
+        "material": {"color": "ffff00", "specular": 10, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 4,
+        "transform": {"position": [0,0,0], "direction": [0,0,0], "rotation": [0,0,0]},
+        "material": {"color": "ff0000", "specular": 100, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 1,
+        "transform": {"position": [4,4,-9], "direction": [0,0,0], "rotation": [0,0,0]},
+        "material": {"color": "ff0000", "specular": 20, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 2,
+        "transform": {"position": [-4,2,-10], "direction": [0,0,0], "rotation": [0,0,0]},
+        "material": {"color": "00ff00", "specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "CYLINDER",
+        "radius": 3,
+        "transform": {"position": [5,0,3], "direction": [-5,7,1], "rotation": [0,0,0]},
+        "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
       }
     ]
   }

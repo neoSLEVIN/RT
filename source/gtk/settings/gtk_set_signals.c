@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 21:30:21 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 23:51:57 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 18:11:05 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static gboolean	wrapper(GtkWidget *button, GdkEventKey *event, gpointer data)
 void	gtk_set_signals(GTK_DATA *gtk)
 {
 	g_signal_connect(G_OBJECT(gtk->window), "key_press_event",
-		G_CALLBACK(check_escape), &gtk->img);
+		G_CALLBACK(check_escape), &gtk->rt);
 	g_signal_connect(G_OBJECT(gtk->button), "pressed",
-		G_CALLBACK(draw_image), &gtk->img);
+		G_CALLBACK(draw_image), &gtk->rt);
 	g_signal_connect(G_OBJECT(gtk->button), "key-press-event",
-		G_CALLBACK(wrapper), &gtk->img);
+		G_CALLBACK(wrapper), &gtk->rt);
 }

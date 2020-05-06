@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_gtk.c                                          :+:      :+:    :+:   */
+/*   v3_dot.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 21:06:05 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 22:13:20 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/07 00:22:43 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/07 00:23:13 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ocl_math.h"
 
-GTK_DATA	*new_gtk(t_scene *scene, t_ocl *ocl)
+cl_float	v3_dot(FLT3 v1, FLT3 v2)
 {
-	GTK_DATA	*gtk;
-
-	if ((gtk = g_slice_new(GTK_DATA)) == NULL)
-		ft_error("Can't allocate memory");
-	gtk->rt.scene = scene;
-	gtk->rt.ocl = ocl;
-	gtk_set_default_params(gtk);
-	gtk_set_main_window(gtk);
-	gtk_set_objects(gtk);
-	gtk_set_signals(gtk);
-	gtk_set_positions(gtk);
-	return (gtk);
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }

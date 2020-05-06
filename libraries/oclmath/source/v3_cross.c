@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_gtk.c                                          :+:      :+:    :+:   */
+/*   v3_cross.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 21:06:05 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 22:13:20 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/06 21:38:31 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/06 21:38:44 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ocl_math.h"
 
-GTK_DATA	*new_gtk(t_scene *scene, t_ocl *ocl)
+FLT3	v3_cross(FLT3 v1, FLT3 v2)
 {
-	GTK_DATA	*gtk;
+	FLT3	new_v;
 
-	if ((gtk = g_slice_new(GTK_DATA)) == NULL)
-		ft_error("Can't allocate memory");
-	gtk->rt.scene = scene;
-	gtk->rt.ocl = ocl;
-	gtk_set_default_params(gtk);
-	gtk_set_main_window(gtk);
-	gtk_set_objects(gtk);
-	gtk_set_signals(gtk);
-	gtk_set_positions(gtk);
-	return (gtk);
+	new_v.x = v1.y * v2.z - v1.z * v2.y;
+	new_v.y = v1.z * v2.x - v1.x * v2.z;
+	new_v.z = v1.x * v2.y - v1.y * v2.x;
+	return (new_v);
 }

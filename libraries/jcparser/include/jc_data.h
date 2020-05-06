@@ -6,14 +6,12 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/03 02:57:25 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/03 20:04:19 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 19:37:18 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef JC_DATA_H
 # define JC_DATA_H
-
-# define JCP_OBJ struct s_jcp_object
 
 /*
 ** =============================== Float limits ================================
@@ -50,6 +48,13 @@ typedef struct	s_jcp_value
 	char		empty;
 }				t_jcp_value;
 
+/*
+** =============================================================================
+** ========================== Main JC private entity ===========================
+ * == Contains all information about object like name, value, children, etc. ===
+** =============================================================================
+*/
+# define JCP_OBJ struct s_jcp_object
 struct			s_jcp_object
 {
 	t_jcp_name	name;

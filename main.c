@@ -25,7 +25,7 @@ int			main(int argc, char **argv)
 	(argc != 1) ? usage(argv[0]) : 0;
 	gtk_init(&argc, &argv);
 	gtk = new_gtk(new_scene(), new_ocl());
-	draw_image(NULL, &gtk->img);
+	draw_image(NULL, &gtk->rt);
 	gtk_widget_show_all(gtk->window);
 	gtk_main();
 	gtk_clear(&gtk);

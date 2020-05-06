@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 16:35:03 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 06:31:48 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 23:50:21 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,27 @@ static void	put_color_to_pixel(FLT3 color, guchar *pixel)
 
 void		draw_image(GtkWidget *button, gpointer data)
 {
-	IMG_DATA	*img;
-	int			row;
-	int			col;
+	RT_DATA	*rt;
+	int		row;
+	int		col;
 
-	img = (IMG_DATA*)data;
-	if (img->info.update_ocl)
-		set_params_cl(img->ocl, img->scene);
-	img->info.update_ocl = FALSE;
-	run_cl(img->ocl);
+	rt = (RT_DATA*)data;
+	if (rt->info.update_ocl)
+		setting_cl(rt->ocl, rt->scene);
+	rt->info.update_ocl = FALSE;
+	run_cl(rt->ocl);
 	row = -1;
-	while (++row < img->rows)
+	while (++row < rt->rows)
 	{
 		col = -1;
-		while (++col < img->cols)
-			put_color_to_pixel(img->ocl->dto.buffer[row * img->cols + col],
-					&img->buffer[row * img->stride + col * img->bpp]);
+		while (++col < rt->cols)
+			put_color_to_pixel(rt->ocl->dto.buffer[row * rt->cols + col],
+				&rt->buffer[row * rt->stride + col * rt->bpp]);
 	}
-//	test_ocl(img->ocl);
-	gtk_image_set_from_pixbuf(GTK_IMAGE(img->image), img->pixbuf);
+//	test_ocl(rt->ocl);
+	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->image), rt->pixbuf);
+	rt->scene->cam.transform.position.z += 0.5;
+	translate_cam(&rt->ocl->dto.cam, &rt->scene->cam);
+	int err = clSetKernelArg(rt->ocl->kernel, 4, sizeof(DTO_CAM), &(rt->ocl->dto.cam));
+	check_error_cl(err,"clSetKernelArg", "cam");
 }

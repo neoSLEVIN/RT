@@ -6,16 +6,11 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 00:29:45 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 05:58:45 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 20:41:18 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-float	degrees_to_rad(float angle_in_degrees)
-{
-	return ((angle_in_degrees * PI / 180.0) / 2);
-}
 
 static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 										SHAPE_TYPE type)

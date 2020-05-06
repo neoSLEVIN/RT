@@ -3,9 +3,16 @@ project(RT C)
 
 set(CMAKE_C_STANDARD 99)
 
+# ==============================================================================
+# ================================= Libraries ==================================
+# =========================== LIBFT JCPARSER OCLMATH ===========================
+# ==============================================================================
 set(LIBRARIES libraries)
 include_directories(${LIBRARIES})
 
+# ==============================================================================
+# =================================== LIBFT ====================================
+# ==============================================================================
 set(LIBFT ${LIBRARIES}/libft)
 include_directories(${LIBFT})
 
@@ -136,6 +143,9 @@ set(SRCNAME_LIBFTPRINTF
         libraries/libft/src/libftprintf/pft_cleaner.c
 )
 
+# ==============================================================================
+# ================================= JCPARSER ===================================
+# ==============================================================================
 set(JC_PARSER ${LIBRARIES}/jcparser)
 include_directories(${JC_PARSER})
 
@@ -177,6 +187,36 @@ set(SRCNAME_JC_PARSER
         libraries/jcparser/api/jc_additional_utils.c
 )
 
+# ==============================================================================
+# ================================== OCLMATH ===================================
+# ==============================================================================
+set(OCLMATH ${LIBRARIES}/oclmath)
+include_directories(${OCLMATH})
+
+set(OCLMATH_INC ${OCLMATH}/include)
+include_directories(${OCLMATH_INC})
+
+set(INCNAME_OCLMATH
+        libraries/oclmath/include/ocl_math.h
+)
+
+set(OCLMATH_SRC ${OCLMATH}/source)
+include_directories(${OCLMATH_SRC})
+
+set(SRCNAME_OCLMATH
+        libraries/oclmath/source/degrees_to_rad.c
+        libraries/oclmath/source/v3_length.c
+        libraries/oclmath/source/v3_add.c
+        libraries/oclmath/source/v3_sub.c
+        libraries/oclmath/source/v3_cross.c
+        libraries/oclmath/source/v3_scale.c
+        libraries/oclmath/source/v3_norm.c
+        libraries/oclmath/source/v3_length_sq.c libraries/oclmath/source/v3_dot.c libraries/oclmath/source/v3_rotate.c)
+
+# ==============================================================================
+# =============================== Project files ================================
+# ============================= GTK OPENCL PARSER ==============================
+# ==============================================================================
 set(RT_INC include)
 include_directories(${RT_INC})
 
@@ -184,8 +224,7 @@ set(INCNAME_RT
         include/ocl.h
         include/parser.h
         include/scene.h
-        include/gtk_module.h
-)
+        include/gtk_module.h)
 
 set(RT_SRC source)
 include_directories(${RT_SRC})
@@ -199,8 +238,11 @@ set(SRCNAME_OPEN_CL
         source/opencl/commands/init_ocl.c
         source/opencl/commands/create_cl.c
         source/opencl/commands/compile_cl.c
-        source/opencl/settings/set_params_cl.c
+        source/opencl/commands/setting_cl.c
         source/opencl/commands/run_cl.c
+        source/opencl/settings/translate_data.c
+        source/opencl/settings/set_memory.c
+        source/opencl/settings/set_kernel_args.c
 )
 
 set(PARSER_SRC ${RT_SRC}/parser)
@@ -233,7 +275,7 @@ set(SRCNAME_GTK
         source/gtk/settings/gtk_set_positions.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_default_params.c
-)
+        )
 
 add_executable(RT
         main.c
@@ -242,13 +284,18 @@ add_executable(RT
         ${SRCNAME_LIBFTPRINTF}
         ${INCNAME_JC_PARSER}
         ${SRCNAME_JC_PARSER}
+        ${INCNAME_OCLMATH}
+        ${SRCNAME_OCLMATH}
         ${INCNAME_RT}
         ${SRCNAME_GTK}
         ${SRCNAME_PARSER}
         ${SRCNAME_OPEN_CL}
 )
 
-foreach (CLKernelName "ray_tracing2")
+# ==============================================================================
+# ================================== KERNEL ====================================
+# ==============================================================================
+foreach (CLKernelName "ray_tracing")
     set (CLKernelSourceFile "kernel/${CLKernelName}.cl")
     configure_file (${CLKernelSourceFile}
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)

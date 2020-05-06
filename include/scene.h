@@ -6,63 +6,53 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 02:17:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 07:01:52 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 20:41:18 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SCENE_H
 # define SCENE_H
 
-# ifdef __APPLE__
-#  include "OpenCL/opencl.h"
-# else
-#  include "CL/cl.h"
-# endif
+# include "ocl_math.h"
 
 # define LIGHT_TYPE enum e_light_type
-# define SHAPE_TYPE enum e_shape_type
-# define DTO_LIGHT struct s_dto_light
-# define DTO_SHAPE struct s_dto_shape
-# define LIGHT struct s_light
-# define SHAPE struct s_shape
-# define TRANSFORM struct s_transform
-# define MATERIAL struct s_material
-# define FLT3 cl_float3
-# define PI 3.14159265359
-
-typedef enum	e_light_type
+enum			e_light_type
 {
 	AMBIENT,
 	POINT,
 	DIRECTION,
 	CNT_OF_TYPES_L
-}				t_light_type;
+};
 
-typedef enum	e_shape_type
+# define SHAPE_TYPE enum e_shape_type
+enum			e_shape_type
 {
 	PLANE,
 	SPHERE,
 	CONE,
 	CYLINDER,
 	CNT_OF_TYPES
-}				t_shape_type;
+};
 
-typedef struct	s_material
+# define MATERIAL struct s_material
+struct			s_material
 {
 	FLT3		color;
 	int			specular;
 	FLT3		emission;
 	cl_float	reflective;
 	cl_float	transparency;
-}				t_material;
+};
 
-typedef struct	s_transform
+# define TRANSFORM struct s_transform
+struct			s_transform
 {
 	FLT3		position;
 	FLT3		direction;
 	FLT3		rotation;
-}				t_transform;
+};
 
+# define DTO_LIGHT struct s_dto_light
 struct			s_dto_light
 {
 	LIGHT_TYPE	type;
@@ -73,12 +63,14 @@ struct			s_dto_light
 	int			marker;
 };
 
+# define LIGHT struct s_light
 struct			s_light
 {
 	DTO_LIGHT	dto;
 	LIGHT		*next;
 };
 
+# define DTO_SHAPE struct s_dto_shape
 struct			s_dto_shape
 {
 	SHAPE_TYPE	type;
@@ -89,6 +81,7 @@ struct			s_dto_shape
 	int			marker;
 };
 
+# define SHAPE struct s_shape
 struct			s_shape
 {
 	DTO_SHAPE	dto;
@@ -97,16 +90,6 @@ struct			s_shape
 
 typedef struct	s_camera
 {
-	cl_int		screen_w;
-	cl_int		screen_h;
-	cl_float	viewport_h;
-	cl_float	viewport_w;
-	FLT3		origin;
-	FLT3		target;
-	FLT3		forward;
-	FLT3		up;
-	FLT3		right;
-	FLT3		upguide;
 	TRANSFORM	transform;
 }				t_cam;
 

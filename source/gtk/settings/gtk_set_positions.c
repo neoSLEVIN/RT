@@ -15,7 +15,7 @@
 void	gtk_set_positions(GTK_DATA *gtk)
 {
 	gtk_container_add(GTK_CONTAINER(gtk->window), gtk->h_box);
-	gtk_box_pack_start(GTK_BOX(gtk->h_box), GTK_WIDGET(gtk->img.image),
+	gtk_box_pack_start(GTK_BOX(gtk->h_box), GTK_WIDGET(gtk->rt.image),
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(gtk->h_box), gtk->button, FALSE, FALSE, 0);
 }

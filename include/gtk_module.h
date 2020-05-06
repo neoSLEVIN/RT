@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:47:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/05 07:39:10 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 20:26:45 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "parser.h"
 # include "ocl.h"
 
-# define IMG_DATA struct s_image_data
-# define GTK_DATA struct s_gtk_data
-
+/*
+** ============= Additional info about keys, flags, etc for UI/UX ==============
+*/
 typedef struct	s_info
 {
 	_Bool		update_ocl;
@@ -31,7 +31,15 @@ typedef struct	s_info
 	double		mouse_y;
 }				t_info;
 
-struct			s_image_data
+/*
+** =============================================================================
+** ============================= Main information ==============================
+** ============= Send this entity to all signals, functions, etc. ==============
+** ========== Contains info about Scene, OpenCL data, Main GTK Image ===========
+** =============================================================================
+*/
+# define RT_DATA struct s_rt_data
+struct			s_rt_data
 {
 	GtkImage	*image;
 	GdkPixbuf	*pixbuf;
@@ -45,9 +53,16 @@ struct			s_image_data
 	int			stride;
 };
 
+/*
+** =============================================================================
+** ============================== Main GTK entity ==============================
+** ==== Contains information about Widgets, their settings and data for RT =====
+** =============================================================================
+*/
+# define GTK_DATA struct s_gtk_data
 struct			s_gtk_data
 {
-	IMG_DATA	img;
+	RT_DATA		rt;
 	GtkWidget	*window;
 	GdkGeometry	hints;
 	GtkWidget	*h_box;
