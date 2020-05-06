@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 01:48:16 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 07:29:55 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,53 +28,46 @@
 # define BUILD_OPTIONS_CL NULL
 # endif
 
-# define ROWS 500
-# define COLS 800
+# define ROWS 600
+# define COLS 1000
 # define GROUP_SIZE 64
 # define BYTES_PER_PIXEL 3
 
-# define KERNEL_FILE_SIZE 12000
+# define KERNEL_FILE_SIZE 13000
 /*
 ** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
 */
 # define KERNEL_FILE_CNT 1
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
-		"kernel/ray_tracing.cl"
+		"kernel/ray_tracing2.cl"
 };
 /*
 ** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
 */
-typedef struct			s_cl
+typedef struct			s_dto
 {
-	cl_mem				input_objects;
+	DTO_SHAPE			*shapes;
+	DTO_LIGHT			*lights;
+	cl_mem				input_shapes;
 	cl_mem				input_lights;
-	cl_mem				output_data;
 	cl_mem				input_seeds;
-	int					num_obj;
-	int					num_light;
-
-//	t_object			*objects;
-//	tcl_light			*lights;
-//	tcl_cam				cam;
-
-	cl_float3 			*test;
-//	t_rt				*temp_rt;
-}						t_cl;
+	cl_mem				output_data;
+	cl_float3			*buffer;
+}						t_dto;
 
 typedef struct			s_opencl
 {
 	cl_platform_id		platform;
-	cl_device_id		device_id;
+	cl_device_id		device;
 	cl_context			context;
-	cl_command_queue	command_queue;
+	cl_command_queue	queue;
 	char				*kernel_text;
 	size_t				kernel_size;
 	cl_program			program;
 	cl_kernel			kernel;
 	size_t				work_size;
 	size_t				group_size;
-	cl_mem				mem_obj[2];
-	cl_int				*mem[2];
+	t_dto				dto;
 }						t_ocl;
 
 /*
@@ -87,7 +80,7 @@ void					run_cl(t_ocl *ocl);
 /*
 ** ================================= Settings ==================================
 */
-void					set_params_cl(t_ocl *ocl);
+void					set_params_cl(t_ocl *ocl, t_scene *scene);
 /*
 ** =================================== Utils ===================================
 */

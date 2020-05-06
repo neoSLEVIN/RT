@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/04 00:29:45 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 02:48:25 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 05:58:45 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	shape_field = jc_get_field_idx(index, parent, JC_OBJ);
 	if((shape = (SHAPE*)malloc(sizeof(SHAPE))) == NULL)
 		ft_error("Can't allocate memory");
-	shape->uid = index;
-	shape->marker = FALSE;
 	shape->next = NULL;
-	shape->transform = parse_transform(shape_field, "transform");
-	shape->material = parse_material(shape_field, "material");
-	shape->type = parse_shape_type(shape_field, "type");
-	shape->param = parse_shape_param_by_type(shape_field, shape->type);
+	shape->dto.uid = index;
+	shape->dto.marker = FALSE;
+	shape->dto.transform = parse_transform(shape_field, "transform");
+	shape->dto.material = parse_material(shape_field, "material");
+	shape->dto.type = parse_shape_type(shape_field, "type");
+	shape->dto.param = parse_shape_param_by_type(shape_field, shape->dto.type);
 	return (shape);
 }
 

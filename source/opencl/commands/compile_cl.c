@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/01 15:44:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 01:31:57 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 06:53:27 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,16 @@ void	compile_cl(t_ocl *ocl)
 		(const char **)&ocl->kernel_text, (const size_t *)&ocl->kernel_size, &err);
 	check_error_cl(err, "clCreateProgramWithSource", NULL);
 	ft_strdel(&ocl->kernel_text);
-	err = clBuildProgram(ocl->program, 1, &ocl->device_id, options, NULL, NULL);
-	if (err != CL_SUCCESS)
-	{
-		clGetProgramBuildInfo(ocl->program, ocl->device_id,
-			CL_PROGRAM_BUILD_LOG, 1, NULL, &log_size);
-		if (!(log_str = (char*)malloc(log_size)))
-			ft_error("Can't allocate memory");
-		clGetProgramBuildInfo(ocl->program, ocl->device_id,
-			CL_PROGRAM_BUILD_LOG, log_size, log_str, NULL);
-		ft_error(log_str);
-	}
-	ocl->kernel = clCreateKernel(ocl->program, "ray_tracing", &err);
+	err = clBuildProgram(ocl->program, 1, &ocl->device, options, NULL, NULL);
+	clGetProgramBuildInfo(ocl->program, ocl->device,
+		CL_PROGRAM_BUILD_LOG, 1, NULL, &log_size);
+	if (!(log_str = (char*)malloc(log_size)))
+		ft_error("Can't allocate memory");
+	clGetProgramBuildInfo(ocl->program, ocl->device,
+		CL_PROGRAM_BUILD_LOG, log_size, log_str, NULL);
+	ft_putendl(log_str);
+	ft_strdel(&log_str);
+	check_error_cl(err, "clBuildProgram", NULL);
+	ocl->kernel = clCreateKernel(ocl->program, "render_kernel", &err);
 	check_error_cl(err, "clCreateKernel", NULL);
 }

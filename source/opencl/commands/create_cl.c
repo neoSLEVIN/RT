@@ -78,7 +78,7 @@ static void	get_device(t_ocl *ocl)
 
 	cnt = 0;
 	err = clGetDeviceIDs(ocl->platform, CL_DEVICE_TYPE_DEFAULT,
-			1, &ocl->device_id, &cnt);
+						 1, &ocl->device, &cnt);
 	check_error_cl(err, "clGetDeviceIDs", NULL);
 	devices = (cl_device_id*)malloc(sizeof(cl_device_id) * cnt);
 	if (!devices)
@@ -96,9 +96,9 @@ void		create_cl(t_ocl *ocl)
 
 	get_platform(ocl);
 	get_device(ocl);
-	ocl->context = clCreateContext(NULL, 1, &ocl->device_id, NULL, NULL, &err);
+	ocl->context = clCreateContext(NULL, 1, &ocl->device, NULL, NULL, &err);
 	check_error_cl(err, "clCreateContext", NULL);
-	ocl->command_queue = clCreateCommandQueueWithProperties(ocl->context,
-		ocl->device_id, NULL, &err);
+	ocl->queue = clCreateCommandQueueWithProperties(ocl->context,
+													ocl->device, NULL, &err);
 	check_error_cl(err, "clCreateCommandQueueWithProperties", NULL);
 }

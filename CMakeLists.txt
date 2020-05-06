@@ -248,7 +248,7 @@ add_executable(RT
         ${SRCNAME_OPEN_CL}
 )
 
-foreach (CLKernelName "ray_tracing")
+foreach (CLKernelName "ray_tracing2")
     set (CLKernelSourceFile "kernel/${CLKernelName}.cl")
     configure_file (${CLKernelSourceFile}
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)

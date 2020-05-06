@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/05 02:17:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 03:09:51 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/06 07:01:52 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 # define LIGHT_TYPE enum e_light_type
 # define SHAPE_TYPE enum e_shape_type
+# define DTO_LIGHT struct s_dto_light
+# define DTO_SHAPE struct s_dto_shape
 # define LIGHT struct s_light
 # define SHAPE struct s_shape
 # define TRANSFORM struct s_transform
@@ -47,9 +49,10 @@ typedef enum	e_shape_type
 typedef struct	s_material
 {
 	FLT3		color;
-	float		specular;
-	float		reflective;
-	float		transparency;
+	int			specular;
+	FLT3		emission;
+	cl_float	reflective;
+	cl_float	transparency;
 }				t_material;
 
 typedef struct	s_transform
@@ -59,40 +62,51 @@ typedef struct	s_transform
 	FLT3		rotation;
 }				t_transform;
 
-struct			s_light
+struct			s_dto_light
 {
-	int			uid;
-	_Bool		marker;
 	LIGHT_TYPE	type;
-	float		intensity;
+	cl_float	intensity;
 	FLT3		position;
 	FLT3		direction;
-	float		radius;
+	int			uid;
+	int			marker;
+};
+
+struct			s_light
+{
+	DTO_LIGHT	dto;
 	LIGHT		*next;
+};
+
+struct			s_dto_shape
+{
+	SHAPE_TYPE	type;
+	TRANSFORM	transform;
+	MATERIAL	material;
+	cl_float	param;
+	int			uid;
+	int			marker;
 };
 
 struct			s_shape
 {
-	int			uid;
-	_Bool		marker;
-	SHAPE_TYPE	type;
-	TRANSFORM	transform;
-	MATERIAL	material;
-	float		param;
+	DTO_SHAPE	dto;
 	SHAPE		*next;
 };
 
 typedef struct	s_camera
 {
-	TRANSFORM	transform;
-	float		h;
-	float		w;
+	cl_int		screen_w;
+	cl_int		screen_h;
+	cl_float	viewport_h;
+	cl_float	viewport_w;
 	FLT3		origin;
 	FLT3		target;
 	FLT3		forward;
 	FLT3		up;
 	FLT3		right;
 	FLT3		upguide;
+	TRANSFORM	transform;
 }				t_cam;
 
 typedef struct	s_scene
@@ -100,8 +114,8 @@ typedef struct	s_scene
 	t_cam		cam;
 	LIGHT		*lights;
 	SHAPE		*shapes;
-	size_t		l_cnt;
-	size_t		s_cnt;
+	int			l_cnt;
+	int			s_cnt;
 	LIGHT		*l_marker;
 	SHAPE		*s_marker;
 }				t_scene;
