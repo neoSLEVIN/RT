@@ -12,6 +12,11 @@
 
 #include "parser.h"
 
+float	degrees_to_rad(float angle_in_degrees)
+{
+	return ((angle_in_degrees * PI / 180.0) / 2);
+}
+
 static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 										SHAPE_TYPE type)
 {
@@ -32,6 +37,7 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 		if (param <= 0.0f || param >= 180.0f)
 			parse_error(jc_full_name(shape_field), "angle",
 				" Value must be in range (0.0; 180.0).");
+		param = degrees_to_rad(param);
 	}
 	else
 		ft_error("Unknown action");

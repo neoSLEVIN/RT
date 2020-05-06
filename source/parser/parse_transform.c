@@ -21,5 +21,6 @@ t_transform	parse_transform(const JC_FIELD parent, const char *child_name)
 	trans.position = parse_cl_float3(transform_field, "position");
 	trans.direction = parse_cl_float3(transform_field, "direction");
 	trans.rotation = parse_cl_float3(transform_field, "rotation");
+	trans.direction = v3_norm(trans.direction);
 	return (trans);
 }

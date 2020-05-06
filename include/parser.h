@@ -50,4 +50,6 @@ t_material	parse_material(const JC_FIELD parent, const char *child_name);
 void		parse_error(const char *parent_name, const char *child_name,
 						const char *cause);
 
+FLT3	v3_norm(FLT3 v);
+
 #endif

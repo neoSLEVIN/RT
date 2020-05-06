@@ -121,7 +121,10 @@ FLT3	v3_scale(FLT3 v, cl_float scale)
 
 FLT3	v3_norm(FLT3 v)
 {
-	return (v3_scale(v, 1.0 / v3_length(v)));
+	cl_float len = v3_length(v);
+	if (len > 0)
+		return (v3_scale(v, 1.0 / len));
+	return (cl_float3){0,0,0};
 }
 
 FLT3	v3_cross(FLT3 v1, FLT3 v2)
@@ -147,9 +150,9 @@ static void	init_camera(t_cam *cam)
 	upguide = (FLT3){0.0f, 1.0f, 0.0f};
 	cam->origin = cam->transform.position;
 	cam->target = cam->transform.direction;
-	cam->forward = (FLT3){cam->target.x + cam->origin.x,
-						  cam->target.y + cam->origin.y,
-						  cam->target.z + cam->origin.z};
+	cam->forward = (FLT3){cam->target.x - cam->origin.x,
+						  cam->target.y - cam->origin.y,
+						  cam->target.z - cam->origin.z};
 	cam->forward = v3_norm(cam->forward);
 	cam->right = v3_cross(cam->forward, upguide);
 	if (v3_length(cam->right) < 0.0000001f)

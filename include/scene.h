@@ -28,6 +28,7 @@
 # define TRANSFORM struct s_transform
 # define MATERIAL struct s_material
 # define FLT3 cl_float3
+# define PI 3.14159265359
 
 typedef enum	e_light_type
 {
