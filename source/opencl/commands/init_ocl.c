@@ -46,7 +46,7 @@ void		init_ocl(t_ocl *ocl)
 	ocl->dto.input_lights = NULL;
 	ocl->dto.input_seeds = NULL;
 	ocl->dto.output_data = NULL;
-	ocl->dto.buffer = (FLT3*)malloc(sizeof(FLT3) * ocl->work_size);
+	ocl->dto.buffer = (cl_char4*)malloc(sizeof(cl_char4) * ocl->work_size);
 	if (!ocl->dto.buffer)
 		ft_error("Can't allocate memory");
 }

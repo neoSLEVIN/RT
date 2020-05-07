@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-void	gtk_set_main_window(GTK_DATA *gtk)
+void	gtk_set_main_window(t_gtk *gtk)
 {
 	gtk->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(gtk->window), "RT");

@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   update_cam.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 16:35:03 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/07 05:19:11 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/07 05:10:50 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/07 05:11:17 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-void	draw_image(t_rt *rt)
+void	update_cam(t_rt *rt)
 {
-	run_cl(rt->ocl);
-	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->image), rt->gtk->pixbuf);
+	int	err;
+
+	translate_cam(&rt->ocl->dto.cam, &rt->scene->cam);
+	err = clSetKernelArg(rt->ocl->kernel, 4, sizeof(DTO_CAM),
+						&(rt->ocl->dto.cam));
+	check_error_cl(err,"clSetKernelArg", "cam");
 }

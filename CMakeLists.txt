@@ -271,14 +271,14 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/new_scene.c
         source/gtk/utils/cleaner.c
-        source/gtk/utils/gtk_clear.c
+        source/gtk/utils/clear_rt.c
         source/gtk/actions/draw_image.c
         source/gtk/settings/gtk_set_objects.c
         source/gtk/settings/gtk_set_signals.c
         source/gtk/settings/gtk_set_positions.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_default_params.c
-        )
+        source/gtk/utils/init_info.c source/gtk/actions/update_cam.c)
 
 add_executable(RT
         main.c

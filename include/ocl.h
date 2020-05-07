@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/07 02:35:07 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/07 05:30:03 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@
 #  define ROWS 200
 # endif
 
-# define BYTES_PER_PIXEL 3
 # define GROUP_SIZE 64
 
 /*
