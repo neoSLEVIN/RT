@@ -417,7 +417,8 @@ float3 reflect(float3 rayDir, float3 targetNormal) {
 
 
 float3 refract(t_ray *ray) {
-	float ior = 1.5f;
+	/*cтепень преломления - воздух - 1 стекло - 1.5*/
+	float ior = 1.0f;
 	float eta;
 	float3 hitNormal = ray->hitNormal;
 	bool inside = dot(ray->dir, hitNormal) > 0;
@@ -434,6 +435,99 @@ float3 refract(t_ray *ray) {
 	refDir = normalize(refDir);
 	return refDir;
 }
+
+/*Меняет внутри луч*/
+float3 continue_reflect_ray(t_ray *ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+	ray->dir = reflect(ray->dir, ray->hitNormal);
+	ray->origin = ray->hitPoint + (ray->hitNormal * 0.01f);
+	return send_ray(ray, objects, num_obj, lights, num_light);
+}
+
+float3 reflect_ray(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+	ray.dir = reflect(ray.dir, ray.hitNormal);
+	ray.origin = ray.hitPoint + (ray.hitNormal * 0.01f);
+	return send_ray(&ray, objects, num_obj, lights, num_light);
+}
+
+float3 continue_refract_ray(t_ray *ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+	
+	int maxBounds = 3;
+	int oldHit_id = ray->hit_id;
+	
+	while (oldHit_id == ray->hit_id && maxBounds != 0) {
+		ray->dir = refract(ray);
+		ray->origin = ray->hitPoint + ray->dir * 0.1f;
+
+		if (!is_intersect(ray, objects, num_obj, &(ray->hit_id), &(ray->t))) {
+			break;
+		}
+		
+		t_object obj = objects[ray->hit_id];
+		ray->hitPoint = ray->origin + ray->t * ray->dir;
+		ray->hitNormal = get_normal(&obj, ray);
+		maxBounds--;
+	}
+	
+	float3 trans_color = 0;
+	if (ray->hit_id > 0) {
+		trans_color = objects[ray->hit_id].material.color * get_light_intensity(ray, objects, num_obj, lights, num_light);
+	}
+	return trans_color;
+}
+
+/**/
+float3 go_reflect(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+	
+	float3 finalColor = 0;
+	
+	/*цвет первого отраженного объекта*/
+	finalColor = continue_reflect_ray(&ray, objects, num_obj, lights, num_light);
+	
+	/*простой объект*/
+	if (objects[ray.hit_id].material.transparency == 0 && objects[ray.hit_id].material.reflective == 0) {
+		return finalColor;
+	}
+	 
+	/*объект отражает*/
+	float ref = objects[ray.hit_id].material.reflective;
+	if (ref > 0) {
+		finalColor = finalColor * (1.0f - ref) + reflect_ray(ray, objects, num_obj, lights, num_light) * ref;
+	}
+	 
+	/*объект обладает прозрачностью*/
+	float trans = objects[ray.hit_id].material.transparency;
+	if (trans > 0) {
+		finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&ray, objects, num_obj, lights, num_light) * trans;
+	}
+	
+	return finalColor;
+}
+
+float3 go_refract(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+	
+	float3 finalColor = 0;
+	
+	
+	finalColor = continue_refract_ray(&ray, objects, num_obj, lights, num_light);
+	
+	if (objects[ray.hit_id].material.transparency == 0 && objects[ray.hit_id].material.reflective == 0) {
+		return finalColor;
+	}
+	
+	float ref = objects[ray.hit_id].material.reflective;
+	if (ref > 0) {
+		finalColor = finalColor * (1.0f - ref) + go_reflect(ray, objects, num_obj, lights, num_light) * ref;
+	}
+	
+	/*объект обладает прозрачностью*/
+	float trans = objects[ray.hit_id].material.transparency;
+	if (trans > 0) {
+		finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&ray, objects, num_obj, lights, num_light) * trans;
+	}
+	
+	return finalColor;
+}
+
 
 __kernel void render_kernel(__global t_object *objects,
 							int num_obj,
@@ -460,43 +554,24 @@ __kernel void render_kernel(__global t_object *objects,
 
 		if (ray.hit_id >= 0) {
 			float ref = objects[ray.hit_id].material.reflective;
-			if (ref > 0) {
-				t_ray ray1 = ray;
-				ray1.hit_id = -1;
-				ray1.dir = reflect(ray.dir, ray.hitNormal);
-				ray1.origin = ray.hitPoint + (ray.hitNormal * 0.01f);
-				float3 objCol = objects[ray.hit_id].material.color;
-				finalColor += finalColor1 * (1.0f - ref) + send_ray(&ray1, objects, num_obj, lights, num_light) * ref;
-
-			} else if (objects[ray.hit_id].material.transparency > 0) {
-
-				t_ray ray2;
-				ray2 = ray;
-				int maxBounds = 5;
-				while (objects[ray2.hit_id].material.transparency > 0 && maxBounds != 0) {
-
-					ray2.dir = refract(&ray2);
-					ray2.origin = ray2.hitPoint + ray2.dir * 0.1f;
-
-					if (!is_intersect(&ray2, objects, num_obj, &(ray2.hit_id), &(ray2.t))) {
-						finalColor = 0;
-						break;
-					}
-					t_object obj = objects[ray2.hit_id];
-					ray2.hitPoint = ray2.origin + ray2.t * ray2.dir;
-					ray2.hitNormal = get_normal(&obj, &ray2);
-
-
-					maxBounds--;
-				}
-
-
-				float intensity = get_light_intensity(&ray2, objects, num_obj, lights, num_light);
-				finalColor += objects[ray2.hit_id].material.color * intensity;
-
-
-			} else {
+			float trans = objects[ray.hit_id].material.transparency;
+			
+			if (ref == 0 && trans == 0) {
 				finalColor += finalColor1;
+			} else {
+				
+				if (ref > 0) {
+					
+					finalColor += finalColor1 * (1.0f - ref) + go_reflect(ray, objects, num_obj, lights, num_light) * ref;
+					
+				}
+				
+				if (trans > 0) {
+					
+					finalColor += finalColor1 * (1.0f - trans) + go_refract(ray, objects, num_obj, lights, num_light) * trans;
+
+				}
+				
 			}
 		}
 
