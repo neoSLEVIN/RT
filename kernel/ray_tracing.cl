@@ -270,6 +270,21 @@ bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, 
 }
 
 
+float3 get_obj_color(t_object *obj, t_ray *ray) {
+	float3 color;
+	if (obj->type == PLANE) {
+		float sines = sin(ray->hitPoint.x) * sin(ray->hitPoint.y) * sin(ray->hitPoint.z);
+		if (sines < 0) {
+			color = obj->material.color;
+		} else {
+			color = 1.0f;
+		}
+	} else {
+		color = obj->material.color;
+	}
+	return color;
+}
+
 
 float3 send_ray(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light) {
 
@@ -287,7 +302,7 @@ float3 send_ray(t_ray *ray, __global t_object *obj, int num_obj, __global t_ligh
 	ray->hitNormal = get_normal(&hit_obj, ray);
 	ray->hit_id = hit_id;
 	intensity = get_light_intensity(ray, obj, num_obj, lights, num_light);
-	resColor = obj[hit_id].material.color * intensity;
+	resColor = get_obj_color(&hit_obj, ray) * intensity;
 	return resColor;
 }
 
@@ -470,7 +485,8 @@ float3 continue_refract_ray(t_ray *ray, __global t_object *objects, int num_obj,
 	
 	float3 trans_color = 0;
 	if (ray->hit_id > 0) {
-		trans_color = objects[ray->hit_id].material.color * get_light_intensity(ray, objects, num_obj, lights, num_light);
+		t_object obj = objects[ray->hit_id];
+		trans_color = get_obj_color(&(obj), ray) * get_light_intensity(ray, objects, num_obj, lights, num_light);
 	}
 	return trans_color;
 }
