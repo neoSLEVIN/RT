@@ -35,7 +35,8 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 		rotate_cam(rt, event->keyval);
 	else
 		return (FALSE);
-	return (FALSE);
+	rt->info->update = TRUE;
+	return (TRUE);
 }
 
 gboolean	release_key_on_window(GtkWidget *window, GdkEventKey *event,

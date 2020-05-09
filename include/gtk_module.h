@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 20:08:02 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/09 20:16:52 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 */
 typedef struct	s_info
 {
+	_Bool		update;
 	int			holders_cnt;
 	_Bool		w_key;
 	_Bool		s_key;

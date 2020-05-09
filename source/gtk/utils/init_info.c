@@ -16,6 +16,7 @@ void	init_info(t_info **info)
 {
 	if (!(*info = (t_info*)malloc(sizeof(t_info))))
 		ft_error("Can't allocate memory");
+	(*info)->update = TRUE;
 	(*info)->holders_cnt = 0;
 	(*info)->w_key = FALSE;
 	(*info)->s_key = FALSE;

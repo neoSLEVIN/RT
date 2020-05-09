@@ -33,8 +33,9 @@ static int		draw_by_timeout(gpointer data)
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	if (rt->info->holders_cnt != 0)
+	if (rt->info->holders_cnt != 0 || rt->info->update == TRUE)
 	{
+		rt->info->update = FALSE;
 		make_action(rt);
 		draw_image(rt);
 	}
