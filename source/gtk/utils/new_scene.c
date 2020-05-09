@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 14:45:28 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/04 22:22:05 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ static gchar	*get_file_name_of_scene(void)
 	return (filename);
 }
 
-t_scene			*new_scene(void)
+SCENE			*new_scene(void)
 {
 	gchar	*filename;
-	t_scene	*scene;
+	SCENE	*scene;
 
 	filename = get_file_name_of_scene();
 	scene = parse_scene(filename);

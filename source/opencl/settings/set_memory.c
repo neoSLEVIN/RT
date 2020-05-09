@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 21:17:03 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/07 01:25:47 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_memory_output(t_ocl *ocl)
 	check_error_cl(err,"clCreateBuffer", "output_data");
 }
 
-void	set_memory_input(t_ocl *ocl, t_scene *scene)
+void	set_memory_input(t_ocl *ocl, SCENE *scene)
 {
 	cl_int	err;
 

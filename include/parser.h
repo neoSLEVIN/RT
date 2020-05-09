@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/04 21:24:23 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 20:11:24 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 /*
 ** ========================== Parse main Scene entity ==========================
 */
-t_scene		*parse_scene(const char *file_name);
+SCENE		*parse_scene(const char *file_name);
 /*
 ** =============================== Parse camera ================================
 */
-t_cam		parse_camera(const JC_FIELD parent, const char *child_name);
+CAMERA		parse_camera(const JC_FIELD parent, const char *child_name);
 /*
 ** =============================== Parse shapes ================================
 */

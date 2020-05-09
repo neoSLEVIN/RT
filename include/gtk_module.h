@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/10 22:47:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 14:21:24 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct	s_info
 	guint		key;
 	double		mouse_x;
 	double		mouse_y;
+	LIGHT		*l_marker;
+	SHAPE		*s_marker;
 }				t_info;
 
 /*
@@ -57,7 +59,7 @@ typedef struct	s_gtk_data
 */
 typedef struct	s_rt_data
 {
-	t_scene		*scene;
+	SCENE		*scene;
 	t_ocl		*ocl;
 	t_info		info;
 	t_gtk		*gtk;
@@ -79,7 +81,7 @@ void			update_cam(t_rt *rt);
 /*
 ** =================================== Utils ===================================
 */
-t_scene			*new_scene(void);
+SCENE			*new_scene(void);
 void			new_gtk(t_rt *rt);
 void			init_info(t_info *info);
 void			clear_rt(t_rt *rt);

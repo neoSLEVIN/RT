@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/01 15:48:36 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 21:46:00 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
-void	setting_cl(t_ocl *ocl, t_scene *scene)
+void	setting_cl(t_ocl *ocl, SCENE *scene)
 {
 	translate_cam(&ocl->dto.cam, &scene->cam);
 	translate_shapes(&ocl->dto.shapes, scene->shapes, scene->s_cnt);

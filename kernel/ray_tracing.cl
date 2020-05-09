@@ -38,7 +38,7 @@ typedef struct			s_cam
 	float3				up;
 	float3				right;
 	float3				upguide;
-}						t_cam;
+}						CAMERA;
 
 
 typedef struct			s_ray
@@ -81,7 +81,7 @@ typedef struct			s_object
 }						t_object;
 
 
-void 		init_ray(t_ray *ray, t_cam *cam, int work_id, float rand);
+void 		init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
 float		sphere_intersect(t_ray *ray, t_object *sphere);
 float 		get_light_intensity(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light);
 
@@ -307,7 +307,7 @@ float3 send_ray(t_ray *ray, __global t_object *obj, int num_obj, __global t_ligh
 }
 
 
-void init_ray(t_ray *ray, t_cam *cam, int work_id, float rand)
+void init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand)
 {
 
 	ray->origin = cam->origin;
@@ -549,7 +549,7 @@ __kernel void render_kernel(__global t_object *objects,
 							int num_obj,
 							__global t_light *lights,
 							int num_light,
-							t_cam cam,
+							CAMERA cam,
 							__global char4* output,
 							__global unsigned int *seedsInput)
 {

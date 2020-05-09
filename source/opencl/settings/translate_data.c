@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/06 21:13:16 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 21:43:03 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
-void	translate_cam(DTO_CAM *dto, t_cam *cam)
+void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 {
 	dto->upguide = (FLT3){0.0f, 1.0f, 0.0f};
 	dto->origin = cam->transform.position;

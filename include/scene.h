@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/05 02:17:10 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 20:41:18 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ struct			s_dto_light
 	cl_float	intensity;
 	FLT3		position;
 	FLT3		direction;
-	int			uid;
 	int			marker;
 };
 
@@ -77,7 +76,6 @@ struct			s_dto_shape
 	TRANSFORM	transform;
 	MATERIAL	material;
 	cl_float	param;
-	int			uid;
 	int			marker;
 };
 
@@ -88,20 +86,20 @@ struct			s_shape
 	SHAPE		*next;
 };
 
-typedef struct	s_camera
+# define CAMERA struct s_camera
+struct			s_camera
 {
 	TRANSFORM	transform;
-}				t_cam;
+};
 
-typedef struct	s_scene
+# define SCENE struct s_scene
+struct			s_scene
 {
-	t_cam		cam;
+	CAMERA		cam;
 	LIGHT		*lights;
 	SHAPE		*shapes;
 	int			l_cnt;
 	int			s_cnt;
-	LIGHT		*l_marker;
-	SHAPE		*s_marker;
-}				t_scene;
+};
 
 #endif

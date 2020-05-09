@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/29 17:43:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/07 06:52:43 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:40:16 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,29 @@
 
 /*
 ** =============================================================================
+** =================== Adding absolute path for xcode users ====================
+** =============================================================================
+*/
+# if __APPLE__
+#  define AUTHOR 1
+#  if AUTHOR == 1
+#   define ABSOLUTE_PATH "bla_bla_bla/path/to/Dima's_project/dir/kernel/"
+#  else
+#   define ABSOLUTE_PATH "bla_bla_bla/path/to/Kostya's_project/dir/kernel/"
+#  endif
+# else
+#  define ABSOLUTE_PATH "kernel/"
+# endif
+
+/*
+** =============================================================================
 ** =========================== Listing Kernel files ============================
 ** =============================================================================
 */
 # define KERNEL_FILE_SIZE 26000
 # define KERNEL_FILE_CNT 1
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
-		"kernel/ray_tracing.cl"
+		ABSOLUTE_PATH"ray_tracing.cl"
 };
 /*
 ** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
@@ -141,18 +157,18 @@ typedef struct			s_opencl
 void					init_ocl(t_ocl *ocl);
 void					create_cl(t_ocl *ocl);
 void					compile_cl(t_ocl *ocl);
-void					setting_cl(t_ocl *ocl, t_scene *scene);
+void					setting_cl(t_ocl *ocl, SCENE *scene);
 void					run_cl(t_ocl *ocl);
 /*
 ** ================================= Settings ==================================
 */
-void					translate_cam(DTO_CAM *dto, t_cam *cam);
+void					translate_cam(DTO_CAM *dto, CAMERA *cam);
 void					translate_shapes(DTO_SHAPE **dto, SHAPE *shape,
 								int cnt);
 void					translate_lights(DTO_LIGHT **dto, LIGHT *light,
 								int cnt);
 void					set_memory_output(t_ocl *ocl);
-void					set_memory_input(t_ocl *ocl, t_scene *scene);
+void					set_memory_input(t_ocl *ocl, SCENE *scene);
 void					set_kernel_args(cl_kernel kernel, t_dto *dto);
 /*
 ** =================================== Utils ===================================

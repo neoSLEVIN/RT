@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 00:29:45 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 20:41:18 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	if((shape = (SHAPE*)malloc(sizeof(SHAPE))) == NULL)
 		ft_error("Can't allocate memory");
 	shape->next = NULL;
-	shape->dto.uid = index;
 	shape->dto.marker = FALSE;
 	shape->dto.transform = parse_transform(shape_field, "transform");
 	shape->dto.material = parse_material(shape_field, "material");

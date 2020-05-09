@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 00:49:31 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/06 04:15:41 by cschoen          ###   ########lyon.fr   */
+/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const int index)
 	if((light = (LIGHT*)malloc(sizeof(LIGHT))) == NULL)
 		ft_error("Can't allocate memory");
 	light->next = NULL;
-	light->dto.uid = index;
 	light->dto.marker = FALSE;
 	light->dto.type = parse_light_type(light_field, "type");
 	light->dto.intensity = jc_get_float(light_field, "intensity");
