@@ -298,7 +298,18 @@ add_executable(RT
 # ==============================================================================
 # ================================== KERNEL ====================================
 # ==============================================================================
-foreach (CLKernelName "ray_tracing")
+foreach (CLKernelName
+        "include"
+        "normals"
+        "intersections"
+        "light"
+        "random"
+        "reflect"
+        "refract"
+        "color"
+        "ray"
+        "ray_tracing"
+)
     set (CLKernelSourceFile "kernel/${CLKernelName}.cl")
     configure_file (${CLKernelSourceFile}
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)
