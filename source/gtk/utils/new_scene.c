@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/09 16:39:25 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,11 @@ static gchar	*get_file_name_of_scene(void)
 	return (filename);
 }
 
-SCENE			*new_scene(void)
+void			new_scene(SCENE **scene)
 {
 	gchar	*filename;
-	SCENE	*scene;
 
 	filename = get_file_name_of_scene();
-	scene = parse_scene(filename);
+	*scene = parse_scene(filename);
 	g_free(filename);
-	return (scene);
 }

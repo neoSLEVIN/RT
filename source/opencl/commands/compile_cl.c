@@ -36,7 +36,7 @@ static void	get_kernel_text(char **kernel_text, size_t *kernel_size)
 	}
 }
 
-void	compile_cl(t_ocl *ocl)
+void		compile_cl(t_ocl *ocl)
 {
 	int		err;
 	char	*options;

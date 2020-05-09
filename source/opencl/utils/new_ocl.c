@@ -12,18 +12,15 @@
 
 #include "ocl.h"
 
-t_ocl	*new_ocl(void)
+void	new_ocl(t_ocl **ocl)
 {
-	t_ocl	*ocl;
-
-	if (!(ocl = (t_ocl*)malloc(sizeof(t_ocl))))
+	if (!(*ocl = (t_ocl*)malloc(sizeof(t_ocl))))
 		ft_error("Can't allocate memory");
 	ft_printf("%{}s\n", FT_YELLOW, "(0%) OpenCL: Initialization");
-	init_ocl(ocl);
+	init_ocl(*ocl);
 	ft_printf("%{}s\n", FT_YELLOW, "(33%) OpenCL: Getting data");
-	create_cl(ocl);
+	create_cl(*ocl);
 	ft_printf("%{}s\n", FT_YELLOW, "(66%) OpenCL: Compiling");
-	compile_cl(ocl);
+	compile_cl(*ocl);
 	ft_printf("%{}s\n", FT_GREEN, "(100%) OpenCL: All done");
-	return (ocl);
 }

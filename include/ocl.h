@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:40:16 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/09 19:26:49 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "scene.h"
 
 # ifdef __APPLE__
-# define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
-# define CREATE_QUEUE(ctxt, dev, prop, err) \
+#  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
+#  define CREATE_QUEUE(ctxt, dev, prop, err) \
 	clCreateCommandQueue(ctxt, dev, prop, err)
 # else
-# define BUILD_OPTIONS_CL NULL
-# define CREATE_QUEUE(ctxt, dev, prop, err) \
+#  define BUILD_OPTIONS_CL NULL
+#  define CREATE_QUEUE(ctxt, dev, prop, err) \
 	clCreateCommandQueueWithProperties(ctxt, dev, prop, err)
 # endif
 
@@ -33,36 +33,43 @@
 ** # elif GTK_IMAGE_SIZE == (X)
 ** #  define COLS (WIDTH)
 ** #  define ROWS (HEIGHT)
+** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
 # define GTK_IMAGE_SIZE 0
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
+#  define FPS 1.22
 # elif GTK_IMAGE_SIZE == 2
 #  define COLS 1440
 #  define ROWS 960
+#  define FPS 1.16
 # elif GTK_IMAGE_SIZE == 3
 #  define COLS 1024
 #  define ROWS 768
+#  define FPS 2.04
 # elif GTK_IMAGE_SIZE == 4
 #  define COLS 800
 #  define ROWS 600
+#  define FPS 3.33
 # elif GTK_IMAGE_SIZE == 5
 #  define COLS 640
 #  define ROWS 480
+#  define FPS 5.2
 # else
 #  define COLS 320
 #  define ROWS 200
+#  define FPS 25
 # endif
 
 # define GROUP_SIZE 64
-
 /*
 ** =============================================================================
 ** =================== Adding absolute path for xcode users ====================
 ** =============================================================================
 */
+// TODO fix that when delete CMake
 # if __APPLE__
 #  define AUTHOR 1
 #  if AUTHOR == 1
@@ -173,7 +180,7 @@ void					set_kernel_args(cl_kernel kernel, t_dto *dto);
 /*
 ** =================================== Utils ===================================
 */
-t_ocl					*new_ocl(void);
+void					new_ocl(t_ocl **ocl);
 void					check_error_cl(const int num, const char *message,
 								char *path);
 

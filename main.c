@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/09 16:39:25 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int			main(int argc, char **argv)
 
 	(argc != 1) ? usage(argv[0]) : 0;
 	gtk_init(&argc, &argv);
-	rt.ocl = new_ocl();
-	rt.scene = new_scene();
-	new_gtk(&rt);
 	init_info(&rt.info);
+	new_ocl(&rt.ocl);
+	new_scene(&rt.scene);
+	new_gtk(&rt);
 	setting_cl(rt.ocl, rt.scene);
 	draw_image(&rt);
 	gtk_widget_show_all(rt.gtk->window);

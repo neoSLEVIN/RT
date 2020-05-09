@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_info.c                                        :+:      :+:    :+:   */
+/*   escape_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 19:53:53 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/09 19:55:26 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/09 19:55:26 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-void	init_info(t_info **info)
+gboolean	escape_window(GtkWidget *window, GdkEventKey *event, gpointer data)
 {
-	if (!(*info = (t_info*)malloc(sizeof(t_info))))
-		ft_error("Can't allocate memory");
-	(*info)->holders_cnt = 0;
-	(*info)->w_key = FALSE;
-	(*info)->s_key = FALSE;
-	(*info)->a_key = FALSE;
-	(*info)->d_key = FALSE;
-	(*info)->q_key = FALSE;
-	(*info)->e_key = FALSE;
-	(*info)->mouse_x = -1;
-	(*info)->mouse_y = -1;
-	(*info)->key = 0;
-	(*info)->l_marker = NULL;
-	(*info)->s_marker = NULL;
+	if (event->keyval == GDK_KEY_Escape)
+	{
+		gtk_main_quit();
+		return (TRUE);
+	}
+	return (FALSE);
 }

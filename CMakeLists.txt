@@ -278,7 +278,7 @@ set(SRCNAME_GTK
         source/gtk/settings/gtk_set_positions.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_default_params.c
-        source/gtk/utils/init_info.c source/gtk/actions/update_cam.c)
+        source/gtk/utils/init_info.c source/gtk/actions/update_cam.c source/gtk/actions/holders_cnt.c source/gtk/signals/escape_window.c source/gtk/signals/key_on_window.c source/gtk/signals/button_on_image_event_box.c)
 
 add_executable(RT
         main.c
