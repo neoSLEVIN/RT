@@ -63,7 +63,7 @@
 ** =========================== Listing Kernel files ============================
 ** =============================================================================
 */
-# define KERNEL_FILE_SIZE 13000
+# define KERNEL_FILE_SIZE 26000
 # define KERNEL_FILE_CNT 1
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		"kernel/ray_tracing.cl"

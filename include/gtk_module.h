@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:47:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/07 05:10:48 by cschoen          ###   ########lyon.fr   */
+/*   Updated: 2020/05/09 14:21:24 by cschoen          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 */
 typedef struct	s_info
 {
+	_Bool		update;
 	guint		key;
 	double		mouse_x;
 	double		mouse_y;
