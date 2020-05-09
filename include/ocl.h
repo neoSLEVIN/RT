@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 2
+# define GTK_IMAGE_SIZE 3
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -71,12 +71,7 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define AUTHOR 1
-#  if AUTHOR == 1
-#   define ABSOLUTE_PATH "bla_bla_bla/path/to/Dima's_project/dir/kernel/"
-#  else
-#   define ABSOLUTE_PATH "bla_bla_bla/path/to/Kostya's_project/dir/kernel/"
-#  endif
+#  define ABSOLUTE_PATH PROJECT_DIR
 # else
 #  define ABSOLUTE_PATH "kernel/"
 # endif
@@ -86,9 +81,18 @@
 ** =========================== Listing Kernel files ============================
 ** =============================================================================
 */
-# define KERNEL_FILE_SIZE 26000
-# define KERNEL_FILE_CNT 1
+# define KERNEL_FILE_SIZE 13000
+# define KERNEL_FILE_CNT 10
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
+		ABSOLUTE_PATH"include.cl",
+		ABSOLUTE_PATH"normals.cl",
+		ABSOLUTE_PATH"intersections.cl",
+		ABSOLUTE_PATH"light.cl",
+		ABSOLUTE_PATH"random.cl",
+		ABSOLUTE_PATH"reflect.cl",
+		ABSOLUTE_PATH"refract.cl",
+		ABSOLUTE_PATH"color.cl",
+		ABSOLUTE_PATH"ray.cl",
 		ABSOLUTE_PATH"ray_tracing.cl"
 };
 /*
