@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 02:08:46 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 07:24:12 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key, rt);
 	else if (event->keyval == 'e')
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key, rt);
-	else if (event->keyval == GDK_KEY_KP_2 || event->keyval == GDK_KEY_KP_4 ||
-			event->keyval == GDK_KEY_KP_6 || event->keyval == GDK_KEY_KP_8)
-		rotate_cam(rt, event->keyval);
+	else if (event->keyval == GDK_KEY_KP_2)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_2, rt);
+	else if (event->keyval == GDK_KEY_KP_4)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_4, rt);
+	else if (event->keyval == GDK_KEY_KP_6)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_6, rt);
+	else if (event->keyval == GDK_KEY_KP_8)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_8, rt);
 	else
 		return (FALSE);
 	rt->info->update = TRUE;
@@ -57,9 +62,14 @@ gboolean	release_key_on_window(GtkWidget *window, GdkEventKey *event,
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key);
 	else if (event->keyval == 'e')
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key);
-	else if (event->keyval == GDK_KEY_KP_2 || event->keyval == GDK_KEY_KP_4 ||
-			event->keyval == GDK_KEY_KP_6 || event->keyval == GDK_KEY_KP_8)
-		rotate_cam(rt, event->keyval);
+	else if (event->keyval == GDK_KEY_KP_2)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_2);
+	else if (event->keyval == GDK_KEY_KP_4)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_4);
+	else if (event->keyval == GDK_KEY_KP_6)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_6);
+	else if (event->keyval == GDK_KEY_KP_8)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_8);
 	else
 		return (FALSE);
 	return (TRUE);

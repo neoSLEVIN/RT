@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 04:49:05 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 07:15:08 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ typedef struct	s_info
 	_Bool		d_key;
 	_Bool		q_key;
 	_Bool		e_key;
+	_Bool		num_2;
+	_Bool		num_4;
+	_Bool		num_6;
+	_Bool		num_8;
 	double		mouse_x;
 	double		mouse_y;
 	guint		key;
@@ -55,12 +59,16 @@ typedef struct	s_info
 typedef struct	s_gtk_data
 {
 	GtkWidget	*window;
-	GdkGeometry	hints;
 	GtkWidget	*h_box;
 	GtkWidget	*image_event_box;
 	GtkImage	*image;
 	GdkPixbuf	*pixbuf;
 	guchar		*buffer;
+	GtkWidget	*ui_v_box;
+	GtkWidget	*fps_h_box;
+	GtkWidget	*fps_label;
+	GtkAdjustment	*fps_adj;
+	GtkWidget	*fps_scale;
 	GtkWidget	*button;
 	guint		timeout_id;
 }				t_gtk;
@@ -83,9 +91,8 @@ typedef struct	s_rt_data
 /*
 ** ================================= Settings ==================================
 */
-void			gtk_set_default_params(t_gtk *gtk);
 void			gtk_set_main_window(t_gtk *gtk);
-void			gtk_set_objects(t_gtk *gtk, cl_char4 *dto_buffer);
+void			gtk_set_objects(t_gtk *gtk, t_rt *rt);
 void			gtk_set_signals(t_rt *rt);
 void			gtk_set_positions(t_gtk *gtk);
 /*
@@ -101,8 +108,7 @@ gboolean		press_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
 gboolean		release_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
-gboolean		change_fps(GtkWidget *window, GdkEventKey *event,
-									gpointer data);
+void			fps_scale_moved(GtkRange *range, gpointer data);
 /*
 ** ================================== Actions ==================================
 */

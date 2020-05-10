@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 04:25:44 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 04:29:43 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	get_device_info(cl_device_id *device, int cnt)
 		err = clGetDeviceInfo(device[cnt], CL_DEVICE_NAME, 1, NULL, &size_str);
 		if (err != CL_SUCCESS)
 		{
-			ft_printf("%{}s\n", FT_RED, "Can't get size name device");
+			ft_printf("%{}s\n", FT_PURPLE, "Can't get size name device");
 			continue ;
 		}
 		if (!(str = (char*)malloc(size_str)))
