@@ -19,10 +19,6 @@
 ** =============================================================================
 ** =============================== API structure ===============================
 ** =============================================================================
-*/
-
-/*
-** =============================================================================
 ** ========================= Main Entity in JC parser ==========================
 ** ========== Contains main JC private entity and full path to field ===========
  * =============================================================================
@@ -60,6 +56,8 @@ char		*jc_get_string(const JC_FIELD parent, const char *child_name,
 							_Bool nullable);
 float		jc_get_float(const JC_FIELD parent, const char *child_name);
 float		jc_get_float_idx(const JC_FIELD parent, const size_t index);
+float		jc_get_float_or_default(const JC_FIELD parent,
+							const char *child_name, float default_value);
 /*
 ** ============================= Additional utils ==============================
 */

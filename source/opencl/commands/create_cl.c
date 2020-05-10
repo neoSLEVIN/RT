@@ -6,13 +6,14 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 04:25:44 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl.h"
 
-static void	get_platform_info(cl_platform_id *platform, int cnt)
+static void	get_platform_info(cl_platform_id *platforms, int cnt,
+							cl_platform_id *checked_platform)
 {
 	cl_int	err;
 	char	str[200];
@@ -20,13 +21,15 @@ static void	get_platform_info(cl_platform_id *platform, int cnt)
 	ft_bzero(&str, 200);
 	while (cnt--)
 	{
-		err = clGetPlatformInfo(platform[cnt], CL_PLATFORM_NAME,
-			sizeof(str), str, NULL);
+		err = clGetPlatformInfo(platforms[cnt], CL_PLATFORM_NAME,
+								sizeof(str), str, NULL);
 		check_error_cl(err ,"Can't get platform name", NULL);
 		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform name:", str);
+		if (ft_strnequ(str, "NVIDIA", 6))
+			*checked_platform = platforms[cnt];
 		ft_strclr(str);
-		err = clGetPlatformInfo(platform[cnt], CL_PLATFORM_VENDOR,
-			sizeof(str), str, NULL);
+		err = clGetPlatformInfo(platforms[cnt], CL_PLATFORM_VENDOR,
+								sizeof(str), str, NULL);
 		check_error_cl(err ,"Can't get platform vendor", NULL);
 		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform vendor:", str);
 		ft_strclr(str);
@@ -42,7 +45,11 @@ static void	get_device_info(cl_device_id *device, int cnt)
 	while (cnt--)
 	{
 		err = clGetDeviceInfo(device[cnt], CL_DEVICE_NAME, 1, NULL, &size_str);
-		check_error_cl(err ,"Can't get size name device", NULL);
+		if (err != CL_SUCCESS)
+		{
+			ft_printf("%{}s\n", FT_RED, "Can't get size name device");
+			continue ;
+		}
 		if (!(str = (char*)malloc(size_str)))
 			ft_error("Can't allocate memory");
 		err = clGetDeviceInfo(device[cnt], CL_DEVICE_NAME, size_str, str, NULL);
@@ -66,7 +73,7 @@ static void	get_platform(t_ocl *ocl)
 		ft_error("Can't allocate memory");
 	err = clGetPlatformIDs(cnt, platforms, NULL);
 	check_error_cl(err ,"clGetPlatformIDs", NULL);
-	get_platform_info(platforms, cnt);
+	get_platform_info(platforms, cnt, &ocl->platform);
 	ft_memdel((void**)&platforms);
 }
 
@@ -78,7 +85,7 @@ static void	get_device(t_ocl *ocl)
 
 	cnt = 0;
 	err = clGetDeviceIDs(ocl->platform, CL_DEVICE_TYPE_DEFAULT,
-						 1, &ocl->device, &cnt);
+						1, &ocl->device, &cnt);
 	check_error_cl(err, "clGetDeviceIDs", NULL);
 	devices = (cl_device_id*)malloc(sizeof(cl_device_id) * cnt);
 	if (!devices)

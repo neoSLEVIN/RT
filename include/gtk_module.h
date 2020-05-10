@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 20:16:52 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 04:49:05 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@
 # include "ocl.h"
 
 /*
+** =============================================================================
 ** ============= Additional info about keys, flags, etc for UI/UX ==============
+** =============================================================================
+** = "update" and "holders_cnt" - indicate for make_action and draw_image: =====
+** === "update" - when key/button was pressed once =============================
+** === "holders_cnt" - when at least one key/button held down ==================
+** =============================================================================
 */
 typedef struct	s_info
 {
@@ -56,6 +62,7 @@ typedef struct	s_gtk_data
 	GdkPixbuf	*pixbuf;
 	guchar		*buffer;
 	GtkWidget	*button;
+	guint		timeout_id;
 }				t_gtk;
 
 /*
@@ -94,11 +101,15 @@ gboolean		press_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
 gboolean		release_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
+gboolean		change_fps(GtkWidget *window, GdkEventKey *event,
+									gpointer data);
 /*
 ** ================================== Actions ==================================
 */
-void			increase_holders_cnt(int *count, _Bool *button);
+void			increase_holders_cnt(int *count, _Bool *button, t_rt *rt);
 void			decrease_holders_cnt(int *count, _Bool *button);
+int				draw_by_timeout(gpointer data);
+void			make_action(t_rt *rt);
 void			draw_image(t_rt *rt);
 void			move_cam(t_rt *rt, guint key);
 void			rotate_cam(t_rt *rt, guint key);

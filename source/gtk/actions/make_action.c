@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear_rt.c                                         :+:      :+:    :+:   */
+/*   make_action.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/10 02:12:14 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/10 02:12:14 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-void	clear_rt(t_rt *rt)
+void	make_action(t_rt *rt)
 {
-	if (!rt)
-		return ;
-	ft_memdel((void*)&rt->info);		//TODO clear_info(t_info **info);
-	ft_memdel((void*)&rt->ocl);			//TODO clear_ocl(t_ocl **ocl);
-	ft_memdel((void*)&rt->scene);		//TODO clear_scene(SCENE **scene);
-	g_slice_free(t_gtk, rt->gtk);	//TODO clear_gtk(t_gtk **gtk);
+	if (rt->info->w_key)
+		move_cam(rt, 'w');
+	if (rt->info->s_key)
+		move_cam(rt, 's');
+	if (rt->info->a_key)
+		move_cam(rt, 'a');
+	if (rt->info->d_key)
+		move_cam(rt, 'd');
+	if (rt->info->q_key)
+		move_cam(rt, 'q');
+	if (rt->info->e_key)
+		move_cam(rt, 'e');
 }

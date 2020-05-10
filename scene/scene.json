@@ -1,4 +1,10 @@
 {
+  "settings": {
+    "fps": 15,
+    "tips": "========================================================",
+    "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
+    "tip_2": "But if you see lags, reduce FPS value"
+  },
   "scene": {
     "camera": {
       "transform": {"position": [0,0,-35], "direction": [0,0,0], "rotation": [0,0,0]}

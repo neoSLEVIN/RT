@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 20:06:16 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 02:08:46 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 
 	rt = (t_rt*)data;
 	if (event->keyval == 'w')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->w_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->w_key, rt);
 	else if (event->keyval == 's')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->s_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->s_key, rt);
 	else if (event->keyval == 'a')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->a_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->a_key, rt);
 	else if (event->keyval == 'd')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->d_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->d_key, rt);
 	else if (event->keyval == 'q')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key, rt);
 	else if (event->keyval == 'e')
-		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key);
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key, rt);
 	else if (event->keyval == GDK_KEY_KP_2 || event->keyval == GDK_KEY_KP_4 ||
-			 event->keyval == GDK_KEY_KP_6 || event->keyval == GDK_KEY_KP_8)
+			event->keyval == GDK_KEY_KP_6 || event->keyval == GDK_KEY_KP_8)
 		rotate_cam(rt, event->keyval);
 	else
 		return (FALSE);

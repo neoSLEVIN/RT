@@ -42,6 +42,20 @@ static void		jcp_print_error_if_bad_float(double dbl, const char *full_name)
 	}
 }
 
+float			jc_get_float_or_default(const JC_FIELD parent,
+								const char *child_name, float default_value)
+{
+	JC_FIELD	dbl_field;
+	double		dbl;
+
+	dbl_field = jc_get_field(child_name, parent, (JC_INT | JC_DBL | JC_NULL));
+	if (jc_is_null(dbl_field))
+		return (default_value);
+	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
+	jcp_print_error_if_bad_float(dbl, dbl_field.full_name);
+	return ((float)dbl);
+}
+
 float			jc_get_float_idx(const JC_FIELD parent, const size_t index)
 {
 	JC_FIELD	dbl_field;

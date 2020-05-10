@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 19:26:49 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 04:30:23 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,25 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 3
+# define GTK_IMAGE_SIZE 2
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
-#  define FPS 1.22
 # elif GTK_IMAGE_SIZE == 2
 #  define COLS 1440
 #  define ROWS 960
-#  define FPS 1.16
 # elif GTK_IMAGE_SIZE == 3
 #  define COLS 1024
 #  define ROWS 768
-#  define FPS 2.04
 # elif GTK_IMAGE_SIZE == 4
 #  define COLS 800
 #  define ROWS 600
-#  define FPS 3.33
 # elif GTK_IMAGE_SIZE == 5
 #  define COLS 640
 #  define ROWS 480
-#  define FPS 5.2
 # else
 #  define COLS 320
 #  define ROWS 200
-#  define FPS 25
 # endif
 
 # define GROUP_SIZE 64

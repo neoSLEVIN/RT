@@ -100,6 +100,7 @@ struct			s_scene
 	SHAPE		*shapes;
 	int			l_cnt;
 	int			s_cnt;
+	float		fps;
 };
 
 #endif

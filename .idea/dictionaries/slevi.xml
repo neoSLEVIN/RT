@@ -6,6 +6,7 @@
       <w>bzero</w>
       <w>cschoen</w>
       <w>ctxt</w>
+      <w>dflt</w>
       <w>dlist</w>
       <w>dlstargv</w>
       <w>dlstdel</w>
@@ -13,6 +14,7 @@
       <w>dlstlen</w>
       <w>dlstnew</w>
       <w>dlstsplit</w>
+      <w>elif</w>
       <w>ftlib</w>
       <w>ftprintf</w>
       <w>incname</w>
@@ -35,6 +37,7 @@
       <w>memcpy</w>
       <w>memdel</w>
       <w>norminette</w>
+      <w>oclmath</w>
       <w>pixbuf</w>
       <w>putchar</w>
       <w>putendl</w>
@@ -69,6 +72,8 @@
       <w>strsub</w>
       <w>strtrim</w>
       <w>summand</w>
+      <w>svga</w>
+      <w>sxga</w>
       <w>upguide</w>
       <w>wordcnt</w>
       <w>worksize</w>
