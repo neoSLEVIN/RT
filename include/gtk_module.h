@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 07:15:08 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/10 07:24:12 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct	s_info
 {
 	_Bool		update;
 	int			holders_cnt;
+	_Bool		space_key;
+	_Bool		c_key;
 	_Bool		w_key;
 	_Bool		s_key;
 	_Bool		a_key;
@@ -45,7 +47,6 @@ typedef struct	s_info
 	_Bool		num_8;
 	double		mouse_x;
 	double		mouse_y;
-	guint		key;
 	LIGHT		*l_marker;
 	SHAPE		*s_marker;
 }				t_info;
@@ -124,6 +125,7 @@ void			update_cam(t_rt *rt);
 ** =================================== Utils ===================================
 */
 void			init_info(t_info **info);
+void			keys_to_false(t_info *info);
 void			new_scene(SCENE **scene);
 void			new_gtk(t_rt *rt);
 void			clear_rt(t_rt *rt);

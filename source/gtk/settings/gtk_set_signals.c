@@ -20,10 +20,10 @@ void	gtk_set_signals(t_rt *rt)
 					G_CALLBACK(press_key_on_window), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->window), "key-release_event",
 					G_CALLBACK(release_key_on_window), rt);
-	g_signal_connect(G_OBJECT(rt->gtk->image_event_box), "button-press-event",
-					G_CALLBACK(press_button_on_image_event_box), rt);
-	g_signal_connect(G_OBJECT(rt->gtk->image_event_box), "button-release-event",
-					G_CALLBACK(release_button_on_image_event_box), rt);
+//	g_signal_connect(G_OBJECT(rt->gtk->image_event_box), "button-press-event",
+//					G_CALLBACK(press_button_on_image_event_box), rt);
+//	g_signal_connect(G_OBJECT(rt->gtk->image_event_box), "button-release-event",
+//					G_CALLBACK(release_button_on_image_event_box), rt);
 	g_signal_connect (G_OBJECT(rt->gtk->fps_scale), "value-changed",
 					G_CALLBACK (fps_scale_moved), rt);
 	rt->gtk->timeout_id =

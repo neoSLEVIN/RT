@@ -14,7 +14,6 @@ typedef struct			s_light
 	float				intensity;
 	float3				position;
 	float3				target;
-	int					uid;
 	int					marker;
 }						t_light;
 
@@ -76,7 +75,6 @@ typedef struct			s_object
 	t_transform			transform;
 	t_material			material;
 	float				radius;
-	int					uid;
 	int					marker;
 }						t_object;
 

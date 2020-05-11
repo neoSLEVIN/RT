@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v3_norm.c                                          :+:      :+:    :+:   */
+/*   v2_dot.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 15:20:40 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/11 01:47:08 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/11 01:48:16 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl_math.h"
 
-FLT3	v3_norm(FLT3 v)
+cl_float	v2_dot(FLT2 v1, FLT2 v2)
 {
-	cl_float	len;
-
-	len = v3_length(v);
-	if (len > 0)
-		return (v3_scale(v, 1.0f / len));
-	return (cl_float3){0,0,0};
+	return (v1.x * v2.x + v1.y * v2.y);
 }

@@ -204,7 +204,7 @@ set(OCLMATH_SRC ${OCLMATH}/source)
 include_directories(${OCLMATH_SRC})
 
 set(SRCNAME_OCLMATH
-        libraries/oclmath/source/degrees_to_rad.c
+        libraries/oclmath/source/deg_to_rad.c
         libraries/oclmath/source/v3_length.c
         libraries/oclmath/source/v3_add.c
         libraries/oclmath/source/v3_sub.c
@@ -214,7 +214,7 @@ set(SRCNAME_OCLMATH
         libraries/oclmath/source/v3_length_sq.c
         libraries/oclmath/source/v3_dot.c
         libraries/oclmath/source/v3_rotate.c
-)
+        libraries/oclmath/source/v2_dot.c libraries/oclmath/source/v2_det.c libraries/oclmath/source/v2_angle.c)
 
 # ==============================================================================
 # =============================== Project files ================================
@@ -268,16 +268,25 @@ set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
 
 set(SRCNAME_GTK
-        source/gtk/utils/new_gtk.c
+        source/gtk/utils/init_info.c
         source/gtk/utils/new_scene.c
-        source/gtk/utils/cleaner.c
+        source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
-        source/gtk/actions/draw_image.c
+        source/gtk/utils/cleaner.c
+        source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_objects.c
         source/gtk/settings/gtk_set_signals.c
         source/gtk/settings/gtk_set_positions.c
-        source/gtk/settings/gtk_set_main_window.c
-        source/gtk/utils/init_info.c source/gtk/actions/update_cam.c source/gtk/actions/holders_cnt.c source/gtk/signals/escape_window.c source/gtk/signals/key_on_window.c source/gtk/signals/button_on_image_event_box.c source/gtk/actions/make_action.c source/gtk/actions/draw_by_timeout.c source/gtk/signals/fps_scale_moved.c)
+        source/gtk/signals/escape_window.c
+        source/gtk/signals/key_on_window.c
+        source/gtk/signals/button_on_image_event_box.c
+        source/gtk/signals/fps_scale_moved.c
+        source/gtk/actions/holders_cnt.c
+        source/gtk/actions/draw_by_timeout.c
+        source/gtk/actions/make_action.c
+        source/gtk/actions/draw_image.c
+        source/gtk/actions/update_cam.c
+)
 
 add_executable(RT
         main.c

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 04:32:37 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/11 07:32:33 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 2
+# define GTK_IMAGE_SIZE 3
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024

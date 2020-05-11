@@ -1,13 +1,13 @@
 {
   "settings": {
-    "fps": 15,
+    "fps": 25,
     "tips": "========================================================",
     "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
     "tip_2": "But if you see lags, reduce FPS value"
   },
   "scene": {
     "camera": {
-      "transform": {"position": [0,0,-35], "direction": [0,0,0], "rotation": [0,0,0]}
+      "transform": {"position": [0,0,-35], "direction": [0,0,100], "rotation": [0,0,0]}
     },
     "lights": [
       {"type": "AMBIENT", "intensity": 0.1, "position": [0,0,0], "direction": [0,0,0]},
@@ -28,7 +28,7 @@
       },
       {
         "type": "CONE",
-        "angle": 90,
+        "angle": 45,
         "transform": {"position": [-5,2,5], "direction": [3,5,0], "rotation": [0,0,0]},
         "material": {"color": "ffff00", "specular": 10, "reflective": 0, "transparency": 0}
       },

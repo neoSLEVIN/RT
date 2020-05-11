@@ -19,7 +19,7 @@ static void	init_dto_cam(DTO_CAM *cam)
 
 	cam->screen_h = ROWS;
 	cam->screen_w = COLS;
-	fov = 25.0f * PI / 180;
+	fov = 25.0f * RAD;
 	ratio = (float)cam->screen_w / (float)cam->screen_h;
 	cam->viewport_h = tan(fov) / 2;
 	cam->viewport_w = cam->viewport_h * ratio;

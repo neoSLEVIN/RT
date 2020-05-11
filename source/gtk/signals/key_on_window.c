@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 07:24:12 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/11 07:48:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,21 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	if (event->keyval == 'w')
+	if (event->keyval == GDK_KEY_space)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->space_key, rt);
+	else if (event->keyval == GDK_KEY_c)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->c_key, rt);
+	else if (event->keyval == GDK_KEY_w)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->w_key, rt);
-	else if (event->keyval == 's')
+	else if (event->keyval == GDK_KEY_s)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->s_key, rt);
-	else if (event->keyval == 'a')
+	else if (event->keyval == GDK_KEY_a)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->a_key, rt);
-	else if (event->keyval == 'd')
+	else if (event->keyval == GDK_KEY_d)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->d_key, rt);
-	else if (event->keyval == 'q')
+	else if (event->keyval == GDK_KEY_q)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key, rt);
-	else if (event->keyval == 'e')
+	else if (event->keyval == GDK_KEY_e)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key, rt);
 	else if (event->keyval == GDK_KEY_KP_2)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_2, rt);
@@ -50,17 +54,23 @@ gboolean	release_key_on_window(GtkWidget *window, GdkEventKey *event,
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	if (event->keyval == 'w')
+	if (event->keyval == GDK_KEY_BackSpace)
+		keys_to_false(rt->info);
+	else if (event->keyval == GDK_KEY_space && !(event->state & GDK_SHIFT_MASK))
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->space_key);
+	else if (event->keyval == GDK_KEY_c)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->c_key);
+	else if (event->keyval == GDK_KEY_w)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->w_key);
-	else if (event->keyval == 's')
+	else if (event->keyval == GDK_KEY_s)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->s_key);
-	else if (event->keyval == 'a')
+	else if (event->keyval == GDK_KEY_a)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->a_key);
-	else if (event->keyval == 'd')
+	else if (event->keyval == GDK_KEY_d)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->d_key);
-	else if (event->keyval == 'q')
+	else if (event->keyval == GDK_KEY_q)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->q_key);
-	else if (event->keyval == 'e')
+	else if (event->keyval == GDK_KEY_e)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->e_key);
 	else if (event->keyval == GDK_KEY_KP_2)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_2);

@@ -12,6 +12,7 @@
 
 #include "jc_parser.h"
 
+// TODO add max_precision
 static double	jcp_atof(const char *start, const size_t length)
 {
 	char	*dot;

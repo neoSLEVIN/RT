@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/11 02:48:33 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	else if (type == CONE)
 	{
 		param = jc_get_float(shape_field, "angle");
-		if (param <= 0.0f || param >= 180.0f)
+		if (param <= 0.0f || param >= 90.0f)
 			parse_error(jc_full_name(shape_field), "angle",
-				" Value must be in range (0.0; 180.0).");
-		param = degrees_to_rad(param);
+				" Value must be in range (0.0; 90.0).");
+		param = deg_to_rad(param);
 	}
 	else
 		ft_error("Unknown action");
