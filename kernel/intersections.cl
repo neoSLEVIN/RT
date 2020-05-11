@@ -18,7 +18,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	}
 	t[0] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
 	t[1] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
-	return t[0] > 0 ? t[0] : t[1];
+	return minT(t[0], t[1]);
 }
 
 float	plane_intersect(t_ray *ray, t_object *plane)
@@ -49,7 +49,7 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 		return 0;
 	t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
 	t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-	return t[1] > 0 ? t[1] : t[0];
+	return minT(t[0], t[1]);
 }
 
 float	cone_intersect(t_ray *ray, t_object *cone)
@@ -69,9 +69,8 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 		return (0);
 	t[0] = (-abc[1] + sqrt(k_and_discr[1])) / (2 * abc[0]);
 	t[1] = (-abc[1] - sqrt(k_and_discr[1])) / (2 * abc[0]);
-	return t[1] > 0 ? t[1] : t[0];
+	return minT(t[0], t[1]);
 }
-
 
 
 bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance)
@@ -103,4 +102,14 @@ bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, 
 		i++;
 	}
 	return *distance < inf;
+}
+
+float minT(float a, float b) {
+	if (a > 0 && b > 0) {
+		return a < b ? a : b;
+	}
+	if (a > 0 && b < 0) {
+		return a;
+	}
+	return b;
 }

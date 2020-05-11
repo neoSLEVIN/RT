@@ -91,6 +91,7 @@ float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 bool 	is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance);
+float 	minT(float a, float b);
 
 float 	get_light_intensity(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light);
 bool 	is_in_shadow(t_light *light, t_ray *ray, __global t_object *obj, int num_obj);
