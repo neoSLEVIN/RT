@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/12 02:41:09 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
 LIGHT		*parse_lights(const JC_FIELD parent, const char *child_name);
 LIGHT		*parse_light_idx(const JC_FIELD parent, const int index);
 LIGHT_TYPE	parse_light_type(const JC_FIELD parent, const char *child_name);
+/*
+** ============================== Parse settings ===============================
+*/
+void		parse_settings(JC_FIELD json_field, SCENE *scene);
 /*
 ** ========================= Parse additional entities =========================
 */

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 06:46:10 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/12 02:07:02 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 {
 	dto->origin = cam->transform.position;
 	// TODO normal translator from scene to dto
-	dto->forward = cam->transform.direction;
+	dto->forward = (FLT3){0.0f, 0.0f, 1.0f};
 	dto->target = v3_add(dto->origin, dto->forward);
 	dto->upguide = (FLT3){0.0f, 1.0f, 0.0f};
 	dto->right = (FLT3){-1.0f, 0.0f, 0.0f};

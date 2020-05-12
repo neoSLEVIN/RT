@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/12 03:06:34 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		compile_cl(t_ocl *ocl)
 		ft_error("Can't allocate memory");
 	clGetProgramBuildInfo(ocl->program, ocl->device,
 		CL_PROGRAM_BUILD_LOG, log_size, log_str, NULL);
-	ft_putendl(log_str);
+	ft_putstr(log_str);
 	ft_strdel(&log_str);
 	check_error_cl(err, "clBuildProgram", NULL);
 	ocl->kernel = clCreateKernel(ocl->program, "render_kernel", &err);

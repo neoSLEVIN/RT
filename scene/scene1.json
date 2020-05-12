@@ -59,7 +59,7 @@
           "direction": [3,5,0],
           "rotation": [0,0,0]
         },
-        "angle": 90,
+        "angle": 45,
         "material": {
           "color": "ffff00",
           "specular": 10,
