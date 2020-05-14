@@ -69,6 +69,20 @@ typedef struct			s_material
 	float				transparency;
 }						t_material;
 
+/*Nazarov*/
+typedef struct			s_section
+{
+	bool				on_x;
+	bool				on_y;
+	bool				on_z;
+	t_transform			x;
+	t_transform			y;
+	t_transform			z;
+	t_transform			xyz;
+	float3				color;
+}						t_section;
+
+
 typedef struct			s_object
 {
 	t_shape_type		type;
@@ -76,6 +90,8 @@ typedef struct			s_object
 	t_material			material;
 	float				radius;
 	int					marker;
+	/*Nazarov*/
+	t_section			section;
 }						t_object;
 
 

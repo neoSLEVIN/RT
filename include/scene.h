@@ -69,6 +69,19 @@ struct			s_light
 	LIGHT		*next;
 };
 
+# define SECTION struct s_section
+struct			s_section
+{
+	_Bool		on_x;
+	_Bool		on_y;
+	_Bool		on_z;
+	TRANSFORM	x;
+	TRANSFORM	y;
+	TRANSFORM	z;
+	TRANSFORM	xyz;
+	FLT3		color;
+};
+
 # define DTO_SHAPE struct s_dto_shape
 struct			s_dto_shape
 {
@@ -77,6 +90,7 @@ struct			s_dto_shape
 	MATERIAL	material;
 	cl_float	param;
 	int			marker;
+	SECTION		section;
 };
 
 # define SHAPE struct s_shape
