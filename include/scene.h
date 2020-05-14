@@ -49,7 +49,7 @@ struct			s_transform
 {
 	FLT3		position;
 	FLT3		direction;
-	FLT3		rotation;
+	cl_float	rotation;
 };
 
 # define DTO_LIGHT struct s_dto_light

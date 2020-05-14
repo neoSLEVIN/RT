@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 02:12:14 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 08:48:20 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/13 02:42:54 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ void	make_action(t_rt *rt)
 		rotate_cam(rt, GDK_KEY_KP_6);
 	if (rt->info->num_8)
 		rotate_cam(rt, GDK_KEY_KP_8);
+	if (rt->info->num_decimal)
+		rotate_cam(rt, GDK_KEY_KP_Decimal);
 }

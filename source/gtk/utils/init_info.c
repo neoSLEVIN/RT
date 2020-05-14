@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 07:10:24 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/13 20:55:19 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	keys_to_false(t_info *info)
 	info->num_4 = FALSE;
 	info->num_6 = FALSE;
 	info->num_8 = FALSE;
+	info->num_decimal = FALSE;
 }
 
 void	init_info(t_info **info)

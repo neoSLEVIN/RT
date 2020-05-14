@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   holders_cnt.c                                      :+:      :+:    :+:   */
+/*   rad_to_deg.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 19:42:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 13:06:38 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/13 19:46:12 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/13 19:46:12 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ocl_math.h"
 
-void increase_holders_cnt(int *count, _Bool *button, t_rt *rt)
+cl_float	rad_to_deg(cl_float angle_in_rad)
 {
-	if (*button == FALSE)
-	{
-		*button = TRUE;
-		++(*count);
-		make_action(rt);
-	}
-}
-
-void	decrease_holders_cnt(int *count, _Bool *button)
-{
-	if (*button == TRUE)
-	{
-		*button = FALSE;
-		--(*count);
-	}
+	return (angle_in_rad / RAD);
 }

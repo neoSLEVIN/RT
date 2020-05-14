@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 07:48:47 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/14 03:33:31 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_6, rt);
 	else if (event->keyval == GDK_KEY_KP_8)
 		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_8, rt);
+	else if (event->keyval == GDK_KEY_KP_Decimal)
+		increase_holders_cnt(&rt->info->holders_cnt, &rt->info->num_decimal, rt);
 	else
 		return (FALSE);
 	rt->info->update = TRUE;
@@ -80,6 +82,8 @@ gboolean	release_key_on_window(GtkWidget *window, GdkEventKey *event,
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_6);
 	else if (event->keyval == GDK_KEY_KP_8)
 		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_8);
+	else if (event->keyval == GDK_KEY_KP_Decimal)
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_decimal);
 	else
 		return (FALSE);
 	return (TRUE);

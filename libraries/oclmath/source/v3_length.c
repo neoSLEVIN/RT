@@ -14,6 +14,5 @@
 
 cl_float	v3_length(FLT3 v)
 {
-	return ((cl_float)sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-	//TODO try search for float sqrt
+	return (sqrtf(v.x * v.x + v.y * v.y + v.z * v.z));
 }

@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   holders_cnt.c                                      :+:      :+:    :+:   */
+/*   v2_norm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 19:42:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 13:06:38 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/12 19:38:37 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/12 19:38:37 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ocl_math.h"
 
-void increase_holders_cnt(int *count, _Bool *button, t_rt *rt)
+FLT2	v2_norm(FLT2 v)
 {
-	if (*button == FALSE)
-	{
-		*button = TRUE;
-		++(*count);
-		make_action(rt);
-	}
-}
+	cl_float	len;
 
-void	decrease_holders_cnt(int *count, _Bool *button)
-{
-	if (*button == TRUE)
-	{
-		*button = FALSE;
-		--(*count);
-	}
+	len = v2_length(v);
+	if (len > 0)
+		return (v2_scale(v, 1.0f / len));
+	return ((FLT2){0.0f, 0.0f});
 }

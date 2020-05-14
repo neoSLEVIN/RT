@@ -204,6 +204,7 @@ set(OCLMATH_SRC ${OCLMATH}/source)
 include_directories(${OCLMATH_SRC})
 
 set(SRCNAME_OCLMATH
+        libraries/oclmath/source/rad_to_deg.c
         libraries/oclmath/source/deg_to_rad.c
         libraries/oclmath/source/v3_length.c
         libraries/oclmath/source/v3_add.c
@@ -214,7 +215,13 @@ set(SRCNAME_OCLMATH
         libraries/oclmath/source/v3_length_sq.c
         libraries/oclmath/source/v3_dot.c
         libraries/oclmath/source/v3_rotate.c
-        libraries/oclmath/source/v2_dot.c libraries/oclmath/source/v2_det.c libraries/oclmath/source/v2_angle.c)
+        libraries/oclmath/source/v2_dot.c
+        libraries/oclmath/source/v2_det.c
+        libraries/oclmath/source/v2_angle.c
+        libraries/oclmath/source/v2_length.c
+        libraries/oclmath/source/v2_scale.c
+        libraries/oclmath/source/v2_norm.c
+        libraries/oclmath/source/v3_angle_to_xz.c)
 
 # ==============================================================================
 # =============================== Project files ================================

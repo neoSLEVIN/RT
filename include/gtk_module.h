@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 07:24:12 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/13 02:51:53 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_info
 	_Bool		num_4;
 	_Bool		num_6;
 	_Bool		num_8;
+	_Bool		num_decimal;
 	double		mouse_x;
 	double		mouse_y;
 	LIGHT		*l_marker;

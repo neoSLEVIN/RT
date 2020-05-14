@@ -19,5 +19,5 @@ FLT3	v3_norm(FLT3 v)
 	len = v3_length(v);
 	if (len > 0)
 		return (v3_scale(v, 1.0f / len));
-	return (cl_float3){0,0,0};
+	return (FLT3){0,0,0};
 }

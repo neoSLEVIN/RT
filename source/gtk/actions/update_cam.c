@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 06:50:57 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/14 03:40:06 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,39 @@ void	move_cam(t_rt *rt, guint key)
 	else
 		return ;
 	cam->target = v3_add(cam->origin, cam->forward);
-	rt->scene->cam.transform.position = cam->origin;
 	update_cam(rt);
+}
+
+//TODO delete this before defending
+void	del_print(t_rt *rt)
+{
+	cl_float	angle;
+
+	angle = v3_angle_to_xz(rt->ocl->dto.cam.right);
+	if (v3_angle_to_xz(rt->ocl->dto.cam.upguide) < 0.0f)
+		angle = ((angle < 0) ? -PI : PI) - angle;
+	if (angle == 0.0f && rt->ocl->dto.cam.upguide.y == 0.0f)
+		angle = -atan2f(rt->ocl->dto.cam.right.z, -rt->ocl->dto.cam.right.x);
+	ft_printf("%s\t%f %f %f\n%s\t%f %f %f\n%s\t%f %.20f %f\n%s\t%f %f %f\n%s\t%f\n%s\n",
+		"position:",
+		rt->ocl->dto.cam.origin.x,
+		rt->ocl->dto.cam.origin.y,
+		rt->ocl->dto.cam.origin.z,
+		"forward:",
+		rt->ocl->dto.cam.forward.x,
+		rt->ocl->dto.cam.forward.y,
+		rt->ocl->dto.cam.forward.z,
+		"right:\t",
+		rt->ocl->dto.cam.right.x,
+		rt->ocl->dto.cam.right.y,
+		rt->ocl->dto.cam.right.z,
+		"upguide:",
+		rt->ocl->dto.cam.upguide.x,
+		rt->ocl->dto.cam.upguide.y,
+		rt->ocl->dto.cam.upguide.z,
+		"angle:\t",
+		rad_to_deg(angle),
+		"=============================================");
 }
 
 void	rotate_cam(t_rt *rt, guint key)
@@ -71,10 +102,15 @@ void	rotate_cam(t_rt *rt, guint key)
 		cam->upguide = v3_rot_v(cam->upguide, cam->forward, angle);
 		cam->right = v3_rot_v(cam->right, cam->forward, angle);
 	}
+	else if (key == GDK_KEY_KP_Decimal)
+	{
+		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_decimal);
+		cam->forward = v3_scale(cam->forward, -1.0);
+		cam->right = v3_scale(cam->right, -1.0);
+	}
 	else
 		return ;
 	cam->target = v3_add(cam->origin, cam->forward);
 	cam->up = v3_cross(cam->right, cam->forward);
-	rt->scene->cam.transform.direction = cam->forward;
 	update_cam(rt);
 }

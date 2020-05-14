@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   holders_cnt.c                                      :+:      :+:    :+:   */
+/*   v3_angle_to_xz.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 19:42:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 13:06:38 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/13 23:29:04 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/14 00:55:13 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gtk_module.h"
+#include "ocl_math.h"
 
-void increase_holders_cnt(int *count, _Bool *button, t_rt *rt)
+cl_float	v3_angle_to_xz(FLT3 v)
 {
-	if (*button == FALSE)
-	{
-		*button = TRUE;
-		++(*count);
-		make_action(rt);
-	}
-}
-
-void	decrease_holders_cnt(int *count, _Bool *button)
-{
-	if (*button == TRUE)
-	{
-		*button = FALSE;
-		--(*count);
-	}
+	return (asinf(v3_dot(v, (FLT3){0.0f, 1.0f, 0.0f}) / (v3_length(v) * 1.0f)));
 }

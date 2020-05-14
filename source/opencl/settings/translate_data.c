@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/12 02:07:02 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/14 01:00:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 {
+	cl_float	rot_y;
+	cl_float	*angle;
+
 	dto->origin = cam->transform.position;
-	// TODO normal translator from scene to dto
-	dto->forward = (FLT3){0.0f, 0.0f, 1.0f};
+	dto->forward = cam->transform.direction;
 	dto->target = v3_add(dto->origin, dto->forward);
-	dto->upguide = (FLT3){0.0f, 1.0f, 0.0f};
+	angle = &cam->transform.rotation;
+	rot_y = atan2f(dto->forward.x, dto->forward.z);
 	dto->right = (FLT3){-1.0f, 0.0f, 0.0f};
+	dto->right = v3_rot_y(dto->right, rot_y);
+	dto->right = v3_rot_v(dto->right, dto->forward, -(*angle));
 	dto->up = v3_cross(dto->right, dto->forward);
+	dto->upguide = v3_norm(dto->up);
 }
 
 void	translate_shapes(DTO_SHAPE **dto, SHAPE *shape, int cnt)
