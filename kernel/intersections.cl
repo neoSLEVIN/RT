@@ -21,17 +21,17 @@ void		init_section_plane(t_object *object)
 
 
 /*Nazarov*/
-float		add_section_on_sphere(t_ray *ray, t_object *sphere, float t1, float t2)
+float		add_section_on_primitive(t_ray *ray, t_object *object, float t1, float t2)
 {
 	t_object	section_plane;
 
-	if (sphere->section.on_x)
-		section_plane.transform.direction = sphere->section.x.direction;
-	else if (sphere->section.on_y)
-		section_plane.transform.direction = sphere->section.y.direction;
-	else if (sphere->section.on_z)
-		section_plane.transform.direction = sphere->section.z.direction;
-	section_plane.transform.position = sphere->section.x.position;
+	if (object->section.on_x)
+		section_plane.transform.direction = object->section.x.direction;
+	else if (object->section.on_y)
+		section_plane.transform.direction = object->section.y.direction;
+	else if (object->section.on_z)
+		section_plane.transform.direction = object->section.z.direction;
+	section_plane.transform.position = object->section.x.position;
 
 	/*1. Растояние на луче до секущей площади*/
 	float origin_ray_to_section_plane = plane_intersect(ray, &section_plane);
@@ -74,11 +74,6 @@ float		add_section_on_sphere(t_ray *ray, t_object *sphere, float t1, float t2)
 	float d = rtcsp.t * cos_a;
 
 	/*Если растояние > 0 то данная часть объекта отсечена плоскостью и не отображается, соответственно луч должен продолжить движение до следующего объекта на сцене*/
-
-	/*Вариант 1*/
-	/*if (origin_ray_to_section_plane > 0 && (origin_ray_to_section_plane > ray_entry_point && origin_ray_to_section_plane < ray_exit_point))
-		return origin_ray_to_section_plane;
-	/*Вариант 2*/
 	if (origin_ray_to_section_plane > ray_entry_point && origin_ray_to_section_plane < ray_exit_point)
 		return plane_intersect(ray, &section_plane);
 	if (d < 0)
@@ -86,6 +81,8 @@ float		add_section_on_sphere(t_ray *ray, t_object *sphere, float t1, float t2)
 
 	return ray_entry_point;
 }
+
+/********************************************************************/
 
 
 /*Intersection*/
@@ -112,7 +109,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	init_section_plane(sphere);
 	sphere->section.on_x = true;
 	if (sphere->section.on_x || sphere->section.on_y || sphere->section.on_z)
-		return add_section_on_sphere(ray, sphere, t[0], t[1]);
+		return add_section_on_primitive(ray, sphere, t[0], t[1]);
 	return minT(t[0], t[1]);
 }
 
@@ -144,6 +141,13 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 		return 0;
 	t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
 	t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
+	
+	/*Сечение - Nazarov*/
+	init_section_plane(cylinder);
+	cylinder->section.on_z = true;
+	if (cylinder->section.on_x || cylinder->section.on_y || cylinder->section.on_z)
+		return add_section_on_primitive(ray, cylinder, t[0], t[1]);
+	
 	return minT(t[0], t[1]);
 }
 
@@ -164,6 +168,12 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 		return (0);
 	t[0] = (-abc[1] + sqrt(k_and_discr[1])) / (2 * abc[0]);
 	t[1] = (-abc[1] - sqrt(k_and_discr[1])) / (2 * abc[0]);
+	
+	/*Сечение - Nazarov*/
+	init_section_plane(cone);
+	cone->section.on_x = true;
+	if (cone->section.on_x || cone->section.on_y || cone->section.on_z)
+		return add_section_on_primitive(ray, cone, t[0], t[1]);
 	return minT(t[0], t[1]);
 }
 
