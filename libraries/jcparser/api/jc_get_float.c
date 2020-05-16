@@ -12,7 +12,6 @@
 
 #include "jc_parser.h"
 
-// TODO add max_precision
 static double	jcp_atof(const char *start, const size_t length)
 {
 	char	*dot;
@@ -49,7 +48,7 @@ float			jc_get_float_or_default(const JC_FIELD parent,
 	JC_FIELD	dbl_field;
 	double		dbl;
 
-	dbl_field = jc_get_field(child_name, parent, (JC_INT | JC_DBL | JC_NULL));
+	dbl_field = jc_get_field(parent, child_name, (JC_INT | JC_DBL | JC_NULL));
 	if (jc_is_null(dbl_field))
 		return (default_value);
 	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
@@ -62,7 +61,7 @@ float			jc_get_float_idx(const JC_FIELD parent, const size_t index)
 	JC_FIELD	dbl_field;
 	double		dbl;
 
-	dbl_field = jc_get_field_idx(index, parent, (JC_INT | JC_DBL));
+	dbl_field = jc_get_field_idx(parent, index, (JC_INT | JC_DBL));
 	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
 	jcp_print_error_if_bad_float(dbl, dbl_field.full_name);
 	return ((float)dbl);
@@ -73,7 +72,7 @@ float			jc_get_float(const JC_FIELD parent, const char *child_name)
 	JC_FIELD	dbl_field;
 	double		dbl;
 
-	dbl_field = jc_get_field(child_name, parent, (JC_INT | JC_DBL));
+	dbl_field = jc_get_field(parent, child_name, (JC_INT | JC_DBL));
 	dbl = jcp_atof(dbl_field.obj->value.start, dbl_field.obj->value.length);
 	jcp_print_error_if_bad_float(dbl, dbl_field.full_name);
 	return ((float)dbl);

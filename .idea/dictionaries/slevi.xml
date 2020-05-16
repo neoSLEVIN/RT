@@ -3,6 +3,7 @@
     <words>
       <w>adlst</w>
       <w>alst</w>
+      <w>buttonhold</w>
       <w>bzero</w>
       <w>cschoen</w>
       <w>ctxt</w>
@@ -21,6 +22,7 @@
       <w>incname</w>
       <w>itoa</w>
       <w>jcparser</w>
+      <w>keyhold</w>
       <w>libft</w>
       <w>lstabi</w>
       <w>lstadd</w>
@@ -37,6 +39,7 @@
       <w>memcmp</w>
       <w>memcpy</w>
       <w>memdel</w>
+      <w>mousehold</w>
       <w>norminette</w>
       <w>oclmath</w>
       <w>pixbuf</w>

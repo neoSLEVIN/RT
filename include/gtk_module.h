@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/13 02:51:53 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 07:52:46 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,38 +19,6 @@
 # include <gdk-pixbuf/gdk-pixbuf.h>
 # include "parser.h"
 # include "ocl.h"
-
-/*
-** =============================================================================
-** ============= Additional info about keys, flags, etc for UI/UX ==============
-** =============================================================================
-** = "update" and "holders_cnt" - indicate for make_action and draw_image: =====
-** === "update" - when key/button was pressed once =============================
-** === "holders_cnt" - when at least one key/button held down ==================
-** =============================================================================
-*/
-typedef struct	s_info
-{
-	_Bool		update;
-	int			holders_cnt;
-	_Bool		space_key;
-	_Bool		c_key;
-	_Bool		w_key;
-	_Bool		s_key;
-	_Bool		a_key;
-	_Bool		d_key;
-	_Bool		q_key;
-	_Bool		e_key;
-	_Bool		num_2;
-	_Bool		num_4;
-	_Bool		num_6;
-	_Bool		num_8;
-	_Bool		num_decimal;
-	double		mouse_x;
-	double		mouse_y;
-	LIGHT		*l_marker;
-	SHAPE		*s_marker;
-}				t_info;
 
 /*
 ** =============================================================================
@@ -71,6 +39,8 @@ typedef struct	s_gtk_data
 	GtkWidget	*fps_label;
 	GtkAdjustment	*fps_adj;
 	GtkWidget	*fps_scale;
+	GtkWidget	*y_axis;
+	GtkWidget	*x_axis;
 	GtkWidget	*button;
 	guint		timeout_id;
 }				t_gtk;
@@ -110,7 +80,10 @@ gboolean		press_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
 gboolean		release_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
+gboolean		motion_button_on_image_event_box(GtkWidget *event_box,
+									 GdkEventMotion *event, gpointer data);
 void			fps_scale_moved(GtkRange *range, gpointer data);
+void			change_axis(GtkToggleButton *toggle_button, gpointer data);
 /*
 ** ================================== Actions ==================================
 */
@@ -121,15 +94,22 @@ void			make_action(t_rt *rt);
 void			draw_image(t_rt *rt);
 void			move_cam(t_rt *rt, guint key);
 void			rotate_cam(t_rt *rt, guint key);
+void			rotate_cam_by_mouse(t_rt *rt, INT2 diff);
 void			update_cam(t_rt *rt);
+void			update_cursor(t_rt *rt);
+void			update_shapes(t_rt *rt, _Bool update_cnt);
+void			get_shape_id(t_rt *rt);
 /*
 ** =================================== Utils ===================================
 */
 void			init_info(t_info **info);
 void			keys_to_false(t_info *info);
+void			mouse_to_false(t_info *info);
 void			new_scene(SCENE **scene);
 void			new_gtk(t_rt *rt);
 void			clear_rt(t_rt *rt);
+void			clear_shape_marker(t_rt *rt);
+void			clear_light_marker(t_rt *rt);
 void			clear_lights(LIGHT **light);
 void			clear_shapes(SHAPE **shape);
 

@@ -22,6 +22,7 @@
 ** =============================== Object types ================================
 */
 # define JC_TYPE int
+# define JC_ANY 0
 # define JC_NULL (1 << 0)
 # define JC_OBJ (1 << 1)
 # define JC_ARR (1 << 2)

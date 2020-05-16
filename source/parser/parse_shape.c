@@ -24,14 +24,14 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 		param = jc_get_float(shape_field, "radius");
 		if (param <= 0.0f)
 			parse_error(jc_full_name(shape_field), "radius",
-				" Value must be positive.");
+				"Value must be positive.");
 	}
 	else if (type == CONE)
 	{
 		param = jc_get_float(shape_field, "angle");
 		if (param <= 0.0f || param >= 90.0f)
 			parse_error(jc_full_name(shape_field), "angle",
-				" Value must be in range (0.0; 90.0).");
+				"Value must be in range (0.0; 90.0).");
 		param = deg_to_rad(param);
 	}
 	else
@@ -44,10 +44,12 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	JC_FIELD	shape_field;
 	SHAPE		*shape;
 
-	shape_field = jc_get_field_idx(index, parent, JC_OBJ);
+	shape_field = jc_get_field_idx(parent, index, JC_OBJ);
 	if((shape = (SHAPE*)malloc(sizeof(SHAPE))) == NULL)
 		ft_error("Can't allocate memory");
+	shape->prev = NULL;
 	shape->next = NULL;
+	shape->index = index;
 	shape->dto.marker = FALSE;
 	shape->dto.transform = parse_transform(shape_field, "transform");
 	shape->dto.material = parse_material(shape_field, "material");
@@ -64,7 +66,7 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name)
 	size_t		length;
 	size_t		i;
 
-	shapes_field = jc_get_field(child_name, parent, (JC_ARR | JC_NULL));
+	shapes_field = jc_get_field(parent, child_name, (JC_ARR | JC_NULL));
 	if (jc_is_null(shapes_field))
 		return (NULL);
 	length = jc_get_array_length(shapes_field);
@@ -76,6 +78,7 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name)
 	while (++i < length)
 	{
 		temp_shape->next = parse_shape_idx(shapes_field, i);
+		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}
 	return (shapes);

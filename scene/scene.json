@@ -7,7 +7,7 @@
   },
   "scene": {
     "camera": {
-      "transform": {"position": [0,0,-35],"direction":[0,0,10],"rotation":270}
+      "transform": {"position": [0,0,-35],"direction":[0,0,10],"rotation":0}
     },
     "lights": [
       {"type": "AMBIENT", "intensity": 0.1, "position": [0,0,0], "direction": [0,0,0]},
@@ -16,13 +16,11 @@
     "shapes": [
       {
         "type": "PLANE",
-        "radius": 5,
-        "transform": {"position": [0,-3,0], "direction": [0,1,0]},
+        "transform": {"position": [0,-3,0]},
         "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
         "type": "PLANE",
-        "radius": 5,
         "transform": {"position": [0,0,90], "direction": [0,0,1]},
         "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
@@ -35,19 +33,19 @@
       {
         "type": "SPHERE",
         "radius": 4,
-        "transform": {"position": [0,0,0], "direction": [0,1,0]},
+        "transform": {"position": [0,0,0]},
         "material": {"color": "ff0000", "specular": 100, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 1,
-        "transform": {"position": [4,4,-9], "direction": [0,1,0]},
+        "transform": {"position": [4,4,-9]},
         "material": {"color": "ff0000", "specular": 20, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 2,
-        "transform": {"position": [-4,2,-10], "direction": [0,1,0]},
+        "transform": {"position": [-4,2,-10]},
         "material": {"color": "00ff00", "specular": 30, "reflective": 0, "transparency": 0}
       },
       {

@@ -15,11 +15,7 @@ float3 send_ray(t_ray *ray, __global t_object *obj, int num_obj, __global t_ligh
 	ray->hitNormal = get_normal(&hit_obj, ray);
 	ray->hit_id = hit_id;
 	intensity = get_light_intensity(ray, obj, num_obj, lights, num_light);
-	/*Nazarov*/
-	
 	resColor = get_obj_color(&hit_obj, ray) * intensity;
-	
-	
 	return resColor;
 }
 

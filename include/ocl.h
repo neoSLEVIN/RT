@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 07:32:33 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 07:01:00 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define OCL_H
 
 # include "libft.h"
-# include "scene.h"
+# include "info.h"
 
 # ifdef __APPLE__
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 3
+# define GTK_IMAGE_SIZE 2
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -128,11 +128,14 @@ typedef struct			s_dto
 	DTO_LIGHT			*lights;
 	int					*s_cnt;
 	int					*l_cnt;
+	INT2				*cursor;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
 	cl_mem				output_data;
 	cl_char4			*buffer;
+	cl_mem				output_id;
+	int					*shape_id;
 }						t_dto;
 
 /*
@@ -163,7 +166,7 @@ typedef struct			s_opencl
 void					init_ocl(t_ocl *ocl);
 void					create_cl(t_ocl *ocl);
 void					compile_cl(t_ocl *ocl);
-void					setting_cl(t_ocl *ocl, SCENE *scene);
+void					setting_cl(t_ocl *ocl, SCENE *scene, t_info *info);
 void					run_cl(t_ocl *ocl);
 /*
 ** ================================= Settings ==================================

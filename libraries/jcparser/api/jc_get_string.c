@@ -22,7 +22,7 @@ char	*jc_get_string(const JC_FIELD parent, const char *child_name,
 	type = JC_STR;
 	if (nullable)
 		type |= JC_NULL;
-	str_field = jc_get_field(child_name, parent, type);
+	str_field = jc_get_field(parent, child_name, type);
 	if (nullable && jc_is_null(str_field))
 		return (NULL);
 	if (!(str = ft_strnew(str_field.obj->value.length)))

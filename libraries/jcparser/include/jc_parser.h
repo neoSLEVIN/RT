@@ -41,9 +41,9 @@ JC_FIELD	jc_get_json_field(const char *file_name, size_t max_size);
 /*
 ** ========================= Creation of side objects ==========================
 */
-JC_FIELD	jc_get_field(const char *field_name, const JC_FIELD parent,
+JC_FIELD	jc_get_field(const JC_FIELD parent, const char *field_name,
 							JC_TYPE type);
-JC_FIELD	jc_get_field_idx(const size_t index, const JC_FIELD parent,
+JC_FIELD	jc_get_field_idx(const JC_FIELD parent, const size_t index,
 							JC_TYPE type);
 /*
 ** ========================== Cleaning of all objects ==========================

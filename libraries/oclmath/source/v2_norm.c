@@ -17,7 +17,7 @@ FLT2	v2_norm(FLT2 v)
 	cl_float	len;
 
 	len = v2_length(v);
-	if (len > 0)
+	if (len > 0.0f)
 		return (v2_scale(v, 1.0f / len));
 	return ((FLT2){0.0f, 0.0f});
 }

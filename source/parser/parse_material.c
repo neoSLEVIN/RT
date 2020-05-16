@@ -17,7 +17,7 @@ MATERIAL	parse_material(const JC_FIELD parent, const char *child_name)
 	JC_FIELD	material_field;
 	MATERIAL	material;
 
-	material_field = jc_get_field(child_name, parent, JC_OBJ);
+	material_field = jc_get_field(parent, child_name, JC_OBJ);
 	material.color = parse_color(material_field, "color");
 	material.specular = jc_get_float(material_field, "specular");
 	// TODO jc_get_int(material_field, "specular");

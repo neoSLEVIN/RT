@@ -17,9 +17,11 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const int index)
 	JC_FIELD	light_field;
 	LIGHT		*light;
 
-	light_field = jc_get_field_idx(index, parent, JC_OBJ);
+	light_field = jc_get_field_idx(parent, index, JC_OBJ);
 	if((light = (LIGHT*)malloc(sizeof(LIGHT))) == NULL)
 		ft_error("Can't allocate memory");
+	light->index = index;
+	light->prev = NULL;
 	light->next = NULL;
 	light->dto.marker = FALSE;
 	light->dto.type = parse_light_type(light_field, "type");
@@ -39,17 +41,18 @@ LIGHT		*parse_lights(const JC_FIELD parent, const char *child_name)
 	size_t		length;
 	size_t		i;
 
-	lights_field = jc_get_field(child_name, parent, JC_ARR);
+	lights_field = jc_get_field(parent, child_name, JC_ARR);
 	length = jc_get_array_length(lights_field);
 	if (length == 0)
 		parse_error(jc_full_name(parent), child_name,
-			" The array must not be empty.");
+			"The array must not be empty.");
 	lights = parse_light_idx(lights_field, 0);
 	temp_light = lights;
 	i = 0;
 	while (++i < length)
 	{
 		temp_light->next = parse_light_idx(lights_field, i);
+		temp_light->next->prev = temp_light;
 		temp_light = temp_light->next;
 	}
 	return (lights);

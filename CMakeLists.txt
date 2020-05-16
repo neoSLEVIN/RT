@@ -180,6 +180,8 @@ set(SRCNAME_JC_PARSER
         libraries/jcparser/private/jcp_parent_dot_child.c
         libraries/jcparser/private/jcp_get_obj_by_key.c
         libraries/jcparser/private/jcp_field_with_index.c
+        libraries/jcparser/private/jcp_str_of_types.c
+        libraries/jcparser/private/jcp_print_bad_type_error.c
         libraries/jcparser/api/jc_get_float.c
         libraries/jcparser/api/jc_get_field.c
         libraries/jcparser/api/jc_clear_all.c
@@ -221,7 +223,8 @@ set(SRCNAME_OCLMATH
         libraries/oclmath/source/v2_length.c
         libraries/oclmath/source/v2_scale.c
         libraries/oclmath/source/v2_norm.c
-        libraries/oclmath/source/v3_angle_to_xz.c)
+        libraries/oclmath/source/v3_angle_to_xz.c
+        libraries/oclmath/source/i2_sub.c)
 
 # ==============================================================================
 # =============================== Project files ================================
@@ -234,7 +237,7 @@ set(INCNAME_RT
         include/ocl.h
         include/parser.h
         include/scene.h
-        include/gtk_module.h)
+        include/gtk_module.h include/info.h)
 
 set(RT_SRC source)
 include_directories(${RT_SRC})
@@ -280,6 +283,7 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
         source/gtk/utils/cleaner.c
+        source/gtk/utils/clear_marker.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_objects.c
         source/gtk/settings/gtk_set_signals.c
@@ -288,12 +292,13 @@ set(SRCNAME_GTK
         source/gtk/signals/key_on_window.c
         source/gtk/signals/button_on_image_event_box.c
         source/gtk/signals/fps_scale_moved.c
+        source/gtk/signals/change_axis.c
+        source/gtk/signals/draw_by_timeout.c
         source/gtk/actions/holders_cnt.c
-        source/gtk/actions/draw_by_timeout.c
         source/gtk/actions/make_action.c
         source/gtk/actions/draw_image.c
         source/gtk/actions/update_cam.c
-)
+        source/gtk/actions/get_shape_id.c)
 
 add_executable(RT
         main.c

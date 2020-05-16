@@ -26,7 +26,7 @@ LIGHT_TYPE	parse_light_type(const JC_FIELD parent, const char *child_name)
 		type = DIRECTION;
 	else
 		parse_error(jc_full_name(parent), child_name,
-			" Incorrect type of light.\n\t"
+			"Incorrect type of light.\n\t"
 				"Allowed types: [AMBIENT, POINT, DIRECTION]");
 	ft_strdel(&str_type);
 	return (type);
@@ -48,7 +48,7 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CYLINDER;
 	else
 		parse_error(jc_full_name(parent), child_name,
-			" Incorrect type of shape.\n\t"
+			"Incorrect type of shape.\n\t"
 				"Allowed types: [PLANE, SPHERE, CONE, CYLINDER]");
 	ft_strdel(&str_type);
 	return (type);

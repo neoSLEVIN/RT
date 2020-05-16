@@ -25,9 +25,9 @@ void	parse_error(const char *parent_name, const char *child_name,
 	else if (!cause)
 		ft_printf("\"%s.%s\"", parent_name, child_name);
 	else if (!parent_name || !child_name)
-		ft_printf("\"%s\":%s", parent_name ? parent_name : child_name, cause);
+		ft_printf("\"%s\": %s", parent_name ? parent_name : child_name, cause);
 	else
-		ft_printf("\"%s.%s\":%s", parent_name, child_name, cause);
+		ft_printf("\"%s.%s\": %s", parent_name, child_name, cause);
 	ft_printf("\n");
 	exit(1);
 }

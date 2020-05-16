@@ -45,6 +45,8 @@ void		parse_settings(JC_FIELD json_field, SCENE *scene);
 ** ========================= Parse additional entities =========================
 */
 FLT3		parse_cl_float3(const JC_FIELD parent, const char *child_name);
+FLT3		parse_cl_float3_or_default(const JC_FIELD parent,
+						const char *child_name, FLT3 default_value);
 FLT3		parse_color(const JC_FIELD parent, const char *child_name);
 TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name);
 MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);

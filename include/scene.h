@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 05:38:36 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ struct			s_dto_light
 struct			s_light
 {
 	DTO_LIGHT	dto;
+	int			index;
+	LIGHT		*prev;
 	LIGHT		*next;
 };
 
@@ -97,6 +99,8 @@ struct			s_dto_shape
 struct			s_shape
 {
 	DTO_SHAPE	dto;
+	int			index;
+	SHAPE		*prev;
 	SHAPE		*next;
 };
 

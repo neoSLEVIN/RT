@@ -18,7 +18,7 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 	cl_float	*angle;
 
 	dto->origin = cam->transform.position;
-	dto->forward = cam->transform.direction;
+	dto->forward = v3_norm(cam->transform.direction);
 	dto->target = v3_add(dto->origin, dto->forward);
 	angle = &cam->transform.rotation;
 	rot_y = atan2f(dto->forward.x, dto->forward.z);

@@ -19,6 +19,8 @@ char	*jc_full_name(const JC_FIELD field)
 
 _Bool	jc_compare_types(const JC_FIELD field, const JC_TYPE types)
 {
+	if (types == JC_ANY)
+		return (TRUE);
 	if (field.obj == NULL)
 		return (JC_NULL & types);
 	return (field.obj->type & types);

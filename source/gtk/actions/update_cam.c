@@ -6,13 +6,23 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 03:40:06 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 07:18:01 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
+// TODO dynamic value
 # define STEP 0.5
+
+void	update_cursor(t_rt *rt)
+{
+	int	err;
+
+	err = clSetKernelArg(rt->ocl->kernel, 7, sizeof(INT2),
+						rt->ocl->dto.cursor);
+	check_error_cl(err,"clSetKernelArg", "cursor");
+}
 
 void	update_cam(t_rt *rt)
 {
@@ -21,6 +31,26 @@ void	update_cam(t_rt *rt)
 	err = clSetKernelArg(rt->ocl->kernel, 4, sizeof(DTO_CAM),
 						&(rt->ocl->dto.cam));
 	check_error_cl(err,"clSetKernelArg", "cam");
+}
+
+void	update_shapes(t_rt *rt, _Bool update_cnt)
+{
+	int	err;
+
+	clReleaseMemObject(rt->ocl->dto.input_shapes);
+	rt->ocl->dto.input_shapes = clCreateBuffer(rt->ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		sizeof(DTO_SHAPE) * rt->scene->s_cnt, rt->ocl->dto.shapes, &err);
+	check_error_cl(err,"clCreateBuffer", "input_shapes");
+	err = clSetKernelArg(rt->ocl->kernel, 0, sizeof(cl_mem),
+						&(rt->ocl->dto.input_shapes));
+	check_error_cl(err,"clSetKernelArg", "input_shapes");
+	if (update_cnt)
+	{
+		err = clSetKernelArg(rt->ocl->kernel, 1, sizeof(int),
+						rt->ocl->dto.s_cnt);
+		check_error_cl(err,"clSetKernelArg", "s_cnt");
+	}
 }
 
 void	move_cam(t_rt *rt, guint key)
@@ -86,6 +116,10 @@ void	rotate_cam(t_rt *rt, guint key)
 	angle = RAD;
 	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_6 || key == GDK_KEY_q)
 		angle *= -1.0f;
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
+		angle *= -rt->info->axis.y;
+	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
+		angle *= -rt->info->axis.x;
 	cam = &rt->ocl->dto.cam;
 	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
 	{
@@ -104,7 +138,7 @@ void	rotate_cam(t_rt *rt, guint key)
 	}
 	else if (key == GDK_KEY_KP_Decimal)
 	{
-		decrease_holders_cnt(&rt->info->holders_cnt, &rt->info->num_decimal);
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_decimal);
 		cam->forward = v3_scale(cam->forward, -1.0);
 		cam->right = v3_scale(cam->right, -1.0);
 	}
@@ -112,5 +146,34 @@ void	rotate_cam(t_rt *rt, guint key)
 		return ;
 	cam->target = v3_add(cam->origin, cam->forward);
 	cam->up = v3_cross(cam->right, cam->forward);
+	update_cam(rt);
+}
+
+void	rotate_cam_by_mouse(t_rt *rt, INT2 diff)
+{
+	DTO_CAM	*cam;
+	FLT2	angle;
+
+	cam = &rt->ocl->dto.cam;
+	angle = (FLT2){(cl_float)diff.x / COLS * PI / 4 * rt->info->axis.x,
+				(cl_float)diff.y / ROWS * PI / 8 * rt->info->axis.y};
+	if (angle.x)
+	{
+		cam->forward = v3_rot_v(cam->forward, cam->upguide, angle.x);
+		cam->right = v3_rot_v(cam->right, cam->upguide, angle.x);
+	}
+	if (angle.y)
+	{
+		cam->forward = v3_rot_v(cam->forward, cam->right, angle.y);
+		cam->upguide = v3_rot_v(cam->upguide, cam->right, angle.y);
+	}
+	if (rt->info->scroll_mc)
+	{
+		cam->forward = v3_scale(cam->forward, -1.0f);
+		cam->right = v3_scale(cam->right, -1.0f);
+	}
+	cam->target = v3_add(cam->origin, cam->forward);
+	cam->up = v3_cross(cam->right, cam->forward);
+	rt->info->rmc_start_pos = rt->info->rmc_current_pos;
 	update_cam(rt);
 }

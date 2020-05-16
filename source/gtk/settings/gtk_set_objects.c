@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 06:30:40 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 02:58:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,9 @@ void		gtk_set_objects(t_gtk *gtk, t_rt *rt)
 	gtk_scale_set_digits(GTK_SCALE(gtk->fps_scale), 1);
 	gtk_widget_set_hexpand (gtk->fps_scale, TRUE);
 	gtk_widget_set_valign (gtk->fps_scale, GTK_ALIGN_START);
+	gtk->y_axis = gtk_check_button_new_with_label("Invert Y-axis");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk->y_axis), FALSE);
+	gtk->x_axis = gtk_check_button_new_with_label("Invert X-axis");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk->x_axis), FALSE);
 	gtk->button = gtk_button_new_with_label("Update");
 }

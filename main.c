@@ -40,7 +40,7 @@ int			main(int argc, char **argv)
 	new_ocl(&rt.ocl);
 	new_scene(&rt.scene);
 	new_gtk(&rt);
-	setting_cl(rt.ocl, rt.scene);
+	setting_cl(rt.ocl, rt.scene, rt.info);
 	draw_image(&rt);
 	gtk_widget_show_all(rt.gtk->window);
 	gtk_main();

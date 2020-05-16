@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/15 22:22:51 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ void	jcp_free_tree(JCP_OBJ **obj);
 void	jcp_skip_whitespaces(const char *str, size_t *index);
 char	*jcp_parent_dot_child(const char *parent, const char *child);
 char	*jcp_field_with_index(const char *field, const int index);
+char	*jcp_str_of_types(JC_TYPE types);
+void	jcp_print_bad_type_error(const JCP_OBJ *obj, JC_TYPE allowed_types);
 
 #endif

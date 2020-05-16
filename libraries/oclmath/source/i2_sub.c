@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v3_angle_to_xz.c                                   :+:      :+:    :+:   */
+/*   i2_sub.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/13 23:29:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 00:55:13 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/16 00:30:27 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/16 00:30:27 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ocl_math.h"
 
-cl_float	v3_angle_to_xz(FLT3 v)
+INT2	i2_sub(INT2 i1, INT2 i2)
 {
-	if (v3_length(v) == 0.0f)
-		return (0.0f);
-	return (asinf(v3_dot(v, (FLT3){0.0f, 1.0f, 0.0f}) / (v3_length(v) * 1.0f)));
+	i1.x -= i2.x;
+	i1.y -= i2.y;
+	return (i1);
 }

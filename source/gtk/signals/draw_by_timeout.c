@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   v3_angle_to_xz.c                                   :+:      :+:    :+:   */
+/*   draw_by_timeout.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/13 23:29:04 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 00:55:13 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/10 02:42:24 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/16 00:59:19 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ocl_math.h"
+#include "gtk_module.h"
 
-cl_float	v3_angle_to_xz(FLT3 v)
+int	draw_by_timeout(gpointer data)
 {
-	if (v3_length(v) == 0.0f)
-		return (0.0f);
-	return (asinf(v3_dot(v, (FLT3){0.0f, 1.0f, 0.0f}) / (v3_length(v) * 1.0f)));
+	t_rt	*rt;
+
+	rt = (t_rt*)data;
+	if (rt->info->update == TRUE || rt->info->keyhold_cnt != 0)
+	{
+		rt->info->update = FALSE;
+		make_action(rt);
+		draw_image(rt);
+	}
+	return (TRUE);
 }

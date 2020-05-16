@@ -85,7 +85,7 @@ FLT3		parse_color(const JC_FIELD parent, const char *child_name)
 	str_color = jc_get_string(parent, child_name, FALSE);
 	if (!str_to_rgb(&color, str_color))
 		parse_error(jc_full_name(parent), child_name,
-			" Incorrect format of color");
+			"Incorrect format of color");
 	ft_strdel(&str_color);
 	return (color);
 }

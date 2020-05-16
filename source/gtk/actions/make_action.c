@@ -6,11 +6,16 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 02:12:14 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/13 02:42:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 07:48:57 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
+
+void	move_shape(t_rt *rt, INT2 diff)
+{
+
+}
 
 void	make_action(t_rt *rt)
 {
@@ -40,4 +45,12 @@ void	make_action(t_rt *rt)
 		rotate_cam(rt, GDK_KEY_KP_8);
 	if (rt->info->num_decimal)
 		rotate_cam(rt, GDK_KEY_KP_Decimal);
+	if (rt->info->right_mc)
+		rotate_cam_by_mouse(rt,
+			i2_sub(rt->info->rmc_current_pos, rt->info->rmc_start_pos));
+	if (rt->info->scroll_mc)
+		rotate_cam_by_mouse(rt, (INT2){0, 0});
+	if (rt->info->left_mc && rt->info->s_marker != NULL)
+		move_shape(rt,
+			i2_sub(rt->info->lmc_current_pos, rt->info->lmc_start_pos));
 }

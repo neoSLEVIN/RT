@@ -5,7 +5,9 @@ __kernel void render_kernel(__global t_object *objects,
 							int num_light,
 							CAMERA cam,
 							__global char4* output,
-							__global unsigned int *seedsInput)
+							__global unsigned int *seedsInput,
+							int2 cursor,
+							__global int *output_id)
 {
 	float3 finalColor = 0;
 	t_ray ray;
@@ -56,5 +58,7 @@ __kernel void render_kernel(__global t_object *objects,
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
 
+	if (work_item_id == cursor.y * cam.screen_w + cursor.x)
+		output_id[0] = ray.hit_id;
 	seedsInput[work_item_id] = seed;
 }

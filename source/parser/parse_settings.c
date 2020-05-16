@@ -21,11 +21,11 @@ void parse_settings(JC_FIELD json_field, SCENE *scene)
 {
 	JC_FIELD	settings_field;
 
-	settings_field = jc_get_field("settings", json_field, (JC_OBJ | JC_NULL));
+	settings_field = jc_get_field(json_field, "settings", (JC_OBJ | JC_NULL));
 	if (jc_is_null(settings_field))
 		return (default_settings(scene));
 	scene->fps = jc_get_float_or_default(settings_field, "fps", 25);
 	if (scene->fps < 0.5 || scene->fps > 80)
 		parse_error(jc_full_name(settings_field), "fps",
-					" Value must be in range [0.5; 80.0].");
+					"Value must be in range [0.5; 80.0].");
 }

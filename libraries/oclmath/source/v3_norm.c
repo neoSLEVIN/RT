@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 15:20:40 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 03:49:59 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ FLT3	v3_norm(FLT3 v)
 	cl_float	len;
 
 	len = v3_length(v);
-	if (len > 0)
+	if (len > 0.0f)
 		return (v3_scale(v, 1.0f / len));
-	return (FLT3){0,0,0};
+	return (FLT3){0.0f,0.0f,0.0f};
 }
