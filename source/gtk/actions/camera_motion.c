@@ -1,49 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_cam.c                                       :+:      :+:    :+:   */
+/*   camera_motion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 01:45:45 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 06:43:13 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-void	move_shape(t_rt *rt, guint key)
-{
-	DTO_CAM	*cam;
-	FLT3	*shape_pos;
-
-	cam = &rt->ocl->dto.cam;
-	shape_pos = &rt->info->s_marker->dto->transform.position;
-	if (key == GDK_KEY_space)
-		*shape_pos = v3_add(*shape_pos, v3_scale(cam->upguide, STEP));
-	else if (key == GDK_KEY_c)
-		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->upguide, STEP));
-	else if (key == GDK_KEY_w)
-		*shape_pos = v3_add(*shape_pos, v3_scale(cam->forward, STEP * 2));
-	else if (key == GDK_KEY_s)
-		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->forward, STEP * 2));
-	else if (key == GDK_KEY_d)
-		*shape_pos = v3_add(*shape_pos, v3_scale(cam->right, STEP));
-	else if (key == GDK_KEY_a)
-		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->right, STEP));
-	else
-		return ;
-	rt->info->update_shapes = TRUE;
-}
-
-void	move_cam_with_shape(t_rt *rt, guint key)
-{
-	if (rt->info->left_mc && rt->info->s_marker != NULL)
-		move_shape(rt, key);
-	move_cam(rt, key);
-}
-
-void	move_cam(t_rt *rt, guint key)
+void	move_camera(t_rt *rt, guint key)
 {
 	DTO_CAM	*cam;
 
@@ -76,29 +45,9 @@ void	del_print(t_rt *rt)
 		angle = ((angle < 0) ? -PI : PI) - angle;
 	if (angle == 0.0f && rt->ocl->dto.cam.upguide.y == 0.0f)
 		angle = -atan2f(rt->ocl->dto.cam.right.z, -rt->ocl->dto.cam.right.x);
-	ft_printf("%s\t%f %f %f\n%s\t%f %f %f\n%s\t%f %.20f %f\n%s\t%f %f %f\n%s\t%f\n%s\n",
-		"position:",
-		rt->ocl->dto.cam.origin.x,
-		rt->ocl->dto.cam.origin.y,
-		rt->ocl->dto.cam.origin.z,
-		"forward:",
-		rt->ocl->dto.cam.forward.x,
-		rt->ocl->dto.cam.forward.y,
-		rt->ocl->dto.cam.forward.z,
-		"right:\t",
-		rt->ocl->dto.cam.right.x,
-		rt->ocl->dto.cam.right.y,
-		rt->ocl->dto.cam.right.z,
-		"upguide:",
-		rt->ocl->dto.cam.upguide.x,
-		rt->ocl->dto.cam.upguide.y,
-		rt->ocl->dto.cam.upguide.z,
-		"angle:\t",
-		rad_to_deg(angle),
-		"=============================================");
 }
 
-void	rotate_cam(t_rt *rt, guint key)
+void	rotate_camera(t_rt *rt, guint key)
 {
 	DTO_CAM		*cam;
 	cl_float	angle;
@@ -139,14 +88,14 @@ void	rotate_cam(t_rt *rt, guint key)
 	rt->info->update_cam = TRUE;
 }
 
-void	rotate_cam_by_mouse(t_rt *rt, INT2 diff)
+void	rotate_camera_by_mouse(t_rt *rt, INT2 diff)
 {
 	DTO_CAM	*cam;
 	FLT2	angle;
 
 	cam = &rt->ocl->dto.cam;
 	angle = (FLT2){(cl_float)diff.x / COLS * PI / 4 * rt->info->axis.x,
-				(cl_float)diff.y / ROWS * PI / 8 * rt->info->axis.y};
+				(cl_float)diff.y / ROWS * PI / 6 * rt->info->axis.y};
 	if (angle.x)
 	{
 		cam->forward = v3_rot_v(cam->forward, cam->upguide, angle.x);

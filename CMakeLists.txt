@@ -298,8 +298,10 @@ set(SRCNAME_GTK
         source/gtk/actions/holders_cnt.c
         source/gtk/actions/make_action.c
         source/gtk/actions/draw_image.c
-        source/gtk/actions/update_cam.c
-        source/gtk/actions/get_shape_id.c)
+        source/gtk/actions/camera_motion.c
+        source/gtk/actions/get_shape_id.c
+        source/gtk/actions/shape_motion.c
+        source/gtk/actions/camera_with_shape.c)
 
 add_executable(RT
         main.c
