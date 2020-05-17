@@ -29,9 +29,9 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	else if (type == CONE)
 	{
 		param = jc_get_float(shape_field, "angle");
-		if (param <= 0.0f || param >= 90.0f)
+		if (param < 1.0f || param > 89.0f)
 			parse_error(jc_full_name(shape_field), "angle",
-				"Value must be in range (0.0; 90.0).");
+				"Value must be in range [1.0; 89.0].");
 		param = deg_to_rad(param);
 	}
 	else

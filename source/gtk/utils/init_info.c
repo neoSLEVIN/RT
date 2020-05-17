@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 00:13:49 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,17 @@ void	keys_to_false(t_info *info)
 	info->d_key = FALSE;
 	info->q_key = FALSE;
 	info->e_key = FALSE;
+	info->i_key = FALSE;
+	info->j_key = FALSE;
+	info->k_key = FALSE;
+	info->l_key = FALSE;
+	info->u_key = FALSE;
+	info->o_key = FALSE;
 	info->num_2 = FALSE;
 	info->num_4 = FALSE;
 	info->num_6 = FALSE;
 	info->num_8 = FALSE;
-	info->num_decimal = FALSE;
+	info->num_dec = FALSE;
 }
 
 void	mouse_to_false(t_info *info)

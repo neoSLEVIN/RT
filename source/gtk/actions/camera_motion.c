@@ -6,34 +6,11 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 06:43:13 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
-
-void	move_camera(t_rt *rt, guint key)
-{
-	DTO_CAM	*cam;
-
-	cam = &rt->ocl->dto.cam;
-	if (key == GDK_KEY_space)
-		cam->origin = v3_add(cam->origin, v3_scale(cam->upguide, STEP));
-	else if (key == GDK_KEY_c)
-		cam->origin = v3_sub(cam->origin, v3_scale(cam->upguide, STEP));
-	else if (key == GDK_KEY_w)
-		cam->origin = v3_add(cam->origin, v3_scale(cam->forward, STEP * 2));
-	else if (key == GDK_KEY_s)
-		cam->origin = v3_sub(cam->origin, v3_scale(cam->forward, STEP * 2));
-	else if (key == GDK_KEY_d)
-		cam->origin = v3_add(cam->origin, v3_scale(cam->right, STEP));
-	else if (key == GDK_KEY_a)
-		cam->origin = v3_sub(cam->origin, v3_scale(cam->right, STEP));
-	else
-		return ;
-	cam->target = v3_add(cam->origin, cam->forward);
-	rt->info->update_cam = TRUE;
-}
 
 //TODO delete this before defending
 void	del_print(t_rt *rt)
@@ -77,7 +54,7 @@ void	rotate_camera(t_rt *rt, guint key)
 	}
 	else if (key == GDK_KEY_KP_Decimal)
 	{
-		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_decimal);
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_dec);
 		cam->forward = v3_scale(cam->forward, -1.0);
 		cam->right = v3_scale(cam->right, -1.0);
 	}
@@ -114,5 +91,28 @@ void	rotate_camera_by_mouse(t_rt *rt, INT2 diff)
 	cam->target = v3_add(cam->origin, cam->forward);
 	cam->up = v3_cross(cam->right, cam->forward);
 	rt->info->rmc_start_pos = rt->info->rmc_current_pos;
+	rt->info->update_cam = TRUE;
+}
+
+void	move_camera(t_rt *rt, guint key)
+{
+	DTO_CAM	*cam;
+
+	cam = &rt->ocl->dto.cam;
+	if (key == GDK_KEY_space)
+		cam->origin = v3_add(cam->origin, v3_scale(cam->upguide, STEP));
+	else if (key == GDK_KEY_c)
+		cam->origin = v3_sub(cam->origin, v3_scale(cam->upguide, STEP));
+	else if (key == GDK_KEY_w)
+		cam->origin = v3_add(cam->origin, v3_scale(cam->forward, STEP * 2));
+	else if (key == GDK_KEY_s)
+		cam->origin = v3_sub(cam->origin, v3_scale(cam->forward, STEP * 2));
+	else if (key == GDK_KEY_d)
+		cam->origin = v3_add(cam->origin, v3_scale(cam->right, STEP));
+	else if (key == GDK_KEY_a)
+		cam->origin = v3_sub(cam->origin, v3_scale(cam->right, STEP));
+	else
+		return ;
+	cam->target = v3_add(cam->origin, cam->forward);
 	rt->info->update_cam = TRUE;
 }

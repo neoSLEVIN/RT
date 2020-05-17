@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 06:37:24 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 00:13:48 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,17 @@ typedef struct	s_info
 	_Bool		d_key;
 	_Bool		q_key;
 	_Bool		e_key;
+	_Bool		i_key;
+	_Bool		j_key;
+	_Bool		k_key;
+	_Bool		l_key;
+	_Bool		u_key;
+	_Bool		o_key;
 	_Bool		num_2;
 	_Bool		num_4;
 	_Bool		num_6;
 	_Bool		num_8;
-	_Bool		num_decimal;
+	_Bool		num_dec;
 	int			mc_hold_cnt;
 	_Bool		left_mc;
 	_Bool		right_mc;

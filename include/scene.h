@@ -81,7 +81,7 @@ struct			s_transform
 {
 	FLT3		position;
 	FLT3		direction;
-	cl_float	rotation;
+	FLT3		rotation;
 };
 /*
 ** ============================== Properties info ==============================
@@ -164,7 +164,9 @@ struct			s_dto_cam
 struct			s_camera
 {
 	DTO_CAM		*dto;
-	TRANSFORM	transform;
+	FLT3		position;
+	FLT3		direction;
+	cl_float	rotation;
 };
 
 /*

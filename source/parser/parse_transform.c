@@ -25,7 +25,7 @@ TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name)
 	if (v3_length(trans.direction) == 0.0f)
 		parse_error(jc_full_name(transform_field), "direction",
 			"The vector must not be a zero vector.");
-	trans.rotation = jc_get_float_or_default(transform_field, "rotation", 0.0f);
-	trans.rotation = deg_to_rad(trans.rotation);
+	trans.rotation = parse_cl_float3_or_default(transform_field, "rotation",
+		(FLT3){0.0f, 0.0f, 0.0f});
 	return (trans);
 }

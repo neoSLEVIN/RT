@@ -136,6 +136,7 @@ void				rotate_camera_by_mouse(t_rt *rt, INT2 diff);
 void				move_shape_by_camera_movement(t_rt *rt, guint key);
 void				move_shape_by_camera_rotating(t_rt *rt, guint key);
 void				move_shape_by_mouse(t_rt *rt, INT2 diff);
+void				rotate_shape(t_rt *rt, guint key);
 
 /*
 ** =============================================================================

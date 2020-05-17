@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/14 03:33:31 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,19 @@ gboolean	press_key_on_window(GtkWidget *window, GdkEventKey *event,
 	else if (event->keyval == GDK_KEY_KP_8)
 		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_8, rt);
 	else if (event->keyval == GDK_KEY_KP_Decimal)
-		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_decimal, rt);
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_dec, rt);
+	else if (event->keyval == GDK_KEY_i)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->i_key, rt);
+	else if (event->keyval == GDK_KEY_j)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->j_key, rt);
+	else if (event->keyval == GDK_KEY_k)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->k_key, rt);
+	else if (event->keyval == GDK_KEY_l)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->l_key, rt);
+	else if (event->keyval == GDK_KEY_u)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->u_key, rt);
+	else if (event->keyval == GDK_KEY_o)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->o_key, rt);
 	else
 		return (FALSE);
 	rt->info->update = TRUE;
@@ -83,7 +95,19 @@ gboolean	release_key_on_window(GtkWidget *window, GdkEventKey *event,
 	else if (event->keyval == GDK_KEY_KP_8)
 		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_8);
 	else if (event->keyval == GDK_KEY_KP_Decimal)
-		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_decimal);
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_dec);
+	else if (event->keyval == GDK_KEY_i)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->i_key);
+	else if (event->keyval == GDK_KEY_j)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->j_key);
+	else if (event->keyval == GDK_KEY_k)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->k_key);
+	else if (event->keyval == GDK_KEY_l)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->l_key);
+	else if (event->keyval == GDK_KEY_u)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->u_key);
+	else if (event->keyval == GDK_KEY_o)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->o_key);
 	else
 		return (FALSE);
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 04:52:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 07:02:45 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:17:48 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,45 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
 	rt->info->lmc_start_pos = rt->info->lmc_current_pos;
 	rt->info->update_shapes = TRUE;
+}
+
+void	rotate_shape(t_rt *rt, guint key)
+{
+/*	FLT3		*v_shape;
+	DTO_CAM		*cam;
+	cl_float	angle;
+
+	angle = RAD;
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_6 || key == GDK_KEY_q)
+		angle *= -1.0f;
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
+		angle *= -rt->info->axis.y;
+	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
+		angle *= -rt->info->axis.x;
+	cam = &rt->ocl->dto.cam;
+	v_shape = &rt->info->s_marker->dto->transform.direction;
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
+	{
+		cam->forward = v3_rot_v(cam->forward, cam->right, angle);
+		cam->upguide = v3_rot_v(cam->upguide, cam->right, angle);
+	}
+	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
+	{
+		cam->forward = v3_rot_v(cam->forward, cam->upguide, angle);
+		cam->right = v3_rot_v(cam->right, cam->upguide, angle);
+	}
+	else if (key == GDK_KEY_q || key == GDK_KEY_e)
+	{
+		cam->upguide = v3_rot_v(cam->upguide, cam->forward, angle);
+		cam->right = v3_rot_v(cam->right, cam->forward, angle);
+	}
+	else if (key == GDK_KEY_KP_Decimal)
+	{
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->num_dec);
+		cam->forward = v3_scale(cam->forward, -1.0);
+		cam->right = v3_scale(cam->right, -1.0);
+	}
+	else
+		return ;
+	rt->info->update_shapes = TRUE;*/
 }
