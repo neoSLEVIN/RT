@@ -77,7 +77,7 @@
 ** =============================================================================
 */
 # define KERNEL_FILE_SIZE 13000
-# define KERNEL_FILE_CNT 10
+# define KERNEL_FILE_CNT 13
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"include.cl",
 		ABSOLUTE_PATH"normals.cl",
@@ -88,7 +88,10 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"refract.cl",
 		ABSOLUTE_PATH"color.cl",
 		ABSOLUTE_PATH"ray.cl",
-		ABSOLUTE_PATH"ray_tracing.cl"
+		ABSOLUTE_PATH"ray_tracing.cl",
+		ABSOLUTE_PATH"uv_mapping.cl",
+		ABSOLUTE_PATH"uv_patterns.cl",
+		ABSOLUTE_PATH"perlin_noise.cl"
 };
 /*
 ** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!

@@ -93,7 +93,20 @@ typedef struct			s_object
 	bool				marker;
 }						t_object;
 
-
+/*Mapping*/
+float2 sphere_map(t_object *obj, t_ray *ray);
+float2 plane_map(t_object *obj, t_ray *ray, int size);
+float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
+float2 translate_plane_coord(t_ray *ray);
+void set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
+/*patterns*/
+float3 uv_patter_checker(int checkerW, int checkerH, float2 uv);
+float3 uv_patter_lines(float2 uv);
+float3 uv_patter_circle(float2 uv, t_object *obj);
+float3 plane_checker(t_object *obj, t_ray *ray);
+float3 plane_lines(t_object *obj, t_ray *ray);
+float3 typical_noise(t_object *obj, float2 uv, int size);
+float3 wood(t_object *obj, float2 uv, int size);
 
 float3 	sphere_normal(float3 hitpoint, float3 position, float3 rayDir);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
