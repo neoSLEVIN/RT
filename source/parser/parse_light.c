@@ -18,17 +18,17 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const int index)
 	LIGHT		*light;
 
 	light_field = jc_get_field_idx(parent, index, JC_OBJ);
-	if((light = (LIGHT*)malloc(sizeof(LIGHT))) == NULL)
+	light = (LIGHT*)malloc(sizeof(LIGHT));
+	if (!light || !(light->dto = (DTO_LIGHT*)malloc(sizeof(DTO_LIGHT))))
 		ft_error("Can't allocate memory");
-	light->index = index;
 	light->prev = NULL;
 	light->next = NULL;
-	light->dto.marker = FALSE;
-	light->dto.type = parse_light_type(light_field, "type");
-	light->dto.intensity = jc_get_float(light_field, "intensity");
+	light->dto->marker = FALSE;
+	light->dto->type = parse_light_type(light_field, "type");
+	light->dto->intensity = jc_get_float(light_field, "intensity");
 	// TODO validate intensity value
-	light->dto.position = parse_cl_float3(light_field, "position");
-	light->dto.direction = parse_cl_float3(light_field, "direction");
+	light->dto->position = parse_cl_float3(light_field, "position");
+	light->dto->direction = parse_cl_float3(light_field, "direction");
 	// TODO parse another params
 	return (light);
 }

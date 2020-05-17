@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 02:58:47 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 00:13:49 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ void	init_info(t_info **info)
 	if (!(*info = (t_info*)malloc(sizeof(t_info))))
 		ft_error("Can't allocate memory");
 	(*info)->update = TRUE;
+	(*info)->update_cam = FALSE;
+	(*info)->update_shapes = FALSE;
+	(*info)->update_s_cnt = FALSE;
 	keys_to_false(*info);
 	mouse_to_false(*info);
 	(*info)->axis = (INT2){-1, -1};

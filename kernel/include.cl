@@ -14,7 +14,7 @@ typedef struct			s_light
 	float				intensity;
 	float3				position;
 	float3				target;
-	int					marker;
+	bool				marker;
 }						t_light;
 
 typedef struct			s_transform
@@ -88,10 +88,9 @@ typedef struct			s_object
 	t_shape_type		type;
 	t_transform			transform;
 	t_material			material;
-	float				radius;
-	int					marker;
-	/*Nazarov*/
 	t_section			section;
+	float				radius;
+	bool				marker;
 }						t_object;
 
 

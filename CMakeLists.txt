@@ -256,7 +256,8 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/translate_data.c
         source/opencl/settings/set_memory.c
         source/opencl/settings/set_kernel_args.c
-)
+        source/opencl/settings/realloc_data.c
+        source/opencl/settings/update_args.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})

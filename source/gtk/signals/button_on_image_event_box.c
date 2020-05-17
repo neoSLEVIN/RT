@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:06:20 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 07:52:46 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 02:21:31 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ gboolean	press_button_on_image_event_box(GtkWidget *event_box,
 	{
 		rt->info->lmc_start_pos = (cl_int2){event->x, event->y};
 		rt->info->lmc_current_pos = (cl_int2){event->x, event->y};
-		update_cursor(rt);
+		update_cursor_arg(rt->ocl);
 		draw_image(rt);
 		get_shape_id(rt);
-		update_shapes(rt, FALSE);
+		update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+						&rt->info->update_shapes);
 		increase_holders_cnt(&rt->info->mc_hold_cnt, &rt->info->left_mc, rt);
 	}
 	else if (event->button == 2)

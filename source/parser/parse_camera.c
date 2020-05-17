@@ -18,6 +18,7 @@ CAMERA	parse_camera(const JC_FIELD parent, const char *child_name)
 	CAMERA		cam;
 
 	cam_field = jc_get_field(parent, child_name, JC_OBJ);
+	cam.dto = NULL;
 	cam.transform = parse_transform(cam_field, "transform");
 	if (jc_is_null(jc_get_field(
 			jc_get_field(cam_field, "transform", JC_OBJ), "direction", JC_ARR)))

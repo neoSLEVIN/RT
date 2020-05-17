@@ -45,16 +45,17 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	SHAPE		*shape;
 
 	shape_field = jc_get_field_idx(parent, index, JC_OBJ);
-	if((shape = (SHAPE*)malloc(sizeof(SHAPE))) == NULL)
+	shape = (SHAPE*)malloc(sizeof(SHAPE));
+	if (!shape || !(shape->dto = (DTO_SHAPE*)malloc(sizeof(DTO_SHAPE))))
 		ft_error("Can't allocate memory");
 	shape->prev = NULL;
 	shape->next = NULL;
-	shape->index = index;
-	shape->dto.marker = FALSE;
-	shape->dto.transform = parse_transform(shape_field, "transform");
-	shape->dto.material = parse_material(shape_field, "material");
-	shape->dto.type = parse_shape_type(shape_field, "type");
-	shape->dto.param = parse_shape_param_by_type(shape_field, shape->dto.type);
+	shape->dto->marker = FALSE;
+	shape->dto->transform = parse_transform(shape_field, "transform");
+	shape->dto->material = parse_material(shape_field, "material");
+	shape->dto->type = parse_shape_type(shape_field, "type");
+	shape->dto->param =
+		parse_shape_param_by_type(shape_field, shape->dto->type);
 	return (shape);
 }
 

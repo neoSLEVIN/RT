@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 07:46:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 07:55:49 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/16 19:02:30 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ void	get_shape_id(t_rt *rt)
 	int		i;
 	SHAPE	*temp;
 
-	if (rt->info->s_marker && rt->info->s_marker->index == rt->info->shape_id)
-		return ;
+	if (rt->info->shape_id == -1)
+		return (clear_shape_marker(rt));
+	if (rt->ocl->dto.shapes[rt->info->shape_id].marker)
+		return (clear_shape_marker(rt));
 	i = -1;
 	temp = rt->scene->shapes;
-	while (++i < rt->scene->s_cnt && temp)
-	{
-		if (temp->index == rt->info->shape_id)
-		{
-			rt->info->l_marker = NULL;
-			rt->info->s_marker = temp;
-			temp->dto.marker = 1;
-			rt->ocl->dto.shapes[temp->index].marker = 1;
-			return ;
-		}
+	while (temp && ++i < rt->info->shape_id)
 		temp = temp->next;
+	if (temp && rt->info->shape_id == i)
+	{
+		clear_light_marker(rt);
+		clear_shape_marker(rt);
+		rt->info->s_marker = temp;
+		temp->dto->marker = TRUE;
 	}
-	clear_shape_marker(rt);
+	else
+		clear_shape_marker(rt);
 }

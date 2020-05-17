@@ -47,6 +47,7 @@
       <w>putendl</w>
       <w>putnbr</w>
       <w>putstr</w>
+      <w>realloc</w>
       <w>rowstride</w>
       <w>strcat</w>
       <w>strchr</w>

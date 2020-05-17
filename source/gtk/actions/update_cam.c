@@ -6,51 +6,41 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 07:18:01 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 01:45:45 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-// TODO dynamic value
-# define STEP 0.5
-
-void	update_cursor(t_rt *rt)
+void	move_shape(t_rt *rt, guint key)
 {
-	int	err;
+	DTO_CAM	*cam;
+	FLT3	*shape_pos;
 
-	err = clSetKernelArg(rt->ocl->kernel, 7, sizeof(INT2),
-						rt->ocl->dto.cursor);
-	check_error_cl(err,"clSetKernelArg", "cursor");
+	cam = &rt->ocl->dto.cam;
+	shape_pos = &rt->info->s_marker->dto->transform.position;
+	if (key == GDK_KEY_space)
+		*shape_pos = v3_add(*shape_pos, v3_scale(cam->upguide, STEP));
+	else if (key == GDK_KEY_c)
+		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->upguide, STEP));
+	else if (key == GDK_KEY_w)
+		*shape_pos = v3_add(*shape_pos, v3_scale(cam->forward, STEP * 2));
+	else if (key == GDK_KEY_s)
+		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->forward, STEP * 2));
+	else if (key == GDK_KEY_d)
+		*shape_pos = v3_add(*shape_pos, v3_scale(cam->right, STEP));
+	else if (key == GDK_KEY_a)
+		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->right, STEP));
+	else
+		return ;
+	rt->info->update_shapes = TRUE;
 }
 
-void	update_cam(t_rt *rt)
+void	move_cam_with_shape(t_rt *rt, guint key)
 {
-	int	err;
-
-	err = clSetKernelArg(rt->ocl->kernel, 4, sizeof(DTO_CAM),
-						&(rt->ocl->dto.cam));
-	check_error_cl(err,"clSetKernelArg", "cam");
-}
-
-void	update_shapes(t_rt *rt, _Bool update_cnt)
-{
-	int	err;
-
-	clReleaseMemObject(rt->ocl->dto.input_shapes);
-	rt->ocl->dto.input_shapes = clCreateBuffer(rt->ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-		sizeof(DTO_SHAPE) * rt->scene->s_cnt, rt->ocl->dto.shapes, &err);
-	check_error_cl(err,"clCreateBuffer", "input_shapes");
-	err = clSetKernelArg(rt->ocl->kernel, 0, sizeof(cl_mem),
-						&(rt->ocl->dto.input_shapes));
-	check_error_cl(err,"clSetKernelArg", "input_shapes");
-	if (update_cnt)
-	{
-		err = clSetKernelArg(rt->ocl->kernel, 1, sizeof(int),
-						rt->ocl->dto.s_cnt);
-		check_error_cl(err,"clSetKernelArg", "s_cnt");
-	}
+	if (rt->info->left_mc && rt->info->s_marker != NULL)
+		move_shape(rt, key);
+	move_cam(rt, key);
 }
 
 void	move_cam(t_rt *rt, guint key)
@@ -73,7 +63,7 @@ void	move_cam(t_rt *rt, guint key)
 	else
 		return ;
 	cam->target = v3_add(cam->origin, cam->forward);
-	update_cam(rt);
+	rt->info->update_cam = TRUE;
 }
 
 //TODO delete this before defending
@@ -146,7 +136,7 @@ void	rotate_cam(t_rt *rt, guint key)
 		return ;
 	cam->target = v3_add(cam->origin, cam->forward);
 	cam->up = v3_cross(cam->right, cam->forward);
-	update_cam(rt);
+	rt->info->update_cam = TRUE;
 }
 
 void	rotate_cam_by_mouse(t_rt *rt, INT2 diff)
@@ -175,5 +165,5 @@ void	rotate_cam_by_mouse(t_rt *rt, INT2 diff)
 	cam->target = v3_add(cam->origin, cam->forward);
 	cam->up = v3_cross(cam->right, cam->forward);
 	rt->info->rmc_start_pos = rt->info->rmc_current_pos;
-	update_cam(rt);
+	rt->info->update_cam = TRUE;
 }

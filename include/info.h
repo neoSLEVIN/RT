@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 06:37:24 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 06:37:24 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 00:13:48 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@
 ** =============================================================================
 ** = "update" and "keyhold_cnt" - indicate for make_action and draw_image: =====
 ** === "update" - when key/button was pressed once =============================
-** === "keyhold_cnt" - when at least one key/button held down ==================
+** === "keyhold_cnt" - when at least one key held down =========================
 ** =============================================================================
 */
 typedef struct	s_info
 {
 	_Bool		update;
+	_Bool		update_cam;
+	_Bool		update_shapes;
+	_Bool		update_s_cnt;
 	int			keyhold_cnt;
 	_Bool		space_key;
 	_Bool		c_key;
