@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/11 02:48:33 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/18 00:41:41 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	else if (type == SPHERE || type == CYLINDER)
 	{
 		param = jc_get_float(shape_field, "radius");
-		if (param <= 0.0f)
+		if (param < 0.1f)
 			parse_error(jc_full_name(shape_field), "radius",
-				"Value must be positive.");
+				"The value must be greater or equal than 0.1");
 	}
 	else if (type == CONE)
 	{

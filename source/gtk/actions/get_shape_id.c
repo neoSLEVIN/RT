@@ -28,9 +28,7 @@ void	get_shape_id(t_rt *rt)
 	if (temp && rt->info->shape_id == i)
 	{
 		clear_light_marker(rt);
-		clear_shape_marker(rt);
-		rt->info->s_marker = temp;
-		temp->dto->marker = TRUE;
+		update_shape_marker(rt, temp);
 	}
 	else
 		clear_shape_marker(rt);

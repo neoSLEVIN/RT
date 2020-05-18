@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 06:37:24 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:17:48 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_info
 	_Bool		left_mc;
 	_Bool		right_mc;
 	_Bool		scroll_mc;
+	int			scroll_cnt;
 	INT2		rmc_start_pos;
 	INT2		rmc_current_pos;
 	INT2		lmc_start_pos;

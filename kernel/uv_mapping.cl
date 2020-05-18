@@ -24,8 +24,8 @@ float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;
 	float2 coord = translate_plane_coord(ray);
 	/*Плодадь ничем не ограничена, поэтому все разделено на области со сторонами size*/
-	uv.x = fmod(coord.x, size) / float(size);
-	uv.y = fmod(coord.y, size) / float(size);
+	uv.x = fmod(coord.x, size) / (float)(size);
+	uv.y = fmod(coord.y, size) / (float)(size);
 	/*если брать модуль то будет зеркально. Когда текстура шахматы, в 0 типа двойная клетка*/
 	if (uv.x < 0)
 		uv.x = 1 + uv.x;
@@ -52,7 +52,7 @@ float2 cylindrical_map(t_object *obj, t_ray *ray, int size) {
 	/*azimut angle -0.5 to 0.5*/
 	float phi = atan2(z, x) / (2 * M_PI);
 	uv.x = phi + 0.5f;
-	uv.y = fmod(y, size) / float(size);
+	uv.y = fmod(y, size) / (float)(size);
 	if (uv.y < 0)
 		uv.y = 1 + uv.y;
 	return uv;

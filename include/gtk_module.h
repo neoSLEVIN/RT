@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 07:51:08 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/18 00:21:28 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ gboolean			release_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventButton *event, gpointer data);
 gboolean			motion_button_on_image_event_box(GtkWidget *event_box,
 									GdkEventMotion *event, gpointer data);
+gboolean			scroll_on_image_event_box(GtkWidget *event_box,
+									GdkEvent *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 
@@ -118,6 +120,9 @@ void				decrease_holders_cnt(int *count, _Bool *button);
 ** ==================== Update the marked (selected) shape =====================
 */
 void				get_shape_id(t_rt *rt);
+void				update_shape_marker(t_rt *rt, SHAPE *shape);
+void				clear_shape_marker(t_rt *rt);
+void				clear_light_marker(t_rt *rt);
 /*
 ** ========= Bindings for calling actions for camera and shape motion ==========
 */
@@ -137,6 +142,10 @@ void				move_shape_by_camera_movement(t_rt *rt, guint key);
 void				move_shape_by_camera_rotating(t_rt *rt, guint key);
 void				move_shape_by_mouse(t_rt *rt, INT2 diff);
 void				rotate_shape(t_rt *rt, guint key);
+/*
+** ======================== Change the shape parameters ========================
+*/
+void				change_shape_param(t_rt *rt);
 
 /*
 ** =============================================================================
@@ -149,8 +158,6 @@ void				mouse_to_false(t_info *info);
 void				new_scene(SCENE **scene);
 void				new_gtk(t_rt *rt);
 void				clear_rt(t_rt *rt);
-void				clear_shape_marker(t_rt *rt);
-void				clear_light_marker(t_rt *rt);
 void				clear_lights(LIGHT **light);
 void				clear_shapes(SHAPE **shape);
 
