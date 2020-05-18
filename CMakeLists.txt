@@ -321,26 +321,6 @@ add_executable(RT
         ${SRCNAME_OPEN_CL}
 )
 
-# ==============================================================================
-# ================================== KERNEL ====================================
-# ==============================================================================
-foreach (CLKernelName
-        "include"
-        "normals"
-        "intersections"
-        "light"
-        "random"
-        "reflect"
-        "refract"
-        "color"
-        "ray"
-        "ray_tracing"
-)
-    set (CLKernelSourceFile "kernel/${CLKernelName}.cl")
-    configure_file (${CLKernelSourceFile}
-            ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)
-endforeach (CLKernelName)
-
 # ------------------------------------------------------------------------------
 # You shouldn't change anything below this line unless you know what you're doing
 # ------------------------------------------------------------------------------
