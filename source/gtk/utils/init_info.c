@@ -29,6 +29,7 @@ void	keys_to_false(t_info *info)
 	info->l_key = FALSE;
 	info->u_key = FALSE;
 	info->o_key = FALSE;
+	info->r_key = FALSE;
 	info->num_2 = FALSE;
 	info->num_4 = FALSE;
 	info->num_6 = FALSE;

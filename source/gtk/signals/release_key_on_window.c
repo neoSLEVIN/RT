@@ -14,7 +14,9 @@
 
 static gboolean	do_release_key_for_camera(t_rt *rt, GdkEventKey *event)
 {
-	if (event->keyval == GDK_KEY_space && !(event->state & GDK_SHIFT_MASK))
+	if (event->keyval == GDK_KEY_r)
+		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->r_key);
+	else if (event->keyval == GDK_KEY_space && !(event->state & GDK_SHIFT_MASK))
 		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->space_key);
 	else if (event->keyval == GDK_KEY_c)
 		decrease_holders_cnt(&rt->info->keyhold_cnt, &rt->info->c_key);

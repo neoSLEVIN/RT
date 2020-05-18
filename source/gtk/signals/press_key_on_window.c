@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 01:12:49 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/18 23:11:48 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static _Bool	do_press_key_for_camera(t_rt *rt, GdkEventKey *event)
 {
-	if (event->keyval == GDK_KEY_space)
+	if (event->keyval == GDK_KEY_r)
+		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->r_key, rt);
+	else if (event->keyval == GDK_KEY_space)
 		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->space_key, rt);
 	else if (event->keyval == GDK_KEY_c)
 		increase_holders_cnt(&rt->info->keyhold_cnt, &rt->info->c_key, rt);

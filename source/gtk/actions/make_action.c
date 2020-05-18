@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 02:12:14 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 03:05:28 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/19 02:37:18 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,18 @@ static void	make_update_args(t_rt *rt)
 			&rt->info->update_s_cnt, &rt->info->update_shapes);
 }
 
+static void	restart_position(t_rt *rt)
+{
+	if (!rt->info->r_key)
+		return ;
+	translate_cam(&rt->ocl->dto.cam, &rt->scene->cam);
+	clear_shape_marker(rt);
+	rt->info->update_cam = TRUE;
+}
+
 void		make_action(t_rt *rt)
 {
+	restart_position(rt);
 	make_move_camera_with_shape(rt);
 	make_rotate_camera_with_shape(rt);
 	make_mouse_action_on_camera_and_shape(rt);

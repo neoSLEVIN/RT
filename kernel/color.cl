@@ -1,8 +1,6 @@
 
 float3 get_obj_color(t_object *obj, t_ray *ray) {
 	float3 color;
-	if (obj->marker)
-		return (float3)(0.8f, 0.8f, 0.8f);
 	if (obj->type == PLANE) {
 		
 		/*
