@@ -1,11 +1,16 @@
 
 float3 get_obj_color(t_object *obj, t_ray *ray) {
 	float3 color;
-/*	if (obj->marker)
-		return (float3)(0.8f, 0.8f, 0.8f);*/
+	if (obj->marker)
+		return (float3)(0.8f, 0.8f, 0.8f);
 	if (obj->type == PLANE) {
 		
-		return plane_lines(obj, ray);
+		/*
+		float2 uv = plane_map(obj, ray, 10);
+		return uv_patter_plane_lines_cross(uv);
+		*/
+		 
+		return plane_lines_cross(obj, ray);
 		
 	} else if (obj->type == SPHERE) {
 		
@@ -15,7 +20,7 @@ float3 get_obj_color(t_object *obj, t_ray *ray) {
 		
 	} else if (obj->type == CONE) {
 		
-		float2 uv = cylindrical_map(obj, ray, 1);
+		float2 uv = cylindrical_map(obj, ray, 2);
 		return uv_patter_lines(uv);
 		
 		
