@@ -107,7 +107,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 
 	/*Сечение - Nazarov*/
 	init_section_plane(sphere);
-	sphere->section.on_x = true;
+	sphere->section.on_x = false;
 	if (sphere->section.on_x || sphere->section.on_y || sphere->section.on_z)
 		return add_section_on_primitive(ray, sphere, t[0], t[1]);
 	return minT(t[0], t[1]);
@@ -144,7 +144,7 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	
 	/*Сечение - Nazarov*/
 	init_section_plane(cylinder);
-	cylinder->section.on_z = true;
+	cylinder->section.on_z = false;
 	if (cylinder->section.on_x || cylinder->section.on_y || cylinder->section.on_z)
 		return add_section_on_primitive(ray, cylinder, t[0], t[1]);
 	
@@ -171,7 +171,7 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	
 	/*Сечение - Nazarov*/
 	init_section_plane(cone);
-	cone->section.on_x = true;
+	cone->section.on_x = false;
 	if (cone->section.on_x || cone->section.on_y || cone->section.on_z)
 		return add_section_on_primitive(ray, cone, t[0], t[1]);
 	return minT(t[0], t[1]);

@@ -284,13 +284,14 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
         source/gtk/utils/cleaner.c
-        source/gtk/utils/clear_marker.c
+        source/gtk/actions/update_marker.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_objects.c
         source/gtk/settings/gtk_set_signals.c
         source/gtk/settings/gtk_set_positions.c
         source/gtk/signals/escape_window.c
-        source/gtk/signals/key_on_window.c
+        source/gtk/signals/press_key_on_window.c
+        source/gtk/signals/release_key_on_window.c
         source/gtk/signals/button_on_image_event_box.c
         source/gtk/signals/fps_scale_moved.c
         source/gtk/signals/change_axis.c
@@ -298,10 +299,12 @@ set(SRCNAME_GTK
         source/gtk/actions/holders_cnt.c
         source/gtk/actions/make_action.c
         source/gtk/actions/draw_image.c
-        source/gtk/actions/camera_motion.c
         source/gtk/actions/get_shape_id.c
+        source/gtk/actions/camera_with_shape.c
+        source/gtk/actions/camera_motion.c
         source/gtk/actions/shape_motion.c
-        source/gtk/actions/camera_with_shape.c)
+        source/gtk/actions/change_shape_param.c
+        )
 
 add_executable(RT
         main.c

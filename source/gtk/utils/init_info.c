@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 16:02:47 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/17 16:17:48 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	mouse_to_false(t_info *info)
 	info->rmc_current_pos = (cl_int2){-1, -1};
 	info->lmc_start_pos = (cl_int2){-1, -1};
 	info->lmc_current_pos = (cl_int2){-1, -1};
+	info->scroll_cnt = 0;
 }
 
 void	init_info(t_info **info)
