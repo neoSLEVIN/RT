@@ -16,7 +16,15 @@ float3 uv_patter_checker(int checkerW, int checkerH, float2 uv) {
 }
 
 float3 uv_patter_lines(float2 uv) {
-	
+	float3 color;
+	if (uv.y > 0.95 || uv.y < 0.05)
+		color = 1.0f;
+	else
+		color = 0.0f;
+	return color;
+}
+
+float3 uv_patter_plane_lines_cross(float2 uv) {
 	float3 color;
 	if (uv.x > 0.95 || uv.x < 0.05 || uv.y > 0.95 || uv.y < 0.05)
 		color = 1.0f;
@@ -41,7 +49,7 @@ float3 plane_checker(t_object *obj, t_ray *ray) {
 	return color;
 }
 
-float3 plane_lines(t_object *obj, t_ray *ray) {
+float3 plane_lines_cross(t_object *obj, t_ray *ray) {
 	float3 color = 1.0f;
 	float2 coord = translate_plane_coord(ray);
 	float sines1 = sin(coord.x * 2);

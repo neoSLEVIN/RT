@@ -104,7 +104,8 @@ float3 uv_patter_checker(int checkerW, int checkerH, float2 uv);
 float3 uv_patter_lines(float2 uv);
 float3 uv_patter_circle(float2 uv, t_object *obj);
 float3 plane_checker(t_object *obj, t_ray *ray);
-float3 plane_lines(t_object *obj, t_ray *ray);
+float3 plane_lines_cross(t_object *obj, t_ray *ray);
+float3 uv_patter_plane_lines_cross(float2 uv);
 float3 typical_noise(t_object *obj, float2 uv, int size);
 float3 wood(t_object *obj, float2 uv, int size);
 
