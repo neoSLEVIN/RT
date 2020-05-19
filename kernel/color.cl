@@ -1,5 +1,39 @@
 
-float3 get_obj_color(t_object *obj, t_ray *ray) {
+float3 image_texture(float2 uv, __global char *texture)  {
+	
+	float3 res = 0;
+	
+	int nx = 640;
+	int ny = 640;
+	
+	int i = uv.x * nx;
+	int j = uv.y * ny - 0.001;
+	
+	
+	if (i < 0)
+		i = 0;
+	if (j < 0)
+		j = 0;
+
+	if (i > nx - 1)
+		i = nx - 1;
+	if (j > ny - 1)
+		j = ny - 1;
+	 
+	int position = j * 640 + i;
+	float r = int(texture[position * 3]  ) / 255.0;
+	float g = int(texture[position * 3 + 1]) / 255.0;
+	float b = int(texture[position * 3 + 2]) / 255.0;
+	
+	res = (float3)(r,g,b);
+	
+	return res;
+}
+
+
+
+
+float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
 	float3 color;
 	if (obj->marker)
 		return (float3)(0.8f, 0.8f, 0.8f);

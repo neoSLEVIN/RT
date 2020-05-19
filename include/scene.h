@@ -113,6 +113,25 @@ struct			s_section
 /*
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
+
+typedef struct			s_image_pix
+{
+	unsigned char 		red;
+	unsigned char 		green;
+	unsigned char 		blue;
+}						t_image_pix;
+
+
+typedef struct			s_ppm_image
+{
+	t_image_pix 		*data;
+	int 				width;
+	int 				height;
+	int 				max_color;
+	int					start_image;
+	
+}						t_ppm_image;
+
 # define DTO_SHAPE struct s_dto_shape
 struct			s_dto_shape
 {

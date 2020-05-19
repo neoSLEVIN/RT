@@ -93,6 +93,19 @@ typedef struct			s_object
 	bool				marker;
 }						t_object;
 
+
+typedef struct				s_scene
+{
+	__global t_object  		*objects;
+	int 					num_obj;
+	__global t_light 		*lights;
+	int 					num_light;
+	CAMERA 					cam;
+	uint					seed;
+	int2 					cursor;
+}							t_scene;
+
+
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
@@ -122,24 +135,24 @@ float	cone_intersect(t_ray *ray, t_object *cone);
 bool 	is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance);
 float 	minT(float a, float b);
 
-float 	get_light_intensity(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light);
-bool 	is_in_shadow(t_light *light, t_ray *ray, __global t_object *obj, int num_obj);
+float 	get_light_intensity(t_ray *ray, t_scene *scene);
+bool 	is_in_shadow(t_light *light, t_ray *ray, t_scene *scene);
 float	diffuse_light(t_light *light, t_ray *ray, int specular);
 float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, int object_specular);
 
 float 	get_random(uint *state);
 
-float3 	go_reflect(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light);
-float3 	continue_reflect_ray(t_ray *ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light);
-float3 	reflect_ray(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light);
+float3 	go_reflect(t_ray ray, t_scene *scene);
+float3 	continue_reflect_ray(t_ray *ray, t_scene *scene);
+float3 	reflect_ray(t_ray ray, t_scene *scene);
 float3 	reflect(float3 rayDir, float3 targetNormal);
 
-float3 	go_refract(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light);
-float3	continue_refract_ray(t_ray *ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light);
+float3 	go_refract(t_ray ray, t_scene *scene);
+float3	continue_refract_ray(t_ray *ray, t_scene *scene);
 float3 	refract(t_ray *ray);
 
-float3 	get_obj_color(t_object *obj, t_ray *ray);
+float3 	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
 char	convertColorFromFloat(float f);
 
-float3 	send_ray(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light);
+float3 	send_ray(t_ray *ray, t_scene *scene);
 void 	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
