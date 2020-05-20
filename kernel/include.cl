@@ -57,6 +57,7 @@ typedef enum			e_shape_type
 						SPHERE,
 						CONE,
 						CYLINDER,
+						CAPPEDCYLINDER,
 						CNT_OF_TYPES
 }						t_shape_type;
 
@@ -137,14 +138,17 @@ float3 	sphere_normal(float3 hitpoint, float3 position, float3 rayDir);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
+float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
 float3	get_normal(t_object *hit_obj, t_ray *ray);
 
 float	sphere_intersect(t_ray *ray, t_object *sphere);
 float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
+float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
 bool 	is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance);
 float 	minT(float a, float b);
+float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);
 bool 	is_in_shadow(t_light *light, t_ray *ray, t_scene *scene);

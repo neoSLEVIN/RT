@@ -72,6 +72,7 @@ enum			e_shape_type
 	SPHERE,
 	CONE,
 	CYLINDER,
+	CAPPEDCYLINDER,
 	CNT_OF_TYPES
 };
 /*
