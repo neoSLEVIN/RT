@@ -21,9 +21,9 @@ float3 image_texture(float2 uv, __global t_ppm_image *texture, int id)  {
 		j = ny - 1;
 	 
 	int position = j * nx + i;
-	float r = int(texture[id].data[position * 3]  ) / 255.0;
-	float g = int(texture[id].data[position * 3 + 1]) / 255.0;
-	float b = int(texture[id].data[position * 3 + 2]) / 255.0;
+	float r = (int)(texture[id].data[position * 3]  ) / 255.0;
+	float g = (int)(texture[id].data[position * 3 + 1]) / 255.0;
+	float b = (int)(texture[id].data[position * 3 + 2]) / 255.0;
 	
 	res = (float3)(r,g,b);
 	

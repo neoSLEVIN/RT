@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 03:32:42 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 22:30:36 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,19 +114,6 @@ struct			s_section
 /*
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
-
-#define MAX_DIMENSION 640
-#define MAX_IMAGE_SIZE 640 * 640 * 3
-
-typedef struct			s_ppm_image
-{
-	char 				data[MAX_IMAGE_SIZE];
-	int 				width;
-	int 				height;
-	int 				max_color;
-	int					start_image;
-}						t_ppm_image;
-
 # define DTO_SHAPE struct s_dto_shape
 struct			s_dto_shape
 {
@@ -187,6 +174,38 @@ struct			s_camera
 
 /*
 ** =============================================================================
+** ================================== TEXTURE ==================================
+** =============================================================================
+*/
+# define MAX_DIMENSION 640
+# define MAX_TEXTURE_SIZE 640 * 640 * 3
+/*
+** ==== Texture Data Transfer Object (Set as an element of kernel argument) ====
+*/
+# define DTO_TEXTURE struct s_ppm_image
+struct			s_ppm_image
+{
+	char		data[MAX_TEXTURE_SIZE];
+	int			width;
+	int			height;
+	int			max_color;
+	int			start_image;
+};
+/*
+** === Texture Node (Contains DTO, name, path, references to next/prev nodes) ==
+*/
+# define TEXTURE struct s_texture
+struct			s_texture
+{
+	DTO_TEXTURE	*dto;
+	char		*name;
+	char		*path;
+	TEXTURE		*prev;
+	TEXTURE		*next;
+};
+
+/*
+** =============================================================================
 ** =========================== Main Entity for Scene ===========================
 ** ==== Contains information about camera, shapes, lights and app settings =====
 ** =============================================================================
@@ -197,8 +216,10 @@ struct			s_scene
 	CAMERA		cam;
 	LIGHT		*lights;
 	SHAPE		*shapes;
+	TEXTURE		*textures;
 	int			l_cnt;
 	int			s_cnt;
+	int			t_cnt;
 	float		fps;
 };
 

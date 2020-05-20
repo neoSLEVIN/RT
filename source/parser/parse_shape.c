@@ -39,7 +39,7 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	return (param);
 }
 
-SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
+SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index)
 {
 	JC_FIELD	shape_field;
 	SHAPE		*shape;

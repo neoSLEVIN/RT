@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 22:30:36 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,30 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 	
 	int texture_count = 0;
 	
-	t_ppm_image *arImg = (t_ppm_image*)malloc(sizeof(t_ppm_image) * texture_count);
+	DTO_TEXTURE *arImg = (DTO_TEXTURE*)malloc(sizeof(DTO_TEXTURE) * texture_count);
 	
 	/*тут задаются текстуры*/
 	/*
 	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/1.ppm", &(arImg[0]));
 	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/2.ppm", &(arImg[1]));
 	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/3.ppm", &(arImg[2]));
-	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/4.ppm", &(arImg[3]));
+	read_ppm_to_texture("/Users/dmitry/Desktop/__RT_material/ppm_ex/4.ppm", &(arImg[3]));
 	*/
-	
-	if (texture_count > 0) {
+
+	if (texture_count > 0)
+	{
 		ocl->dto.texture = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
-										  sizeof(t_ppm_image) * texture_count, NULL, &err);
-		check_error_cl(err,"clCreateBuffer", "input_seeds");
+										  sizeof(DTO_TEXTURE) * texture_count, NULL, &err);
+		check_error_cl(err,"clCreateBuffer", "texture");
 		err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.texture, CL_TRUE, 0,
-								   sizeof(t_ppm_image) * texture_count, arImg, 0, NULL, NULL);
-		check_error_cl(err,"clEnqueueWriteBuffer", NULL);
+								   sizeof(DTO_TEXTURE) * texture_count, arImg, 0, NULL, NULL);
+		check_error_cl(err,"clEnqueueWriteBuffer", "texture");
+	}
+	else
+	{
+		ocl->dto.texture = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
+										  sizeof(DTO_TEXTURE), NULL, &err);
+		check_error_cl(err,"clCreateBuffer", "texture");
 	}
 	
 	

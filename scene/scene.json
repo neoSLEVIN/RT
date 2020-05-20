@@ -1,6 +1,6 @@
 {
   "settings": {
-    "fps": 18.0,
+    "fps": 30.0,
     "tips": "========================================================",
     "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
     "tip_2": "But if you see lags, reduce FPS value"
@@ -52,6 +52,12 @@
         "transform": {"position": [5,0,3], "direction": [-5,7,1]},
         "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
       }
+    ],
+    "textures": [
+      {"name": "name1", "path": "/path/to/the/ppm/image"},
+      {"name": "name dva", "path": "/path/to/the/ppm/image"},
+      {"name": "Name 3", "path": "/path/to/the/ppm/image"},
+      {"name": "NAmE 3", "path": "/path/to/the/ppm/image"}
     ]
   }
 }

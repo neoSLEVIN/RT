@@ -26,16 +26,22 @@ SCENE		*parse_scene(const char *file_name);
 */
 CAMERA		parse_camera(const JC_FIELD parent, const char *child_name);
 /*
+** ============================== Parse textures ===============================
+*/
+TEXTURE		*parse_textures(const JC_FIELD parent, const char *child_name);
+TEXTURE		*parse_texture_idx(const JC_FIELD parent, const size_t index);
+int			check_for_same_texture_name(TEXTURE *texture, const char *name);
+/*
 ** =============================== Parse shapes ================================
 */
 SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name);
-SHAPE		*parse_shape_idx(const JC_FIELD parent, const int index);
+SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index);
 SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
 /*
 ** =============================== Parse lights ================================
 */
 LIGHT		*parse_lights(const JC_FIELD parent, const char *child_name);
-LIGHT		*parse_light_idx(const JC_FIELD parent, const int index);
+LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index);
 LIGHT_TYPE	parse_light_type(const JC_FIELD parent, const char *child_name);
 /*
 ** ============================== Parse settings ===============================

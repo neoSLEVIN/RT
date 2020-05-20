@@ -257,7 +257,8 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/set_memory.c
         source/opencl/settings/set_kernel_args.c
         source/opencl/settings/realloc_data.c
-        source/opencl/settings/update_args.c)
+        source/opencl/settings/update_args.c
+        source/opencl/settings/image_import.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -273,7 +274,9 @@ set(SRCNAME_PARSER
         source/parser/parse_error.c
         source/parser/parse_shape.c
         source/parser/parse_light.c
-        source/parser/parse_settings.c)
+        source/parser/parse_settings.c
+        source/parser/parse_textures.c
+)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})

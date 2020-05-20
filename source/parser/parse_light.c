@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-LIGHT		*parse_light_idx(const JC_FIELD parent, const int index)
+LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index)
 {
 	JC_FIELD	light_field;
 	LIGHT		*light;
