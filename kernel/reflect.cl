@@ -22,44 +22,44 @@
  но решение через стек какое-то непонятное
  */
 
-float3 go_reflect(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+float3 go_reflect(t_ray ray, t_scene *scene) {
 	
 	float3 finalColor = 0;
 	
 	/*цвет первого отраженного объекта*/
-	finalColor = continue_reflect_ray(&ray, objects, num_obj, lights, num_light);
+	finalColor = continue_reflect_ray(&ray, scene);
 	
 	/*простой объект*/
-	if (objects[ray.hit_id].material.transparency == 0 && objects[ray.hit_id].material.reflective == 0) {
+	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {
 		return finalColor;
 	}
 	 
 	/*объект отражает*/
-	float ref = objects[ray.hit_id].material.reflective;
+	float ref = scene->objects[ray.hit_id].material.reflective;
 	if (ref > 0) {
-		finalColor = finalColor * (1.0f - ref) + reflect_ray(ray, objects, num_obj, lights, num_light) * ref;
+		finalColor = finalColor * (1.0f - ref) + reflect_ray(ray, scene) * ref;
 	}
 	 
 	/*объект обладает прозрачностью*/
-	float trans = objects[ray.hit_id].material.transparency;
+	float trans = scene->objects[ray.hit_id].material.transparency;
 	if (trans > 0) {
-		finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&ray, objects, num_obj, lights, num_light) * trans;
+		finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&ray, scene) * trans;
 	}
 	
 	return finalColor;
 }
 
 /*Меняет внутри луч*/
-float3 continue_reflect_ray(t_ray *ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+float3 continue_reflect_ray(t_ray *ray, t_scene *scene) {
 	ray->dir = reflect(ray->dir, ray->hitNormal);
 	ray->origin = ray->hitPoint + (ray->hitNormal * 0.01f);
-	return send_ray(ray, objects, num_obj, lights, num_light);
+	return send_ray(ray, scene);
 }
 
-float3 reflect_ray(t_ray ray, __global t_object *objects, int num_obj, __global t_light *lights, int num_light) {
+float3 reflect_ray(t_ray ray, t_scene *scene) {
 	ray.dir = reflect(ray.dir, ray.hitNormal);
 	ray.origin = ray.hitPoint + (ray.hitNormal * 0.01f);
-	return send_ray(&ray, objects, num_obj, lights, num_light);
+	return send_ray(&ray, scene);
 }
 
 float3 reflect(float3 rayDir, float3 targetNormal) {

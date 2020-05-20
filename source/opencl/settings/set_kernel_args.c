@@ -32,6 +32,8 @@ void	set_kernel_args(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err,"clSetKernelArg", "input_seeds");
 	err = clSetKernelArg(kernel, 7, sizeof(INT2), dto->cursor);
 	check_error_cl(err,"clSetKernelArg", "cursor");
-	err = clSetKernelArg(kernel, 8, sizeof(cl_mem), &dto->output_id);
+	err = clSetKernelArg(kernel, 8, sizeof(cl_mem), &dto->texture);
+	check_error_cl(err,"clSetKernelArg", "texture");
+	err = clSetKernelArg(kernel, 9, sizeof(cl_mem), &dto->output_id);
 	check_error_cl(err,"clSetKernelArg", "output_id");
 }

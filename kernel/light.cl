@@ -1,14 +1,14 @@
 
-float get_light_intensity(t_ray *ray, __global t_object *obj, int num_obj, __global t_light *lights, int num_light) {
+float get_light_intensity(t_ray *ray, t_scene *scene) {
 	float totalLight = 0;
 	int i = 0;
-	while (i < num_light) {
-		if (lights[i].type == AMBIENT) {
-			totalLight += lights[i].intensity;
-		} else if (lights[i].type == POINT) {
-			t_light light = lights[i];
-			if (!is_in_shadow(&light, ray, obj, num_obj)) {
-				int specular = obj[ray->hit_id].material.specular;
+	while (i < scene->num_light) {
+		if (scene->lights[i].type == AMBIENT) {
+			totalLight += scene->lights[i].intensity;
+		} else if (scene->lights[i].type == POINT) {
+			t_light light = scene->lights[i];
+			if (!is_in_shadow(&light, ray, scene)) {
+				int specular = scene->objects[ray->hit_id].material.specular;
 				totalLight += diffuse_light(&light, ray, specular);
 			}
 
@@ -18,7 +18,7 @@ float get_light_intensity(t_ray *ray, __global t_object *obj, int num_obj, __glo
 	return totalLight;
 }
 
-bool is_in_shadow(t_light *light, t_ray *ray, __global t_object *obj, int num_obj) {
+bool is_in_shadow(t_light *light, t_ray *ray, t_scene *scene) {
 	float dist;
 	float t;
 	int hit_id;
@@ -27,7 +27,7 @@ bool is_in_shadow(t_light *light, t_ray *ray, __global t_object *obj, int num_ob
 	dist = length(light->position - ray->hitPoint);
 	light_ray.origin = light->position;
 	light_ray.dir = normalize(ray->hitPoint - light->position);
-	is_intersect(&light_ray, obj, num_obj, &hit_id, &t);
+	is_intersect(&light_ray, scene->objects, scene->num_obj, &hit_id, &t);
 	if (t < dist - 0.01)
 		return (1);
 	return (0);
