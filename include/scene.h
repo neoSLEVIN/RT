@@ -114,22 +114,16 @@ struct			s_section
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
 
-typedef struct			s_image_pix
-{
-	unsigned char 		red;
-	unsigned char 		green;
-	unsigned char 		blue;
-}						t_image_pix;
-
+#define MAX_DIMENSION 640
+#define MAX_IMAGE_SIZE 640 * 640 * 3
 
 typedef struct			s_ppm_image
 {
-	t_image_pix 		*data;
+	char 				data[MAX_IMAGE_SIZE];
 	int 				width;
 	int 				height;
 	int 				max_color;
 	int					start_image;
-	
 }						t_ppm_image;
 
 # define DTO_SHAPE struct s_dto_shape
@@ -141,6 +135,7 @@ struct			s_dto_shape
 	SECTION		section;
 	cl_float	param;
 	_Bool		marker;
+	int			texture_id;
 };
 /*
 ** ==== Shape Node (Contains DTO, references to next/prev nodes and widget) ====

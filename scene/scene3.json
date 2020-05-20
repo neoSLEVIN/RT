@@ -1,0 +1,57 @@
+{
+  "settings": {
+    "fps": 18.0,
+    "tips": "========================================================",
+    "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
+    "tip_2": "But if you see lags, reduce FPS value"
+  },
+  "scene": {
+    "camera": {"position": [0,0,-40],"direction":[0,0,10],"rotation":0},
+    "lights": [
+      {"type": "AMBIENT", "intensity": 0.1, "position": [0,0,0], "direction": [0,0,0]},
+      {"type": "POINT", "intensity": 0.5, "position": [-4,5,-13], "direction": [0,0,0]}
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "transform": {"position": [0,-3,0]},
+        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "PLANE",
+        "transform": {"position": [0,0,90], "direction": [0,0,1]},
+        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 3,
+        "transform": {"position": [3,5,4]},
+        "material": {"color": "ff0000", "specular": 100, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 3,
+        "transform": {"position": [10,5,5]},
+        "material": {"color": "ff0000", "specular": 20, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 3,
+        "transform": {"position": [-4,5,5]},
+        "material": {"color": "00ff00", "specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 3,
+        "transform": {"position": [-11,5,5]},
+        "material": {"color": "00ff00", "specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "CYLINDER",
+        "radius": 2,
+        "transform": {"position": [0,-2,0], "direction": [1,0,0]},
+        "material": {"color": "914610", "specular": 100, "reflective": 0, "transparency": 0}
+      }
+    ]
+  }
+}

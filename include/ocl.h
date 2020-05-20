@@ -197,6 +197,8 @@ void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 void					new_ocl(t_ocl **ocl);
 void					check_error_cl(const int num, const char *message,
 								char *path);
+
 t_ppm_image 			*readPPM(const char *filename);
+void 					readPPMtoImg(const char *filename, t_ppm_image *image);
 
 #endif

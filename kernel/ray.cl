@@ -15,7 +15,11 @@ float3 send_ray(t_ray *ray, t_scene *scene) {
 	ray->hitNormal = get_normal(&hit_obj, ray);
 	ray->hit_id = hit_id;
 	intensity = get_light_intensity(ray, scene);
-	resColor = get_obj_color(&hit_obj, ray, scene) * intensity;
+	resColor = get_obj_color(&hit_obj, ray, scene);
+	/*текстуры из картинок плохо реагируют на изменение яркости. Портятся. what to do ?*/
+	if (hit_obj.texture_id < 0) {
+		resColor =  resColor * intensity;
+	}
 	return resColor;
 }
 

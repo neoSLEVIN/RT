@@ -1,10 +1,10 @@
 
-float3 image_texture(float2 uv, __global char *texture)  {
+float3 image_texture(float2 uv, __global t_ppm_image *texture, int id)  {
 	
 	float3 res = 0;
 	
-	int nx = 640;
-	int ny = 640;
+	int nx = texture[id].width;
+	int ny = texture[id].height;
 	
 	int i = uv.x * nx;
 	int j = uv.y * ny - 0.001;
@@ -20,49 +20,74 @@ float3 image_texture(float2 uv, __global char *texture)  {
 	if (j > ny - 1)
 		j = ny - 1;
 	 
-	int position = j * 640 + i;
-	float r = int(texture[position * 3]  ) / 255.0;
-	float g = int(texture[position * 3 + 1]) / 255.0;
-	float b = int(texture[position * 3 + 2]) / 255.0;
+	int position = j * nx + i;
+	float r = int(texture[id].data[position * 3]  ) / 255.0;
+	float g = int(texture[id].data[position * 3 + 1]) / 255.0;
+	float b = int(texture[id].data[position * 3 + 2]) / 255.0;
 	
 	res = (float3)(r,g,b);
 	
 	return res;
 }
 
+/*TODO вынести splits в текстуру*/
+float2 get_uv(t_object *obj, t_ray *ray, int splits) {
+	if (obj->type == PLANE) {
+		return plane_map(obj, ray, splits);
+	} else if (obj->type == SPHERE) {
+		return sphere_map(obj, ray);
+	} else if (obj->type == CONE) {
+		return cylindrical_map(obj, ray, splits);
+	} else if (obj->type == CYLINDER) {
+		return cylindrical_map(obj, ray, splits);
+	}
+	/*по дефолту*/
+	return sphere_map(obj, ray);
+}
 
 
-
+/*TODO*/
+/*
+ -разобраться с коэф. размера для uv и для текстуры
+ по идее это должно задаваться для каждого объекта
+ */
 float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
 	float3 color;
+	
 	if (obj->marker)
+		
 		return (float3)(0.8f, 0.8f, 0.8f);
-	if (obj->type == PLANE) {
+	
+	if (obj->texture_id == -1) {
 		
-		/*
-		float2 uv = plane_map(obj, ray, 10);
-		return uv_patter_plane_lines_cross(uv);
-		*/
-		 
-		return plane_lines_cross(obj, ray);
+		return obj->material.color;
 		
-	} else if (obj->type == SPHERE) {
+	} else if (obj->texture_id >= 0) {
 		
-		float2 uv = sphere_map(obj, ray);
-		return typical_noise(obj, uv, 30);
+		float2 uv = get_uv(obj, ray, 10);
+		return image_texture(uv, scene->textures, obj->texture_id);
+		
+	} else if (obj->texture_id == -2) {
+		
+		float2 uv = get_uv(obj, ray, 10);
 		return wood(obj, uv, 1);
 		
-	} else if (obj->type == CONE) {
+	} else if (obj->texture_id == -3) {
 		
-		float2 uv = cylindrical_map(obj, ray, 2);
-		return uv_patter_lines(uv);
+		float2 uv = get_uv(obj, ray, 10);
+		return typical_noise(obj, uv, 10);
 		
+	} else if (obj->texture_id == -4) {
 		
-	} else if (obj->type == CYLINDER) {
-		
-		float2 uv = cylindrical_map(obj, ray, 10);
+		float2 uv = get_uv(obj, ray, 10);
 		return uv_patter_checker(8, 8, uv);
+		
+	} else if (obj->texture_id == -5) {
+		
+		float2 uv = get_uv(obj, ray, 4);
+		return uv_patter_lines(uv);
 	}
+	
 	
 	return obj->material.color;
 }

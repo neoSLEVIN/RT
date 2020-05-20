@@ -91,8 +91,18 @@ typedef struct			s_object
 	t_section			section;
 	float				radius;
 	bool				marker;
+	int					texture_id;
 }						t_object;
 
+
+typedef struct			s_ppm_image
+{
+	char 				data[640*640*3];
+	int 				width;
+	int 				height;
+	int 				max_color;
+	int					start_image;
+}						t_ppm_image;
 
 typedef struct				s_scene
 {
@@ -103,6 +113,7 @@ typedef struct				s_scene
 	CAMERA 					cam;
 	uint					seed;
 	int2 					cursor;
+	__global t_ppm_image	*textures;
 }							t_scene;
 
 

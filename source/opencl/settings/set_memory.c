@@ -28,6 +28,15 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 {
 	cl_int	err;
 
+	//TODO костыль для задания текстуры
+	/*
+	ocl->dto.shapes[2].texture_id = 0;
+	ocl->dto.shapes[3].texture_id = 1;
+	ocl->dto.shapes[4].texture_id = 2;
+	ocl->dto.shapes[5].texture_id = 3;
+	ocl->dto.shapes[6].texture_id = -2;
+	*/
+	
 	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
 		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 		sizeof(DTO_SHAPE) * scene->s_cnt, ocl->dto.shapes, &err);
@@ -55,12 +64,28 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 		sizeof(unsigned int) * ocl->work_size, seeds, 0, NULL, NULL);
 	check_error_cl(err,"clEnqueueWriteBuffer", NULL);
 	
-	t_ppm_image *image = readPPM("/Users/dmitry/Desktop/__RT_material/ppm_ex/dan.ppm");
-	int total_size = sizeof(unsigned char) * image->height * image->width * 3;
-	ocl->dto.texture = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
-	total_size, NULL, &err);
-	check_error_cl(err,"clCreateBuffer", "input_seeds");
-	err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.texture, CL_TRUE, 0,
-		total_size, image->data, 0, NULL, NULL);
-	check_error_cl(err,"clEnqueueWriteBuffer", NULL);
+	/*TODO костыль чтобы запихнуть картинки*/
+	
+	int texture_count = 0;
+	
+	t_ppm_image *arImg = (t_ppm_image*)malloc(sizeof(t_ppm_image) * texture_count);
+	
+	/*тут задаются текстуры*/
+	/*
+	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/1.ppm", &(arImg[0]));
+	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/2.ppm", &(arImg[1]));
+	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/3.ppm", &(arImg[2]));
+	readPPMtoImg("/Users/dmitry/Desktop/__RT_material/ppm_ex/4.ppm", &(arImg[3]));
+	*/
+	
+	if (texture_count > 0) {
+		ocl->dto.texture = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
+										  sizeof(t_ppm_image) * texture_count, NULL, &err);
+		check_error_cl(err,"clCreateBuffer", "input_seeds");
+		err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.texture, CL_TRUE, 0,
+								   sizeof(t_ppm_image) * texture_count, arImg, 0, NULL, NULL);
+		check_error_cl(err,"clEnqueueWriteBuffer", NULL);
+	}
+	
+	
 }

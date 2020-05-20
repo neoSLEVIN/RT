@@ -43,9 +43,10 @@ int get_ppm_info(char *buff, t_ppm_image *image) {
 	setup_params(buff, image, &i, &j);
 	//validate
 	bool formatCheck = (buff[0] == 'P' && buff[1] == '6');
-	bool demensionCheck = (image->width > 0 && image->height > 0);
+	bool demensionCheck1 = (image->width > 0 && image->height > 0);
+	bool demensionCheck2 = (image->width <= MAX_DIMENSION && image->height <= MAX_DIMENSION);
 	bool colorCheck = image->max_color == 255;
-	if (formatCheck && demensionCheck && colorCheck)
+	if (formatCheck && colorCheck && demensionCheck1 && demensionCheck2)
 		return 0;
 	return 1;
 }
@@ -54,9 +55,6 @@ void create_image(const char *filename, t_ppm_image *image) {
 	int fd;
 	
 	size_t size = image->height * image->width * 3;
-	image->data = malloc(size);
-	if (image->data == NULL)
-		ft_error("Malloc");
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_error("Can't open the file (readPPM)");
@@ -79,8 +77,27 @@ t_ppm_image *readPPM(const char *filename) {
 		ft_error("Bad read (readPPM)");
 	if (!(image = (t_ppm_image *)malloc(sizeof(t_ppm_image))))
 		ft_error("Bad malloc (t_ppm_image)");
+	//TODO лучше не закрыть прогу а просто выводить сообщение о неудачном импорте
 	if (get_ppm_info(buff, image))
 		ft_error("Validate fail (t_ppm_image)");
 	create_image(filename, image);
 	return image;
+}
+
+void readPPMtoImg(const char *filename, t_ppm_image *image) {
+	int			fd;
+	char 		buff[40];
+	int 		cnt;
+	
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		ft_error("Can't open the file (readPPM)");
+	cnt = read(fd, buff, 40);
+	close(fd);
+	if (cnt < 0)
+		ft_error("Bad read (readPPM)");
+	//TODO лучше не закрыть прогу а просто выводить сообщение о неудачном импорте
+	if (get_ppm_info(buff, image))
+		ft_error("Validate fail (t_ppm_image)");
+	create_image(filename, image);
 }

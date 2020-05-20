@@ -51,6 +51,7 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	shape->prev = NULL;
 	shape->next = NULL;
 	shape->dto->marker = FALSE;
+	shape->dto->texture_id = -1;
 	shape->dto->transform = parse_transform(shape_field, "transform");
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->type = parse_shape_type(shape_field, "type");

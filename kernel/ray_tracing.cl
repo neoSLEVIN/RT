@@ -23,7 +23,8 @@ void init_scene(t_scene *scene,
 				__global t_light *lights,
 				int num_light,
 				CAMERA cam,
-				uint seed)
+				uint seed,
+				__global t_ppm_image *textures)
 {
 	scene->objects = objects;
 	scene->num_obj = num_obj;
@@ -31,6 +32,7 @@ void init_scene(t_scene *scene,
 	scene->num_light = num_light;
 	scene->cam = cam;
 	scene->seed = seed;
+	scene->textures = textures;
 }
 
 __kernel void render_kernel(__global t_object *objects,
@@ -41,7 +43,7 @@ __kernel void render_kernel(__global t_object *objects,
 							__global char4* output,
 							__global unsigned int *seedsInput,
 							int2 cursor,
-							__global char *texture,
+							__global t_ppm_image *textures,
 							__global int *output_id)
 {
 	float3 finalColor = 0;
@@ -50,7 +52,7 @@ __kernel void render_kernel(__global t_object *objects,
 	const int work_item_id = get_global_id(0);
 	/*Набор случайных чисел*/
 	uint seed = seedsInput[work_item_id];
-	init_scene(&scene, objects, num_obj, lights, num_light, cam, seed);
+	init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures);
 	
 	int xQuality = 1;
 	/*Сглаживание*/
@@ -70,14 +72,17 @@ __kernel void render_kernel(__global t_object *objects,
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
 	
+	
+	/*тест для вывода первой картинки в левый верхний угол*/
 	/*
 	int x = work_item_id % cam.screen_w;
 	int y = work_item_id / cam.screen_w;
 	if (x < 640 && y < 640) {
 		int i = y * 640 + x;
-		output[work_item_id] = (char4)(texture[i * 3], texture[i * 3 + 1], texture[i * 3 + 2], alfa);
+		output[work_item_id] = (char4)(textures->data[i * 3], textures->data[i * 3 + 1], textures->data[i * 3 + 2], alfa);
 	}
 	*/
+	
 
 	if (work_item_id == cursor.y * cam.screen_w + cursor.x)
 		output_id[0] = ray.hit_id;
