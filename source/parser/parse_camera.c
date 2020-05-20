@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/15 22:22:51 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/18 23:11:46 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ CAMERA	parse_camera(const JC_FIELD parent, const char *child_name)
 	CAMERA		cam;
 
 	cam_field = jc_get_field(parent, child_name, JC_OBJ);
-	cam.dto = NULL;
+//	cam.dto = NULL;
 	cam.position = parse_cl_float3(cam_field, "position");
 	cam.direction = parse_cl_float3_or_default(cam_field, "direction",
 					(FLT3){0.0f, 0.0f, 1.0f});

@@ -45,6 +45,7 @@ typedef struct	s_info
 	_Bool		l_key;
 	_Bool		u_key;
 	_Bool		o_key;
+	_Bool		r_key;
 	_Bool		num_2;
 	_Bool		num_4;
 	_Bool		num_6;

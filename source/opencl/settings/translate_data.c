@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 02:14:11 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/18 23:11:46 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 	dto->right = v3_rot_v(dto->right, dto->forward, -(*angle));
 	dto->up = v3_cross(dto->right, dto->forward);
 	dto->upguide = v3_norm(dto->up);
-	cam->dto = dto;
+//	cam->dto = dto;
 }
 
 void	translate_shapes(DTO_SHAPE **dto, SHAPE *shape, int cnt)

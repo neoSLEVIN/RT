@@ -93,9 +93,6 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"uv_patterns.cl",
 		ABSOLUTE_PATH"perlin_noise.cl"
 };
-/*
-** TODO !!! Don't forget to add the path of the kernel file in CMakeList !!!
-*/
 
 /*
 ** =============================================================================
