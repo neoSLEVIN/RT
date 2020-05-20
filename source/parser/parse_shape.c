@@ -48,6 +48,7 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const int index)
 	shape = (SHAPE*)malloc(sizeof(SHAPE));
 	if (!shape || !(shape->dto = (DTO_SHAPE*)malloc(sizeof(DTO_SHAPE))))
 		ft_error("Can't allocate memory");
+	shape->widgets = NULL;
 	shape->prev = NULL;
 	shape->next = NULL;
 	shape->dto->marker = FALSE;

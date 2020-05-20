@@ -45,12 +45,13 @@ struct			s_dto_light
 	_Bool		marker;
 };
 /*
-** ==== Light Node (Contains DTO, references to next/prev nodes and widget) ====
+** === Light Node (Contains DTO, references to next/prev nodes and widgets) ====
 */
 # define LIGHT struct s_light
 struct			s_light
 {
 	DTO_LIGHT	*dto;
+	void		*widgets;
 	LIGHT		*prev;
 	LIGHT		*next;
 };
@@ -124,12 +125,13 @@ struct			s_dto_shape
 	_Bool		marker;
 };
 /*
-** ==== Shape Node (Contains DTO, references to next/prev nodes and widget) ====
+** === Shape Node (Contains DTO, references to next/prev nodes and widgets) ====
 */
 # define SHAPE struct s_shape
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
+	void		*widgets;
 	SHAPE		*prev;
 	SHAPE		*next;
 };

@@ -21,6 +21,7 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const int index)
 	light = (LIGHT*)malloc(sizeof(LIGHT));
 	if (!light || !(light->dto = (DTO_LIGHT*)malloc(sizeof(DTO_LIGHT))))
 		ft_error("Can't allocate memory");
+	light->widgets = NULL;
 	light->prev = NULL;
 	light->next = NULL;
 	light->dto->marker = FALSE;

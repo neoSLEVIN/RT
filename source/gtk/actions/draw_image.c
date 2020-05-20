@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 15:30:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 20:18:28 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void	draw_image(t_rt *rt)
 {
 	run_cl(rt->ocl);
-	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->image), rt->gtk->pixbuf);
+	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->img.image),
+			rt->gtk->img.pixbuf);
 }

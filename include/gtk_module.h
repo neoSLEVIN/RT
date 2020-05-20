@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 00:21:28 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 20:39:14 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,44 @@
 # define STEP 0.5
 # define UI_WIDTH 300
 
+
+typedef struct		s_gtk_settings
+{
+	GtkWidget		*expander;
+	GtkWidget		*grid;
+	GtkWidget		*fps_label;
+	GtkWidget		*fps_scale;
+	GtkWidget		*y_axis;
+	GtkWidget		*separator;
+	GtkWidget		*x_axis;
+}					t_gtk_settings;
+
+typedef struct		s_gtk_image
+{
+	GtkWidget		*image_event_box;
+	GtkImage		*image;
+	GdkPixbuf		*pixbuf;
+	guchar			*buffer;
+}					t_gtk_image;
+
+typedef struct		s_ui
+{
+	GtkWidget		*grid;
+	t_gtk_settings	settings;
+}					t_ui;
+
 /*
 ** =============================================================================
 ** ================================ GTK entity =================================
-** =========== Contains information about Widgets and their settings ===========
+** ========== Contains information about Widgets and their properties ==========
 ** =============================================================================
 */
 typedef struct		s_gtk_data
 {
 	GtkWidget		*window;
-	GtkWidget		*h_box;
-	GtkWidget		*image_event_box;
-	GtkImage		*image;
-	GdkPixbuf		*pixbuf;
-	guchar			*buffer;
-	GtkWidget		*ui_v_box;
-	GtkWidget		*fps_h_box;
-	GtkWidget		*fps_label;
-	GtkAdjustment	*fps_adj;
-	GtkWidget		*fps_scale;
-	GtkWidget		*y_axis;
-	GtkWidget		*x_axis;
+	GtkWidget		*window_h_box;
+	t_gtk_image		img;
+	t_ui			ui;
 	GtkWidget		*button;
 	guint			timeout_id;
 }					t_gtk;
