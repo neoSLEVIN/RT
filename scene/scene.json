@@ -15,49 +15,65 @@
       {
         "type": "PLANE",
         "transform": {"position": [0,-3,0]},
-        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
+        "material": {
+          "texture": "Dan",
+          "specular": 0, "reflective": 0, "transparency": 0
+        }
       },
       {
         "type": "PLANE",
         "transform": {"position": [0,0,90], "direction": [0,0,1]},
-        "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
+        "material": {
+          "texture": "360",
+          "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CONE",
         "angle": 45,
         "transform": {"position": [-5,2,5], "direction": [3,5,0]},
-        "material": {"color": "ffff00", "specular": 10, "reflective": 0, "transparency": 0}
+        "material": {
+          "texture": "360 absolute",
+          "specular": 10, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 4,
         "transform": {"position": [0,0,0]},
-        "material": {"color": "ff0000", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {
+          "texture": "Earth",
+          "specular": 100, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 1,
         "transform": {"position": [4,4,-9]},
-        "material": {"color": "ff0000", "specular": 20, "reflective": 0, "transparency": 0}
+        "material": {
+          "color": "ff0000",
+          "specular": 20, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 2,
         "transform": {"position": [-4,2,-10]},
-        "material": {"color": "00ff00", "specular": 30, "reflective": 0, "transparency": 0}
+        "material": {
+          "color": "00ff00",
+          "specular": 30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CYLINDER",
         "radius": 3,
         "transform": {"position": [5,0,3], "direction": [-5,7,1]},
-        "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {
+          "color": "f00",
+          "specular": 100, "reflective": 0, "transparency": 0}
       }
     ],
     "textures": [
-      {"name": "name1", "path": "/path/to/the/ppm/image"},
-      {"name": "name dva", "path": "/path/to/the/ppm/image"},
-      {"name": "Name 3", "path": "/path/to/the/ppm/image"},
-      {"name": "NAmE 3", "path": "/path/to/the/ppm/image"}
+      {"name": "360 absolute", "path": "C:\\Users\\slevi\\CLionProjects\\RT\\textures\\360.ppm"},
+      {"name": "360", "path": "textures\\360.ppm"},
+      {"name": "Coffin", "path": "textures\\4.ppm"},
+      {"name": "Dan", "path": "textures\\dan.ppm"},
+      {"name": "Earth", "path": "textures\\earth.ppm"}
     ]
   }
 }

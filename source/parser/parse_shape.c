@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 00:41:41 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 04:33:02 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	return (param);
 }
 
-SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index)
+SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
+						TEXTURE *textures)
 {
 	JC_FIELD	shape_field;
 	SHAPE		*shape;
@@ -51,17 +52,19 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index)
 	shape->widgets = NULL;
 	shape->prev = NULL;
 	shape->next = NULL;
+	shape->texture_name = NULL;
 	shape->dto->marker = FALSE;
-	shape->dto->texture_id = -1;
 	shape->dto->transform = parse_transform(shape_field, "transform");
-	shape->dto->material = parse_material(shape_field, "material");
+	shape->dto->material = parse_material(shape_field, "material",
+		&shape->texture_name, textures);
 	shape->dto->type = parse_shape_type(shape_field, "type");
 	shape->dto->param =
 		parse_shape_param_by_type(shape_field, shape->dto->type);
 	return (shape);
 }
 
-SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name)
+SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
+							TEXTURE *textures)
 {
 	JC_FIELD	shapes_field;
 	SHAPE		*shapes;
@@ -75,12 +78,12 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name)
 	length = jc_get_array_length(shapes_field);
 	if (length == 0)
 		return (NULL);
-	shapes = parse_shape_idx(shapes_field, 0);
+	shapes = parse_shape_idx(shapes_field, 0, textures);
 	temp_shape = shapes;
 	i = 0;
 	while (++i < length)
 	{
-		temp_shape->next = parse_shape_idx(shapes_field, i);
+		temp_shape->next = parse_shape_idx(shapes_field, i, textures);
 		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}

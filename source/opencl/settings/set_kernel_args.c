@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 06:26:53 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 22:21:02 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	set_kernel_args(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err,"clSetKernelArg", "input_seeds");
 	err = clSetKernelArg(kernel, 7, sizeof(INT2), dto->cursor);
 	check_error_cl(err,"clSetKernelArg", "cursor");
-	err = clSetKernelArg(kernel, 8, sizeof(cl_mem), &dto->texture);
-	check_error_cl(err,"clSetKernelArg", "texture");
+	err = clSetKernelArg(kernel, 8, sizeof(cl_mem), &dto->input_texture);
+	check_error_cl(err,"clSetKernelArg", "input_texture");
 	err = clSetKernelArg(kernel, 9, sizeof(cl_mem), &dto->output_id);
 	check_error_cl(err,"clSetKernelArg", "output_id");
 }

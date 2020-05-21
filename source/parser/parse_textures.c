@@ -6,13 +6,13 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 22:42:56 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 00:25:21 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 00:27:02 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int			check_for_same_texture_name(TEXTURE *texture, const char *name)
+int			check_for_texture_name(TEXTURE *texture, const char *name)
 {
 	int	index;
 
@@ -37,7 +37,7 @@ static void	error_on_same_texture_name(const JC_FIELD parent, TEXTURE *texture)
 	index = 0;
 	while (texture)
 	{
-		res = check_for_same_texture_name(texture->next, texture->name);
+		res = check_for_texture_name(texture->next, texture->name);
 		if (res == -2)
 			ft_error("NPE: (error_on_same_texture_name)");
 		if (res != -1)

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/16 07:23:42 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 02:57:09 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.s_cnt = &scene->s_cnt;
 	translate_lights(&ocl->dto.lights, scene->lights, scene->l_cnt);
 	ocl->dto.l_cnt = &scene->l_cnt;
+	translate_textures(&ocl->dto.textures, scene->textures, scene->t_cnt);
+	ocl->dto.t_cnt = &scene->t_cnt;
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
 	set_memory_output(ocl);

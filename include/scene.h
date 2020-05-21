@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/20 22:30:36 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 01:20:27 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ struct			s_material
 	FLT3		emission;
 	cl_float	reflective;
 	cl_float	transparency;
+	int			texture_id;
 };
 /*
 ** ============================= Cut section info ==============================
@@ -123,7 +124,6 @@ struct			s_dto_shape
 	SECTION		section;
 	cl_float	param;
 	_Bool		marker;
-	int			texture_id;
 };
 /*
 ** === Shape Node (Contains DTO, references to next/prev nodes and widgets) ====
@@ -132,6 +132,7 @@ struct			s_dto_shape
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
+	char		*texture_name;
 	void		*widgets;
 	SHAPE		*prev;
 	SHAPE		*next;

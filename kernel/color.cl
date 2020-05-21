@@ -53,36 +53,32 @@ float2 get_uv(t_object *obj, t_ray *ray, int splits) {
  */
 float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
 	float3 color;
-	
-	if (obj->marker)
-		
-		return (float3)(0.8f, 0.8f, 0.8f);
-	
-	if (obj->texture_id == -1) {
+
+	if (obj->material.texture_id == -1) {
 		
 		return obj->material.color;
 		
-	} else if (obj->texture_id >= 0) {
+	} else if (obj->material.texture_id >= 0) {
 		
 		float2 uv = get_uv(obj, ray, 10);
-		return image_texture(uv, scene->textures, obj->texture_id);
+		return image_texture(uv, scene->textures, obj->material.texture_id);
 		
-	} else if (obj->texture_id == -2) {
+	} else if (obj->material.texture_id == -2) {
 		
 		float2 uv = get_uv(obj, ray, 10);
 		return wood(obj, uv, 1);
 		
-	} else if (obj->texture_id == -3) {
+	} else if (obj->material.texture_id == -3) {
 		
 		float2 uv = get_uv(obj, ray, 10);
 		return typical_noise(obj, uv, 10);
 		
-	} else if (obj->texture_id == -4) {
+	} else if (obj->material.texture_id == -4) {
 		
 		float2 uv = get_uv(obj, ray, 10);
 		return uv_patter_checker(8, 8, uv);
 		
-	} else if (obj->texture_id == -5) {
+	} else if (obj->material.texture_id == -5) {
 		
 		float2 uv = get_uv(obj, ray, 4);
 		return uv_patter_lines(uv);

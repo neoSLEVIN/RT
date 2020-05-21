@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/20 22:42:43 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 03:22:40 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 3
+# define GTK_IMAGE_SIZE 2
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -103,17 +103,19 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 typedef struct			s_dto
 {
 	DTO_CAM				cam;
+	DTO_TEXTURE			*textures;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
 	int					*s_cnt;
 	int					*l_cnt;
+	int					*t_cnt;
 	INT2				*cursor;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
+	cl_mem				input_texture;
 	cl_mem				output_data;
 	cl_mem				output_id;
-	cl_mem				texture;
 	cl_char4			*buffer;
 	int					*shape_id;
 }						t_dto;
@@ -159,6 +161,8 @@ void					run_cl(t_ocl *ocl);
 ** ===================== Translate from parsed data to DTO =====================
 */
 void					translate_cam(DTO_CAM *dto, CAMERA *cam);
+void					translate_textures(DTO_TEXTURE **dto, TEXTURE *texture,
+								int cnt);
 void					translate_shapes(DTO_SHAPE **dto, SHAPE *shape,
 								int cnt);
 void					translate_lights(DTO_LIGHT **dto, LIGHT *light,

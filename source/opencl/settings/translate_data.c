@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 23:11:46 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 02:59:50 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,36 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 //	cam->dto = dto;
 }
 
+void	translate_textures(DTO_TEXTURE **dto, TEXTURE *texture, int cnt)
+{
+	int	i;
+
+	if (!dto)
+		ft_error("NPE: translate_textures");
+	if (*dto)
+		ft_error("Can't translate memory to existing shapes dto");
+	if (!(*dto = (DTO_TEXTURE*)malloc(sizeof(DTO_TEXTURE) * cnt)))
+		ft_error("Can't allocate memory");
+	i = -1;
+	while (++i < cnt && texture)
+	{
+		texture->dto = read_ppm(texture->path);
+		(*dto)[i] = *texture->dto;
+		texture = texture->next;
+	}
+}
+
 void	translate_shapes(DTO_SHAPE **dto, SHAPE *shape, int cnt)
 {
 	int	i;
+	int	alloc_size;
 
 	if (!dto)
 		ft_error("NPE: translate_shapes");
 	if (*dto)
 		ft_error("Can't translate memory to existing shapes dto");
-	if (!(*dto = (DTO_SHAPE*)malloc(sizeof(DTO_SHAPE) * cnt)))
+	alloc_size = (cnt == 0) ? 1 : cnt;
+	if (!(*dto = (DTO_SHAPE*)malloc(sizeof(DTO_SHAPE) * alloc_size)))
 		ft_error("Can't allocate memory");
 	i = -1;
 	while (++i < cnt && shape)

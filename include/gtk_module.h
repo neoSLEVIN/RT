@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/20 20:39:14 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 05:34:11 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # define STEP 0.5
 # define UI_WIDTH 300
 
+typedef struct		s_gtk_image
+{
+	GtkWidget		*image_event_box;
+	GtkImage		*image;
+	GdkPixbuf		*pixbuf;
+	guchar			*buffer;
+}					t_gtk_image;
 
 typedef struct		s_gtk_settings
 {
@@ -36,18 +43,20 @@ typedef struct		s_gtk_settings
 	GtkWidget		*x_axis;
 }					t_gtk_settings;
 
-typedef struct		s_gtk_image
+typedef struct		s_texture_tree
 {
-	GtkWidget		*image_event_box;
-	GtkImage		*image;
-	GdkPixbuf		*pixbuf;
-	guchar			*buffer;
-}					t_gtk_image;
+	GtkWidget		*expander;
+	GtkTreeStore	*store;
+	GtkTreeIter		iter;
+	GtkWidget		*view;
+	GtkCellRenderer	*renderer;
+}					t_texture_tree;
 
 typedef struct		s_ui
 {
 	GtkWidget		*grid;
 	t_gtk_settings	settings;
+	t_texture_tree	texture;
 }					t_ui;
 
 /*

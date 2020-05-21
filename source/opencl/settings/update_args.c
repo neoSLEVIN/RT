@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 09:31:44 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 00:55:12 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 03:06:41 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	update_cam_arg(t_ocl *ocl, _Bool *update_flag)
 void	update_shapes_arg(t_ocl *ocl, _Bool *update_size, _Bool *update_shapes)
 {
 	int	err;
+	int	alloc_size;
 
 	clReleaseMemObject(ocl->dto.input_shapes);
+	alloc_size = (*ocl->dto.s_cnt == 0) ? 1 : *ocl->dto.s_cnt;
 	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
 		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-		sizeof(DTO_SHAPE) * *ocl->dto.s_cnt, ocl->dto.shapes, &err);
+		sizeof(DTO_SHAPE) * alloc_size, ocl->dto.shapes, &err);
 	check_error_cl(err,"clCreateBuffer", "input_shapes");
 	err = clSetKernelArg(ocl->kernel, 0, sizeof(cl_mem),
 		&(ocl->dto.input_shapes));

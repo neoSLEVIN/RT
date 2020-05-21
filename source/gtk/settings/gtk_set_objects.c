@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/20 21:15:54 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 06:17:02 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,43 @@ void		gtk_set_settings_objects(t_gtk_settings *settings, t_rt *rt)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->x_axis), FALSE);
 }
 
+static void	gtk_set_texture_tree(t_texture_tree *tree, t_rt *rt)
+{
+	TEXTURE	*temp;
+
+	temp = rt->scene->textures;
+
+	tree->expander = gtk_expander_new_with_mnemonic("_Textures");
+	tree->store = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_STRING);
+	while (temp)
+	{
+		gtk_tree_store_append(tree->store, &tree->iter, NULL);
+		gtk_tree_store_set(tree->store, &tree->iter,
+						0, temp->name,
+						1, temp->path,
+						-1);
+		temp = temp->next;
+	}
+	tree->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(tree->store));
+	tree->renderer = gtk_cell_renderer_text_new();
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tree->view),
+												0,
+												"Name", tree->renderer,
+												"text", 0,
+												NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(tree->view),
+												1,
+												"Path", tree->renderer,
+												"text", 1,
+												NULL);
+}
+
 void		gtk_set_objects(t_gtk *gtk, t_rt *rt)
 {
 	gtk->window_h_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_set_image_with_dependencies(gtk, rt->ocl->dto.buffer);
 	gtk->ui.grid = gtk_grid_new();
+	gtk_set_texture_tree(&gtk->ui.texture, rt);
 	gtk_set_settings_objects(&gtk->ui.settings, rt);
 	gtk->button = gtk_button_new_with_label("Update");
 }

@@ -67,6 +67,7 @@ typedef struct			s_material
 	float3				emission;
 	float				reflective;
 	float				transparency;
+	int					texture_id;
 }						t_material;
 
 /*Nazarov*/
@@ -91,7 +92,6 @@ typedef struct			s_object
 	t_section			section;
 	float				radius;
 	bool				marker;
-	int					texture_id;
 }						t_object;
 
 

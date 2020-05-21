@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/12 02:41:09 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 04:45:10 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ CAMERA		parse_camera(const JC_FIELD parent, const char *child_name);
 */
 TEXTURE		*parse_textures(const JC_FIELD parent, const char *child_name);
 TEXTURE		*parse_texture_idx(const JC_FIELD parent, const size_t index);
-int			check_for_same_texture_name(TEXTURE *texture, const char *name);
+int			check_for_texture_name(TEXTURE *texture, const char *name);
 /*
 ** =============================== Parse shapes ================================
 */
-SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name);
-SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index);
+SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name,
+						TEXTURE *textures);
+SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index,
+						TEXTURE *textures);
 SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
 /*
 ** =============================== Parse lights ================================
@@ -54,8 +56,11 @@ FLT3		parse_cl_float3(const JC_FIELD parent, const char *child_name);
 FLT3		parse_cl_float3_or_default(const JC_FIELD parent,
 						const char *child_name, FLT3 default_value);
 FLT3		parse_color(const JC_FIELD parent, const char *child_name);
+FLT3		parse_color_or_default(const JC_FIELD parent,
+								const char *child_name, char *default_color);
 TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name);
-MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);
+MATERIAL	parse_material(const JC_FIELD parent, const char *child_name,
+						char **texture_name, TEXTURE *textures);
 /*
 ** ================================ Send error =================================
 */

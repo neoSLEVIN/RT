@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/15 19:55:11 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/20 22:42:43 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ SCENE		*parse_scene(const char *file_name)
 	scene_field = jc_get_field(json_field, "scene", JC_OBJ);
 	scene->cam = parse_camera(scene_field, "camera");
 	scene->textures = parse_textures(scene_field, "textures");
-	scene->shapes = parse_shapes(scene_field, "shapes");
+	scene->shapes = parse_shapes(scene_field, "shapes", scene->textures);
 	scene->lights = parse_lights(scene_field, "lights");
 	init_size_of_arrays(scene_field, scene);
 	parse_settings(json_field, scene);
