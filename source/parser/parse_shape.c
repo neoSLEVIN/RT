@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 04:33:02 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/21 06:34:10 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 
 	if (type == PLANE)
 		param = 0.0f;
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
 	{
 		param = jc_get_float(shape_field, "radius");
 		if (param < 0.1f)

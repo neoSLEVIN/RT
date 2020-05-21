@@ -54,6 +54,34 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 	return normal;
 }
 
+float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
+{
+	float3 abc[2];
+    float tmp[7];
+    float t;
+    float y;
+	float3 rarb[2];
+
+	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->radius;
+    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius;
+    abc[0] = rarb[1] - rarb[0];/*ca*/
+    abc[1] = ray->origin - rarb[0]; /*oc*/
+    tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
+    tmp[1] = dot(abc[0], ray->dir); /*card*/
+    tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
+    tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
+    tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
+    tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(hit_obj->radius, 2) * tmp[0];/*c*/
+    tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
+    tmp[6] = sqrt(tmp[6]);
+    t = (-tmp[4] - tmp[6]) / tmp[3];
+    y = tmp[2] + t * tmp[1];
+    if (y > 0.0f && y < tmp[0])
+    	return ((abc[1] + t * ray->origin - abc[0] * y / tmp[0]) / hit_obj->radius);
+    t = (((y < 0.0) ? 0.0 : tmp[0]) - tmp[2]) / tmp[1];
+    return abc[0] * sign(y) / tmp[0];
+}
+
 float3 get_normal(t_object *hit_obj, t_ray *ray) {
 	float3 normal = 0;
 
@@ -71,6 +99,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray) {
 		case CONE:
 			normal = cone_normal(hit_obj, ray);
 			break;
+		case CAPPEDCYLINDER:
+        	normal = capped_cylinder_normal(hit_obj, ray);
+        	break;
 	}
 	return normal;
 }

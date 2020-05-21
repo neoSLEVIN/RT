@@ -177,6 +177,37 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	return minT(t[0], t[1]);
 }
 
+float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
+{
+	float3 abc[2];
+	float tmp[7];
+	float t;
+	float y;
+	float3 rarb[2];
+
+	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->radius;
+	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->radius;
+	abc[0] = rarb[1] - rarb[0];/*ca*/
+	abc[1] = ray->origin - rarb[0]; /*oc*/
+	tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
+	tmp[1] = dot(abc[0], ray->dir); /*card*/
+	tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
+	tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
+	tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
+	tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(capped_cylinder->radius, 2) * tmp[0];/*c*/
+	tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
+	if (tmp[6] < 0)
+		return (0);
+	tmp[6] = sqrt(tmp[6]);
+	t = (-tmp[4] - tmp[6]) / tmp[3];
+	y = tmp[2] + t * tmp[1];
+	if (y > 0.0f && y < tmp[0])
+		return t;
+	t = (((y < 0.0) ? 0.0 : tmp[0]) - tmp[2]) / tmp[1];
+	if ((module(tmp[4] + tmp[3] * t)) < tmp[6])
+		return t;
+	return (0);
+}
 
 bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance)
 {
@@ -199,6 +230,9 @@ bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, 
 			t = cylinder_intersect(ray, &a1);
 		else if (obj[i].type == CONE)
 			t = cone_intersect(ray, &a1);
+		//balbes
+		else if (obj[i].type == CAPPEDCYLINDER)
+        	t = capped_cylinder_intersect(ray, &a1);
 		if (t > EPSILON && t < *distance) {
 			*distance = t;
 			*hit_id = i;
@@ -216,4 +250,9 @@ float minT(float a, float b) {
 		return a;
 	}
 	return b;
+}
+
+float module(float a)
+{
+	return a < 0 ? -a : a;
 }

@@ -19,7 +19,7 @@ _Bool	do_change_shape_param(cl_float *param, SHAPE_TYPE type, int diff)
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
 	{
 		if (*param * coefficient < 0.1f)
 			return (FALSE);
