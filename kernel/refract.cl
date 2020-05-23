@@ -30,9 +30,9 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	int oldHit_id = ray->hit_id;
 	
 	while (oldHit_id == ray->hit_id && maxBounds != 0) {
-		ray->dir = refract(ray);
 		ray->origin = ray->hitPoint + ray->dir * 0.1f;
-
+		ray->dir = refract(ray);
+		 
 		if (!is_intersect(ray, scene)) {
 			break;
 		}
@@ -40,7 +40,7 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	}
 	
 	float3 trans_color = 0;
-	if (ray->hit_id > 0) {
+	if (ray->hit_id >= 0) {
 		t_object obj = scene->objects[ray->hit_id];
 		trans_color = get_obj_color(&(obj), ray, scene);
 		if (obj.material.texture_id < 0) {
@@ -115,7 +115,7 @@ float3 refract_v1(t_ray *ray) {
  Но вроде не до конца
  https://stackoverflow.com/questions/42218704/how-to-properly-handle-refraction-in-raytracing
  */
-float3 refract_v2(t_ray *ray) {
+float3 refract1(t_ray *ray) {
 	
 	float ior = 1.0f;
 	float eta = 2.0f - ior;
