@@ -209,37 +209,50 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	return (0);
 }
 
-bool is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance)
+
+void make_ray_empty(t_ray *ray) {
+	ray->t = MY_INFINITY;
+	ray->hitPoint = 0.0f;
+	ray->hitNormal = 0.0f;
+	ray->hit_id = -1;
+	ray->hit_type = NONE;
+}
+
+
+bool is_intersect(t_ray *ray, t_scene *scene)
 {
-	float inf = 1e20f;
-	*distance = inf;
 
 	int i = 0;
 	float t = 0;
-	/*TODO просмотреть другие места где сбрасывается hit_id*/
-	ray->hit_id = -1;
-	*hit_id = -1;
-	while (i < num_obj)
+	make_ray_empty(ray);
+
+	while (i < scene->num_obj)
 	{
-		t_object a1 = obj[i];
-		if (obj[i].type == SPHERE)
-			t = sphere_intersect(ray, &a1);
-		else if (obj[i].type == PLANE)
-			t = plane_intersect(ray, &a1);
-		else if (obj[i].type == CYLINDER)
-			t = cylinder_intersect(ray, &a1);
-		else if (obj[i].type == CONE)
-			t = cone_intersect(ray, &a1);
-		//balbes
-		else if (obj[i].type == CAPPEDCYLINDER)
-        	t = capped_cylinder_intersect(ray, &a1);
-		if (t > EPSILON && t < *distance) {
-			*distance = t;
-			*hit_id = i;
+		t_object selected_obj = scene->objects[i];
+		if (selected_obj.type == SPHERE)
+			t = sphere_intersect(ray, &selected_obj);
+		else if (selected_obj.type == PLANE)
+			t = plane_intersect(ray, &selected_obj);
+		else if (selected_obj.type == CYLINDER)
+			t = cylinder_intersect(ray, &selected_obj);
+		else if (selected_obj.type == CONE)
+			t = cone_intersect(ray, &selected_obj);
+		else if (selected_obj.type == CAPPEDCYLINDER)
+        	t = capped_cylinder_intersect(ray, &selected_obj);
+		if (t > MY_EPSILON && t < ray->t) {
+			ray->t = t;
+			ray->hit_id = i;
 		}
 		i++;
 	}
-	return *distance < inf;
+	bool intersected = ray->t < MY_INFINITY;
+	if (intersected) {
+		t_object hit_obj = scene->objects[ray->hit_id];
+		ray->hitPoint = ray->origin + ray->t * ray->dir;
+		ray->hitNormal = get_normal(&hit_obj, ray);
+		ray->hit_type = hit_obj.type;
+	}
+	return intersected;
 }
 
 float minT(float a, float b) {

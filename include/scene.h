@@ -68,6 +68,7 @@ struct			s_light
 # define SHAPE_TYPE enum e_shape_type
 enum			e_shape_type
 {
+	NONE,
 	PLANE,
 	SPHERE,
 	CONE,

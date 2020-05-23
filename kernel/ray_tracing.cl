@@ -10,14 +10,14 @@ float3 compute_color(t_scene *scene, t_ray *ray) {
 /* Если раскомментить код ниже и выбрать целью плоскость, то вылетим в ошибку -5
 	Почему?
  */
-/*		if (scene->objects[ray->hit_id].marker)
+		if (scene->objects[ray->hit_id].marker)
 		{
 			if (scene->objects[ray->hit_id].material.transparency >= 0.5f)
 				trans = 0.4f;
 			else
 				trans = 0.6f;
 		}
-		else*/
+		else
 			trans = scene->objects[ray->hit_id].material.transparency;
 
 		if (ref == 0 && trans == 0)
