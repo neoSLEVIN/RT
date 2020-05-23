@@ -43,9 +43,7 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	if (ray->hit_id >= 0) {
 		t_object obj = scene->objects[ray->hit_id];
 		trans_color = get_obj_color(&(obj), ray, scene);
-		if (obj.material.texture_id < 0) {
-			trans_color = trans_color * get_light_intensity(ray, scene);
-		}
+		trans_color = trans_color * get_light_intensity(ray, scene);
 	}
 	return trans_color;
 }
