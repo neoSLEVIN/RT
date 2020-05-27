@@ -24,6 +24,7 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index)
 	light->widgets = NULL;
 	light->prev = NULL;
 	light->next = NULL;
+	light->name = jc_get_string_or_default(light_field, "name", "Unnamed");
 	light->dto->marker = FALSE;
 	light->dto->type = parse_light_type(light_field, "type");
 	light->dto->intensity = jc_get_float(light_field, "intensity");

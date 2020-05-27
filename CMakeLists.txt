@@ -234,10 +234,11 @@ set(RT_INC include)
 include_directories(${RT_INC})
 
 set(INCNAME_RT
-        include/ocl.h
-        include/parser.h
         include/scene.h
-        include/gtk_module.h include/info.h)
+        include/parser.h
+        include/info.h
+        include/ocl.h
+        include/gtk_module.h)
 
 set(RT_SRC source)
 include_directories(${RT_SRC})
@@ -287,18 +288,30 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
         source/gtk/utils/cleaner.c
-        source/gtk/actions/update_marker.c
+        source/gtk/utils/get_shape_type_name.c
         source/gtk/settings/gtk_set_main_window.c
-        source/gtk/settings/gtk_set_objects.c
+        source/gtk/settings/gtk_set_widgets.c
         source/gtk/settings/gtk_set_signals.c
         source/gtk/settings/gtk_set_positions.c
-        source/gtk/signals/escape_window.c
-        source/gtk/signals/press_key_on_window.c
-        source/gtk/signals/release_key_on_window.c
-        source/gtk/signals/button_on_image_event_box.c
-        source/gtk/signals/fps_scale_moved.c
-        source/gtk/signals/change_axis.c
-        source/gtk/signals/draw_by_timeout.c
+        source/gtk/widgets/gtk_set_shapes_widgets.c
+        source/gtk/widgets/gtk_set_ui_widgets.c
+        source/gtk/widgets/gtk_set_shape_widgets.c
+        source/gtk/widgets/gtk_set_spin_button_for_float.c
+        source/gtk/widgets/gtk_set_image_widgets.c
+        source/gtk/widgets/gtk_set_settings_widgets.c
+        source/gtk/widgets/gtk_set_textures_widgets.c
+        source/gtk/positions/gtk_set_settings_positions.c
+        source/gtk/positions/gtk_set_shapes_positions.c
+        source/gtk/callbacks/escape_window.c
+        source/gtk/callbacks/press_key_on_window.c
+        source/gtk/callbacks/release_key_on_window.c
+        source/gtk/callbacks/button_on_image_event_box.c
+        source/gtk/callbacks/fps_scale_moved.c
+        source/gtk/callbacks/change_axis.c
+        source/gtk/callbacks/draw_by_timeout.c
+        source/gtk/callbacks/spin_button_scroll_locker.c
+        source/gtk/callbacks/shapes_tree_double_click.c
+        source/gtk/actions/update_marker.c
         source/gtk/actions/holders_cnt.c
         source/gtk/actions/make_action.c
         source/gtk/actions/draw_image.c
@@ -307,7 +320,7 @@ set(SRCNAME_GTK
         source/gtk/actions/camera_motion.c
         source/gtk/actions/shape_motion.c
         source/gtk/actions/change_shape_param.c
-        )
+        source/gtk/signals/gtk_set_motions_signals.c source/gtk/signals/gtk_set_ui_settings_signals.c source/gtk/signals/gtk_set_shapes_signals.c source/gtk/callbacks/shapes_tree_selection_changer.c source/gtk/actions/update_shape_widget.c source/gtk/signals/gtk_set_shape_signals.c source/gtk/callbacks/spin_button_shape_position_changer.c)
 
 add_executable(RT
         main.c
@@ -346,6 +359,16 @@ foreach (CLKernelName
     configure_file (${CLKernelSourceFile}
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)
 endforeach (CLKernelName)
+
+
+
+# ==============================================================================
+# =================================== TEXTURE ==================================
+# ==============================================================================
+    file(GLOB PPM_TEXTURES "textures/*.ppm")
+    file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+
+
 
 # ------------------------------------------------------------------------------
 # You shouldn't change anything below this line unless you know what you're doing

@@ -68,8 +68,14 @@ typedef struct			s_material
 	float3				emission;
 	float				reflective;
 	float				transparency;
-	int					texture_id;
 }						t_material;
+
+typedef struct			s_texture
+{
+	int					id;
+	float3				direction;
+	float				rotation;
+}						t_texture;
 
 /*Nazarov*/
 typedef struct			s_section
@@ -90,13 +96,14 @@ typedef struct			s_object
 	t_shape_type		type;
 	t_transform			transform;
 	t_material			material;
+	t_texture			texture;
 	t_section			section;
 	float				radius;
 	bool				marker;
 }						t_object;
 
 
-typedef struct			s_ppm_image
+typedef struct			s_dto_ppm_img
 {
 	char 				data[640*640*3];
 	int 				width;

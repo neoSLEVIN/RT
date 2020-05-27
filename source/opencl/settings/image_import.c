@@ -20,7 +20,7 @@ char	*get_header_info(char separator, int *start, int *end, char *buff)
 	return (str);
 }
 
-void	setup_params(char *buff, DTO_TEXTURE *dto, int *i, int *j)
+void	setup_params(char *buff, DTO_PPM_IMG *dto, int *i, int *j)
 {
 	char	*width;
 	char	*height;
@@ -36,7 +36,7 @@ void	setup_params(char *buff, DTO_TEXTURE *dto, int *i, int *j)
 	dto->start_image = *j;
 }
 
-int		get_ppm_info(char *buff, DTO_TEXTURE *dto)
+int		get_ppm_info(char *buff, DTO_PPM_IMG *dto)
 {
 	int	i;
 	int	j;
@@ -54,7 +54,7 @@ int		get_ppm_info(char *buff, DTO_TEXTURE *dto)
 	return (1);
 }
 
-void	create_texture(const char *filename, DTO_TEXTURE *dto)
+void	create_texture(const char *filename, DTO_PPM_IMG *dto)
 {
 	int	fd;
 
@@ -66,12 +66,12 @@ void	create_texture(const char *filename, DTO_TEXTURE *dto)
 	read(fd, dto->data, size);
 }
 
-DTO_TEXTURE	*read_ppm(const char *filename)
+DTO_PPM_IMG	*read_ppm(const char *filename)
 {
 	int			fd;
 	char		buff[40];
 	int			cnt;
-	DTO_TEXTURE	*dto;
+	DTO_PPM_IMG	*dto;
 	
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -80,16 +80,16 @@ DTO_TEXTURE	*read_ppm(const char *filename)
 	close(fd);
 	if (cnt < 0)
 		ft_error("Bad read (read_ppm)");
-	if (!(dto = (DTO_TEXTURE *)malloc(sizeof(DTO_TEXTURE))))
-		ft_error("Bad malloc (DTO_TEXTURE)");
+	if (!(dto = (DTO_PPM_IMG *)malloc(sizeof(DTO_PPM_IMG))))
+		ft_error("Bad malloc (DTO_PPM_IMG)");
 	//TODO лучше не закрыть прогу а просто выводить сообщение о неудачном импорте
 	if (get_ppm_info(buff, dto))
-		ft_error("Validate fail (DTO_TEXTURE)");
+		ft_error("Validate fail (DTO_PPM_IMG)");
 	create_texture(filename, dto);
 	return dto;
 }
 
-void	read_ppm_to_texture(const char *filename, DTO_TEXTURE *dto)
+void	read_ppm_to_texture(const char *filename, DTO_PPM_IMG *dto)
 {
 	int		fd;
 	char	buff[40];
@@ -104,6 +104,6 @@ void	read_ppm_to_texture(const char *filename, DTO_TEXTURE *dto)
 		ft_error("Bad read (read_ppm)");
 	//TODO лучше не закрыть прогу а просто выводить сообщение о неудачном импорте
 	if (get_ppm_info(buff, dto))
-		ft_error("Validate fail (DTO_TEXTURE)");
+		ft_error("Validate fail (DTO_PPM_IMG)");
 	create_texture(filename, dto);
 }

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:06:20 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/18 02:37:48 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/29 01:41:56 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	action_for_left_mouse_click(t_rt *rt, GdkEventButton *event)
 		rt->info->lmc_start_pos = (cl_int2){event->x, event->y};
 		rt->info->lmc_current_pos = (cl_int2){event->x, event->y};
 		update_cursor_arg(rt->ocl);
-		draw_image(rt);
+		run_cl(rt->ocl);
 		get_shape_id(rt);
 		update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 						&rt->info->update_shapes);

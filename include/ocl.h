@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 03:22:40 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/29 00:01:13 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 typedef struct			s_dto
 {
 	DTO_CAM				cam;
-	DTO_TEXTURE			*textures;
+	DTO_PPM_IMG			*textures;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
 	int					*s_cnt;
@@ -161,7 +161,7 @@ void					run_cl(t_ocl *ocl);
 ** ===================== Translate from parsed data to DTO =====================
 */
 void					translate_cam(DTO_CAM *dto, CAMERA *cam);
-void					translate_textures(DTO_TEXTURE **dto, TEXTURE *texture,
+void					translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture,
 								int cnt);
 void					translate_shapes(DTO_SHAPE **dto, SHAPE *shape,
 								int cnt);
@@ -172,6 +172,7 @@ void					translate_lights(DTO_LIGHT **dto, LIGHT *light,
 */
 void					set_memory_output(t_ocl *ocl);
 void					set_memory_input(t_ocl *ocl, SCENE *scene);
+void					set_memory_input_seeds(t_ocl *ocl);
 /*
 ** ================= First setting of all arguments to kernel ==================
 */
@@ -198,8 +199,8 @@ void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 void					new_ocl(t_ocl **ocl);
 void					check_error_cl(const int num, const char *message,
 								char *path);
-DTO_TEXTURE				*read_ppm(const char *filename);
+DTO_PPM_IMG				*read_ppm(const char *filename);
 void					read_ppm_to_texture(const char *filename,
-											DTO_TEXTURE *dto);
+								DTO_PPM_IMG *dto);
 
 #endif

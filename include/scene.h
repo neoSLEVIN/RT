@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 06:34:10 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/28 19:58:14 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ struct			s_dto_light
 struct			s_light
 {
 	DTO_LIGHT	*dto;
+	char		*name;
 	void		*widgets;
 	LIGHT		*prev;
 	LIGHT		*next;
@@ -96,7 +97,16 @@ struct			s_material
 	FLT3		emission;
 	cl_float	reflective;
 	cl_float	transparency;
-	int			texture_id;
+};
+/*
+** =============================== Texture info ================================
+*/
+# define TEXTURE struct s_texture
+struct			s_texture
+{
+	int			id;
+	FLT3		direction;
+	cl_float	rotation;
 };
 /*
 ** ============================= Cut section info ==============================
@@ -122,6 +132,7 @@ struct			s_dto_shape
 	SHAPE_TYPE	type;
 	TRANSFORM	transform;
 	MATERIAL	material;
+	TEXTURE		texture;
 	SECTION		section;
 	cl_float	param;
 	_Bool		marker;
@@ -133,8 +144,10 @@ struct			s_dto_shape
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
-	char		*texture_name;
+	char		*name;
 	void		*widgets;
+	void		*tree_iter;
+	char		*texture_name;
 	SHAPE		*prev;
 	SHAPE		*next;
 };
@@ -176,34 +189,34 @@ struct			s_camera
 
 /*
 ** =============================================================================
-** ================================== TEXTURE ==================================
+** ================================== PPM_IMG ==================================
 ** =============================================================================
 */
 # define MAX_DIMENSION 640
-# define MAX_TEXTURE_SIZE 640 * 640 * 3
+# define MAX_PPM_IMG_SIZE 640 * 640 * 3
 /*
-** ==== Texture Data Transfer Object (Set as an element of kernel argument) ====
+** === PPM image Data Transfer Object (Set as an element of kernel argument) ===
 */
-# define DTO_TEXTURE struct s_ppm_image
-struct			s_ppm_image
+# define DTO_PPM_IMG struct s_dto_ppm_img
+struct			s_dto_ppm_img
 {
-	char		data[MAX_TEXTURE_SIZE];
+	char		data[MAX_PPM_IMG_SIZE];
 	int			width;
 	int			height;
 	int			max_color;
 	int			start_image;
 };
 /*
-** === Texture Node (Contains DTO, name, path, references to next/prev nodes) ==
+** == PPM image Node (Contains DTO, name, path, references to next/prev nodes) =
 */
-# define TEXTURE struct s_texture
-struct			s_texture
+# define PPM_IMG struct s_ppm_img
+struct			s_ppm_img
 {
-	DTO_TEXTURE	*dto;
+	DTO_PPM_IMG	*dto;
 	char		*name;
 	char		*path;
-	TEXTURE		*prev;
-	TEXTURE		*next;
+	PPM_IMG		*prev;
+	PPM_IMG		*next;
 };
 
 /*
@@ -218,7 +231,7 @@ struct			s_scene
 	CAMERA		cam;
 	LIGHT		*lights;
 	SHAPE		*shapes;
-	TEXTURE		*textures;
+	PPM_IMG		*textures;
 	int			l_cnt;
 	int			s_cnt;
 	int			t_cnt;

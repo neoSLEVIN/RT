@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_gtk.c                                          :+:      :+:    :+:   */
+/*   get_shape_type_name.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/10 05:54:45 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/29 05:56:55 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/29 05:56:55 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-void	new_gtk(t_rt *rt)
+char	*get_shape_type_name(SHAPE_TYPE type)
 {
-	if ((rt->gtk = g_slice_new(t_gtk)) == NULL)
+	char	*res;
+
+	if (type == PLANE)
+		res = ft_strdup("PLANE");
+	else if (type == SPHERE)
+		res = ft_strdup("SPHERE");
+	else if (type == CYLINDER)
+		res = ft_strdup("CYLINDER");
+	else if (type == CONE)
+		res = ft_strdup("CONE");
+	else if (type == CAPPEDCYLINDER)
+		res = ft_strdup("CAPPED CYLINDER");
+	else
+		ft_error("Unknown shape type (get_shape_type_name)");
+	if (res == NULL)
 		ft_error("Can't allocate memory");
-	gtk_set_main_window(rt->gtk);
-	gtk_set_widgets(rt->gtk, rt);
-	gtk_set_signals(rt);
-	gtk_set_positions(rt->gtk);
+	return (res);
 }
