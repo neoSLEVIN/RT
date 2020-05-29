@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/28 19:58:14 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/29 07:18:49 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ struct			s_light
 # define SHAPE_TYPE enum e_shape_type
 enum			e_shape_type
 {
+	NONE,
 	PLANE,
 	SPHERE,
 	CONE,

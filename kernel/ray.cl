@@ -1,25 +1,17 @@
 
 float3 send_ray(t_ray *ray, t_scene *scene) {
 
-	float t;
-	int hit_id;
 	float3 backColor = 0;
 	float intensity;
 	float3 resColor = 0;
 
-	if (!is_intersect(ray, scene->objects, scene->num_obj, &hit_id, &t))
+	if (!is_intersect(ray, scene))
 		return backColor;
-	t_object hit_obj = scene->objects[hit_id];
-	ray->t = t;
-	ray->hitPoint = ray->origin + t * ray->dir;
-	ray->hitNormal = get_normal(&hit_obj, ray);
-	ray->hit_id = hit_id;
+	t_object hit_obj = scene->objects[ray->hit_id];
 	intensity = get_light_intensity(ray, scene);
 	resColor = get_obj_color(&hit_obj, ray, scene);
 	/*текстуры из картинок плохо реагируют на изменение яркости. Портятся. what to do ?*/
-	if (hit_obj.texture.id < 0) {
-		resColor =  resColor * intensity;
-	}
+	resColor =  resColor * intensity;
 	return resColor;
 }
 

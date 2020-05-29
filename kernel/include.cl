@@ -1,4 +1,5 @@
-__constant float EPSILON = 0.00003f;
+__constant float MY_EPSILON = 0.00003f;
+__constant float MY_INFINITY = 1e20f;
 
 typedef enum			e_light_type
 {
@@ -40,19 +41,10 @@ typedef struct			s_cam
 }						CAMERA;
 
 
-typedef struct			s_ray
-{
-	float3				origin;
-	float3				dir;
-	float				t;
-	float3				hitPoint;
-	float3				hitNormal;
-	int					hit_id;
-}						t_ray;
-
 /*Object's elements*/
 typedef enum			e_shape_type
 {
+						NONE,
 						PLANE,
 						SPHERE,
 						CONE,
@@ -105,12 +97,25 @@ typedef struct			s_object
 
 typedef struct			s_dto_ppm_img
 {
-	char 				data[640*640*3];
+	uchar 				data[640*640*3];
 	int 				width;
 	int 				height;
 	int 				max_color;
 	int					start_image;
 }						t_ppm_image;
+
+
+typedef struct			s_ray
+{
+	float3				origin;
+	float3				dir;
+	float				t;
+	float3				hitPoint;
+	float3				hitNormal;
+	int					hit_id;
+	t_shape_type        hit_type;
+}						t_ray;
+
 
 typedef struct				s_scene
 {
@@ -153,7 +158,7 @@ float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
-bool 	is_intersect(t_ray *ray, __global t_object *obj, int num_obj, int* hit_id, float* distance);
+bool 	is_intersect(t_ray *ray, t_scene *scene);
 float 	minT(float a, float b);
 float	module(float a);
 

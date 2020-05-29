@@ -20,15 +20,13 @@ float get_light_intensity(t_ray *ray, t_scene *scene) {
 
 bool is_in_shadow(t_light *light, t_ray *ray, t_scene *scene) {
 	float dist;
-	float t;
-	int hit_id;
 
 	t_ray light_ray;
 	dist = length(light->position - ray->hitPoint);
 	light_ray.origin = light->position;
 	light_ray.dir = normalize(ray->hitPoint - light->position);
-	is_intersect(&light_ray, scene->objects, scene->num_obj, &hit_id, &t);
-	if (t < dist - 0.01)
+	is_intersect(&light_ray, scene);
+	if (light_ray.t < dist - 0.01)
 		return (1);
 	return (0);
 }

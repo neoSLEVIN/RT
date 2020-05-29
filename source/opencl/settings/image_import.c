@@ -61,7 +61,7 @@ void	create_texture(const char *filename, DTO_PPM_IMG *dto)
 	size_t	size = dto->height * dto->width * 3;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ft_error("Can't open the file (read_ppm)");
+		ft_error("Can't open the file (create_texture)");
 	read(fd, NULL, dto->start_image);
 	read(fd, dto->data, size);
 }
@@ -97,7 +97,7 @@ void	read_ppm_to_texture(const char *filename, DTO_PPM_IMG *dto)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ft_error("Can't open the file (read_ppm)");
+		ft_error("Can't open the file (read_ppm_to_texture)");
 	cnt = read(fd, buff, 40);
 	close(fd);
 	if (cnt < 0)
