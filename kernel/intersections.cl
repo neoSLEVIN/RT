@@ -219,7 +219,23 @@ void make_ray_empty(t_ray *ray) {
 }
 
 
-bool is_intersect(t_ray *ray, t_scene *scene)
+void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float t, int i) {
+	/*Пропускаем прозрачные объекты, если нам передали не null*/
+	if (skiped != 0 && selected_obj->material.transparency > 0) {
+		/*ищем ближайший прозрачный объект*/
+		if (skiped->t > t) {
+			skiped->t = t;
+			skiped->hit_id = i;
+		}
+	/*пересекли обычный объект*/
+	} else {
+		ray->t = t;
+		ray->hit_id = i;
+	}
+}
+
+/*skiped можно поставить в 0, если требуется пересечения со всеми объектами*/
+bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 {
 
 	int i = 0;
@@ -240,8 +256,7 @@ bool is_intersect(t_ray *ray, t_scene *scene)
 		else if (selected_obj.type == CAPPEDCYLINDER)
         	t = capped_cylinder_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
-			ray->t = t;
-			ray->hit_id = i;
+			set_t(ray, &selected_obj, skiped, t, i);
 		}
 		i++;
 	}

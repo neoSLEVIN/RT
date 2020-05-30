@@ -33,7 +33,7 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 		ray->origin = ray->hitPoint + ray->dir * 0.1f;
 		ray->dir = refract(ray);
 		 
-		if (!is_intersect(ray, scene)) {
+		if (!is_intersect(ray, scene, 0)) {
 			break;
 		}
 		maxBounds--;

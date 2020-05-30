@@ -1,15 +1,16 @@
 
 float get_light_intensity(t_ray *ray, t_scene *scene) {
 	float totalLight = 0;
+	float light_intensity = 1;
 	int i = 0;
 	while (i < scene->num_light) {
 		if (scene->lights[i].type == AMBIENT) {
 			totalLight += scene->lights[i].intensity;
 		} else if (scene->lights[i].type == POINT) {
 			t_light light = scene->lights[i];
-			if (!is_in_shadow(&light, ray, scene)) {
+			if (!is_in_shadow(&light, ray, scene, &light_intensity)) {
 				int specular = scene->objects[ray->hit_id].material.specular;
-				totalLight += diffuse_light(&light, ray, specular);
+				totalLight += diffuse_light(&light, ray, specular) * light_intensity;
 			}
 
 		}
@@ -18,16 +19,34 @@ float get_light_intensity(t_ray *ray, t_scene *scene) {
 	return totalLight;
 }
 
-bool is_in_shadow(t_light *light, t_ray *ray, t_scene *scene) {
+bool is_in_shadow(t_light *light, t_ray *ray, t_scene *scene, float *light_intensity) {
 	float dist;
-
+	t_transparent_obj tmp;
 	t_ray light_ray;
+	
+	/*тут будет ближайший прозрачный объект*/
+	tmp.t = MY_INFINITY;
+	tmp.hit_id = -1;
+	
 	dist = length(light->position - ray->hitPoint);
 	light_ray.origin = light->position;
 	light_ray.dir = normalize(ray->hitPoint - light->position);
-	is_intersect(&light_ray, scene);
-	if (light_ray.t < dist - 0.01)
+	/*Если мы луч изначально попал в прозрачный объект, считает количество света как обычно*/
+	/*В противном случаем учитываем прозрачные объекты*/
+	if (scene->objects[ray->hit_id].material.transparency > 0) {
+		is_intersect(&light_ray, scene, 0);
+	} else {
+		is_intersect(&light_ray, scene, &tmp);
+	}
+	/*Нашли непрозрачный объект дистация до которого меньше - есть тень*/
+	if (light_ray.t < dist - 0.01) {
 		return (1);
+	}
+	
+	/*теперь у нас есть пересечение с прозрачным объектом на пути к непрозрачному*/
+	if (tmp.t < light_ray.t) {
+		*light_intensity = scene->objects[tmp.hit_id].material.transparency;
+	}
 	return (0);
 }
 
