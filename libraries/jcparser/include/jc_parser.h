@@ -54,6 +54,8 @@ void		jc_clear_all(JC_FIELD json_field);
 */
 char		*jc_get_string(const JC_FIELD parent, const char *child_name,
 							_Bool nullable);
+char		*jc_get_string_or_default(const JC_FIELD parent,
+							const char *child_name, const char *default_string);
 float		jc_get_float(const JC_FIELD parent, const char *child_name);
 float		jc_get_float_idx(const JC_FIELD parent, const size_t index);
 float		jc_get_float_or_default(const JC_FIELD parent,

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/15 22:46:10 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/24 14:23:50 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ JC_FIELD	jc_get_field_idx(const JC_FIELD parent, const size_t index,
 	if (parent.obj == NULL)
 		ft_error("NPE: parent object (jc_get_field_idx)");
 	if (jc_compare_types(parent, JC_ARR) == FALSE)
-		jcp_print_bad_type_error(parent.obj, JC_ARR);
+		jcp_print_bad_parent_type_error(parent.obj, JC_ARR);
 	if (index < 0 || index >= parent.obj->cnt_of_nodes)
 		ft_error("Index out of range (jc_get_field_idx)");
 	field.full_name = jcp_field_with_index(parent.full_name, index);
@@ -50,7 +50,7 @@ JC_FIELD	jc_get_field(const JC_FIELD parent, const char *field_name,
 	if (field_name == NULL)
 		ft_error("NPE: field name (jc_get_field)");
 	if (jc_compare_types(parent, JC_OBJ) == FALSE)
-		jcp_print_bad_type_error(parent.obj, JC_OBJ);
+		jcp_print_bad_parent_type_error(parent.obj, JC_OBJ);
 	field.full_name = jcp_parent_dot_child(parent.full_name, field_name);
 	field.obj = jcp_get_obj_by_key(field_name, parent.obj);
 	if (field.obj->full_name)

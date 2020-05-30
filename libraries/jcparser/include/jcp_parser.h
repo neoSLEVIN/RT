@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "jc_data.h"
 
+//TODO delete this before defending
 # define DEBUG 0
 /*
 ** =============================================================================
@@ -63,5 +64,7 @@ char	*jcp_parent_dot_child(const char *parent, const char *child);
 char	*jcp_field_with_index(const char *field, const int index);
 char	*jcp_str_of_types(JC_TYPE types);
 void	jcp_print_bad_type_error(const JCP_OBJ *obj, JC_TYPE allowed_types);
+void	jcp_print_bad_parent_type_error(const JCP_OBJ *obj,
+										JC_TYPE allowed_types);
 
 #endif

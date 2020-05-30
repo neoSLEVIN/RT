@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 16:39:25 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/29 01:03:06 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int			main(int argc, char **argv)
 	draw_image(&rt);
 	gtk_widget_show_all(rt.gtk->window);
 	gtk_main();
-	clear_rt(&rt);
+//	clear_rt(&rt);
 	return (0);
 }

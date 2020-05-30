@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   gtk_set_ui_settings_signals.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 02:03:00 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/29 06:42:37 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/29 06:43:25 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-static gboolean	compute_draw(gpointer data)
+void	gtk_set_ui_settings_signals(t_gtk_settings *settings, t_rt *rt)
 {
-	t_rt	*rt;
-
-	rt = (t_rt*)data;
-	run_cl(rt->ocl);
-	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->img.image),
-										rt->gtk->img.pixbuf);
-	return (FALSE);
-}
-
-void			draw_image(t_rt *rt)
-{
-	g_idle_add(compute_draw, rt);
+	g_signal_connect(G_OBJECT(settings->fps_scale), "value-changed",
+		G_CALLBACK(fps_scale_moved), rt);
+	g_signal_connect(GTK_TOGGLE_BUTTON(settings->y_axis), "toggled",
+		G_CALLBACK(change_axis), &rt->info->axis.y);
+	g_signal_connect(GTK_TOGGLE_BUTTON(settings->x_axis), "toggled",
+		G_CALLBACK(change_axis), &rt->info->axis.x);
 }

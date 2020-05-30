@@ -6,13 +6,13 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/20 22:42:56 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 00:27:02 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/24 14:40:04 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int			check_for_texture_name(TEXTURE *texture, const char *name)
+int			check_for_texture_name(PPM_IMG *texture, const char *name)
 {
 	int	index;
 
@@ -29,7 +29,34 @@ int			check_for_texture_name(TEXTURE *texture, const char *name)
 	return (-1);
 }
 
-static void	error_on_same_texture_name(const JC_FIELD parent, TEXTURE *texture)
+TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
+				const char *child_name, char **texture_name, PPM_IMG *textures)
+{
+	JC_FIELD	texture_field;
+	TEXTURE		texture;
+
+	texture_field = jc_get_field(parent, child_name, (JC_OBJ | JC_NULL));
+	if (jc_is_null(texture_field))
+	{
+		texture.id = -1;
+		texture.direction = (FLT3){0.0f, 1.0f, 0.0f};
+		texture.rotation = 0.0f;
+		return (texture);
+	}
+	if (!(*texture_name = jc_get_string(texture_field, "name", TRUE)))
+		texture.id = -1;
+	//TODO check for our inside textures (checkmate, etc)
+	else if ((texture.id =
+				check_for_texture_name(textures, *texture_name)) == -1)
+		parse_error(jc_full_name(texture_field), "name",
+					"There is no field with this name");
+	texture.direction = parse_cl_float3_or_default(texture_field, "direction",
+		(FLT3){0.0f, 1.0f, 0.0f});
+	texture.rotation = jc_get_float_or_default(texture_field, "rotation", 0.0f);
+	return (texture);
+}
+
+static void	error_on_same_texture_name(const JC_FIELD parent, PPM_IMG *texture)
 {
 	int	index;
 	int	res;
@@ -48,15 +75,15 @@ static void	error_on_same_texture_name(const JC_FIELD parent, TEXTURE *texture)
 	}
 }
 
-TEXTURE		*parse_texture_idx(const JC_FIELD parent, const size_t index)
+PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 {
 	JC_FIELD	texture_field;
-	TEXTURE		*texture;
+	PPM_IMG		*texture;
 	size_t		length;
 
 	texture_field = jc_get_field_idx(parent, index, JC_OBJ);
-	texture = (TEXTURE*)malloc(sizeof(TEXTURE));
-	if (!texture || !(texture->dto = (DTO_TEXTURE*)malloc(sizeof(DTO_TEXTURE))))
+	texture = (PPM_IMG*)malloc(sizeof(PPM_IMG));
+	if (!texture || !(texture->dto = (DTO_PPM_IMG*)malloc(sizeof(DTO_PPM_IMG))))
 		ft_error("Can't allocate memory");
 	texture->prev = NULL;
 	texture->next = NULL;
@@ -70,11 +97,11 @@ TEXTURE		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 	return (texture);
 }
 
-TEXTURE	*parse_textures(const JC_FIELD parent, const char *child_name)
+PPM_IMG	*parse_textures(const JC_FIELD parent, const char *child_name)
 {
 	JC_FIELD	textures_field;
-	TEXTURE		*textures;
-	TEXTURE		*temp_texture;
+	PPM_IMG		*textures;
+	PPM_IMG		*temp_texture;
 	size_t		length;
 	size_t		i;
 

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   escape_window.c                                    :+:      :+:    :+:   */
+/*   gtk_set_shapes_signals.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 19:55:26 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/09 19:55:26 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/29 06:50:38 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/29 06:50:38 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-gboolean	escape_window(GtkWidget *window, GdkEventKey *event, gpointer data)
+void	gtk_set_shapes_signals(t_rt *rt)
 {
-	if (event->keyval == GDK_KEY_Escape)
-	{
-		gtk_main_quit();
-		return (TRUE);
-	}
-	return (FALSE);
+	g_signal_connect(G_OBJECT(rt->gtk->ui.shapes.select), "changed",
+		G_CALLBACK(shapes_tree_selection_changer), rt);
+	g_signal_connect(G_OBJECT(rt->gtk->ui.shapes.tree), "row-activated",
+		G_CALLBACK(shapes_tree_double_click), rt);
 }

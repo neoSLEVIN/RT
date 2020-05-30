@@ -30,7 +30,7 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 //	cam->dto = dto;
 }
 
-void	translate_textures(DTO_TEXTURE **dto, TEXTURE *texture, int cnt)
+void	translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture, int cnt)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ void	translate_textures(DTO_TEXTURE **dto, TEXTURE *texture, int cnt)
 		ft_error("NPE: translate_textures");
 	if (*dto)
 		ft_error("Can't translate memory to existing shapes dto");
-	if (!(*dto = (DTO_TEXTURE*)malloc(sizeof(DTO_TEXTURE) * cnt)))
+	if (!(*dto = (DTO_PPM_IMG*)malloc(sizeof(DTO_PPM_IMG) * cnt)))
 		ft_error("Can't allocate memory");
 	i = -1;
 	while (++i < cnt && texture)

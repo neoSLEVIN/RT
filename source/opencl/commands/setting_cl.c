@@ -25,5 +25,6 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.shape_id = &info->shape_id;
 	set_memory_output(ocl);
 	set_memory_input(ocl, scene);
+	set_memory_input_seeds(ocl);
 	set_kernel_args(ocl->kernel, &ocl->dto);
 }

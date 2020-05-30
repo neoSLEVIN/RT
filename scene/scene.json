@@ -1,6 +1,6 @@
 {
   "settings": {
-    "fps": 30.0,
+    "fps": 80.0,
     "tips": "========================================================",
     "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
     "tip_2": "But if you see lags, reduce FPS value"
@@ -16,7 +16,7 @@
         "type": "PLANE",
         "transform": {"position": [0,-3,0]},
         "material": {
-          "texture": "Dan",
+          "texture": "360",
           "specular": 0, "reflective": 0, "transparency": 0
         }
       },
@@ -24,7 +24,7 @@
         "type": "PLANE",
         "transform": {"position": [0,0,90], "direction": [0,0,1]},
         "material": {
-          "texture": "360",
+          "texture": "Dan",
           "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
@@ -53,9 +53,10 @@
       },
       {
         "type": "SPHERE",
-        "radius": 2,
-        "transform": {"position": [-4,2,-10]},
+        "radius": 40,
+        "transform": {"position": [-4,80,-50]},
         "material": {
+          "texture": "Dan",
           "color": "00ff00",
           "specular": 30, "reflective": 0, "transparency": 0}
       },

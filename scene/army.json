@@ -1,0 +1,203 @@
+{
+  "settings": {"fps": 80.0},
+
+  "scene": {
+
+    "camera": {
+      "position": [1041.163818, 551.077698, -285.999237],
+      "direction":[-1.2,-0.2,1],
+      "rotation":0
+    },
+
+    "lights": [
+      {"type": "AMBIENT", "intensity": 0.3, "position": [0,0,0], "direction": [0,0,0]},
+      {"type": "POINT", "intensity": 0.8, "position": [350.823853, 520.638672, 246.811111], "direction": [0,0,0]}
+    ],
+
+    "shapes": [
+      {
+        "type": "SPHERE",
+        "name": "Earth",
+        "radius": 650,
+        "transform": {"position": [-3500,500,3500]},
+        "texture": {"name": "Earth"},
+        "material": {"specular": 100, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "CAPPED CYLINDER",
+        "name": "12345678901234567890",
+        "radius": 4,
+        "transform": {"position": [359.815796, 309.970703, 300.151184]},
+        "texture": {"name": "nova"},
+        "material": {"color": "0f0", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "PLANE",
+        "texture": {"name": "Dan"},
+        "transform": {"position": [1800,0,-1000], "direction": [5300,0,-4400]},
+        "material": {"specular": 0, "reflective": 0, "transparency": 0}
+      },
+
+      {
+        "type": "PLANE",
+        "name": "first_y",
+        "transform": {"position": [0,-500,0], "direction": [0,1,0]},
+        "texture": {"name": "space"},
+        "material": {"color": "0", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "PLANE",
+        "name": "first_z",
+        "transform": {"position": [0,0,5000], "direction": [0,0,1]},
+        "texture": {"name": "space"},
+        "material": {"color": "0", "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "PLANE",
+        "name": "second_z",
+        "transform": {"position": [0,0,-3400], "direction": [0,0,1]},
+        "texture": {"name": "space"},
+        "material": {"specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "name": "nova",
+        "radius": 150,
+        "transform": {"position": [4888.378906, 1064.729492, -3473.648438]},
+        "texture": {"name": "nova"},
+        "material": {"texture": "nova", "specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [0,250,300]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [320,250,300]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [-320,250,300]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [640,250,300]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [640,250,300]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [160,250,600]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [-160,250,600]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [0,250,900]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [320,250,900]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [-320,250,900]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [480,250,600]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 150,
+        "transform": {"position": [-480,250,600]},
+        "texture": {"name": "Dan"},
+        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+      }
+    ],
+
+    "textures": [
+      {"name": "space", "path": "textures\\space.ppm"},
+      {"name": "Dan", "path": "textures\\dan.ppm"},
+      {"name": "Earth", "path": "textures\\earth.ppm"},
+      {"name": "Earth1111", "path": "textures\\earth.ppm"},
+      {"name": "Earth1112", "path": "textures\\earth.ppm"},
+      {"name": "Earth1113", "path": "textures\\earth.ppm"},
+      {"name": "Earth1114", "path": "textures\\earth.ppm"},
+      {"name": "Earth1115", "path": "textures\\earth.ppm"},
+      {"name": "Earth1116", "path": "textures\\earth.ppm"},
+      {"name": "Earth1117", "path": "textures\\earth.ppm"},
+      {"name": "Earth1118", "path": "textures\\earth.ppm"},
+      {"name": "Earth1119", "path": "textures\\earth.ppm"},
+      {"name": "Earth1110", "path": "textures\\earth.ppm"},
+      {"name": "Earth11111", "path": "textures\\earth.ppm"},
+      {"name": "Earth11112", "path": "textures\\earth.ppm"},
+      {"name": "Earth11113", "path": "textures\\earth.ppm"},
+      {"name": "Earth11114", "path": "textures\\earth.ppm"},
+      {"name": "Earth11115", "path": "textures\\earth.ppm"},
+      {"name": "Earth111166", "path": "textures\\earth.ppm"},
+      {"name": "Earth11172", "path": "textures\\earth.ppm"},
+      {"name": "Earth111f", "path": "textures\\earth.ppm"},
+      {"name": "Earth111s", "path": "textures\\earth.ppm"},
+      {"name": "Earth111g", "path": "textures\\earth.ppm"},
+      {"name": "Earth1", "path": "textures\\earth.ppm"},
+      {"name": "Earth2", "path": "textures\\earth.ppm"},
+      {"name": "Earth3", "path": "textures\\earth.ppm"},
+      {"name": "Earth4", "path": "textures\\earth.ppm"},
+      {"name": "Earth5", "path": "textures\\earth.ppm"},
+      {"name": "Earth6", "path": "textures\\earth.ppm"},
+      {"name": "Earth7", "path": "textures\\earth.ppm"},
+      {"name": "Earth8", "path": "textures\\earth.ppm"},
+      {"name": "Earth9", "path": "textures\\earth.ppm"},
+      {"name": "Earth0", "path": "textures\\earth.ppm"},
+      {"name": "Earth11", "path": "textures\\earth.ppm"},
+      {"name": "Earth12", "path": "textures\\earth.ppm"},
+      {"name": "Earth13", "path": "textures\\earth.ppm"},
+      {"name": "Earth14", "path": "textures\\earth.ppm"},
+      {"name": "Earth15", "path": "textures\\earth.ppm"},
+      {"name": "Earth166", "path": "textures\\earth.ppm"},
+      {"name": "Earth72", "path": "textures\\earth.ppm"},
+      {"name": "Earthf", "path": "textures\\earth.ppm"},
+      {"name": "Earths", "path": "textures\\earth.ppm"},
+      {"name": "12345678901234567890", "path": "textures\\earth.ppm"},
+      {"name": "nova", "path": "textures\\nova3.ppm"}
+    ]
+  }
+}

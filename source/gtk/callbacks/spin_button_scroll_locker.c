@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_image.c                                       :+:      :+:    :+:   */
+/*   spin_button_scroll_locker.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 02:03:00 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/29 06:11:52 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/29 06:11:52 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-static gboolean	compute_draw(gpointer data)
+gboolean	spin_button_scroll_locker(GtkWidget *widget, GdkEvent *event,
+									gpointer data)
 {
-	t_rt	*rt;
-
-	rt = (t_rt*)data;
-	run_cl(rt->ocl);
-	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->img.image),
-										rt->gtk->img.pixbuf);
+	(void)event;
+	(void)data;
+	g_signal_stop_emission_by_name(widget, "scroll-event");
 	return (FALSE);
-}
-
-void			draw_image(t_rt *rt)
-{
-	g_idle_add(compute_draw, rt);
 }

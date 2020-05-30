@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 07:46:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/17 04:38:12 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/24 14:57:23 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	get_shape_id(t_rt *rt)
 		temp = temp->next;
 	if (temp && rt->info->shape_id == i)
 	{
-		clear_light_marker(rt);
 		update_shape_marker(rt, temp);
+		ft_printf("DEL_ME:\n%s\n%f, %f, %f\n",
+			rt->info->s_marker->name,
+			rt->ocl->dto.cam.origin.x,
+			rt->ocl->dto.cam.origin.y,
+			rt->ocl->dto.cam.origin.z);
 	}
 	else
 		clear_shape_marker(rt);
