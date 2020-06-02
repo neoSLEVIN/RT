@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:03:34 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/21 19:50:27 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/30 01:08:25 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ gboolean		press_key_on_window(GtkWidget *window, GdkEventKey *event,
 	(void)window;
 	rt = (t_rt*)data;
 	if (event->state == GDK_MOD1_MASK)
+// TODO maybe delete		 gtk_widget_is_focus(rt->gtk->ui.shape->entry_name))
 		return (FALSE);
 	if (do_press_key_for_camera(rt, event) ||
 		do_press_numpad_for_camera(rt, event) ||

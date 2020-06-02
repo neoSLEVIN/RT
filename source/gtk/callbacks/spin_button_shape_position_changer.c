@@ -22,9 +22,9 @@ void	spin_button_shape_position_changer(GtkSpinButton *button, gpointer data)
 	rt = (t_rt*)data;
 	position = &rt->gtk->ui.shape->shape->dto->transform.position;
 	transform = &rt->gtk->ui.shape->transform;
-	position->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->spin_x));
-	position->y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->spin_y));
-	position->z = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->spin_z));
+	position->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->x.spin));
+	position->y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->y.spin));
+	position->z = gtk_spin_button_get_value(GTK_SPIN_BUTTON(transform->z.spin));
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);

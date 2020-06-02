@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   escape_window.c                                    :+:      :+:    :+:   */
+/*   update_shapes_flags.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/09 19:55:26 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 01:24:37 by cschoen          ###   ########.fr       */
+/*   Created: 2020/05/29 21:23:40 by cschoen           #+#    #+#             */
+/*   Updated: 2020/05/29 21:23:40 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-gboolean	escape_window(GtkWidget *window, GdkEventKey *event, gpointer data)
+void	update_shapes_flags(_Bool *update_shapes, _Bool *update_property)
 {
-	(void)data;
-	(void)window;
-	if (event->keyval == GDK_KEY_Escape)
-	{
-		gtk_main_quit();
-		return (TRUE);
-	}
-	return (FALSE);
+	*update_shapes = TRUE;
+	*update_property = TRUE;
 }

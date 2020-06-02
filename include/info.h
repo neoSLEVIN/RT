@@ -28,6 +28,13 @@ typedef struct	s_info
 {
 	_Bool		update;
 	_Bool		update_cam;
+	_Bool		update_s_name;
+	_Bool		update_s_marker;
+	_Bool		update_s_pos;
+	_Bool		update_s_rot;
+	_Bool		update_s_mat;
+	_Bool		update_s_sec;
+	_Bool		update_s_param;
 	_Bool		update_shapes;
 	_Bool		update_s_cnt;
 	int			keyhold_cnt;

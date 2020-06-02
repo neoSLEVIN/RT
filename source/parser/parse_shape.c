@@ -62,7 +62,27 @@ static void		init_default_shape_params(SHAPE *shape)
 	shape->tree_iter = NULL;
 	shape->dto->marker = FALSE;
 	shape->texture_name = NULL;
+}
 
+//TODO maybe parse section
+void			init_default_shape_section(SHAPE *shape)
+{
+	shape->dto->section.on_x = FALSE;
+	shape->dto->section.on_y = FALSE;
+	shape->dto->section.on_z = FALSE;
+	shape->dto->section.x.position = shape->dto->transform.position;
+	shape->dto->section.y.position = shape->dto->transform.position;
+	shape->dto->section.z.position = shape->dto->transform.position;
+	shape->dto->section.x.direction.x = 1;
+	shape->dto->section.x.direction.y = 0;
+	shape->dto->section.x.direction.z = 0;
+	shape->dto->section.y.direction.x = 0;
+	shape->dto->section.y.direction.y = 1;
+	shape->dto->section.y.direction.z = 0;
+	shape->dto->section.z.direction.x = 0;
+	shape->dto->section.z.direction.y = 0;
+	shape->dto->section.z.direction.z = 1;
+	shape->dto->section.color = shape->dto->material.color;
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
@@ -91,6 +111,7 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
 		&shape->texture_name, textures);
+	init_default_shape_section(shape);
 	return (shape);
 }
 

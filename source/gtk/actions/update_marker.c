@@ -34,6 +34,8 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
+		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
+			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = shape;
 	if (shape && shape->dto)
@@ -45,6 +47,8 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)shape->tree_iter,
 			S_MARKER_COL, TRUE,
 			-1);
+		if (shape == rt->gtk->ui.shape->shape)
+			rt->info->update_s_marker = TRUE;
 	}
 }
 
@@ -64,16 +68,8 @@ void		clear_shape_marker(t_rt *rt)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
-		if (GTK_IS_WIDGET(rt->gtk->button))
-			gtk_container_remove(GTK_CONTAINER(rt->gtk->ui.grid), rt->gtk->button);
-		else
-		{
-			rt->gtk->button = gtk_button_new_with_label("Update");
-			g_signal_connect(G_OBJECT(rt->gtk->button), "clicked",
-							 G_CALLBACK(ft_printf), "NULL");
-//			gtk_box_pack_start(GTK_BOX(rt->gtk->ui_v_box), rt->gtk->button, FALSE, FALSE, 0);
-//			gtk_widget_show_all(rt->gtk->ui_v_box);
-		}
+		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
+			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = NULL;
 }

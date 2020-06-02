@@ -20,70 +20,41 @@ void		init_section_plane(t_object *object)
 }
 
 
-/*Nazarov*/
-float		add_section_on_primitive(t_ray *ray, t_object *object, float t1, float t2)
+float		add_section_on_primitive(t_ray *ray, t_object *object, float t1, float t2, int section)
 {
 	t_object	section_plane;
 
-	if (object->section.on_x)
+	if (section == 0)
 		section_plane.transform.direction = object->section.x.direction;
-	else if (object->section.on_y)
+	else if (section == 1)
 		section_plane.transform.direction = object->section.y.direction;
-	else if (object->section.on_z)
+	else if (section == 2)
 		section_plane.transform.direction = object->section.z.direction;
 	section_plane.transform.position = object->section.x.position;
 
-	/*1. Растояние на луче до секущей площади*/
-	float origin_ray_to_section_plane = plane_intersect(ray, &section_plane);
-
-	/*2. Растояние до точек входа и выхода из объекта на луче*/
-	float ray_exit_point = t1 > t2 ? t1 : t2;
-	float ray_entry_point = t1 < t2 ? t1 : t2;
-
-	float3 intersect_point = ray->origin + origin_ray_to_section_plane * ray->dir;
-	float3 entry_point = ray->origin + ray_entry_point * ray->dir;
-	
-	if (ray_entry_point == origin_ray_to_section_plane)
-	{
-		return ray_entry_point;
-	}
-
-	/*Расчитываем растояние от точки входа в объект до центра секущей плоскости, с помощью нового луча ray_to_center_section_plane (rtcsp)*/
-	t_ray rtcsp;
-	rtcsp.origin = entry_point;
-
-	rtcsp.dir.x = section_plane.transform.position.x - rtcsp.origin.x;
-	rtcsp.dir.y = section_plane.transform.position.y - rtcsp.origin.y;
-	rtcsp.dir.z = section_plane.transform.position.z - rtcsp.origin.z;
-
-	rtcsp.t = plane_intersect(&rtcsp, &section_plane);
-
-	/*Ищем cos между нормалью секущей плоскости (norm_vector) и вектором из центра этой плоскости к точке входа в объект (temp_vector)*/
-	float3 temp_vector;
-	temp_vector.x = rtcsp.origin.x - section_plane.transform.position.x;
-	temp_vector.y = rtcsp.origin.y - section_plane.transform.position.y;
-	temp_vector.z = rtcsp.origin.z - section_plane.transform.position.z;
-
 	float3 norm_vector = section_plane.transform.direction;
-	float3 tv = temp_vector;
-	float3 nv = norm_vector;
 
-	float cos_a = (nv.x * tv.x + nv.y * tv.y + nv.z * tv.z)/(sqrt(nv.x * nv.x + nv.y * nv.y + nv.z * nv.z) * sqrt(tv.x * tv.x + tv.y * tv.y + tv.z * tv.z));
+	float3 t1_point = ray->origin + t1 * ray->dir;
+	float3 t2_point = ray->origin + t2 * ray->dir;
+	float3 section_to_t1 = t1_point - section_plane.transform.position;
+	float3 section_to_t2 = t2_point - section_plane.transform.position;
 
-	/*Зная cos угла (cos_a) и растояние до центра плоскости (rtcsp.t), находим длину перпендикуляра к плоскости от точки пересечения исходного луча с секущей плоскостью (intersect_point)*/
-	float d = rtcsp.t * cos_a;
-
-	/*Если растояние > 0 то данная часть объекта отсечена плоскостью и не отображается, соответственно луч должен продолжить движение до следующего объекта на сцене*/
-	if (origin_ray_to_section_plane > ray_entry_point && origin_ray_to_section_plane < ray_exit_point)
-		return plane_intersect(ray, &section_plane);
-	if (d < 0)
-		return (0);
-
-	return ray_entry_point;
+	if (length(section_to_t1) == 0.0f) {
+		t1 = -1.0f;
+	}
+	if (length(section_to_t2) == 0.0f) {
+		t2 = -1.0f;
+	}
+	float cos_a = dot(section_to_t1, norm_vector) / (length(section_to_t1) * length(norm_vector));
+	if (cos_a >= 0)
+		t1 = -1.0f;
+	cos_a = dot(section_to_t2, norm_vector) / (length(section_to_t2) * length(norm_vector));
+	if (cos_a >= 0)
+		t2 = -1.0f;
+	return minT(t1, t2);
 }
 
 /********************************************************************/
-
 
 /*Intersection*/
 
@@ -105,11 +76,20 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	t[0] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
 	t[1] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
 
-	/*Сечение - Nazarov*/
-	init_section_plane(sphere);
-	sphere->section.on_x = false;
 	if (sphere->section.on_x || sphere->section.on_y || sphere->section.on_z)
-		return add_section_on_primitive(ray, sphere, t[0], t[1]);
+	{
+		float3		section;
+		section.x = MY_INFINITY;
+		section.y = MY_INFINITY;
+		section.z = MY_INFINITY;
+		if (sphere->section.on_x)
+			section.x = add_section_on_primitive(ray, sphere, t[0], t[1], 0);
+		if (sphere->section.on_y)
+			section.y = add_section_on_primitive(ray, sphere, t[0], t[1], 1);
+		if (sphere->section.on_z)
+			section.z = add_section_on_primitive(ray, sphere, t[0], t[1], 2);
+		return minT(minT(section.x, section.y), section.z);
+	}
 	return minT(t[0], t[1]);
 }
 
@@ -141,12 +121,22 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 		return 0;
 	t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
 	t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-	
-	/*Сечение - Nazarov*/
-	init_section_plane(cylinder);
-	cylinder->section.on_z = false;
+
+
 	if (cylinder->section.on_x || cylinder->section.on_y || cylinder->section.on_z)
-		return add_section_on_primitive(ray, cylinder, t[0], t[1]);
+	{
+		float3		section;
+		section.x = MY_INFINITY;
+		section.y = MY_INFINITY;
+		section.z = MY_INFINITY;
+		if (cylinder->section.on_x)
+			section.x = add_section_on_primitive(ray, cylinder, t[0], t[1], 0);
+		if (cylinder->section.on_y)
+			section.y = add_section_on_primitive(ray, cylinder, t[0], t[1], 1);
+		if (cylinder->section.on_z)
+			section.z = add_section_on_primitive(ray, cylinder, t[0], t[1], 2);
+		return minT(minT(section.x, section.y), section.z);
+	}
 	
 	return minT(t[0], t[1]);
 }
@@ -168,12 +158,21 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 		return (0);
 	t[0] = (-abc[1] + sqrt(k_and_discr[1])) / (2 * abc[0]);
 	t[1] = (-abc[1] - sqrt(k_and_discr[1])) / (2 * abc[0]);
-	
-	/*Сечение - Nazarov*/
-	init_section_plane(cone);
-	cone->section.on_x = false;
+
 	if (cone->section.on_x || cone->section.on_y || cone->section.on_z)
-		return add_section_on_primitive(ray, cone, t[0], t[1]);
+	{
+		float3		section;
+		section.x = MY_INFINITY;
+		section.y = MY_INFINITY;
+		section.z = MY_INFINITY;
+		if (cone->section.on_x)
+			section.x = add_section_on_primitive(ray, cone, t[0], t[1], 0);
+		if (cone->section.on_y)
+			section.y = add_section_on_primitive(ray, cone, t[0], t[1], 1);
+		if (cone->section.on_z)
+			section.z = add_section_on_primitive(ray, cone, t[0], t[1], 2);
+		return minT(minT(section.x, section.y), section.z);
+	}
 	return minT(t[0], t[1]);
 }
 

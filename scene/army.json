@@ -24,6 +24,13 @@
         "material": {"specular": 100, "reflective": 0, "transparency": 0}
       },
       {
+        "type": "SPHERE",
+        "name": "Red",
+        "radius": 250,
+        "transform": {"position": [-3500,500,3500]},
+        "material": {"color":"f00","specular": 100, "reflective": 0, "transparency": 0}
+      },
+      {
         "type": "CAPPED CYLINDER",
         "name": "12345678901234567890",
         "radius": 4,
