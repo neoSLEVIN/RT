@@ -1,56 +1,48 @@
-/*Nazarov*/
-void		init_section_plane(t_object *object)
+
+float2		add_section_on_primitive(t_ray *ray, t_section *section, float t1, float t2)
 {
-	object->section.on_x = false;
-	object->section.on_y = false;
-	object->section.on_z = false;
-	object->section.x.position = object->transform.position;
-	object->section.y.position = object->transform.position;
-	object->section.z.position = object->transform.position;
-	object->section.x.direction.x = 1;
-	object->section.x.direction.y = 0;
-	object->section.x.direction.z = 0;
-	object->section.y.direction.x = 0;
-	object->section.y.direction.y = 1;
-	object->section.y.direction.z = 0;
-	object->section.z.direction.x = 0;
-	object->section.z.direction.y = 0;
-	object->section.z.direction.z = 1;
-	object->section.color = object->material.color;
-}
-
-
-float		add_section_on_primitive(t_ray *ray, t_object *object, float t1, float t2, int section)
-{
-	t_object	section_plane;
-
-	if (section == 0)
-		section_plane.transform.direction = object->section.x.direction;
-	else if (section == 1)
-		section_plane.transform.direction = object->section.y.direction;
-	else if (section == 2)
-		section_plane.transform.direction = object->section.z.direction;
-	section_plane.transform.position = object->section.x.position;
-
-	float3 norm_vector = section_plane.transform.direction;
+	float3 norm_vector = section->transform.direction;
 
 	float3 t1_point = ray->origin + t1 * ray->dir;
 	float3 t2_point = ray->origin + t2 * ray->dir;
-	float3 section_to_t1 = t1_point - section_plane.transform.position;
-	float3 section_to_t2 = t2_point - section_plane.transform.position;
+	float3 section_to_t1 = t1_point - section->transform.position;
+	float3 section_to_t2 = t2_point - section->transform.position;
 
-	if (length(section_to_t1) == 0.0f) {
+	if (length(section_to_t1) == 0.0f)
 		t1 = -1.0f;
-	}
-	if (length(section_to_t2) == 0.0f) {
+	if (length(section_to_t2) == 0.0f)
 		t2 = -1.0f;
-	}
 	float cos_a = dot(section_to_t1, norm_vector) / (length(section_to_t1) * length(norm_vector));
 	if (cos_a >= 0)
 		t1 = -1.0f;
 	cos_a = dot(section_to_t2, norm_vector) / (length(section_to_t2) * length(norm_vector));
 	if (cos_a >= 0)
 		t2 = -1.0f;
+	return (float2)(t1, t2);
+}
+
+float		compute_section(t_ray *ray, t_object *object, float t1, float t2)
+{
+	bool	any_section_is_on = 0;
+	float2	new_t;
+	float2	temp_t;
+
+	for (int i = 0; i < 6; ++i) {
+		if (object->section[i].type == NONE)
+			continue ;
+		if (object->section[i].on) {
+			if (any_section_is_on == 0) {
+				new_t = add_section_on_primitive(ray, &object->section[i], t1, t2);
+			} else {
+				temp_t = add_section_on_primitive(ray, &object->section[i], t1, t2);
+				new_t.x = maxTOrNothing(new_t.x, temp_t.x);
+				new_t.y = maxTOrNothing(new_t.y, temp_t.y);
+			}
+			any_section_is_on = 1;
+		}
+	}
+	if (any_section_is_on)
+		return minT(new_t.x, new_t.y);
 	return minT(t1, t2);
 }
 
@@ -76,21 +68,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	t[0] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
 	t[1] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
 
-	if (sphere->section.on_x || sphere->section.on_y || sphere->section.on_z)
-	{
-		float3		section;
-		section.x = MY_INFINITY;
-		section.y = MY_INFINITY;
-		section.z = MY_INFINITY;
-		if (sphere->section.on_x)
-			section.x = add_section_on_primitive(ray, sphere, t[0], t[1], 0);
-		if (sphere->section.on_y)
-			section.y = add_section_on_primitive(ray, sphere, t[0], t[1], 1);
-		if (sphere->section.on_z)
-			section.z = add_section_on_primitive(ray, sphere, t[0], t[1], 2);
-		return minT(minT(section.x, section.y), section.z);
-	}
-	return minT(t[0], t[1]);
+	return compute_section(ray, sphere, t[0], t[1]);
 }
 
 float	plane_intersect(t_ray *ray, t_object *plane)
@@ -103,7 +81,8 @@ float	plane_intersect(t_ray *ray, t_object *plane)
 		return 0;
 	temp = plane->transform.position - ray->origin;
 	t = dot(temp, plane->transform.direction) / d_dot_n;
-	return t;
+
+	return compute_section(ray, plane, -1.0f, t);
 }
 
 float		cylinder_intersect(t_ray *ray, t_object *cylinder)
@@ -122,23 +101,7 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
 	t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
 
-
-	if (cylinder->section.on_x || cylinder->section.on_y || cylinder->section.on_z)
-	{
-		float3		section;
-		section.x = MY_INFINITY;
-		section.y = MY_INFINITY;
-		section.z = MY_INFINITY;
-		if (cylinder->section.on_x)
-			section.x = add_section_on_primitive(ray, cylinder, t[0], t[1], 0);
-		if (cylinder->section.on_y)
-			section.y = add_section_on_primitive(ray, cylinder, t[0], t[1], 1);
-		if (cylinder->section.on_z)
-			section.z = add_section_on_primitive(ray, cylinder, t[0], t[1], 2);
-		return minT(minT(section.x, section.y), section.z);
-	}
-	
-	return minT(t[0], t[1]);
+	return compute_section(ray, cylinder, t[0], t[1]);
 }
 
 float	cone_intersect(t_ray *ray, t_object *cone)
@@ -159,21 +122,7 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	t[0] = (-abc[1] + sqrt(k_and_discr[1])) / (2 * abc[0]);
 	t[1] = (-abc[1] - sqrt(k_and_discr[1])) / (2 * abc[0]);
 
-	if (cone->section.on_x || cone->section.on_y || cone->section.on_z)
-	{
-		float3		section;
-		section.x = MY_INFINITY;
-		section.y = MY_INFINITY;
-		section.z = MY_INFINITY;
-		if (cone->section.on_x)
-			section.x = add_section_on_primitive(ray, cone, t[0], t[1], 0);
-		if (cone->section.on_y)
-			section.y = add_section_on_primitive(ray, cone, t[0], t[1], 1);
-		if (cone->section.on_z)
-			section.z = add_section_on_primitive(ray, cone, t[0], t[1], 2);
-		return minT(minT(section.x, section.y), section.z);
-	}
-	return minT(t[0], t[1]);
+	return compute_section(ray, cone, t[0], t[1]);
 }
 
 float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
@@ -277,6 +226,13 @@ float minT(float a, float b) {
 		return a;
 	}
 	return b;
+}
+
+float maxTOrNothing(float a, float b) {
+	if (a < 0 || b < 0) {
+		return a < b ? a : b;
+	}
+	return a > b ? a : b;
 }
 
 float module(float a)

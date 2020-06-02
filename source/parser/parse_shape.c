@@ -67,22 +67,19 @@ static void		init_default_shape_params(SHAPE *shape)
 //TODO maybe parse section
 void			init_default_shape_section(SHAPE *shape)
 {
-	shape->dto->section.on_x = FALSE;
-	shape->dto->section.on_y = FALSE;
-	shape->dto->section.on_z = FALSE;
-	shape->dto->section.x.position = shape->dto->transform.position;
-	shape->dto->section.y.position = shape->dto->transform.position;
-	shape->dto->section.z.position = shape->dto->transform.position;
-	shape->dto->section.x.direction.x = 1;
-	shape->dto->section.x.direction.y = 0;
-	shape->dto->section.x.direction.z = 0;
-	shape->dto->section.y.direction.x = 0;
-	shape->dto->section.y.direction.y = 1;
-	shape->dto->section.y.direction.z = 0;
-	shape->dto->section.z.direction.x = 0;
-	shape->dto->section.z.direction.y = 0;
-	shape->dto->section.z.direction.z = 1;
-	shape->dto->section.color = shape->dto->material.color;
+	shape->dto->section[0].type = PLANE;
+	shape->dto->section[1].type = PLANE;
+	shape->dto->section[2].type = PLANE;
+	shape->dto->section[3].type = NONE;
+	shape->dto->section[0].on = FALSE;
+	shape->dto->section[1].on = FALSE;
+	shape->dto->section[2].on = FALSE;
+	shape->dto->section[0].transform.position = shape->dto->transform.position;
+	shape->dto->section[1].transform.position = shape->dto->transform.position;
+	shape->dto->section[2].transform.position = shape->dto->transform.position;
+	shape->dto->section[0].transform.direction = (FLT3){1.0f, 0.0f, 0.0f};
+	shape->dto->section[1].transform.direction = (FLT3){0.0f, 1.0f, 0.0f};
+	shape->dto->section[2].transform.direction = (FLT3){0.0f, 0.0f, 1.0f};
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,

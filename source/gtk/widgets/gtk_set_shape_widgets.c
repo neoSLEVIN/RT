@@ -102,5 +102,5 @@ void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 	gtk_set_material_tab_widgets(&(*gtk_shape)->material,
 								&scene_shape->dto->material);
 	gtk_set_section_tab_widgets(&(*gtk_shape)->section,
-								&scene_shape->dto->section);
+								scene_shape->dto->section);
 }
