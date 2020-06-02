@@ -14,7 +14,7 @@ typedef struct			s_light
 	t_light_type		type;
 	float				intensity;
 	float3				position;
-	float3				target;
+	float3				direction;
 	bool				marker;
 }						t_light;
 
@@ -104,6 +104,12 @@ typedef struct			s_dto_ppm_img
 	int					start_image;
 }						t_ppm_image;
 
+/*тут будем хранить прозрачный объект. Используется только в kernel*/
+typedef struct			s_transparent_obj
+{
+	float				t;
+	int					hit_id;;
+}						t_transparent_obj;
 
 typedef struct			s_ray
 {
@@ -158,12 +164,14 @@ float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
-bool 	is_intersect(t_ray *ray, t_scene *scene);
+bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
 float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);
-bool 	is_in_shadow(t_light *light, t_ray *ray, t_scene *scene);
+bool 	is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
+bool 	is_in_shadow_directional(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
+
 float	diffuse_light(t_light *light, t_ray *ray, int specular);
 float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, int object_specular);
 

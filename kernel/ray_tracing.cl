@@ -7,18 +7,7 @@ float3 compute_color(t_scene *scene, t_ray *ray) {
 		float ref = scene->objects[ray->hit_id].material.reflective;
 		float trans;
 
-/* Если раскомментить код ниже и выбрать целью плоскость, то вылетим в ошибку -5
-	Почему?
- */
-/*		if (scene->objects[ray->hit_id].marker)
-		{
-			if (scene->objects[ray->hit_id].material.transparency >= 0.5f)
-				trans = 0.4f;
-			else
-				trans = 0.6f;
-		}
-		else*/
-			trans = scene->objects[ray->hit_id].material.transparency;
+		trans = scene->objects[ray->hit_id].material.transparency;
 
 		if (ref == 0 && trans == 0)
 			return tmpColor;;
@@ -84,17 +73,6 @@ __kernel void render_kernel(__global t_object *objects,
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
-	
-	
-	/*тест для вывода первой картинки в левый верхний угол*/
-	/*
-	int x = work_item_id % cam.screen_w;
-	int y = work_item_id / cam.screen_w;
-	if (x < 640 && y < 640) {
-		int i = y * 640 + x;
-		output[work_item_id] = (char4)(textures->data[i * 3], textures->data[i * 3 + 1], textures->data[i * 3 + 2], alfa);
-	}
-	*/
 	
 
 	if (work_item_id == cursor.y * cam.screen_w + cursor.x)

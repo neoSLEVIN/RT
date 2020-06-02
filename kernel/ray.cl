@@ -5,12 +5,11 @@ float3 send_ray(t_ray *ray, t_scene *scene) {
 	float intensity;
 	float3 resColor = 0;
 
-	if (!is_intersect(ray, scene))
+	if (!is_intersect(ray, scene, 0))
 		return backColor;
 	t_object hit_obj = scene->objects[ray->hit_id];
 	intensity = get_light_intensity(ray, scene);
 	resColor = get_obj_color(&hit_obj, ray, scene);
-	/*текстуры из картинок плохо реагируют на изменение яркости. Портятся. what to do ?*/
 	resColor =  resColor * intensity;
 	return resColor;
 }
