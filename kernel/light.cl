@@ -38,9 +38,10 @@ float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
 float get_dir_light(t_light *light, t_ray *ray, t_scene *scene) {
 	float totalLight = 0;
 	float transparent_coef = 1;
+	float3 light_dir = -normalize(light->direction);
 	
 	if (!is_in_shadow_directional(light, ray, scene, &transparent_coef)) {
-		float power = dot(ray->hitNormal, -light->direction);
+		float power = dot(ray->hitNormal, light_dir);
 		if (power < 0)
 			power = 0;
 		totalLight = power * light->intensity * transparent_coef;
@@ -59,7 +60,7 @@ bool is_in_shadow_directional(t_light *light, t_ray *ray, t_scene *scene, float 
 	
 	/*чтобы не было пересечения с самим собой двигаем немного по нормали*/
 	light_ray.origin = ray->hitPoint + ray->hitNormal * 0.01f;
-	light_ray.dir = -light->direction;
+	light_ray.dir = -normalize(light->direction);
 	if (scene->objects[ray->hit_id].material.transparency > 0) {
 		is_intersect(&light_ray, scene, 0);
 	} else {
