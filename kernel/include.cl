@@ -169,6 +169,8 @@ float 	minT(float a, float b);
 float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);
+float 	get_point_light(t_light *light, t_ray *ray, t_scene *scene);
+float 	get_dir_light(t_light *light, t_ray *ray, t_scene *scene);
 bool 	is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
 bool 	is_in_shadow_directional(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
 
