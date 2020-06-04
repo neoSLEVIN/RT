@@ -141,7 +141,10 @@ float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
 float2 translate_plane_coord(t_ray *ray);
-void set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
+void 	set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
+/*main*/
+float3 image_texture(float2 uv, __global t_ppm_image *texture, int id);
+float2 get_uv(t_object *obj, t_ray *ray, int splits);
 /*patterns*/
 float3 uv_patter_checker(int checkerW, int checkerH, float2 uv);
 float3 uv_patter_lines(float2 uv);
@@ -157,7 +160,7 @@ float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
-float3	get_normal(t_object *hit_obj, t_ray *ray);
+float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
 float	sphere_intersect(t_ray *ray, t_object *sphere);
 float	plane_intersect(t_ray *ray, t_object *plane);

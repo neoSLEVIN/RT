@@ -264,8 +264,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 	if (intersected) {
 		t_object hit_obj = scene->objects[ray->hit_id];
 		ray->hitPoint = ray->origin + ray->t * ray->dir;
-		ray->hitNormal = get_normal(&hit_obj, ray);
 		ray->hit_type = hit_obj.type;
+		ray->hitNormal = get_normal(&hit_obj, ray, scene);
 	}
 	return intersected;
 }
