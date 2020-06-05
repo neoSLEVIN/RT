@@ -104,16 +104,19 @@ typedef struct			s_dto
 {
 	DTO_CAM				cam;
 	DTO_PPM_IMG			*textures;
+	DTO_PPM_IMG			*normal_maps;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
 	int					*s_cnt;
 	int					*l_cnt;
 	int					*t_cnt;
+	int					*n_cnt;
 	INT2				*cursor;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
 	cl_mem				input_texture;
+	cl_mem				input_normal_maps;
 	cl_mem				output_data;
 	cl_mem				output_id;
 	cl_char4			*buffer;

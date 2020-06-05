@@ -83,7 +83,7 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
 }
 
 
-float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene) {
+float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
 	
 	float2 uv;
 	float3 new_normal;
@@ -92,7 +92,7 @@ float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *s
 	ray->hitNormal = normal;
 	
 	uv = get_uv(hit_obj, ray, 10);
-	new_normal = image_texture(uv, scene->textures, 0);
+	new_normal = image_texture(uv, scene->normal_maps, id);
 	new_normal.x = new_normal.x * 2.0f - 1.0f;
 	new_normal.y = new_normal.y * 2.0f - 1.0f;
 	new_normal.z = new_normal.z * 2.0f - 1.0f;
@@ -122,6 +122,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 		case CAPPEDCYLINDER:
         	normal = capped_cylinder_normal(hit_obj, ray);
         	break;
+	}
+	if (hit_obj->normal_map.id >= 0) {
+		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);
 	}
 	return normal;
 }

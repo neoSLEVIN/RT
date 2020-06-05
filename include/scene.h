@@ -134,6 +134,7 @@ struct			s_dto_shape
 	TRANSFORM	transform;
 	MATERIAL	material;
 	TEXTURE		texture;
+	TEXTURE		normal_map;
 	SECTION		section;
 	cl_float	param;
 	_Bool		marker;
@@ -233,9 +234,11 @@ struct			s_scene
 	LIGHT		*lights;
 	SHAPE		*shapes;
 	PPM_IMG		*textures;
+	PPM_IMG		*normal_maps;
 	int			l_cnt;
 	int			s_cnt;
 	int			t_cnt;
+	int			n_cnt;
 	float		fps;
 };
 

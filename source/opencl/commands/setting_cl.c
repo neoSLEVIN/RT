@@ -21,6 +21,8 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.l_cnt = &scene->l_cnt;
 	translate_textures(&ocl->dto.textures, scene->textures, scene->t_cnt);
 	ocl->dto.t_cnt = &scene->t_cnt;
+	translate_textures(&ocl->dto.normal_maps, scene->normal_maps, scene->n_cnt);
+	ocl->dto.n_cnt = &scene->n_cnt;
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
 	set_memory_output(ocl);

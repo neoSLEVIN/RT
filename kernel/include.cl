@@ -89,6 +89,7 @@ typedef struct			s_object
 	t_transform			transform;
 	t_material			material;
 	t_texture			texture;
+	t_texture			normal_map;
 	t_section			section;
 	float				radius;
 	bool				marker;
@@ -133,6 +134,7 @@ typedef struct				s_scene
 	uint					seed;
 	int2 					cursor;
 	__global t_ppm_image	*textures;
+	__global t_ppm_image	*normal_maps;
 }							t_scene;
 
 
