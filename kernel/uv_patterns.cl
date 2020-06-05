@@ -41,7 +41,7 @@ float3 uv_patter_circle(float2 uv, t_object *obj) {
 /*Основан на глобальных координатах. Меньше шума*/
 float3 plane_checker(t_object *obj, t_ray *ray) {
 	float3 color = 1.0f;
-	float2 coord = translate_plane_coord(ray);
+	float2 coord = translate_plane_coord(obj->transform.direction, ray);
 	float sines = sin(coord.x) * sin(coord.y);
 	if (sines < 0) {
 		return obj->material.color;
@@ -51,7 +51,7 @@ float3 plane_checker(t_object *obj, t_ray *ray) {
 
 float3 plane_lines_cross(t_object *obj, t_ray *ray) {
 	float3 color = 1.0f;
-	float2 coord = translate_plane_coord(ray);
+	float2 coord = translate_plane_coord(obj->transform.direction, ray);
 	float sines1 = sin(coord.x * 2);
 	float sines2 = sin(coord.y * 2);
 	if ((sines1 < 0.99) && (sines2 < 0.98)) {

@@ -140,7 +140,7 @@ typedef struct				s_scene
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
-float2 translate_plane_coord(t_ray *ray);
+float2 translate_plane_coord(float3 plane_norm, t_ray *ray);
 void 	set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
 /*main*/
 float3 image_texture(float2 uv, __global t_ppm_image *texture, int id);

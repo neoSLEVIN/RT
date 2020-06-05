@@ -22,7 +22,7 @@ float2 sphere_map(t_object *obj, t_ray *ray) {
 
 float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;
-	float2 coord = translate_plane_coord(ray);
+	float2 coord = translate_plane_coord(obj->transform.direction, ray);
 	/*Плодадь ничем не ограничена, поэтому все разделено на области со сторонами size*/
 	uv.x = fmod(coord.x, size) / (float)(size);
 	uv.y = fmod(coord.y, size) / (float)(size);
@@ -58,12 +58,12 @@ float2 cylindrical_map(t_object *obj, t_ray *ray, int size) {
 	return uv;
 }
 
-float2 translate_plane_coord(t_ray *ray) {
+float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 	float3 u_basis;
 	float3 v_basis;
 	float2 coord;
 	
-	set_uv_basis(ray->hitNormal, &u_basis, &v_basis);
+	set_uv_basis(plane_norm, &u_basis, &v_basis);
 	coord.x = dot(u_basis, ray->hitPoint);
 	coord.y = dot(v_basis, ray->hitPoint);
 	return coord;
