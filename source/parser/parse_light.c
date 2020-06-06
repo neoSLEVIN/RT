@@ -31,6 +31,7 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index)
 	// TODO validate intensity value
 	light->dto->position = parse_cl_float3(light_field, "position");
 	light->dto->direction = parse_cl_float3(light_field, "direction");
+	light->dto->direction = v3_norm(light->dto->direction);
 	// TODO parse another params
 	return (light);
 }

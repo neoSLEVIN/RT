@@ -20,9 +20,10 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	t[0] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
 	t[1] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
 
-	if (sphere->working_sections && minT(t[0], t[1]) > 0.0f)
+	float min_t = minT(t[0], t[1]);
+	if (sphere->working_sections && min_t > MY_EPSILON && min_t < ray->t)
 		return compute_sections(ray, sphere->section, sphere->is_complex_section, t[0], t[1]);
-	return minT(t[0], t[1]);
+	return min_t;
 }
 
 float	plane_intersect(t_ray *ray, t_object *plane)
@@ -36,7 +37,7 @@ float	plane_intersect(t_ray *ray, t_object *plane)
 	temp = plane->transform.position - ray->origin;
 	t = dot(temp, plane->transform.direction) / d_dot_n;
 
-	if (plane->working_sections && t > 0.0f)
+	if (plane->working_sections && t > MY_EPSILON && t < ray->t)
 		return compute_sections(ray, plane->section, plane->is_complex_section, -1.0f, t);
 	return t;
 }
@@ -57,9 +58,10 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
 	t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
 
-	if (cylinder->working_sections && minT(t[0], t[1]) > 0.0f)
+	float min_t = minT(t[0], t[1]);
+	if (cylinder->working_sections && min_t > MY_EPSILON && min_t < ray->t)
 		return compute_sections(ray, cylinder->section, cylinder->is_complex_section, t[0], t[1]);
-	return minT(t[0], t[1]);
+	return min_t;
 }
 
 float	cone_intersect(t_ray *ray, t_object *cone)
@@ -80,9 +82,10 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	t[0] = (-abc[1] + sqrt(k_and_discr[1])) / (2 * abc[0]);
 	t[1] = (-abc[1] - sqrt(k_and_discr[1])) / (2 * abc[0]);
 
-	if (cone->working_sections && minT(t[0], t[1]) > 0.0f)
+	float min_t = minT(t[0], t[1]);
+	if (cone->working_sections && min_t > MY_EPSILON && min_t < ray->t)
 		return compute_sections(ray, cone->section, cone->is_complex_section, t[0], t[1]);
-	return minT(t[0], t[1]);
+	return min_t;
 }
 
 float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
@@ -162,7 +165,7 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 		else if (selected_obj.type == CONE)
 			t = cone_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDCYLINDER)
-        	t = capped_cylinder_intersect(ray, &selected_obj);
+			t = capped_cylinder_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}
@@ -172,8 +175,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 	if (intersected) {
 		t_object hit_obj = scene->objects[ray->hit_id];
 		ray->hitPoint = ray->origin + ray->t * ray->dir;
-		ray->hitNormal = get_normal(&hit_obj, ray);
 		ray->hit_type = hit_obj.type;
+		ray->hitNormal = get_normal(&hit_obj, ray, scene);
 	}
 	return intersected;
 }

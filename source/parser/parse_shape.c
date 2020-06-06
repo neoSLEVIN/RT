@@ -68,7 +68,7 @@ static void		init_default_shape_params(SHAPE *shape)
 void			init_default_shape_section(SHAPE *shape)
 {
 	shape->dto->working_sections = 6;
-	shape->dto->is_complex_section = FALSE;
+	shape->dto->is_complex_section = TRUE;
 	shape->dto->section[0].type = SPHERE;
 	shape->dto->section[1].type = PLANE;
 	shape->dto->section[2].type = PLANE;
@@ -102,7 +102,7 @@ void			init_default_shape_section(SHAPE *shape)
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
-								PPM_IMG *textures)
+								PPM_IMG *textures, PPM_IMG *normal_maps)
 {
 	JC_FIELD	shape_field;
 	SHAPE		*shape;
@@ -127,12 +127,14 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
 		&shape->texture_name, textures);
+	shape->dto->normal_map = parse_texture_info_in_shape(shape_field, "normal_map",
+		&shape->texture_name, normal_maps);
 	init_default_shape_section(shape);
 	return (shape);
 }
 
 SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
-							PPM_IMG *textures)
+							PPM_IMG *textures, PPM_IMG *normal_maps)
 {
 	JC_FIELD	shapes_field;
 	SHAPE		*shapes;
@@ -146,12 +148,12 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
 	length = jc_get_array_length(shapes_field);
 	if (length == 0)
 		return (NULL);
-	shapes = parse_shape_idx(shapes_field, 0, textures);
+	shapes = parse_shape_idx(shapes_field, 0, textures, normal_maps);
 	temp_shape = shapes;
 	i = 0;
 	while (++i < length)
 	{
-		temp_shape->next = parse_shape_idx(shapes_field, i, textures);
+		temp_shape->next = parse_shape_idx(shapes_field, i, textures, normal_maps);
 		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}

@@ -29,6 +29,7 @@ static void	init_dto(t_dto *dto, const size_t work_size)
 {
 	init_dto_cam(&dto->cam);
 	dto->textures = NULL;
+	dto->normal_maps = NULL;
 	dto->shapes = NULL;
 	dto->lights = NULL;
 	dto->t_cnt = NULL;
@@ -39,6 +40,7 @@ static void	init_dto(t_dto *dto, const size_t work_size)
 	dto->input_lights = NULL;
 	dto->input_seeds = NULL;
 	dto->input_texture = NULL;
+	dto->input_normal_maps = NULL;
 	dto->output_data = NULL;
 	dto->output_id = NULL;
 	dto->shape_id = NULL;

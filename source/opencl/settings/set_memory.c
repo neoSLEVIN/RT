@@ -63,6 +63,18 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 			ocl->dto.textures, 0, NULL, NULL);
 		check_error_cl(err,"clEnqueueWriteBuffer", "input_texture");
 	}
+	
+	alloc_size = (scene->n_cnt == 0) ? 1 : scene->n_cnt;
+	ocl->dto.input_normal_maps = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
+		sizeof(DTO_PPM_IMG) * alloc_size, NULL, &err);
+	check_error_cl(err,"clCreateBuffer", "input_normal_maps");
+	if (ocl->dto.t_cnt > 0)
+	{
+		err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.input_normal_maps,
+			CL_TRUE, 0, sizeof(DTO_PPM_IMG) * *ocl->dto.n_cnt,
+			ocl->dto.normal_maps, 0, NULL, NULL);
+		check_error_cl(err,"clEnqueueWriteBuffer", "input_normal_maps");
+	}
 }
 
 void	set_memory_output(t_ocl *ocl)

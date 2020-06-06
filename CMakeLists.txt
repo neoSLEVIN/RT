@@ -368,13 +368,17 @@ foreach (CLKernelName
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)
 endforeach (CLKernelName)
 
-
-
 # ==============================================================================
 # =================================== TEXTURE ==================================
 # ==============================================================================
     file(GLOB PPM_TEXTURES "textures/*.ppm")
     file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+
+# ==============================================================================
+# ================================= NORMAL MAP =================================
+# ==============================================================================
+file(GLOB PPM_NORMAL_MAPS "normalmaps/*.ppm")
+file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/normalmaps)
 
 
 

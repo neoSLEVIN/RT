@@ -26,7 +26,8 @@ void init_scene(t_scene *scene,
 				int num_light,
 				CAMERA cam,
 				uint seed,
-				__global t_ppm_image *textures)
+				__global t_ppm_image *textures,
+				__global t_ppm_image *normal_maps)
 {
 	scene->objects = objects;
 	scene->num_obj = num_obj;
@@ -35,6 +36,7 @@ void init_scene(t_scene *scene,
 	scene->cam = cam;
 	scene->seed = seed;
 	scene->textures = textures;
+	scene->normal_maps = normal_maps;
 }
 
 __kernel void render_kernel(__global t_object *objects,
@@ -46,6 +48,7 @@ __kernel void render_kernel(__global t_object *objects,
 							__global unsigned int *seedsInput,
 							int2 cursor,
 							__global t_ppm_image *textures,
+							__global t_ppm_image *normal_maps,
 							__global int *output_id)
 {
 	float3 finalColor = 0;
@@ -54,7 +57,7 @@ __kernel void render_kernel(__global t_object *objects,
 	const int work_item_id = get_global_id(0);
 	/*Набор случайных чисел*/
 	uint seed = seedsInput[work_item_id];
-	init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures);
+	init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures, normal_maps);
 	
 	int xQuality = 1;
 	/*Сглаживание*/
@@ -73,6 +76,16 @@ __kernel void render_kernel(__global t_object *objects,
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
+	
+	/*тест для вывода первой картинки в левый верхний угол*/
+	/*
+ 	int x = work_item_id % cam.screen_w;
+ 	int y = work_item_id / cam.screen_w;
+ 	if (x < 640 && y < 640) {
+ 		int i = y * 640 + x;
+ 		output[work_item_id] = (char4)(normal_maps->data[i * 3], normal_maps->data[i * 3 + 1], normal_maps->data[i * 3 + 2], alfa);
+ 	}
+ 	*/
 	
 
 	if (work_item_id == cursor.y * cam.screen_w + cursor.x)

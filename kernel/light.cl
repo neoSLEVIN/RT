@@ -1,33 +1,54 @@
 
 float get_light_intensity(t_ray *ray, t_scene *scene) {
 	float totalLight = 0;
-	float transparent_coef = 1;
-	int i = 0;
-	while (i < scene->num_light) {
-		if (scene->lights[i].type == AMBIENT) {
-			totalLight += scene->lights[i].intensity;
-		} else if (scene->lights[i].type == POINT) {
-			t_light light = scene->lights[i];
-			if (!is_in_shadow_point(&light, ray, scene, &transparent_coef)) {
-				int specular = scene->objects[ray->hit_id].material.specular;
-				totalLight += diffuse_light(&light, ray, specular) * transparent_coef;
-			}
-		/*при direction не считаем specular*/
-		} else if (scene->lights[i].type == DIRECTION) {
-			t_light light = scene->lights[i];
-			if (!is_in_shadow_directional(&light, ray, scene, &transparent_coef)) {
-				float power = dot(ray->hitNormal, -light.direction);
-				if (power < 0)
-					power = 0;
-				totalLight += power * light.intensity * transparent_coef;
-			}
+	
+	for (int i = 0; i < scene->num_light; i++) {
+		
+		t_light light = scene->lights[i];
+		
+		switch (scene->lights[i].type) {
+			case AMBIENT:
+				totalLight += scene->lights[i].intensity;
+				break;
+			case POINT:
+				totalLight += get_point_light(&light, ray, scene);
+				break;
+			case DIRECTION:
+				totalLight += get_dir_light(&light, ray, scene);
+				break;
 		}
-		i++;
 	}
 	if (totalLight >= 1)
 		totalLight = 1;
 	return totalLight;
 }
+
+float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
+	float totalLight = 0;
+	float transparent_coef = 1;
+	
+	if (!is_in_shadow_point(light, ray, scene, &transparent_coef)) {
+		int specular = scene->objects[ray->hit_id].material.specular;
+		totalLight = diffuse_light(light, ray, specular) * transparent_coef;
+	}
+	return totalLight;
+}
+
+/*при direction не считаем specular*/
+float get_dir_light(t_light *light, t_ray *ray, t_scene *scene) {
+	float totalLight = 0;
+	float transparent_coef = 1;
+	float3 light_dir = -light->direction;
+	
+	if (!is_in_shadow_directional(light, ray, scene, &transparent_coef)) {
+		float power = dot(ray->hitNormal, light_dir);
+		if (power < 0)
+			power = 0;
+		totalLight = power * light->intensity * transparent_coef;
+	}
+	return totalLight;
+}
+
 
 bool is_in_shadow_directional(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef) {
 	t_ray light_ray;

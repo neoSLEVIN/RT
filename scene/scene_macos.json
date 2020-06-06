@@ -1,0 +1,76 @@
+{
+  "settings": {
+    "fps": 30.0,
+    "tips": "========================================================",
+    "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
+    "tip_2": "But if you see lags, reduce FPS value"
+  },
+  "scene": {
+    "camera": {"position": [0,0,-35],"direction":[0,0,10],"rotation":0},
+    "lights": [
+      {"type": "AMBIENT", "intensity": 0.1, "position": [0,0,0], "direction": [0,0,0]},
+      {"type": "POINT", "intensity": 0.5, "position": [-4,5,-13], "direction": [0,0,0]},
+      {"type": "DIRECTION", "intensity": 0.3, "position": [6,5,-13], "direction": [3,-4,5]}
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "transform": {"position": [0,-3,0], "direction": [0,1,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0
+        }
+      },
+      {
+        "type": "PLANE",
+        "transform": {"position": [0,0,20], "direction": [0,0,-10]},
+	"texture": {"name": "Dan"},
+        "material": {
+          "texture": "360",
+          "specular": 0, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 4,
+        "transform": {"position": [0,0,0]},
+	"normal_map": {"name": "ground"},
+	"texture": {"name": "norm"},
+        "material": {
+          "specular": 100, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 1,
+        "transform": {"position": [4,4,-9]},
+        "material": {
+          "color": "ff0000",
+          "specular": 20, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "SPHERE",
+        "radius": 2,
+        "transform": {"position": [-4,2,-10]},
+        "material": {
+          "color": "fff",
+          "specular": 30, "reflective": 0, "transparency": 0.9}
+      },
+      {
+        "type": "CYLINDER",
+        "radius": 3,
+        "transform": {"position": [5,0,3], "direction": [-5,7,1]},
+        "material": {
+          "color": "f00",
+          "specular": 100, "reflective": 0, "transparency": 0}
+      }
+    ],
+    "textures": [
+      {"name": "norm", "path": "textures\\Wood.ppm"},
+      {"name": "360", "path": "textures\\marble.ppm"},
+      {"name": "Coffin", "path": "textures\\4.ppm"},
+      {"name": "Dan", "path": "textures\\dan.ppm"},
+      {"name": "Earth", "path": "textures\\earth.ppm"}
+    ],
+    "normal_maps": [
+      {"name": "ground", "path": "normalmaps\\Wood_n.ppm"}
+    ]
+  }
+}
