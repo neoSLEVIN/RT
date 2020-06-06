@@ -77,10 +77,11 @@
 ** =============================================================================
 */
 # define KERNEL_FILE_SIZE 13000
-# define KERNEL_FILE_CNT 13
+# define KERNEL_FILE_CNT 14
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"include.cl",
 		ABSOLUTE_PATH"normals.cl",
+		ABSOLUTE_PATH"sections.cl",
 		ABSOLUTE_PATH"intersections.cl",
 		ABSOLUTE_PATH"light.cl",
 		ABSOLUTE_PATH"random.cl",

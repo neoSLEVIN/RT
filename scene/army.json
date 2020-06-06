@@ -24,7 +24,7 @@
         "material": {"specular": 100, "reflective": 0, "transparency": 0}
       },
       {
-        "type": "SPHERE",
+        "type": "CYLINDER",
         "name": "Red",
         "radius": 250,
         "transform": {"position": [-3500,500,3500]},

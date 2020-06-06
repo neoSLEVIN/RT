@@ -45,11 +45,11 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 
 	alloc_size = (scene->s_cnt == 0) ? 1 : scene->s_cnt;
 	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
 		sizeof(DTO_SHAPE) * alloc_size, ocl->dto.shapes, &err);
 	check_error_cl(err,"clCreateBuffer", "input_shapes");
 	ocl->dto.input_lights = clCreateBuffer(ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
 		sizeof(DTO_LIGHT) * scene->l_cnt, ocl->dto.lights, &err);
 	check_error_cl(err,"clCreateBuffer", "input_lights");
 	alloc_size = (scene->t_cnt == 0) ? 1 : scene->t_cnt;

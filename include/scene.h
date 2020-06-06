@@ -116,9 +116,12 @@ struct			s_texture
 struct			s_section
 {
 	_Bool		on;
-	TRANSFORM	transform;
 	SHAPE_TYPE	type;
+	TRANSFORM	transform;
+	cl_float	param;
 };
+# define SECTION_CNT 6
+
 /*
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
@@ -129,7 +132,9 @@ struct			s_dto_shape
 	TRANSFORM	transform;
 	MATERIAL	material;
 	TEXTURE		texture;
-	SECTION		section[6];
+	SECTION		section[SECTION_CNT];
+	cl_int		working_sections;
+	_Bool		is_complex_section;
 	cl_float	param;
 	_Bool		marker;
 };

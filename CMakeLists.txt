@@ -320,7 +320,14 @@ set(SRCNAME_GTK
         source/gtk/actions/camera_motion.c
         source/gtk/actions/shape_motion.c
         source/gtk/actions/change_shape_param.c
-        source/gtk/signals/gtk_set_motions_signals.c source/gtk/signals/gtk_set_ui_settings_signals.c source/gtk/signals/gtk_set_shapes_signals.c source/gtk/callbacks/shapes_tree_selection_changer.c source/gtk/actions/update_shape_widget.c source/gtk/signals/gtk_set_shape_signals.c source/gtk/callbacks/spin_button_shape_position_changer.c source/gtk/actions/update_shapes_flags.c)
+        source/gtk/signals/gtk_set_motions_signals.c
+        source/gtk/signals/gtk_set_ui_settings_signals.c
+        source/gtk/signals/gtk_set_shapes_signals.c
+        source/gtk/callbacks/shapes_tree_selection_changer.c
+        source/gtk/actions/update_shape_widget.c
+        source/gtk/signals/gtk_set_shape_signals.c
+        source/gtk/callbacks/spin_button_shape_position_changer.c
+        source/gtk/actions/update_shapes_flags.c)
 
 add_executable(RT
         main.c
@@ -343,6 +350,7 @@ add_executable(RT
 foreach (CLKernelName
         "include"
         "normals"
+        "sections"
         "intersections"
         "light"
         "random"
@@ -391,4 +399,5 @@ if (WIN32)
     find_package(OpenCL REQUIRED)
     include_directories(${OPENCL_INCLUDE_DIR})
     target_link_libraries(RT OpenCL::OpenCL)
+    add_definitions(-DCL_TARGET_OPENCL_VERSION=220)
 endif()

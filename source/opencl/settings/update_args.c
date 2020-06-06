@@ -37,7 +37,7 @@ void	update_shapes_arg(t_ocl *ocl, _Bool *update_size, _Bool *update_shapes)
 	clReleaseMemObject(ocl->dto.input_shapes);
 	alloc_size = (*ocl->dto.s_cnt == 0) ? 1 : *ocl->dto.s_cnt;
 	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
 		sizeof(DTO_SHAPE) * alloc_size, ocl->dto.shapes, &err);
 	check_error_cl(err,"clCreateBuffer", "input_shapes");
 	err = clSetKernelArg(ocl->kernel, 0, sizeof(cl_mem),

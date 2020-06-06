@@ -21,7 +21,7 @@
 # include "ocl.h"
 
 // TODO dynamic value
-# define STEP 50.5
+# define STEP 25.5
 # define UI_WIDTH 400
 # define GTK_SELECT GtkTreeSelection
 
