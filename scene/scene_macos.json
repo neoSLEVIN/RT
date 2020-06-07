@@ -23,7 +23,7 @@
       {
         "type": "PLANE",
         "transform": {"position": [0,0,20], "direction": [0,0,-10]},
-	"texture": {"name": "Dan"},
+        "texture": {"name": "Dan"},
         "material": {
           "texture": "360",
           "specular": 0, "reflective": 0, "transparency": 0}
@@ -32,11 +32,11 @@
         "type": "SPHERE",
         "radius": 4,
         "transform": {"position": [0,0,0]},
-	"normal_map": {"name": "ground"},
-	"texture": {"name": "norm"},
-        "material": {
-          "specular": 100, "reflective": 0, "transparency": 0}
-      },
+        "normal map": {"name": "ground"},
+        "texture": {"name": "norm"},
+        "sections": {"style": "SIMPLE",
+          "elements":[{"type": "PLANE", "direction": [0,1,0]}]},
+        "material": {"specular": 100, "reflective": 0, "transparency": 0}},
       {
         "type": "SPHERE",
         "radius": 1,
@@ -63,14 +63,14 @@
       }
     ],
     "textures": [
-      {"name": "norm", "path": "textures\\Wood.ppm"},
-      {"name": "360", "path": "textures\\marble.ppm"},
-      {"name": "Coffin", "path": "textures\\4.ppm"},
-      {"name": "Dan", "path": "textures\\dan.ppm"},
-      {"name": "Earth", "path": "textures\\earth.ppm"}
+      {"name": "norm", "path": "extras\\textures\\Wood.ppm"},
+      {"name": "360", "path": "extras\\textures\\marble.ppm"},
+      {"name": "Coffin", "path": "extras\\textures\\4.ppm"},
+      {"name": "Dan", "path": "extras\\textures\\dan.ppm"},
+      {"name": "Earth", "path": "extras\\textures\\earth.ppm"}
     ],
-    "normal_maps": [
-      {"name": "ground", "path": "normalmaps\\Wood_n.ppm"}
+    "normal maps": [
+      {"name": "ground", "path": "extras\\normalmaps\\Wood_n.ppm"}
     ]
   }
 }

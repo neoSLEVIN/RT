@@ -117,7 +117,8 @@ struct			s_section
 {
 	_Bool		on;
 	SHAPE_TYPE	type;
-	TRANSFORM	transform;
+	FLT3		position;
+	FLT3		direction;
 	cl_float	param;
 };
 # define SECTION_CNT 6
@@ -133,7 +134,7 @@ struct			s_dto_shape
 	MATERIAL	material;
 	TEXTURE		texture;
 	TEXTURE		normal_map;
-	SECTION		section[SECTION_CNT];
+	SECTION		sections[SECTION_CNT];
 	cl_int		working_sections;
 	_Bool		is_complex_section;
 	cl_float	param;
@@ -150,6 +151,7 @@ struct			s_shape
 	void		*widgets;
 	void		*tree_iter;
 	char		*texture_name;
+	char		*normal_map_name;
 	SHAPE		*prev;
 	SHAPE		*next;
 };

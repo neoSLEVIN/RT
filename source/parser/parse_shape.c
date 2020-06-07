@@ -62,43 +62,7 @@ static void		init_default_shape_params(SHAPE *shape)
 	shape->tree_iter = NULL;
 	shape->dto->marker = FALSE;
 	shape->texture_name = NULL;
-}
-
-//TODO maybe parse section
-void			init_default_shape_section(SHAPE *shape)
-{
-	shape->dto->working_sections = 6;
-	shape->dto->is_complex_section = TRUE;
-	shape->dto->section[0].type = SPHERE;
-	shape->dto->section[1].type = PLANE;
-	shape->dto->section[2].type = PLANE;
-	shape->dto->section[3].type = PLANE;
-	shape->dto->section[4].type = PLANE;
-	shape->dto->section[5].type = PLANE;
-	shape->dto->section[0].on = FALSE;
-	shape->dto->section[1].on = TRUE;
-	shape->dto->section[2].on = TRUE;
-	shape->dto->section[3].on = TRUE;
-	shape->dto->section[4].on = FALSE;
-	shape->dto->section[5].on = FALSE;
-	shape->dto->section[0].param = shape->dto->param - 10.0f;
-	shape->dto->section[1].param = shape->dto->param - 10.0f;
-	shape->dto->section[2].param = shape->dto->param - 10.0f;
-	shape->dto->section[3].param = shape->dto->param - 10.0f;
-	shape->dto->section[4].param = shape->dto->param - 10.0f;
-	shape->dto->section[5].param = shape->dto->param - 10.0f;
-	shape->dto->section[0].transform.position = shape->dto->transform.position;
-	shape->dto->section[1].transform.position = shape->dto->transform.position;
-	shape->dto->section[2].transform.position = shape->dto->transform.position;
-	shape->dto->section[3].transform.position = shape->dto->transform.position;
-	shape->dto->section[4].transform.position = shape->dto->transform.position;
-	shape->dto->section[5].transform.position = shape->dto->transform.position;
-	shape->dto->section[0].transform.direction = (FLT3){1.0f, 0.0f, 0.0f};
-	shape->dto->section[1].transform.direction = (FLT3){0.0f, 1.0f, 0.0f};
-	shape->dto->section[2].transform.direction = (FLT3){0.0f, 0.0f, 1.0f};
-	shape->dto->section[3].transform.direction = (FLT3){1.0f, 0.0f, 0.0f};
-	shape->dto->section[4].transform.direction = (FLT3){1.0f, 1.0f, 0.0f};
-	shape->dto->section[5].transform.direction = (FLT3){0.0f, 1.0f, 1.0f};
+	shape->normal_map_name = NULL;
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
@@ -127,9 +91,9 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
 		&shape->texture_name, textures);
-	shape->dto->normal_map = parse_texture_info_in_shape(shape_field, "normal_map",
-		&shape->texture_name, normal_maps);
-	init_default_shape_section(shape);
+	shape->dto->normal_map = parse_texture_info_in_shape(shape_field,
+		"normal map", &shape->normal_map_name, normal_maps);
+	parse_sections(shape_field, "sections", shape->dto);
 	return (shape);
 }
 

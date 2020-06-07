@@ -18,14 +18,14 @@ float get_light_intensity(t_ray *ray, t_scene *scene) {
 				break;
 		}
 	}
-	if (totalLight >= 1)
-		totalLight = 1;
+	if (totalLight >= 1.0f)
+		totalLight = 1.0f;
 	return totalLight;
 }
 
 float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
-	float totalLight = 0;
-	float transparent_coef = 1;
+	float totalLight = 0.0f;
+	float transparent_coef = 1.0f;
 	
 	if (!is_in_shadow_point(light, ray, scene, &transparent_coef)) {
 		int specular = scene->objects[ray->hit_id].material.specular;
@@ -36,14 +36,14 @@ float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
 
 /*при direction не считаем specular*/
 float get_dir_light(t_light *light, t_ray *ray, t_scene *scene) {
-	float totalLight = 0;
-	float transparent_coef = 1;
+	float totalLight = 0.0f;
+	float transparent_coef = 1.0f;
 	float3 light_dir = -light->direction;
 	
 	if (!is_in_shadow_directional(light, ray, scene, &transparent_coef)) {
 		float power = dot(ray->hitNormal, light_dir);
-		if (power < 0)
-			power = 0;
+		if (power < 0.0f)
+			power = 0.0f;
 		totalLight = power * light->intensity * transparent_coef;
 	}
 	return totalLight;
@@ -96,12 +96,15 @@ bool is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *trans
 		is_intersect(&light_ray, scene, &tmp);
 	}
 	/*Нашли непрозрачный объект дистация до которого меньше - есть тень*/
-	if (light_ray.t < dist - 0.01) {
+	if (light_ray.t < dist - 0.01f) {
 		return (1);
 	}
+/*	if (light_ray.t / dist < 0.999f) {
+		return (1);
+	}*/
 	
 	/*теперь у нас есть пересечение с прозрачным объектом на пути к непрозрачному*/
-	if (tmp.t < light_ray.t) {
+	if (tmp.t < light_ray.t && tmp.t < MY_INFINITY) {
 		*transparent_coef = scene->objects[tmp.hit_id].material.transparency;
 	}
 	return (0);
@@ -116,7 +119,7 @@ float	diffuse_light(t_light *light, t_ray *ray, int specular) {
 	light_vect = light->position - ray->hitPoint;
 	angle = dot(ray->hitNormal, light_vect);
 
-	if (angle > 0)
+	if (angle > 0.0f)
 	{
 		float tmp1 = light->intensity * angle;
 		float tmp2 = length(ray->hitNormal) * length(light_vect);
@@ -135,9 +138,9 @@ float	diffuse_light(t_light *light, t_ray *ray, int specular) {
 float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, int object_specular)
 {
 	float n = 0;
-	float3 R = 2 * normal_to_intersect * dot(normal_to_intersect, light_vector) - light_vector;
+	float3 R = 2.0f * normal_to_intersect * dot(normal_to_intersect, light_vector) - light_vector;
 	float r_dot_v = dot(R, rayDir);
-	if (r_dot_v > 0) {
+	if (r_dot_v > 0.0f) {
 		float tmp = length(R) * length(rayDir);
 		n = pow( r_dot_v / tmp, object_specular);
 	}

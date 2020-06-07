@@ -187,7 +187,7 @@ set(SRCNAME_JC_PARSER
         libraries/jcparser/api/jc_clear_all.c
         libraries/jcparser/api/jc_get_string.c
         libraries/jcparser/api/jc_additional_utils.c
-)
+        libraries/jcparser/api/jc_get_bool.c)
 
 # ==============================================================================
 # ================================== OCLMATH ===================================
@@ -277,7 +277,7 @@ set(SRCNAME_PARSER
         source/parser/parse_light.c
         source/parser/parse_settings.c
         source/parser/parse_textures.c
-)
+        source/parser/parse_sections.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -371,13 +371,13 @@ endforeach (CLKernelName)
 # ==============================================================================
 # =================================== TEXTURE ==================================
 # ==============================================================================
-    file(GLOB PPM_TEXTURES "textures/*.ppm")
+    file(GLOB PPM_TEXTURES "extras/textures/*.ppm")
     file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
 
 # ==============================================================================
 # ================================= NORMAL MAP =================================
 # ==============================================================================
-file(GLOB PPM_NORMAL_MAPS "normalmaps/*.ppm")
+file(GLOB PPM_NORMAL_MAPS "extras/normalmaps/*.ppm")
 file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/normalmaps)
 
 

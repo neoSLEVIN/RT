@@ -74,7 +74,7 @@ void	change_section_flag_x(GtkToggleButton *toggle_button, gpointer data)
 	_Bool	*flag;
 
 	rt = (t_rt*)data;
-	flag = &rt->gtk->ui.shape->shape->dto->section[0].on;
+	flag = &rt->gtk->ui.shape->shape->dto->sections[0].on;
 	*flag = gtk_toggle_button_get_active(toggle_button);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
@@ -88,7 +88,7 @@ void	change_section_flag_y(GtkToggleButton *toggle_button, gpointer data)
 	_Bool	*flag;
 
 	rt = (t_rt*)data;
-	flag = &rt->gtk->ui.shape->shape->dto->section[1].on;
+	flag = &rt->gtk->ui.shape->shape->dto->sections[1].on;
 	*flag = gtk_toggle_button_get_active(toggle_button);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
@@ -102,7 +102,7 @@ void	change_section_flag_z(GtkToggleButton *toggle_button, gpointer data)
 	_Bool	*flag;
 
 	rt = (t_rt*)data;
-	flag = &rt->gtk->ui.shape->shape->dto->section[2].on;
+	flag = &rt->gtk->ui.shape->shape->dto->sections[2].on;
 	*flag = gtk_toggle_button_get_active(toggle_button);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,

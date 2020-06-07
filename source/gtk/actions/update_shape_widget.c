@@ -56,7 +56,7 @@ gboolean	update_shape_widget(gpointer data)
 		else if (current_page == 1 && rt->info->update_s_mat)
 			update_gtk_shape_mat(shape->material, shape->shape->dto->material);
 		else if (current_page == 2 && rt->info->update_s_sec)
-			update_gtk_shape_sec(shape->section, shape->shape->dto->section);
+			update_gtk_shape_sec(shape->section, shape->shape->dto->sections);
 	}
 	shape_to_false(rt->info);
 	return (FALSE);

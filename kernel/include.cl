@@ -73,9 +73,9 @@ typedef struct			s_section
 {
 	bool				on;
 	t_shape_type		type;
-	t_transform			transform;
+	float3				position;
+	float3				direction;
 	float				radius;
-
 }						t_section;
 
 typedef struct			s_object

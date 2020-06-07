@@ -55,3 +55,21 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 	ft_strdel(&str_type);
 	return (type);
 }
+
+SHAPE_TYPE	parse_section_type(const JC_FIELD parent, const char *child_name)
+{
+	char		*str_type;
+	SHAPE_TYPE	type;
+
+	str_type = ft_str_to_upper(jc_get_string(parent, child_name, FALSE));
+	if (ft_strequ(str_type, "PLANE"))
+		type = PLANE;
+	else if (ft_strequ(str_type, "SPHERE"))
+		type = SPHERE;
+	else
+		parse_error(jc_full_name(parent), child_name,
+			"Incorrect type of section.\n\t"
+			"Allowed types: [PLANE, SPHERE]");
+	ft_strdel(&str_type);
+	return (type);
+}

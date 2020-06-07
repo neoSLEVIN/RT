@@ -84,13 +84,13 @@ float	compute_complex_sections(t_ray *ray, t_section *sections,
 			if (sections[i].type == PLANE) {
 				temp_t =
 					cut_by_plane_section(t_point,
-										 sections[i].transform.position,
-										 sections[i].transform.direction,
+										 sections[i].position,
+										 sections[i].direction,
 										 old_t);
 			} else {
 				temp_t =
 					cut_by_sphere_section(ray,
-										  sections[i].transform.position,
+										  sections[i].position,
 										  sections[i].radius,
 										  old_t);
 			}
@@ -124,13 +124,13 @@ float	compute_simple_sections(t_ray *ray, t_section *sections,
 			if (sections[i].type == PLANE) {
 				new_t =
 					cut_by_plane_section(t_point,
-										 sections[i].transform.position,
-										 sections[i].transform.direction,
+										 sections[i].position,
+										 sections[i].direction,
 										 new_t);
 			} else {
 				new_t =
 					cut_by_sphere_section(ray,
-										sections[i].transform.position,
+										sections[i].position,
 										sections[i].radius,
 										new_t);
 			}

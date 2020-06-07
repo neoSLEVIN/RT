@@ -26,12 +26,22 @@ SCENE		*parse_scene(const char *file_name);
 */
 CAMERA		parse_camera(const JC_FIELD parent, const char *child_name);
 /*
+** ============================== Parse sections ===============================
+*/
+void		parse_sections(const JC_FIELD parent, const char *child_name,
+						DTO_SHAPE *dto);
+SECTION		parse_section_idx(const JC_FIELD parent, const size_t index,
+						FLT3 dto_position);
+_Bool		parse_section_style(const JC_FIELD parent, const char *child_name);
+SHAPE_TYPE	parse_section_type(const JC_FIELD parent, const char *child_name);
+/*
 ** ============================== Parse textures ===============================
 */
 PPM_IMG		*parse_textures(const JC_FIELD parent, const char *child_name);
 PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index);
 TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
-				const char *child_name, char **texture_name, PPM_IMG *textures);
+						const char *child_name, char **texture_name,
+						PPM_IMG *textures);
 int			check_for_texture_name(PPM_IMG *texture, const char *name);
 /*
 ** =============================== Parse shapes ================================
