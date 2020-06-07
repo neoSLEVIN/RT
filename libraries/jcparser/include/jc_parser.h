@@ -52,6 +52,9 @@ void		jc_clear_all(JC_FIELD json_field);
 /*
 ** ======================== Getters for standard types =========================
 */
+_Bool		jc_get_bool(const JC_FIELD parent, const char *child_name);
+_Bool		jc_get_bool_or_default(const JC_FIELD parent,
+							const char *child_name, _Bool default_value);
 char		*jc_get_string(const JC_FIELD parent, const char *child_name,
 							_Bool nullable);
 char		*jc_get_string_or_default(const JC_FIELD parent,

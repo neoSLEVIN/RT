@@ -6,19 +6,29 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 20:06:20 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 01:41:56 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/06/01 03:50:20 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-static void	action_for_left_mouse_click(t_rt *rt, GdkEventButton *event)
+static void	action_for_left_mouse_click(t_rt *rt, t_info *info,
+										GdkEventButton *event)
 {
 	if (event->type == GDK_DOUBLE_BUTTON_PRESS)
 	{
+		if (rt->info->s_marker && rt->info->s_marker->dto)
+		{
+			rt->gtk->ui.shape->shape = rt->info->s_marker;
+			gtk_tree_selection_select_iter(rt->gtk->ui.shapes.select, rt->gtk->ui.shape->shape->tree_iter);
+			shape_to_true(info);
+			g_idle_add(update_shape_widget, rt);
+		}
+	}
+	else if (event->type == GDK_TRIPLE_BUTTON_PRESS)
+	{
 		clear_shape_marker(rt);
-		update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
-						&rt->info->update_shapes);
+		update_shapes_arg(rt->ocl, &info->update_s_cnt, &info->update_shapes);
 	}
 	else
 	{
@@ -27,8 +37,7 @@ static void	action_for_left_mouse_click(t_rt *rt, GdkEventButton *event)
 		update_cursor_arg(rt->ocl);
 		run_cl(rt->ocl);
 		get_shape_id(rt);
-		update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
-						&rt->info->update_shapes);
+		update_shapes_arg(rt->ocl, &info->update_s_cnt, &info->update_shapes);
 		increase_holders_cnt(&rt->info->mc_hold_cnt, &rt->info->left_mc, rt);
 	}
 }
@@ -41,7 +50,7 @@ gboolean	press_button_on_image_event_box(GtkWidget *event_box,
 	(void)event_box;
 	rt = (t_rt*)data;
 	if (event->button == 1)
-		action_for_left_mouse_click(rt, event);
+		action_for_left_mouse_click(rt, rt->info, event);
 	else if (event->button == 2)
 		increase_holders_cnt(&rt->info->mc_hold_cnt, &rt->info->scroll_mc, rt);
 	else if (event->button == 3)

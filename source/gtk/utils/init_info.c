@@ -50,6 +50,28 @@ void	mouse_to_false(t_info *info)
 	info->scroll_cnt = 0;
 }
 
+void	shape_to_true(t_info *info)
+{
+	info->update_s_name = TRUE;
+	info->update_s_marker = TRUE;
+	info->update_s_pos = TRUE;
+	info->update_s_rot = TRUE;
+	info->update_s_mat = TRUE;
+	info->update_s_sec = TRUE;
+	info->update_s_param = TRUE;
+}
+
+void	shape_to_false(t_info *info)
+{
+	info->update_s_name = FALSE;
+	info->update_s_marker = FALSE;
+	info->update_s_pos = FALSE;
+	info->update_s_rot = FALSE;
+	info->update_s_mat = FALSE;
+	info->update_s_sec = FALSE;
+	info->update_s_param = FALSE;
+}
+
 void	init_info(t_info **info)
 {
 	if (!(*info = (t_info*)malloc(sizeof(t_info))))
@@ -58,6 +80,7 @@ void	init_info(t_info **info)
 	(*info)->update_cam = FALSE;
 	(*info)->update_shapes = FALSE;
 	(*info)->update_s_cnt = FALSE;
+	shape_to_false(*info);
 	keys_to_false(*info);
 	mouse_to_false(*info);
 	(*info)->axis = (INT2){-1, -1};

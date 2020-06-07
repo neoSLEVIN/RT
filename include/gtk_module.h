@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/09 15:30:54 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 07:05:10 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/06/01 22:27:50 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@
 # define STEP 0.5
 # define UI_WIDTH 400
 # define GTK_SELECT GtkTreeSelection
+
+/*
+** =================== Entity for spin button and his label ====================
+*/
+typedef struct		s_spinner
+{
+	GtkWidget		*spin;
+	GtkWidget		*label;
+}					t_spinner;
 
 /*
 ** =============================================================================
@@ -49,13 +58,38 @@ typedef struct		s_transform_tab
 	GtkWidget		*label;
 	GtkWidget		*grid;
 	GtkWidget		*label_pos;
-	GtkWidget		*label_x;
-	GtkWidget		*spin_x;
-	GtkWidget		*label_y;
-	GtkWidget		*spin_y;
-	GtkWidget		*label_z;
-	GtkWidget		*spin_z;
+	t_spinner		x;
+	t_spinner		y;
+	t_spinner		z;
 }					t_transform_tab;
+
+/*
+** =============================================================================
+** =============== Tab for changing material properties of shape ===============
+** =============================================================================
+*/
+typedef struct		s_material_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*grid;
+	t_spinner		specular;
+	t_spinner		reflective;
+	t_spinner		transparency;
+}					t_material_tab;
+
+/*
+** =============================================================================
+** =============== Tab for changing material properties of shape ===============
+** =============================================================================
+*/
+typedef struct		s_section_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*grid;
+	GtkWidget		*on_x;
+	GtkWidget		*on_y;
+	GtkWidget		*on_z;
+}					t_section_tab;
 
 /*
 ** =============================================================================
@@ -66,8 +100,11 @@ typedef struct		s_transform_tab
 typedef struct		s_gtk_shape
 {
 	GtkWidget		*expander;
+	GtkWidget		*frame;
 	GtkWidget		*notebook;
 	t_transform_tab	transform;
+	t_material_tab	material;
+	t_section_tab	section;
 	SHAPE			*shape;
 }					t_gtk_shape;
 
@@ -204,6 +241,8 @@ void				gtk_set_settings_widgets(t_gtk_settings *settings,
 									t_rt *rt);
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 									cl_float value);
+void				gtk_set_spin_button_for_percent(GtkWidget **spin,
+									cl_float value);
 
 /*
 ** =============================================================================
@@ -283,6 +322,8 @@ void				get_shape_id(t_rt *rt);
 void				update_shape_marker(t_rt *rt, SHAPE *shape);
 void				clear_shape_marker(t_rt *rt);
 void				clear_light_marker(t_rt *rt);
+void				update_shapes_flags(_Bool *update_shapes,
+										_Bool *update_property);
 /*
 ** ========= Bindings for calling actions for camera and shape motion ==========
 */
@@ -309,7 +350,7 @@ void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================
 */
-void				update_shape_widget(t_rt *rt);
+gboolean			update_shape_widget(gpointer data);
 
 /*
 ** =============================================================================
@@ -319,6 +360,8 @@ void				update_shape_widget(t_rt *rt);
 void				init_info(t_info **info);
 void				keys_to_false(t_info *info);
 void				mouse_to_false(t_info *info);
+void				shape_to_false(t_info *info);
+void				shape_to_true(t_info *info);
 void				new_scene(SCENE **scene);
 void				new_gtk(t_rt *rt);
 void				clear_rt(t_rt *rt);

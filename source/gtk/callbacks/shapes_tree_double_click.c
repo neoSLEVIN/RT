@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 06:28:47 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 06:28:47 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/06/01 20:08:08 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,9 @@ void	shapes_tree_double_click(GtkTreeView *tree, GtkTreePath *path,
 			clear_shape_marker(rt);
 		else
 			update_shape_marker(rt, shape);
+		shape_to_true(rt->info);
+		g_idle_add(update_shape_widget, rt);
+		update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+						&rt->info->update_shapes);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/10 02:12:14 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/19 02:37:18 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/05/29 21:37:58 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void		make_action(t_rt *rt)
 	if (rt->info->s_marker && rt->info->s_marker->dto)
 		make_rotate_shape(rt);
 	make_update_args(rt);
+	g_idle_add(update_shape_widget, rt);
 }

@@ -29,6 +29,7 @@ void	shapes_tree_selection_changer(GtkTreeSelection *selection,
 			S_POINTER_COL, &shape,
 			-1);
 		rt->gtk->ui.shape->shape = shape;
-		update_shape_widget(rt);
+		shape_to_true(rt->info);
+		g_idle_add(update_shape_widget, rt);
 	}
 }

@@ -187,7 +187,7 @@ set(SRCNAME_JC_PARSER
         libraries/jcparser/api/jc_clear_all.c
         libraries/jcparser/api/jc_get_string.c
         libraries/jcparser/api/jc_additional_utils.c
-)
+        libraries/jcparser/api/jc_get_bool.c)
 
 # ==============================================================================
 # ================================== OCLMATH ===================================
@@ -277,7 +277,7 @@ set(SRCNAME_PARSER
         source/parser/parse_light.c
         source/parser/parse_settings.c
         source/parser/parse_textures.c
-)
+        source/parser/parse_sections.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -320,7 +320,14 @@ set(SRCNAME_GTK
         source/gtk/actions/camera_motion.c
         source/gtk/actions/shape_motion.c
         source/gtk/actions/change_shape_param.c
-        source/gtk/signals/gtk_set_motions_signals.c source/gtk/signals/gtk_set_ui_settings_signals.c source/gtk/signals/gtk_set_shapes_signals.c source/gtk/callbacks/shapes_tree_selection_changer.c source/gtk/actions/update_shape_widget.c source/gtk/signals/gtk_set_shape_signals.c source/gtk/callbacks/spin_button_shape_position_changer.c)
+        source/gtk/signals/gtk_set_motions_signals.c
+        source/gtk/signals/gtk_set_ui_settings_signals.c
+        source/gtk/signals/gtk_set_shapes_signals.c
+        source/gtk/callbacks/shapes_tree_selection_changer.c
+        source/gtk/actions/update_shape_widget.c
+        source/gtk/signals/gtk_set_shape_signals.c
+        source/gtk/callbacks/spin_button_shape_position_changer.c
+        source/gtk/actions/update_shapes_flags.c)
 
 add_executable(RT
         main.c
@@ -343,6 +350,7 @@ add_executable(RT
 foreach (CLKernelName
         "include"
         "normals"
+        "sections"
         "intersections"
         "light"
         "random"
@@ -360,13 +368,17 @@ foreach (CLKernelName
             ${CMAKE_BINARY_DIR}/kernel/${CLKernelName}.cl COPYONLY)
 endforeach (CLKernelName)
 
-
-
 # ==============================================================================
 # =================================== TEXTURE ==================================
 # ==============================================================================
-    file(GLOB PPM_TEXTURES "textures/*.ppm")
+    file(GLOB PPM_TEXTURES "extras/textures/*.ppm")
     file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+
+# ==============================================================================
+# ================================= NORMAL MAP =================================
+# ==============================================================================
+file(GLOB PPM_NORMAL_MAPS "extras/normalmaps/*.ppm")
+file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/normalmaps)
 
 
 
@@ -391,4 +403,5 @@ if (WIN32)
     find_package(OpenCL REQUIRED)
     include_directories(${OPENCL_INCLUDE_DIR})
     target_link_libraries(RT OpenCL::OpenCL)
+    add_definitions(-DCL_TARGET_OPENCL_VERSION=220)
 endif()

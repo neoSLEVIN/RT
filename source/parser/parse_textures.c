@@ -69,7 +69,7 @@ static void	error_on_same_texture_name(const JC_FIELD parent, PPM_IMG *texture)
 			ft_error("NPE: (error_on_same_texture_name)");
 		if (res != -1)
 			parse_error(jc_full_name(jc_get_field_idx(parent, index + res + 1,
-				JC_OBJ)), "name", "A texture with this name exists");
+				JC_OBJ)), "name", "A ppm_img with this name exists");
 		++index;
 		texture = texture->next;
 	}

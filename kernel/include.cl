@@ -69,19 +69,14 @@ typedef struct			s_texture
 	float				rotation;
 }						t_texture;
 
-/*Nazarov*/
 typedef struct			s_section
 {
-	bool				on_x;
-	bool				on_y;
-	bool				on_z;
-	t_transform			x;
-	t_transform			y;
-	t_transform			z;
-	t_transform			xyz;
-	float3				color;
+	bool				on;
+	t_shape_type		type;
+	float3				position;
+	float3				direction;
+	float				radius;
 }						t_section;
-
 
 typedef struct			s_object
 {
@@ -90,7 +85,9 @@ typedef struct			s_object
 	t_material			material;
 	t_texture			texture;
 	t_texture			normal_map;
-	t_section			section;
+	t_section			section[6];
+	int					working_sections;
+	bool				is_complex_section;
 	float				radius;
 	bool				marker;
 }						t_object;
@@ -109,7 +106,7 @@ typedef struct			s_dto_ppm_img
 typedef struct			s_transparent_obj
 {
 	float				t;
-	int					hit_id;;
+	int					hit_id;
 }						t_transparent_obj;
 
 typedef struct			s_ray
@@ -164,6 +161,8 @@ float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
+float	compute_sections(t_ray *ray, t_section *sections, int is_complex, float t1, float t2);
+
 float	sphere_intersect(t_ray *ray, t_object *sphere);
 float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
@@ -171,6 +170,7 @@ float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
+float	nothingOrMaxT(float a, float b);
 float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);

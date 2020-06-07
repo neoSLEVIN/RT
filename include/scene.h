@@ -115,15 +115,14 @@ struct			s_texture
 # define SECTION struct s_section
 struct			s_section
 {
-	_Bool		on_x;
-	_Bool		on_y;
-	_Bool		on_z;
-	TRANSFORM	x;
-	TRANSFORM	y;
-	TRANSFORM	z;
-	TRANSFORM	xyz;
-	FLT3		color;
+	_Bool		on;
+	SHAPE_TYPE	type;
+	FLT3		position;
+	FLT3		direction;
+	cl_float	param;
 };
+# define SECTION_CNT 6
+
 /*
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
@@ -135,7 +134,9 @@ struct			s_dto_shape
 	MATERIAL	material;
 	TEXTURE		texture;
 	TEXTURE		normal_map;
-	SECTION		section;
+	SECTION		sections[SECTION_CNT];
+	cl_int		working_sections;
+	_Bool		is_complex_section;
 	cl_float	param;
 	_Bool		marker;
 };
@@ -150,6 +151,7 @@ struct			s_shape
 	void		*widgets;
 	void		*tree_iter;
 	char		*texture_name;
+	char		*normal_map_name;
 	SHAPE		*prev;
 	SHAPE		*next;
 };

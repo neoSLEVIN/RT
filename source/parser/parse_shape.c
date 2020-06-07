@@ -62,7 +62,7 @@ static void		init_default_shape_params(SHAPE *shape)
 	shape->tree_iter = NULL;
 	shape->dto->marker = FALSE;
 	shape->texture_name = NULL;
-
+	shape->normal_map_name = NULL;
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
@@ -91,8 +91,9 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
 		&shape->texture_name, textures);
-	shape->dto->normal_map = parse_texture_info_in_shape(shape_field, "normal_map",
-		&shape->texture_name, normal_maps);
+	shape->dto->normal_map = parse_texture_info_in_shape(shape_field,
+		"normal map", &shape->normal_map_name, normal_maps);
+	parse_sections(shape_field, "sections", shape->dto);
 	return (shape);
 }
 

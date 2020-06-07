@@ -35,7 +35,7 @@ void	move_shape_by_camera_movement(t_rt *rt, guint key)
 		*shape_pos = v3_sub(*shape_pos, v3_scale(cam->right, STEP));
 	else
 		return ;
-	rt->info->update_shapes = TRUE;
+	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 }
 
 void	move_shape_by_camera_rotating(t_rt *rt, guint key)
@@ -64,7 +64,7 @@ void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 	else
 		return ;
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
-	rt->info->update_shapes = TRUE;
+	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 }
 
 void	move_shape_by_mouse(t_rt *rt, INT2 diff)
@@ -91,7 +91,7 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
 	rt->info->scroll_cnt = 0;
 	rt->info->lmc_start_pos = rt->info->lmc_current_pos;
-	rt->info->update_shapes = TRUE;
+	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 }
 
 void	rotate_shape(t_rt *rt, guint key)
@@ -119,5 +119,5 @@ void	rotate_shape(t_rt *rt, guint key)
 		*shape_dir = v3_rot_v(*shape_dir, cam->forward, angle);
 	else
 		return ;
-	rt->info->update_shapes = TRUE;
+	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_rot);
 }
