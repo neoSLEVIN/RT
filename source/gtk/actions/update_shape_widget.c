@@ -31,9 +31,9 @@ static void	update_gtk_shape_mat(t_material_tab tab, MATERIAL shape_mat)
 
 static void	update_gtk_shape_sec(t_section_tab tab, SECTION *shape_sec)
 {
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_x), shape_sec[0].on);
+/*	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_x), shape_sec[0].on);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_y), shape_sec[1].on);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_z), shape_sec[2].on);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_z), shape_sec[2].on);*/
 }
 
 gboolean	update_shape_widget(gpointer data)

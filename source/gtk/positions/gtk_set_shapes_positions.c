@@ -54,12 +54,9 @@ void	gtk_set_shape_material_positions(t_material_tab *material)
 
 void	gtk_set_shape_section_positions(t_section_tab *section)
 {
-	gtk_grid_attach(GTK_GRID(section->grid), section->on_x,
+	gtk_grid_attach(GTK_GRID(section->grid), section->scrolled_window,
 		0, 0, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(section->grid), section->on_y,
-		section->on_x, GTK_POS_BOTTOM, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(section->grid), section->on_z,
-		section->on_y, GTK_POS_BOTTOM, 1, 1);
+	gtk_container_add(GTK_CONTAINER(section->scrolled_window), section->tree);
 }
 
 

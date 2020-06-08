@@ -372,13 +372,13 @@ endforeach (CLKernelName)
 # =================================== TEXTURE ==================================
 # ==============================================================================
     file(GLOB PPM_TEXTURES "extras/textures/*.ppm")
-    file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+    file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/extras/textures)
 
 # ==============================================================================
 # ================================= NORMAL MAP =================================
 # ==============================================================================
 file(GLOB PPM_NORMAL_MAPS "extras/normalmaps/*.ppm")
-file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/normalmaps)
+file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/extras/normalmaps)
 
 
 

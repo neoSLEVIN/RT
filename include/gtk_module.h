@@ -79,17 +79,42 @@ typedef struct		s_material_tab
 
 /*
 ** =============================================================================
-** =============== Tab for changing material properties of shape ===============
+** =============== Tab for changing section properties of shape ================
 ** =============================================================================
 */
 typedef struct		s_section_tab
 {
 	GtkWidget		*label;
 	GtkWidget		*grid;
-	GtkWidget		*on_x;
-	GtkWidget		*on_y;
-	GtkWidget		*on_z;
+	GtkWidget		*scrolled_window;
+	GtkWidget		*tree;
+	GtkTreeStore	*store;
+	GtkTreeModel	*model;
+	GtkTreeIter		iter[6];
+	GTK_SELECT		*select;
+	GtkListStore	*type_store;
+	GtkCellRenderer	*toggle_renderer;
+	GtkCellRenderer	*combo_renderer;
+	GtkCellRenderer	*spin_renderer;
 }					t_section_tab;
+/*
+** ========================= Columns for sections tree =========================
+*/
+typedef enum		e_sections_column
+{
+	SEC_ON_COL,
+	SEC_TYPE_COL,
+	SEC_PARAM_COL,
+	SEC_POS_X_COL,
+	SEC_POS_Y_COL,
+	SEC_POS_Z_COL,
+	SEC_DIR_X_COL,
+	SEC_DIR_Y_COL,
+	SEC_DIR_Z_COL,
+	SEC_POINTER_COL,
+	SEC_COL_CNT
+}					t_sections_column;
+
 
 /*
 ** =============================================================================
