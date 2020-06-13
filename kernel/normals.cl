@@ -82,6 +82,14 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
     return abc[0] * sign(y) / tmp[0];
 }
 
+float3 ellipsoid_normal(t_object *hit_obj, t_ray *ray)
+{
+	float3 param;
+	param.x = hit_obj->transform.position.x + hit_obj->transform.direction.x * hit_obj->radius;
+	param.y = hit_obj->transform.position.y + hit_obj->transform.direction.y * hit_obj->radius;
+	param.z = hit_obj->transform.position.z + hit_obj->transform.direction.z * hit_obj->radius;
+	return (normalize(ray->hitPoint - param));
+}
 
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
 	
@@ -122,6 +130,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 		case CAPPEDCYLINDER:
         	normal = capped_cylinder_normal(hit_obj, ray);
         	break;
+		case ELLIPSOID:
+			normal = ellipsoid_normal(hit_obj, ray);
+			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {
 		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);

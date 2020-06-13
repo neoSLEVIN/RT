@@ -75,6 +75,7 @@ enum			e_shape_type
 	CONE,
 	CYLINDER,
 	CAPPEDCYLINDER,
+	ELLIPSOID,
 	CNT_OF_TYPES
 };
 /*

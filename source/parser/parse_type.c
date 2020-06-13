@@ -48,10 +48,12 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CYLINDER;
 	else if (ft_strequ(str_type, "CAPPED CYLINDER"))
 		type = CAPPEDCYLINDER;
+    else if (ft_strequ(str_type, "ELLIPSOID"))
+        type = ELLIPSOID;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"
-			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER]");
+			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER, ELLIPSOID]");
 	ft_strdel(&str_type);
 	return (type);
 }
