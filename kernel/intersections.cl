@@ -174,7 +174,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 	bool intersected = ray->t < MY_INFINITY;
 	if (intersected) {
 		t_object hit_obj = scene->objects[ray->hit_id];
-		ray->hitPoint = ray->origin + ray->t * ray->dir;
+		/*Исправление self-intersect. Мы занижаем дистанцию до объекта*/
+		ray->hitPoint = ray->origin + ray->t * 0.99f * ray->dir;
 		ray->hit_type = hit_obj.type;
 		ray->hitNormal = get_normal(&hit_obj, ray, scene);
 	}

@@ -96,13 +96,9 @@ bool is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *trans
 		is_intersect(&light_ray, scene, &tmp);
 	}
 	/*Нашли непрозрачный объект дистация до которого меньше - есть тень*/
-	if (light_ray.t < dist - 0.01f) {
+	if (light_ray.t < dist) {
 		return (1);
 	}
-/*	if (light_ray.t / dist < 0.999f) {
-		return (1);
-	}*/
-	
 	/*теперь у нас есть пересечение с прозрачным объектом на пути к непрозрачному*/
 	if (tmp.t < light_ray.t && tmp.t < MY_INFINITY) {
 		*transparent_coef = scene->objects[tmp.hit_id].material.transparency;
