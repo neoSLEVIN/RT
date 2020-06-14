@@ -85,10 +85,10 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
 float3 ellipsoid_normal(t_object *hit_obj, t_ray *ray)
 {
 	float3 param;
-	param.x = hit_obj->transform.position.x + hit_obj->transform.direction.x * hit_obj->radius;
-	param.y = hit_obj->transform.position.y + hit_obj->transform.direction.y * hit_obj->radius;
-	param.z = hit_obj->transform.position.z + hit_obj->transform.direction.z * hit_obj->radius;
-	return (normalize(ray->hitPoint - param));
+	param.x = 2;
+	param.y = 1;
+	param.z = 3;
+	return (normalize((ray->hitPoint - hit_obj->transform.position) / param));
 }
 
 float3	ellipse_normal(t_object *hit_obj, t_ray *ray)

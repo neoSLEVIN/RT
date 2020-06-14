@@ -126,13 +126,14 @@ float ellipsoid_intersect(t_ray *ray, t_object *ellipsoid)
 	float tmp[3];
 	float h;
 	float3 param;
+	float3 oc;
 
-	///sv9zka poz+dir*radius (bred)
-	param.x = ellipsoid->transform.position.x + ellipsoid->transform.direction.x * ellipsoid->radius;
-    param.y = ellipsoid->transform.position.y + ellipsoid->transform.direction.y * ellipsoid->radius;
-    param.z = ellipsoid->transform.position.z + ellipsoid->transform.direction.z * ellipsoid->radius;
-    ///
-	abc[0] = ray->origin / param;
+	//param -> radius xyz
+    param.x = 2;
+    param.y = 1;
+    param.z = 10;
+    oc = ray->origin - ellipsoid->transform.position;
+	abc[0] = oc / param;
 	abc[1] = ray->dir / param;
 	tmp[0] = dot(abc[1], abc[1]);
 	tmp[1] = dot(abc[0], abc[1]);
