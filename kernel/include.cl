@@ -51,6 +51,7 @@ typedef enum			e_shape_type
 						CYLINDER,
 						CAPPEDCYLINDER,
 						ELLIPSOID,
+						ELLIPSE,
 						CNT_OF_TYPES
 }						t_shape_type;
 
@@ -161,6 +162,7 @@ float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
 float3	ellipsoid_normal(t_object *hit_obj, t_ray *ray);
+float3	ellipse_normal(t_object *hit_obj, t_ray *ray);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
 float	compute_sections(t_ray *ray, t_section *sections, int is_complex, float t1, float t2);
@@ -171,6 +173,7 @@ float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
 float	ellipsoid_intersect(t_ray *ray, t_object *ellipsoid);
+float	ellipse_intersect(t_ray *ray, t_object *ellipse);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
 float	nothingOrMaxT(float a, float b);

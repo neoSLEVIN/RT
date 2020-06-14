@@ -35,7 +35,7 @@ static float	parse_shape_param_by_type(const JC_FIELD shape_field,
 	if (type == PLANE)
 		param = 0.0f;
 	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER
-	|| type == ELLIPSOID)
+	|| type == ELLIPSOID || type == ELLIPSE)
 	{
 		param = jc_get_float(shape_field, "radius");
 		if (param < 0.1f)

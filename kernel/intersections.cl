@@ -144,6 +144,29 @@ float ellipsoid_intersect(t_ray *ray, t_object *ellipsoid)
 	return minT((-tmp[1] - h)/tmp[0], (-tmp[1] + h)/tmp[0]);
 }
 
+float	ellipse_intersect(t_ray *ray, t_object *ellipse)
+{
+	float3 radius[2];
+	float3 qn[2];
+	float trs[3];
+	float3 r;
+
+	r.x = 3;
+	r.y = 1;
+	r.z = 1;
+	radius[0] = ellipse->transform.position + ellipse->transform.direction * ellipse->radius;
+	radius[1] = ellipse->transform.position + r * ellipse->radius;
+
+	qn[0] = ray->origin - ellipse->transform.position;
+	qn[1] = cross(radius[0],radius[1]);
+	trs[0] = -dot(qn[1], qn[0]) / dot (ray->dir, qn[1]);
+	trs[1] = dot(radius[0], qn[0] + ray->dir * trs[0]);
+	trs[2] = dot(radius[1], qn[0] + ray->dir * trs[0]);
+	if (trs[1] * trs[1] + trs[2] * trs[2] > 1.0)
+		return (0);
+	return (trs[0]);
+}
+
 void make_ray_empty(t_ray *ray) {
 	ray->t = MY_INFINITY;
 	ray->hitPoint = 0.0f;
@@ -191,6 +214,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = capped_cylinder_intersect(ray, &selected_obj);
 		else if (selected_obj.type == ELLIPSOID)
 			t = ellipsoid_intersect(ray, &selected_obj);
+		else if (selected_obj.type == ELLIPSE)
+			t = ellipse_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}

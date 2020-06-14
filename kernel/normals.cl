@@ -91,6 +91,19 @@ float3 ellipsoid_normal(t_object *hit_obj, t_ray *ray)
 	return (normalize(ray->hitPoint - param));
 }
 
+float3	ellipse_normal(t_object *hit_obj, t_ray *ray)
+{
+	float3 radius[2];
+	float3 r;
+
+	r.x = 3;
+    r.y = 1;
+    r.z = 1;
+    radius[0] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius;
+    radius[1] = hit_obj->transform.position + r * hit_obj->radius;
+    return (normalize(cross(radius[0], radius[1])));
+}
+
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
 	
 	float2 uv;
@@ -132,6 +145,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
         	break;
 		case ELLIPSOID:
 			normal = ellipsoid_normal(hit_obj, ray);
+			break;
+		case ELLIPSE:
+			normal = ellipse_normal(hit_obj, ray);
 			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {

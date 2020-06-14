@@ -23,7 +23,7 @@
         "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
-        "type": "ELLIPSOID",
+        "type": "ELLIPSE",
         "radius": 3,
         "transform": {"position": [1,1,1], "direction": [2,2,2]}, "rotation": 0,
         "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
