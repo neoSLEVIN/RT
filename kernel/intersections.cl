@@ -168,6 +168,36 @@ float	ellipse_intersect(t_ray *ray, t_object *ellipse)
 	return (trs[0]);
 }
 
+float	box_intersect(t_ray *ray, t_object *box)
+{
+	float3 rddroo[2];
+	float3 mnk[3];
+	float3 t[2];
+	float tN[2];
+	float3 param;
+
+	param.x = box->radius;
+	param.y = box->radius;
+	param.z = box->radius;
+
+	//rddroo[0] = box->transform.direction * ray->dir;
+	//rddroo[1] = box->transform.position * ray->origin;
+
+	mnk[0] = 1.0f / ray->dir;
+    mnk[1] = mnk[0] * ray->origin;
+	mnk[2] = module_float3(mnk[0]) * param;
+
+	t[0] = -mnk[1] - mnk[2];
+	t[1] = -mnk[1] + mnk[2];
+
+	tN[0] = max( max(t[0].x, t[0].y), t[0].z);
+	tN[1] = min( min(t[1].x, t[1].y), t[1].z);
+
+	if (tN[0] > tN[1] || tN[1] < 0.0)
+		return (0);
+	return (tN[0]);
+}
+
 void make_ray_empty(t_ray *ray) {
 	ray->t = MY_INFINITY;
 	ray->hitPoint = 0.0f;
@@ -217,6 +247,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = ellipsoid_intersect(ray, &selected_obj);
 		else if (selected_obj.type == ELLIPSE)
 			t = ellipse_intersect(ray, &selected_obj);
+		else if (selected_obj.type == BOX)
+			t = box_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}
@@ -252,4 +284,14 @@ float nothingOrMaxT(float a, float b) {
 float module(float a)
 {
 	return a < 0 ? -a : a;
+}
+
+float3 module_float3(float3 a)
+{
+	float3 b;
+
+	b.x = module(a.x);
+	b.y = module(a.y);
+	b.z = module(a.z);
+	return (b);
 }

@@ -77,6 +77,7 @@ enum			e_shape_type
 	CAPPEDCYLINDER,
 	ELLIPSOID,
 	ELLIPSE,
+	BOX,
 	CNT_OF_TYPES
 };
 /*

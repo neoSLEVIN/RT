@@ -48,10 +48,12 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CYLINDER;
 	else if (ft_strequ(str_type, "CAPPED CYLINDER"))
 		type = CAPPEDCYLINDER;
-    else if (ft_strequ(str_type, "ELLIPSOID"))
-        type = ELLIPSOID;
-    else if (ft_strequ(str_type, "ELLIPSE"))
-        type = ELLIPSE;
+	else if (ft_strequ(str_type, "ELLIPSOID"))
+		type = ELLIPSOID;
+	else if (ft_strequ(str_type, "ELLIPSE"))
+		type = ELLIPSE;
+	else if (ft_strequ(str_type, "BOX"))
+		type = BOX;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"

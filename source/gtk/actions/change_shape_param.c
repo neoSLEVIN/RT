@@ -20,7 +20,7 @@ _Bool	do_change_shape_param(cl_float *param, SHAPE_TYPE type, int diff)
 	if (type == PLANE)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER
-	    || type == ELLIPSOID || type == ELLIPSE)
+	    || type == ELLIPSOID || type == ELLIPSE || type == BOX)
 	{
 		if (*param * coefficient < 0.1f)
 			return (FALSE);

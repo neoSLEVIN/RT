@@ -27,9 +27,11 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 	else if (type == CAPPEDCYLINDER)
 		res = ft_strdup("CAPPED CYLINDER");
 	else if (type == ELLIPSOID)
-	    res = ft_strdup("ELLIPSOID");
-    else if (type == ELLIPSE)
-        res = ft_strdup("ELLIPSE");
+		res = ft_strdup("ELLIPSOID");
+	else if (type == ELLIPSE)
+		res = ft_strdup("ELLIPSE");
+	else if (type == BOX)
+		res = ft_strdup("BOX");
 	else
 		ft_error("Unknown shape type (get_shape_type_name)");
 	if (res == NULL)
