@@ -1,5 +1,6 @@
 __constant float MY_EPSILON = 0.00003f;
 __constant float MY_INFINITY = 1e20f;
+__constant float M_PI = 3.14;
 
 typedef enum			e_light_type
 {
@@ -8,6 +9,15 @@ typedef enum			e_light_type
 						DIRECTION,
 						CNT_OF_TYPES_L
 }						t_light_type;
+
+typedef enum			e_filters
+{
+						NO_FILTER,
+						SEPIA,
+						NEGATIVE,
+						NOISE,
+						SHADES_OF_GRAY
+}						FILTER;
 
 typedef struct			s_light
 {
@@ -117,7 +127,7 @@ typedef struct			s_ray
 	float3				hitPoint;
 	float3				hitNormal;
 	int					hit_id;
-	t_shape_type        hit_type;
+	t_shape_type		hit_type;
 }						t_ray;
 
 
@@ -191,10 +201,10 @@ float3 	reflect(float3 rayDir, float3 targetNormal);
 
 float3 	go_refract(t_ray ray, t_scene *scene);
 float3	continue_refract_ray(t_ray *ray, t_scene *scene);
-float3 	refract(t_ray *ray);
+float3	refract(t_ray *ray);
 
-float3 	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
+float3	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
 char	convertColorFromFloat(float f);
 
-float3 	send_ray(t_ray *ray, t_scene *scene);
-void 	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
+float3	send_ray(t_ray *ray, t_scene *scene);
+void	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);

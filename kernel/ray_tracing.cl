@@ -1,4 +1,39 @@
-int filter_sepia(char *red, char *green, char *blue, int depth)
+void filter_sepia(float3 *color, float depth)
+{
+	float average;
+	
+	average = (color->x + color->y + color->z) / 3;
+	
+	color->x = average + depth * 2;
+	color->y = average + depth;
+	color->z = average;
+}
+
+void filter_negative(float3 *color)
+{
+	color->x  = 255 - color->x ;
+	color->y = 255 - color->y;
+	color->z = 255 - color->z;
+}
+
+void filter_noise(float3 *color, int noise)
+{
+	color->x += noise;
+	color->y += noise;
+	color->z += noise;
+}
+
+void filter_shades_of_gray(float3 *color)
+{
+	float average;
+	
+	average = (color->x + color->y + color->z) / 3;
+	color->x = average;
+	color->y = average;
+	color->z = average;
+}
+
+/*void filter_sepia(char *red, char *green, char *blue, int depth)
 {
 	char average;
 	
@@ -13,18 +48,16 @@ int filter_sepia(char *red, char *green, char *blue, int depth)
 		*green = 255;
 	if (*blue > 255)
 		*blue = 255;
-	return (1);
 }
 
-int filter_negative(char *red, char *green, char *blue)
+void filter_negative(char *red, char *green, char *blue)
 {
 	*red = 255 - *red;
 	*green = 255 - *green;
 	*blue = 255 - *blue;
-	return (2);
 }
 
-int filter_noise(char *red, char *green, char *blue, int noise)
+void filter_noise(char *red, char *green, char *blue, int noise)
 {
 	*red = *red + noise;
 	if (*red < 0)
@@ -41,11 +74,9 @@ int filter_noise(char *red, char *green, char *blue, int noise)
 		*blue = 0;
 	if (*blue > 255)
 		*blue = 255;
-	
-	return (3);
 }
 
-int filter_shades_of_gray(char *red, char *green, char *blue)
+void filter_shades_of_gray(char *red, char *green, char *blue)
 {
 	char average;
 	
@@ -53,26 +84,38 @@ int filter_shades_of_gray(char *red, char *green, char *blue)
 	*red = average;
 	*green = average;
 	*blue = average;
-	return (4);
+}*/
+
+void apply_filter(float3 *color, FILTER filter)
+{
+	float depth_sepia = 30.0f / 255.0f;
+	float noise = -50.0f / 255.0f;
+	
+	if (filter == SEPIA)
+		filter_sepia(color, depth_sepia);
+	if (filter == NEGATIVE)
+		filter_negative(color);
+	if (filter == NOISE)
+		filter_noise(color, noise);
+	if (filter == SHADES_OF_GRAY)
+		filter_shades_of_gray(color);
 }
 
-int apply_filter(char *red, char *green, char *blue, int filter)
+/*first version
+void apply_filter(char *red, char *green, char *blue, FILTER filter)
 {
 	int depth_sepia = 30;
-	int noise = 10;
+	int noise = 1;
 	
-	if (filter == 1)
-		filter = filter_sepia(red, green, blue, depth_sepia);
-	if (filter == 2)
-		filter = filter_negative(&red, &green, &blue);
-	if (filter == 3)
-		filter = filter_noise(&red, &green, &blue, noise);
-	if (filter == 4)
-		filter = filter_shades_of_gray(&red, &green, &blue);
-	
-	return (filter);
-}
-
+	if (filter == SEPIA)
+		filter_sepia(red, green, blue, depth_sepia);
+	if (filter == NEGATIVE)
+		filter_negative(red, green, blue);
+	if (filter == NOISE)
+		filter_noise(red, green, blue, noise);
+	if (filter == SHADES_OF_GRAY)
+		filter_shades_of_gray(red, green, blue);
+}*/
 
 float3 compute_color(t_scene *scene, t_ray *ray) {
 	float3 finalColor = 0;
@@ -124,6 +167,7 @@ __kernel void render_kernel(__global t_object *objects,
 							int2 cursor,
 							__global t_ppm_image *textures,
 							__global t_ppm_image *normal_maps,
+							FILTER filter,
 							__global int *output_id)
 {
 	float3 finalColor = 0;
@@ -144,18 +188,16 @@ __kernel void render_kernel(__global t_object *objects,
 	}
 	finalColor /= (float)xQuality;
 
+	if (filter != NO_FILTER)
+		apply_filter(&finalColor, filter);
+	
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);
 	char blue = convertColorFromFloat(finalColor.z);
-	/*
-	 filter = 1 - Сепия
-	 filter = 2 - Негатив
-	 filter = 3 - Шум
-	 filter = 4 - Оттенки серого
-	 */
-	int filter = 1;
-	if (filter > 0 && filter < 5)
-		filter = apply_filter(&red, &green, &blue, filter);
+
+	/* first version
+	if (filter != NO_FILTER)
+		apply_filter(&red, &green, &blue, filter);*/
 	
 	char alfa = 255;
 

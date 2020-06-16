@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 2
+# define GTK_IMAGE_SIZE 6
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -66,9 +66,9 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define ABSOLUTE_PATH PROJECT_DIR
+#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
 # else
-#  define ABSOLUTE_PATH "kernel/"
+#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
 # endif
 
 /*
@@ -122,6 +122,7 @@ typedef struct			s_dto
 	cl_mem				output_id;
 	cl_char4			*buffer;
 	int					*shape_id;
+	FILTER				*filter;
 }						t_dto;
 
 /*

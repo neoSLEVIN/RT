@@ -36,6 +36,8 @@ void	set_kernel_args(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err,"clSetKernelArg", "input_texture");
 	err = clSetKernelArg(kernel, 9, sizeof(cl_mem), &dto->input_normal_maps);
 	check_error_cl(err,"clSetKernelArg", "input_normal_maps");
-	err = clSetKernelArg(kernel, 10, sizeof(cl_mem), &dto->output_id);
+	err = clSetKernelArg(kernel, 10, sizeof(FILTER), dto->filter);
+	check_error_cl(err,"clSetKernelArg", "filter");
+	err = clSetKernelArg(kernel, 11, sizeof(cl_mem), &dto->output_id);
 	check_error_cl(err,"clSetKernelArg", "output_id");
 }
