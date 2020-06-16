@@ -96,7 +96,9 @@ bool is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *trans
 		is_intersect(&light_ray, scene, &tmp);
 	}
 	/*Нашли непрозрачный объект дистация до которого меньше - есть тень*/
-	if (light_ray.t < dist) {
+	/*более-менее оптимальное значение 0.999 - больше и на мелких объектах вдали артефакты
+	 меньше и луч света проникает на стыках*/
+	if (light_ray.t < dist * 0.999) {
 		return (1);
 	}
 	/*теперь у нас есть пересечение с прозрачным объектом на пути к непрозрачному*/
@@ -140,5 +142,6 @@ float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 r
 		float tmp = length(R) * length(rayDir);
 		n = pow( r_dot_v / tmp, 1.0f / object_specular);
 	}
-	return n;
+	/*некорректно отображается в отражении поэтому убираю отрицательные значения. хз как решить пока*/
+	return fmax(0.0f,n);
 }
