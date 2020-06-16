@@ -362,6 +362,7 @@ foreach (CLKernelName
         "uv_mapping"
         "uv_patterns"
         "perlin_noise"
+	"filters"
 )
     set (CLKernelSourceFile "kernel/${CLKernelName}.cl")
     configure_file (${CLKernelSourceFile}

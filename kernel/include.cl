@@ -208,3 +208,9 @@ char	convertColorFromFloat(float f);
 
 float3	send_ray(t_ray *ray, t_scene *scene);
 void	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
+
+void	filter_sepia(float3 *color, float depth);
+void	filter_negative(float3 *color);
+void	filter_noise(float3 *color, float noise);
+void	filter_shades_of_gray(float3 *color);
+void	apply_filter(float3 *color, FILTER filter);

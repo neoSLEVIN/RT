@@ -77,7 +77,7 @@
 ** =============================================================================
 */
 # define KERNEL_FILE_SIZE 13000
-# define KERNEL_FILE_CNT 14
+# define KERNEL_FILE_CNT 15
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"include.cl",
 		ABSOLUTE_PATH"normals.cl",
@@ -92,7 +92,8 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"ray_tracing.cl",
 		ABSOLUTE_PATH"uv_mapping.cl",
 		ABSOLUTE_PATH"uv_patterns.cl",
-		ABSOLUTE_PATH"perlin_noise.cl"
+		ABSOLUTE_PATH"perlin_noise.cl",
+		ABSOLUTE_PATH"filters.cl"
 };
 
 /*
