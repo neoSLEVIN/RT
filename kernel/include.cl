@@ -56,7 +56,7 @@ typedef enum			e_shape_type
 typedef struct			s_material
 {
 	float3				color;
-	int					specular;
+	float				specular;
 	float3				emission;
 	float				reflective;
 	float				transparency;
@@ -179,8 +179,8 @@ float 	get_dir_light(t_light *light, t_ray *ray, t_scene *scene);
 bool 	is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
 bool 	is_in_shadow_directional(t_light *light, t_ray *ray, t_scene *scene, float *transparent_coef);
 
-float	diffuse_light(t_light *light, t_ray *ray, int specular);
-float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, int object_specular);
+float	diffuse_light(t_light *light, t_ray *ray, float specular);
+float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, float object_specular);
 
 float 	get_random(uint *state);
 
