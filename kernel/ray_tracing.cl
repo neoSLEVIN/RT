@@ -1,3 +1,78 @@
+int filter_sepia(char *red, char *green, char *blue, int depth)
+{
+	char average;
+	
+	average = (*red + *green + *blue) / 3;
+	
+	*red = average + depth * 2;
+	*green = average + depth;
+	*blue = average;
+	if (*red > 255)
+		*red = 255;
+	if (*green > 255)
+		*green = 255;
+	if (*blue > 255)
+		*blue = 255;
+	return (1);
+}
+
+int filter_negative(char *red, char *green, char *blue)
+{
+	*red = 255 - *red;
+	*green = 255 - *green;
+	*blue = 255 - *blue;
+	return (2);
+}
+
+int filter_noise(char *red, char *green, char *blue, int noise)
+{
+	*red = *red + noise;
+	if (*red < 0)
+		*red = 0;
+	if (*red > 255)
+		*red = 255;
+	*green = *green + noise;
+	if (*green < 0)
+		*green = 0;
+	if (*green > 255)
+		*green = 255;
+	*blue = *blue + noise;
+	if (*blue < 0)
+		*blue = 0;
+	if (*blue > 255)
+		*blue = 255;
+	
+	return (3);
+}
+
+int filter_shades_of_gray(char *red, char *green, char *blue)
+{
+	char average;
+	
+	average = (*red + *green + *blue) / 3;
+	*red = average;
+	*green = average;
+	*blue = average;
+	return (4);
+}
+
+int apply_filter(char *red, char *green, char *blue, int filter)
+{
+	int depth_sepia = 30;
+	int noise = 10;
+	
+	if (filter == 1)
+		filter = filter_sepia(red, green, blue, depth_sepia);
+	if (filter == 2)
+		filter = filter_negative(&red, &green, &blue);
+	if (filter == 3)
+		filter = filter_noise(&red, &green, &blue, noise);
+	if (filter == 4)
+		filter = filter_shades_of_gray(&red, &green, &blue);
+	
+	return (filter);
+}
+
 
 float3 compute_color(t_scene *scene, t_ray *ray) {
 	float3 finalColor = 0;
@@ -69,10 +144,19 @@ __kernel void render_kernel(__global t_object *objects,
 	}
 	finalColor /= (float)xQuality;
 
-
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);
 	char blue = convertColorFromFloat(finalColor.z);
+	/*
+	 filter = 1 - Сепия
+	 filter = 2 - Негатив
+	 filter = 3 - Шум
+	 filter = 4 - Оттенки серого
+	 */
+	int filter = 1;
+	if (filter > 0 && filter < 5)
+		filter = apply_filter(&red, &green, &blue, filter);
+	
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
