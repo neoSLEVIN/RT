@@ -12,11 +12,11 @@
 
 #include "parser.h"
 
-bool from_zero_till_one(float value)
+_Bool from_zero_till_one(float value)
 {
 	if (value >= 0 && value <= 1)
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 void validate_material(MATERIAL	material, JC_FIELD	material_field)
