@@ -180,18 +180,18 @@ float	box_intersect(t_ray *ray, t_object *box)
 	param.y = box->radius;
 	param.z = box->radius;
 
-	//rddroo[0] = box->transform.direction * ray->dir;
-	//rddroo[1] = box->transform.position * ray->origin;
+	rddroo[0] = ray->dir;
+	rddroo[1] = ray->origin - box->transform.position;
 
-	mnk[0] = 1.0f / ray->dir;
-    mnk[1] = mnk[0] * ray->origin;
+	mnk[0] = 1.0f / rddroo[0];
+    mnk[1] = mnk[0] * rddroo[1];
 	mnk[2] = module_float3(mnk[0]) * param;
 
 	t[0] = -mnk[1] - mnk[2];
 	t[1] = -mnk[1] + mnk[2];
 
 	tN[0] = max( max(t[0].x, t[0].y), t[0].z);
-	tN[1] = min( min(t[1].x, t[1].y), t[1].z);
+    tN[1] = min( min(t[1].x, t[1].y), t[1].z);
 
 	if (tN[0] > tN[1] || tN[1] < 0.0)
 		return (0);

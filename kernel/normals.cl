@@ -104,11 +104,11 @@ float3	box_normal(t_object *hit_obj, t_ray *ray)
     param.y = hit_obj->radius;
     param.z = hit_obj->radius;
 
-    //rddroo[0] = hit_obj->transform.direction * ray->dir;
-    //rddroo[1] = hit_obj->transform.direction * ray->origin;
+	rddroo[0] = ray->dir;
+	rddroo[1] = ray->origin - hit_obj->transform.position;
 
-    mnk[0] = 1.0f / ray->dir;
-    mnk[1] = mnk[0] * ray->origin;
+	mnk[0] = 1.0f / rddroo[0];
+    mnk[1] = mnk[0] * rddroo[1];
     mnk[2] = module_float3(mnk[0]) * param;
 
     t[0] = -mnk[1] - mnk[2];
@@ -118,8 +118,6 @@ float3	box_normal(t_object *hit_obj, t_ray *ray)
 	tN[1] = min( min(t[1].x, t[1].y), t[1].z);
 
 	norm = -sign(rddroo[0]) * step(t[0].yzx, t[0].xyz) * step(t[0].zxy, t[0].xyz);
-
-	norm = (ray->dir * -1) * norm;
 
     return (norm);
 }
@@ -184,6 +182,7 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			break;
 		case BOX:
 			normal = box_normal(hit_obj, ray);
+			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {
 		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);
