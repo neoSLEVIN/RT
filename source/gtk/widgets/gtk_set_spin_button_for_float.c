@@ -26,6 +26,18 @@ void	gtk_set_spin_button_for_percent(GtkWidget **spin, cl_float value)
 					G_CALLBACK(spin_button_scroll_locker), NULL);*/
 }
 
+void	gtk_set_spin_button_for_one(GtkWidget **spin, cl_float value)
+{
+	GtkAdjustment	*adj;
+
+	adj = gtk_adjustment_new(value, 0.0, 1.0, 0.005, 0.1, 0);
+	*spin = gtk_spin_button_new(adj, 0.1, 3);
+	gtk_entry_set_width_chars(GTK_ENTRY(*spin), 4);
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(*spin), TRUE);
+	gtk_widget_set_margin_bottom(*spin, 5);
+}
+
+
 void	gtk_set_spin_button_for_float(GtkWidget **spin, cl_float value)
 {
 	GtkAdjustment	*adj;

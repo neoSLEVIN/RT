@@ -144,6 +144,7 @@ void	section_on_edited(GtkCellRendererToggle *toggle, gchar *path_string,
 		SEC_ON_COL, !on,
 		-1);
 	rt->gtk->ui.shape->shape->dto->sections[iter_num].on = !on;
+	rt->gtk->ui.shape->shape->dto->working_sections += on ? -1 : 1;
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);

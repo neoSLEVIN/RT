@@ -94,7 +94,7 @@ struct			s_transform
 struct			s_material
 {
 	FLT3		color;
-	int			specular;
+	cl_float	specular;
 	FLT3		emission;
 	cl_float	reflective;
 	cl_float	transparency;

@@ -28,7 +28,7 @@ float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
 	float transparent_coef = 1.0f;
 	
 	if (!is_in_shadow_point(light, ray, scene, &transparent_coef)) {
-		int specular = scene->objects[ray->hit_id].material.specular;
+		float specular = scene->objects[ray->hit_id].material.specular;
 		totalLight = diffuse_light(light, ray, specular) * transparent_coef;
 	}
 	return totalLight;
@@ -96,13 +96,11 @@ bool is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *trans
 		is_intersect(&light_ray, scene, &tmp);
 	}
 	/*Нашли непрозрачный объект дистация до которого меньше - есть тень*/
-	if (light_ray.t < dist - 0.01f) {
+	/*более-менее оптимальное значение 0.999 - больше и на мелких объектах вдали артефакты
+	 меньше и луч света проникает на стыках*/
+	if (light_ray.t < dist * 0.999) {
 		return (1);
 	}
-/*	if (light_ray.t / dist < 0.999f) {
-		return (1);
-	}*/
-	
 	/*теперь у нас есть пересечение с прозрачным объектом на пути к непрозрачному*/
 	if (tmp.t < light_ray.t && tmp.hit_id >= 0) {
 		*transparent_coef = scene->objects[tmp.hit_id].material.transparency;
@@ -110,7 +108,7 @@ bool is_in_shadow_point(t_light *light, t_ray *ray, t_scene *scene, float *trans
 	return (0);
 }
 
-float	diffuse_light(t_light *light, t_ray *ray, int specular) {
+float	diffuse_light(t_light *light, t_ray *ray, float specular) {
 	float res;
 	float angle;
 	float3 light_vect;
@@ -135,14 +133,15 @@ float	diffuse_light(t_light *light, t_ray *ray, int specular) {
 	return res;
 }
 
-float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, int object_specular)
+float	compute_specular(float3 normal_to_intersect, float3 light_vector, float3 rayDir, float object_specular)
 {
 	float n = 0;
 	float3 R = 2.0f * normal_to_intersect * dot(normal_to_intersect, light_vector) - light_vector;
 	float r_dot_v = dot(R, rayDir);
 	if (r_dot_v > 0.0f) {
 		float tmp = length(R) * length(rayDir);
-		n = pow( r_dot_v / tmp, object_specular);
+		n = pow( r_dot_v / tmp, 1.0f / object_specular);
 	}
-	return n;
+	/*некорректно отображается в отражении поэтому убираю отрицательные значения. хз как решить пока*/
+	return fmax(0.0f,n);
 }

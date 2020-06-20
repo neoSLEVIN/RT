@@ -272,6 +272,8 @@ void				gtk_set_settings_widgets(t_gtk_settings *settings,
 									t_rt *rt);
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 									cl_float value);
+void				gtk_set_spin_button_for_one(GtkWidget **spin,
+									cl_float value);
 void				gtk_set_spin_button_for_percent(GtkWidget **spin,
 									cl_float value);
 void				gtk_set_spin_button_for_radius(GtkWidget **spin,

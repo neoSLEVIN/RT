@@ -27,19 +27,19 @@
         "type": "SPHERE",
         "radius": 2,
         "transform": {"position": [0,0,0]},
-        "material": {"color": "ff0000", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"color": "ff0000", "specular": 0.100, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CYLINDER",
         "radius": 3,
         "transform": {"position": [10,0,0], "direction": [4,15,0]},
-        "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"color": "00ff00", "specular": 0.100, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CONE",
         "angle": 30,
         "transform": {"position": [-10,0,0], "direction": [-3,20,0]},
-        "material": {"color": "ffff00", "specular": 10, "reflective": 0, "transparency": 0}
+        "material": {"color": "ffff00", "specular": 0.10, "reflective": 0, "transparency": 0}
       }
     ]
   }
