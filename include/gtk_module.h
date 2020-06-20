@@ -85,17 +85,30 @@ typedef struct		s_material_tab
 typedef struct		s_section_tab
 {
 	GtkWidget		*label;
-	GtkWidget		*grid;
 	GtkWidget		*scrolled_window;
+	GtkWidget		*grid;
+	GtkWidget		*style_frame;
 	GtkWidget		*tree;
 	GtkTreeStore	*store;
 	GtkTreeModel	*model;
-	GtkTreeIter		iter[6];
+	GtkTreeIter		iter[SECTION_CNT];
 	GTK_SELECT		*select;
 	GtkListStore	*type_store;
-	GtkCellRenderer	*toggle_renderer;
+	GtkCellRenderer	*toggle_on_renderer;
 	GtkCellRenderer	*combo_renderer;
-	GtkCellRenderer	*spin_renderer;
+	GtkWidget		*pos_grid;
+	GtkWidget		*pos_label;
+	t_spinner		pos_x;
+	t_spinner		pos_y;
+	t_spinner		pos_z;
+	GtkWidget		*addition_v_box;
+	GtkWidget		*sphere_grid;
+	t_spinner		radius;
+	GtkWidget		*plane_grid;
+	GtkWidget		*dir_label;
+	GtkWidget		*spin_dir_x;
+	GtkWidget		*spin_dir_y;
+	GtkWidget		*spin_dir_z;
 }					t_section_tab;
 /*
 ** ========================= Columns for sections tree =========================
@@ -104,13 +117,6 @@ typedef enum		e_sections_column
 {
 	SEC_ON_COL,
 	SEC_TYPE_COL,
-	SEC_PARAM_COL,
-	SEC_POS_X_COL,
-	SEC_POS_Y_COL,
-	SEC_POS_Z_COL,
-	SEC_DIR_X_COL,
-	SEC_DIR_Y_COL,
-	SEC_DIR_Z_COL,
 	SEC_POINTER_COL,
 	SEC_COL_CNT
 }					t_sections_column;
@@ -268,6 +274,8 @@ void				gtk_set_spin_button_for_float(GtkWidget **spin,
 									cl_float value);
 void				gtk_set_spin_button_for_percent(GtkWidget **spin,
 									cl_float value);
+void				gtk_set_spin_button_for_radius(GtkWidget **spin,
+									cl_float value);
 
 /*
 ** =============================================================================
@@ -313,6 +321,12 @@ gboolean			scroll_on_image_event_box(GtkWidget *event_box,
 gboolean			spin_button_scroll_locker(GtkWidget *widget,
 									GdkEvent *event, gpointer data);
 void				spin_button_shape_position_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_position_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_radius_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_direction_changer(GtkSpinButton *button,
 									gpointer data);
 void				shapes_tree_selection_changer(GtkTreeSelection *selection,
 									gpointer data);

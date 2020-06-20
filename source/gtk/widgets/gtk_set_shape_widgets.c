@@ -66,40 +66,34 @@ static void		gtk_set_material_tab_widgets(t_material_tab *material_tab,
 	gtk_widget_set_margin_top(material_tab->transparency.spin, 5);
 }
 
-
-
-
-static void	gtk_insert_columns_in_sections_tree(t_section_tab *section)
+static void	gtk_tree_view_insert_section_type_column(t_section_tab *section)
 {
 	GtkTreeIter	iter;
-
-	section->toggle_renderer = gtk_cell_renderer_toggle_new();
-	section->combo_renderer = gtk_cell_renderer_combo_new();
-	section->spin_renderer = gtk_cell_renderer_spin_new();
-	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(section->tree),
-		SEC_ON_COL, "On/Off", section->toggle_renderer,
-		"active", SEC_ON_COL, NULL);
 
 	section->type_store = gtk_list_store_new(1, G_TYPE_STRING);
 	gtk_list_store_append(section->type_store, &iter);
 	gtk_list_store_set(section->type_store, &iter, 0, "PLANE", -1);
 	gtk_list_store_append(section->type_store, &iter);
 	gtk_list_store_set(section->type_store, &iter, 0, "SPHERE", -1);
-
 	g_object_set(section->combo_renderer, "model", section->type_store,
 		"text-column", 0, "has-entry", FALSE, "editable", TRUE, NULL);
-
 	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(section->tree),
 		SEC_TYPE_COL, "Type", section->combo_renderer,
 		"text", SEC_TYPE_COL, NULL);
-/*	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(section->tree),
-		SEC_PARAM_COL, "Radius", section->spin_renderer,
-		"spin", SEC_PARAM_COL, NULL);*/
+}
 
+static void	gtk_insert_columns_in_sections_tree(t_section_tab *section)
+{
+	section->toggle_on_renderer = gtk_cell_renderer_toggle_new();
+	section->combo_renderer = gtk_cell_renderer_combo_new();
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(section->tree),
+		SEC_ON_COL, "On/Off", section->toggle_on_renderer,
+		"active", SEC_ON_COL, NULL);
+	gtk_tree_view_insert_section_type_column(section);
 }
 
 static void	gtk_insert_rows_in_sections_tree(t_section_tab *section_tab,
-									SECTION *shape_sections)
+												SECTION *shape_sections)
 {
 	SECTION	*section;
 	int		i;
@@ -110,17 +104,10 @@ static void	gtk_insert_rows_in_sections_tree(t_section_tab *section_tab,
 		section = &shape_sections[i];
 		gtk_tree_store_append(section_tab->store, &section_tab->iter[i], NULL);
 		gtk_tree_store_set(section_tab->store, &section_tab->iter[i],
-					SEC_ON_COL, section->on,
-					SEC_TYPE_COL, (section->type == PLANE) ? "PLANE" : "SPHERE",
-					SEC_PARAM_COL, section->param,
-					SEC_POS_X_COL, section->position.x,
-					SEC_POS_Y_COL, section->position.y,
-					SEC_POS_Z_COL, section->position.z,
-					SEC_DIR_X_COL, section->direction.x,
-					SEC_DIR_Y_COL, section->direction.y,
-					SEC_DIR_Z_COL, section->direction.z,
-					SEC_POINTER_COL, section,
-					-1);
+			SEC_ON_COL, section->on,
+			SEC_TYPE_COL, (section->type == PLANE) ? "PLANE" : "SPHERE",
+			SEC_POINTER_COL, section,
+			-1);
 	}
 }
 
@@ -131,26 +118,70 @@ static void		gtk_set_sections_tab_widgets(t_section_tab *section_tab,
 	section_tab->grid = gtk_grid_new();
 	section_tab->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(
-		section_tab->scrolled_window), 200);
+		section_tab->scrolled_window), 150);
 	gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(
 			section_tab->scrolled_window), 370);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(
 		section_tab->scrolled_window),
 			GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	section_tab->store = gtk_tree_store_new(SEC_COL_CNT,
-		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_FLOAT,
-		G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_FLOAT,
-		G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_POINTER);
+		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 	section_tab->model = GTK_TREE_MODEL(section_tab->store);
 	gtk_insert_rows_in_sections_tree(section_tab, shape_sections);
 	section_tab->tree =
-		gtk_tree_view_new_with_model(GTK_TREE_MODEL(section_tab->store));
+			gtk_tree_view_new_with_model(GTK_TREE_MODEL(section_tab->store));
 	gtk_widget_set_margin_bottom(GTK_WIDGET(section_tab->tree), 10);
-	gtk_widget_set_margin_end(GTK_WIDGET(section_tab->tree), 10);
 	gtk_insert_columns_in_sections_tree(section_tab);
 	section_tab->select =
-		gtk_tree_view_get_selection(GTK_TREE_VIEW(section_tab->tree));
+			gtk_tree_view_get_selection(GTK_TREE_VIEW(section_tab->tree));
 	gtk_tree_selection_set_mode(section_tab->select, GTK_SELECTION_SINGLE);
+	section_tab->pos_grid = gtk_grid_new();
+	section_tab->pos_label = gtk_label_new("Position:");
+	gtk_widget_set_margin_top(section_tab->pos_label, 5);
+	gtk_widget_set_margin_bottom(section_tab->pos_label, 5);
+	section_tab->pos_x.label = gtk_label_new("X:");
+	gtk_widget_set_margin_start(section_tab->pos_x.label, 5);
+	gtk_widget_set_margin_end(section_tab->pos_x.label, 5);
+	gtk_set_spin_button_for_float(&section_tab->pos_x.spin,
+								  shape_sections[0].position.x);
+	section_tab->pos_y.label = gtk_label_new("Y:");
+	gtk_set_spin_button_for_float(&section_tab->pos_y.spin,
+								  shape_sections[0].position.y);
+	section_tab->pos_z.label = gtk_label_new("Z:");
+	gtk_set_spin_button_for_float(&section_tab->pos_z.spin,
+								  shape_sections[0].position.z);
+
+
+	section_tab->addition_v_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+	section_tab->plane_grid = gtk_grid_new();
+	section_tab->dir_label = gtk_label_new("Direction:");
+	gtk_widget_set_margin_top(section_tab->dir_label, 5);
+	gtk_widget_set_margin_bottom(section_tab->dir_label, 5);
+	gtk_set_spin_button_for_float(&section_tab->spin_dir_x,
+								  shape_sections[0].direction.x);
+	gtk_widget_set_margin_start(section_tab->spin_dir_x, 5);
+	gtk_widget_set_margin_end(section_tab->spin_dir_x, 5);
+	gtk_set_spin_button_for_float(&section_tab->spin_dir_y,
+								  shape_sections[0].direction.y);
+	gtk_widget_set_margin_start(section_tab->spin_dir_y, 5);
+	gtk_widget_set_margin_end(section_tab->spin_dir_y, 5);
+	gtk_set_spin_button_for_float(&section_tab->spin_dir_z,
+								  shape_sections[0].direction.z);
+	gtk_widget_set_margin_start(section_tab->spin_dir_z, 5);
+	gtk_widget_set_margin_end(section_tab->spin_dir_z, 5);
+
+
+
+
+
+	section_tab->sphere_grid = gtk_grid_new();
+	section_tab->radius.label = gtk_label_new("Radius:");
+	gtk_widget_set_margin_top(section_tab->radius.label, 5);
+	gtk_widget_set_margin_bottom(section_tab->radius.label, 5);
+	gtk_set_spin_button_for_radius(&section_tab->radius.spin,
+								  shape_sections[0].param);
+	gtk_widget_set_margin_start(section_tab->radius.spin, 5);
+	gtk_widget_set_margin_end(section_tab->radius.spin, 5);
 }
 
 

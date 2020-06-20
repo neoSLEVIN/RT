@@ -15,13 +15,21 @@
     "shapes": [
       {
         "type": "PLANE",
+        "name": "floor",
         "transform": {"position": [0,-3,0], "direction": [0,1,0]},
+        "sections": {
+          "elements": [{
+            "type": "SPHERE",
+            "radius": 5
+          }]
+        },
         "material": {
           "specular": 0, "reflective": 0, "transparency": 0
         }
       },
       {
         "type": "PLANE",
+        "name": "Dan",
         "transform": {"position": [0,0,20], "direction": [0,0,-10]},
         "texture": {"name": "Dan"},
         "material": {
@@ -30,23 +38,28 @@
       },
       {
         "type": "SPHERE",
+        "name": "Wood",
         "radius": 4,
         "transform": {"position": [0,0,0]},
         "normal map": {"name": "ground"},
         "texture": {"name": "norm"},
         "sections": {"style": "SIMPLE",
-          "elements":[{"type": "PLANE", "direction": [0,1,0]}]},
+          "elements":[{"type": "SPHERE", "radius": 3, "direction": [0,1,0]}]},
         "material": {"specular": 100, "reflective": 0, "transparency": 0}},
       {
         "type": "SPHERE",
+        "name": "Red",
         "radius": 1,
         "transform": {"position": [4,4,-9]},
+        "sections": {"style": "SIMPLE",
+          "elements":[{"type": "SPHERE", "radius": 0.8, "direction": [0,1,0]}]},
         "material": {
           "color": "ff0000",
           "specular": 20, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
+        "name": "transparency",
         "radius": 2,
         "transform": {"position": [-4,2,-10]},
         "material": {
@@ -57,6 +70,8 @@
         "type": "CYLINDER",
         "radius": 3,
         "transform": {"position": [5,0,3], "direction": [-5,7,1]},
+        "sections": {"style": "SIMPLE",
+          "elements":[{"type": "SPHERE", "radius": 3, "direction": [0,1,0]}]},
         "material": {
           "color": "f00",
           "specular": 100, "reflective": 0, "transparency": 0}
