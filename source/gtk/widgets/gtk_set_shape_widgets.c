@@ -118,12 +118,29 @@ static void		gtk_set_sections_tab_widgets(t_section_tab *section_tab,
 	section_tab->grid = gtk_grid_new();
 	section_tab->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(
-		section_tab->scrolled_window), 150);
+		section_tab->scrolled_window), 200);
 	gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(
 			section_tab->scrolled_window), 370);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(
 		section_tab->scrolled_window),
 			GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+	section_tab->style_frame = gtk_frame_new("Style");
+	section_tab->style_grid = gtk_grid_new();
+	section_tab->style_simple = gtk_radio_button_new_with_label(NULL, "Simple");
+	section_tab->style_complex =
+		gtk_radio_button_new_with_label_from_widget(
+			GTK_RADIO_BUTTON(section_tab->style_simple), "Complex");
+	gtk_toggle_button_set_active(
+		GTK_TOGGLE_BUTTON(section_tab->style_simple), !is_complex);
+	gtk_toggle_button_set_active(
+		GTK_TOGGLE_BUTTON(section_tab->style_complex), is_complex);
+
+	section_tab->centre_button =
+		gtk_button_new_with_label("Centralize position");
+	gtk_widget_set_halign(section_tab->centre_button, GTK_ALIGN_CENTER);
+	gtk_widget_set_valign(section_tab->centre_button, GTK_ALIGN_CENTER);
+
 	section_tab->store = gtk_tree_store_new(SEC_COL_CNT,
 		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 	section_tab->model = GTK_TREE_MODEL(section_tab->store);

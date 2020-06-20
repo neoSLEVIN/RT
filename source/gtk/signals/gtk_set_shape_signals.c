@@ -151,6 +151,59 @@ void	section_on_edited(GtkCellRendererToggle *toggle, gchar *path_string,
 	draw_image(rt);
 }
 
+void	sections_tree_row_select(GtkTreeSelection *selection, gpointer data)
+{
+	t_rt	*rt;
+
+	(void)selection;
+	rt = (t_rt*)data;
+	rt->info->update_s_sec = TRUE;
+	g_idle_add(update_shape_widget, rt);
+}
+
+void	sections_style_toggle_button(GtkWidget *button, gpointer data)
+{
+	t_rt	*rt;
+
+	rt = (t_rt*)data;
+	rt->gtk->ui.shape->shape->dto->is_complex_section =
+						gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(button));
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+								&rt->info->update_shapes);
+	rt->info->update = TRUE;
+}
+
+gboolean	centralize_section_position(GtkWidget *event_box,
+										GdkEventButton *event, gpointer data)
+{
+	t_rt			*rt;
+	GtkTreeIter		iter;
+	SECTION			*section;
+	t_section_tab	*tab;
+
+	(void)event_box;
+	rt = (t_rt*)data;
+	tab = &rt->gtk->ui.shape->section;
+	if (event->button != 1)
+		return (FALSE);
+	if (!gtk_tree_selection_get_selected(tab->select, &tab->model, &iter))
+		iter = tab->iter[0];
+	gtk_tree_model_get(tab->model, &iter, SEC_POINTER_COL, &section, -1);
+	section->position = rt->gtk->ui.shape->shape->dto->transform.position;
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_x.spin),
+							  section->position.x);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_y.spin),
+							  section->position.y);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_z.spin),
+							  section->position.z);
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+								&rt->info->update_shapes);
+	rt->info->update = TRUE;
+	return (TRUE);
+}
+
 void	gtk_set_shape_signals(t_rt *rt)
 {
 	t_gtk_shape	*shape;
@@ -198,4 +251,11 @@ void	gtk_set_shape_signals(t_rt *rt)
 					 G_CALLBACK(spin_button_section_direction_changer), rt);
 	g_signal_connect(G_OBJECT(shape->section.spin_dir_z), "value-changed",
 					 G_CALLBACK(spin_button_section_direction_changer), rt);
+	g_signal_connect(G_OBJECT(rt->gtk->ui.shape->section.select), "changed",
+					 G_CALLBACK(sections_tree_row_select), rt);
+	g_signal_connect(GTK_TOGGLE_BUTTON(rt->gtk->ui.shape->section.style_complex), "toggled",
+					 G_CALLBACK(sections_style_toggle_button), rt);
+	g_signal_connect(GTK_BUTTON(rt->gtk->ui.shape->section.centre_button), "button-press-event",
+					 G_CALLBACK(centralize_section_position), rt);
+
 }

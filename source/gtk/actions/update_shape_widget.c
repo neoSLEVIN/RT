@@ -29,7 +29,29 @@ static void	update_gtk_shape_mat(t_material_tab tab, MATERIAL shape_mat)
 		shape_mat.specular);
 }
 
-static void	update_gtk_shape_sec(t_section_tab tab, SECTION *shape_sec)
+void	update_gtk_shape_sec_spins(t_section_tab *tab, SECTION *section)
+{
+	gtk_widget_set_visible(tab->plane_grid, section->type == PLANE);
+	gtk_widget_set_visible(tab->sphere_grid, section->type == SPHERE);
+
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_x.spin),
+							  section->position.x);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_y.spin),
+							  section->position.y);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->pos_z.spin),
+							  section->position.z);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
+							  section->param);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->spin_dir_x),
+							  section->direction.x);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->spin_dir_y),
+							  section->direction.y);
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->spin_dir_z),
+							  section->direction.z);
+}
+
+static void	update_gtk_shape_sec(t_section_tab tab, SECTION *shape_sec,
+								_Bool is_complex)
 {
 /*	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_x), shape_sec[0].on);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.on_y), shape_sec[1].on);
@@ -52,23 +74,9 @@ static void	update_gtk_shape_sec(t_section_tab tab, SECTION *shape_sec)
 	gtk_tree_model_get(tab.model, &iter,
 					   SEC_POINTER_COL, &section,
 					   -1);
-	gtk_widget_set_visible(tab.plane_grid, section->type == PLANE);
-	gtk_widget_set_visible(tab.sphere_grid, section->type == SPHERE);
-
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.pos_x.spin),
-							  section->position.x);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.pos_y.spin),
-							  section->position.y);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.pos_z.spin),
-							  section->position.z);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.radius.spin),
-		section->param);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.spin_dir_x),
-		section->direction.x);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.spin_dir_y),
-		section->direction.y);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.spin_dir_z),
-		section->direction.z);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.style_complex), is_complex);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(tab.style_simple), !is_complex);
+	update_gtk_shape_sec_spins(&tab, section);
 }
 
 gboolean	update_shape_widget(gpointer data)
@@ -91,7 +99,8 @@ gboolean	update_shape_widget(gpointer data)
 		else if (current_page == 1 && rt->info->update_s_mat)
 			update_gtk_shape_mat(shape->material, shape->shape->dto->material);
 		else if (current_page == 2 && rt->info->update_s_sec)
-			update_gtk_shape_sec(shape->section, shape->shape->dto->sections);
+			update_gtk_shape_sec(shape->section, shape->shape->dto->sections,
+					shape->shape->dto->is_complex_section);
 	}
 	shape_to_false(rt->info);
 	return (FALSE);

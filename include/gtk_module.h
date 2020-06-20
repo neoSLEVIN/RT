@@ -88,6 +88,10 @@ typedef struct		s_section_tab
 	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
 	GtkWidget		*style_frame;
+	GtkWidget		*style_grid;
+	GtkWidget		*style_simple;
+	GtkWidget		*style_complex;
+	GtkWidget		*centre_button;
 	GtkWidget		*tree;
 	GtkTreeStore	*store;
 	GtkTreeModel	*model;
@@ -392,6 +396,8 @@ void				change_shape_param(t_rt *rt);
 ** ============================== Update widgets ===============================
 */
 gboolean			update_shape_widget(gpointer data);
+void				update_gtk_shape_sec_spins(t_section_tab *tab,
+										SECTION *section);
 
 /*
 ** =============================================================================
