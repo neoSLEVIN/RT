@@ -326,8 +326,8 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shapes_tree_selection_changer.c
         source/gtk/actions/update_shape_widget.c
         source/gtk/signals/gtk_set_shape_signals.c
-        source/gtk/callbacks/spin_button_shape_position_changer.c
-        source/gtk/actions/update_shapes_flags.c)
+        source/gtk/callbacks/spin_button_position_changer.c
+        source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c)
 
 add_executable(RT
         main.c
@@ -372,13 +372,13 @@ endforeach (CLKernelName)
 # =================================== TEXTURE ==================================
 # ==============================================================================
     file(GLOB PPM_TEXTURES "extras/textures/*.ppm")
-    file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+    file(COPY ${PPM_TEXTURES} DESTINATION ${CMAKE_BINARY_DIR}/extras/textures)
 
 # ==============================================================================
 # ================================= NORMAL MAP =================================
 # ==============================================================================
 file(GLOB PPM_NORMAL_MAPS "extras/normalmaps/*.ppm")
-file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/normalmaps)
+file(COPY ${PPM_NORMAL_MAPS} DESTINATION ${CMAKE_BINARY_DIR}/extras/normalmaps)
 
 
 

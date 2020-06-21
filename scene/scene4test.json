@@ -27,7 +27,7 @@
         "type": "CAPPED CYLINDER",
         "radius": 3,
         "transform": {"position": [0,0,0], "direction": [0,1,0]}, "rotation": 0,
-        "material": {"texture": "360", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"texture": "360", "specular": 1, "reflective": 0, "transparency": 0}
       }
     ],
     "textures": [
