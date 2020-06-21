@@ -31,7 +31,8 @@ static void	update_gtk_shape_mat(t_material_tab tab, MATERIAL shape_mat)
 
 static void	update_gtk_shape_col(t_color_tab tab, FLT3 color)
 {
-	gtk_widget_set_visible(tab.color, TRUE);
+	if (!gtk_widget_get_visible(tab.color))
+		gtk_widget_set_visible(tab.color, TRUE);
 	gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(tab.color),
 		&(GdkRGBA){color.x, color.y, color.z, 1});
 }
@@ -98,7 +99,8 @@ gboolean	update_shape_widget(gpointer data)
 	{
 		current_page =
 			gtk_notebook_get_current_page(GTK_NOTEBOOK(shape->notebook));
-		if (current_page != COLOR_TAB)
+		if (current_page != COLOR_TAB &&
+				gtk_widget_get_visible(rt->gtk->ui.shape->color.color))
 			gtk_widget_set_visible(rt->gtk->ui.shape->color.color, FALSE);
 		if (rt->info->update_s_name)
 			gtk_frame_set_label(GTK_FRAME(shape->frame), shape->shape->name);

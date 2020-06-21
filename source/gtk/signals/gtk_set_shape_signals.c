@@ -213,6 +213,8 @@ void	color_activated_changer(GtkColorChooser *chooser,
 	GdkRGBA	color;
 
 	(void)param_spec;
+	if (!gtk_widget_get_visible(GTK_WIDGET(chooser)))
+		return ;
 	rt = (t_rt*)data;
 	gtk_color_chooser_get_rgba(chooser, &color);
 	rt->gtk->ui.shape->shape->dto->material.color =
