@@ -39,7 +39,7 @@
       {
         "type": "SPHERE",
         "name": "Wood",
-        "radius": 4,
+        "radius": 3,
         "transform": {"position": [0,0,0]},
         "normal map": {"name": "ground"},
         "texture": {"name": "norm"},

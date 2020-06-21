@@ -389,6 +389,15 @@ void				move_shape_by_camera_rotating(t_rt *rt, guint key);
 void				move_shape_by_mouse(t_rt *rt, INT2 diff);
 void				rotate_shape(t_rt *rt, guint key);
 /*
+** ============================== Sections motion ==============================
+*/
+void				move_sections_by_camera_movement(DTO_SHAPE *dto,
+										DTO_CAM *cam, guint key);
+void				move_sections_by_mouse(FLT3 diff, SECTION *sections);
+void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
+										cl_float angle, guint key);
+
+/*
 ** ======================== Change the shape parameters ========================
 */
 void				change_shape_param(t_rt *rt);
