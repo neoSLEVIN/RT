@@ -50,6 +50,19 @@ typedef struct		s_gtk_image
 
 /*
 ** =============================================================================
+** ==================== Enum of Shape notebook widget tabs =====================
+** =============================================================================
+*/
+typedef enum		e_shape_tabs
+{
+	TRANSFORM_TAB,
+	MATERIAL_TAB,
+	COLOR_TAB,
+	SECTION_TAB
+}					t_tabs;
+
+/*
+** =============================================================================
 ** =============== Tab for changing transform properties of shape ==============
 ** =============================================================================
 */
@@ -76,6 +89,18 @@ typedef struct		s_material_tab
 	t_spinner		reflective;
 	t_spinner		transparency;
 }					t_material_tab;
+
+/*
+** =============================================================================
+** ====================== Tab for changing color of shape ======================
+** =============================================================================
+*/
+typedef struct		s_color_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*scrolled_window;
+	GtkWidget		*color;
+}					t_color_tab;
 
 /*
 ** =============================================================================
@@ -139,6 +164,7 @@ typedef struct		s_gtk_shape
 	GtkWidget		*notebook;
 	t_transform_tab	transform;
 	t_material_tab	material;
+	t_color_tab		color;
 	t_section_tab	section;
 	SHAPE			*shape;
 }					t_gtk_shape;
@@ -277,8 +303,6 @@ void				gtk_set_settings_widgets(t_gtk_settings *settings,
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 									cl_float value);
 void				gtk_set_spin_button_for_one(GtkWidget **spin,
-									cl_float value);
-void				gtk_set_spin_button_for_percent(GtkWidget **spin,
 									cl_float value);
 void				gtk_set_spin_button_for_radius(GtkWidget **spin,
 									cl_float value);

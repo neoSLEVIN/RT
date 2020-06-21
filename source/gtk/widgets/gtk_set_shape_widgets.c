@@ -66,6 +66,29 @@ static void		gtk_set_material_tab_widgets(t_material_tab *material_tab,
 	gtk_widget_set_margin_top(material_tab->transparency.spin, 5);
 }
 
+static void		gtk_set_color_tab_widgets(t_color_tab *color_tab, FLT3 *color)
+{
+	color_tab->label = gtk_label_new("Color");
+	color_tab->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_min_content_width(GTK_SCROLLED_WINDOW(
+		color_tab->scrolled_window), 370);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(
+		color_tab->scrolled_window),
+		GTK_POLICY_AUTOMATIC, GTK_POLICY_NEVER);
+	color_tab->color = gtk_color_chooser_widget_new();
+	gtk_color_chooser_set_use_alpha(GTK_COLOR_CHOOSER(color_tab->color), FALSE);
+	g_object_set(color_tab->color, "show-editor", TRUE, NULL);
+	gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(color_tab->color),
+		&(GdkRGBA){color->x, color->y, color->z, 1});
+	gtk_widget_set_margin_top(color_tab->color, 10);
+	gtk_widget_set_margin_bottom(color_tab->color, 15);
+}
+
+
+
+
+
+
 static void	gtk_tree_view_insert_section_type_column(t_section_tab *section)
 {
 	GtkTreeIter	iter;
@@ -226,6 +249,8 @@ void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 		&scene_shape->dto->transform);
 	gtk_set_material_tab_widgets(&(*gtk_shape)->material,
 		&scene_shape->dto->material);
+	gtk_set_color_tab_widgets(&(*gtk_shape)->color,
+								 &scene_shape->dto->material.color);
 	gtk_set_sections_tab_widgets(&(*gtk_shape)->section,
 		scene_shape->dto->sections, scene_shape->dto->is_complex_section);
 }

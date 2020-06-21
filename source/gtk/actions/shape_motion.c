@@ -40,6 +40,18 @@ void	move_shape_by_camera_movement(t_rt *rt, guint key)
 	rt->info->update_s_sec = TRUE;
 }
 
+static cl_float	get_angle_to_move_shape(cl_float default_angle, guint key,
+											 INT2 axis)
+{
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_6 || key == GDK_KEY_q)
+		default_angle *= -1.0f;
+	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
+		default_angle *= -axis.y;
+	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
+		default_angle *= -axis.x;
+	return (default_angle);
+}
+
 void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 {
 	FLT3		v_shape;
@@ -50,13 +62,7 @@ void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 	cam = &rt->ocl->dto.cam;
 	v_shape = v3_sub(rt->info->s_marker->dto->transform.position, cam->origin);
 	v_shape_old = v_shape;
-	angle = RAD;
-	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_6 || key == GDK_KEY_q)
-		angle *= -1.0f;
-	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
-		angle *= -rt->info->axis.y;
-	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
-		angle *= -rt->info->axis.x;
+	angle = get_angle_to_move_shape(RAD, key, rt->info->axis);
 	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_8)
 		v_shape = v3_rot_v(v_shape, cam->right, angle);
 	else if (key == GDK_KEY_KP_4 || key == GDK_KEY_KP_6)
@@ -68,7 +74,8 @@ void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 	else
 		return ;
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
-	move_sections_by_mouse(v3_sub(v_shape, v_shape_old), rt->info->s_marker->dto->sections);
+	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
+		rt->info->s_marker->dto->sections);
 	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;
 }
@@ -91,13 +98,13 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	(rt->info->axis.y == 1 && !rt->info->right_mc) ? angle.y *= -1 : 0;
 	(angle.x) ? v_shape = v3_rot_v(v_shape, cam->upguide, angle.x) : v_shape;
 	(angle.y) ? v_shape = v3_rot_v(v_shape, cam->right, angle.y) : v_shape;
-	if (rt->info->scroll_cnt)
-		v_shape =
-			v3_add(v_shape, v3_scale(cam->forward, rt->info->scroll_cnt * 4));
+	(rt->info->scroll_cnt) ? v_shape = v3_add(v_shape,
+		v3_scale(cam->forward, rt->info->scroll_cnt * 4)) : v_shape;
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
 	rt->info->scroll_cnt = 0;
 	rt->info->lmc_start_pos = rt->info->lmc_current_pos;
-	move_sections_by_mouse(v3_sub(v_shape, v_shape_old), rt->info->s_marker->dto->sections);
+	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
+		rt->info->s_marker->dto->sections);
 	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;
 }

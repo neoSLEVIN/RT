@@ -51,6 +51,14 @@ void	gtk_set_shape_material_positions(t_material_tab *material)
 		GTK_POS_RIGHT, 1, 1);
 }
 
+void	gtk_set_shape_color_positions(t_color_tab *color)
+{
+	gtk_container_add(GTK_CONTAINER(color->scrolled_window), color->color);
+}
+
+
+
+
 
 void	gtk_set_shape_section_positions(t_section_tab *section)
 {
@@ -119,12 +127,15 @@ void	gtk_set_shape_positions(t_gtk_shape *shape)
 
 	gtk_set_shape_transform_positions(&shape->transform);
 	gtk_set_shape_material_positions(&shape->material);
+	gtk_set_shape_color_positions(&shape->color);
 	gtk_set_shape_section_positions(&shape->section);
 
 	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
 		shape->transform.grid, shape->transform.label);
 	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
 		shape->material.grid, shape->material.label);
+	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
+		shape->color.scrolled_window, shape->color.label);
 	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
 		shape->section.scrolled_window, shape->section.label);
 }

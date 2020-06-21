@@ -29,6 +29,13 @@ static void	update_gtk_shape_mat(t_material_tab tab, MATERIAL shape_mat)
 		shape_mat.specular);
 }
 
+static void	update_gtk_shape_col(t_color_tab tab, FLT3 color)
+{
+	gtk_widget_set_visible(tab.color, TRUE);
+	gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(tab.color),
+		&(GdkRGBA){color.x, color.y, color.z, 1});
+}
+
 void	update_gtk_shape_sec_spins(t_section_tab *tab, SECTION *section)
 {
 	gtk_widget_set_visible(tab->plane_grid, section->type == PLANE);
@@ -91,14 +98,19 @@ gboolean	update_shape_widget(gpointer data)
 	{
 		current_page =
 			gtk_notebook_get_current_page(GTK_NOTEBOOK(shape->notebook));
+		if (current_page != COLOR_TAB)
+			gtk_widget_set_visible(rt->gtk->ui.shape->color.color, FALSE);
 		if (rt->info->update_s_name)
 			gtk_frame_set_label(GTK_FRAME(shape->frame), shape->shape->name);
-		if (current_page == 0 && rt->info->update_s_pos)
+		if (current_page == TRANSFORM_TAB && rt->info->update_s_pos)
 			update_gtk_shape_pos(shape->transform,
 				shape->shape->dto->transform.position);
-		else if (current_page == 1 && rt->info->update_s_mat)
+		else if (current_page == MATERIAL_TAB && rt->info->update_s_mat)
 			update_gtk_shape_mat(shape->material, shape->shape->dto->material);
-		else if (current_page == 2 && rt->info->update_s_sec)
+		else if (current_page == COLOR_TAB && rt->info->update_s_col)
+			update_gtk_shape_col(shape->color,
+				shape->shape->dto->material.color);
+		else if (current_page == SECTION_TAB && rt->info->update_s_sec)
 			update_gtk_shape_sec(shape->section, shape->shape->dto->sections,
 					shape->shape->dto->is_complex_section);
 	}

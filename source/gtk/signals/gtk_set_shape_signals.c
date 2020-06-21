@@ -60,11 +60,13 @@ void	switch_page_shape_notebook(GtkNotebook *notebook, GtkWidget *page,
 	(void)notebook;
 	(void)page;
 	rt = (t_rt*)data;
-	if (page_num == 0)
+	if (page_num == TRANSFORM_TAB)
 		rt->info->update_s_pos = TRUE;
-	else if (page_num == 1)
+	else if (page_num == MATERIAL_TAB)
 		rt->info->update_s_mat = TRUE;
-	else if (page_num == 2)
+	else if (page_num == COLOR_TAB)
+		rt->info->update_s_col = TRUE;
+	else if (page_num == SECTION_TAB)
 		rt->info->update_s_sec = TRUE;
 	else
 		ft_error("Update flag for unknown page in switch_page_shape_notebook, "
@@ -204,6 +206,24 @@ gboolean	centralize_section_position(GtkWidget *event_box,
 	return (TRUE);
 }
 
+void	color_activated_changer(GtkColorChooser *chooser,
+								GParamSpec *param_spec, gpointer data)
+{
+	t_rt	*rt;
+	GdkRGBA	color;
+
+	(void)param_spec;
+	rt = (t_rt*)data;
+	gtk_color_chooser_get_rgba(chooser, &color);
+	rt->gtk->ui.shape->shape->dto->material.color =
+		(FLT3){(float)color.red, (float)color.green, (float)color.blue};
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+					  &rt->info->update_shapes);
+	rt->info->update = TRUE;
+}
+
+
 void	gtk_set_shape_signals(t_rt *rt)
 {
 	t_gtk_shape	*shape;
@@ -228,6 +248,9 @@ void	gtk_set_shape_signals(t_rt *rt)
 		"value-changed", G_CALLBACK(spin_button_shape_material_changer), rt);
 	g_signal_connect(G_OBJECT(shape->material.specular.spin),
 		"value-changed", G_CALLBACK(spin_button_shape_material_changer), rt);
+
+	g_signal_connect(G_OBJECT(shape->color.color),
+					 "notify", G_CALLBACK(color_activated_changer), rt);
 
 	g_signal_connect(G_OBJECT(shape->section.combo_renderer),
 		"editing-started", G_CALLBACK(cell_editable_holders), NULL);
