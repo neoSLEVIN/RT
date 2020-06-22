@@ -22,7 +22,6 @@
         "transform": {"position": [0,0,90], "direction": [0,0,1]},
         "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
-
       {
         "type": "CAPPED CYLINDER",
         "radius": 3,
@@ -31,6 +30,6 @@
       }
     ],
     "textures": [
-      {"name": "360", "path": "C:\\Users\\slevi\\CLionProjects\\RT\\textures\\360.ppm"}]
+      {"name": "360", "path": "C:\\Users\\Tariv_000\\Desktop\\RT\\extras\\textures\\360.ppm"}]
   }
 }
