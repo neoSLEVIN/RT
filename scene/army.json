@@ -21,14 +21,14 @@
         "radius": 650,
         "transform": {"position": [-3500,500,3500]},
         "texture": {"name": "Earth"},
-        "material": {"specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"specular": 1, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CYLINDER",
         "name": "Red",
         "radius": 250,
         "transform": {"position": [-3500,500,3500]},
-        "material": {"color":"f00","specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"color":"f00","specular": 1, "reflective": 0, "transparency": 0}
       },
       {
         "type": "CAPPED CYLINDER",
@@ -72,91 +72,91 @@
         "radius": 150,
         "transform": {"position": [4888.378906, 1064.729492, -3473.648438]},
         "texture": {"name": "nova"},
-        "material": {"texture": "nova", "specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"texture": "nova", "specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [0,250,300]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [320,250,300]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [-320,250,300]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [640,250,300]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [640,250,300]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [160,250,600]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [-160,250,600]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [0,250,900]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [320,250,900]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [-320,250,900]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [480,250,600]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",
         "radius": 150,
         "transform": {"position": [-480,250,600]},
         "texture": {"name": "Dan"},
-        "material": {"specular": 30, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0.30, "reflective": 0, "transparency": 0}
       }
     ],
 

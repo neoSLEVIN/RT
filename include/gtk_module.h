@@ -50,6 +50,19 @@ typedef struct		s_gtk_image
 
 /*
 ** =============================================================================
+** ==================== Enum of Shape notebook widget tabs =====================
+** =============================================================================
+*/
+typedef enum		e_shape_tabs
+{
+	TRANSFORM_TAB,
+	MATERIAL_TAB,
+	COLOR_TAB,
+	SECTION_TAB
+}					t_tabs;
+
+/*
+** =============================================================================
 ** =============== Tab for changing transform properties of shape ==============
 ** =============================================================================
 */
@@ -79,17 +92,64 @@ typedef struct		s_material_tab
 
 /*
 ** =============================================================================
-** =============== Tab for changing material properties of shape ===============
+** ====================== Tab for changing color of shape ======================
+** =============================================================================
+*/
+typedef struct		s_color_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*scrolled_window;
+	GtkWidget		*color;
+}					t_color_tab;
+
+/*
+** =============================================================================
+** =============== Tab for changing section properties of shape ================
 ** =============================================================================
 */
 typedef struct		s_section_tab
 {
 	GtkWidget		*label;
+	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
-	GtkWidget		*on_x;
-	GtkWidget		*on_y;
-	GtkWidget		*on_z;
+	GtkWidget		*style_frame;
+	GtkWidget		*style_grid;
+	GtkWidget		*style_simple;
+	GtkWidget		*style_complex;
+	GtkWidget		*centre_button;
+	GtkWidget		*tree;
+	GtkTreeStore	*store;
+	GtkTreeModel	*model;
+	GtkTreeIter		iter[SECTION_CNT];
+	GTK_SELECT		*select;
+	GtkListStore	*type_store;
+	GtkCellRenderer	*toggle_on_renderer;
+	GtkCellRenderer	*combo_renderer;
+	GtkWidget		*pos_grid;
+	GtkWidget		*pos_label;
+	t_spinner		pos_x;
+	t_spinner		pos_y;
+	t_spinner		pos_z;
+	GtkWidget		*addition_v_box;
+	GtkWidget		*sphere_grid;
+	t_spinner		radius;
+	GtkWidget		*plane_grid;
+	GtkWidget		*dir_label;
+	GtkWidget		*spin_dir_x;
+	GtkWidget		*spin_dir_y;
+	GtkWidget		*spin_dir_z;
 }					t_section_tab;
+/*
+** ========================= Columns for sections tree =========================
+*/
+typedef enum		e_sections_column
+{
+	SEC_ON_COL,
+	SEC_TYPE_COL,
+	SEC_POINTER_COL,
+	SEC_COL_CNT
+}					t_sections_column;
+
 
 /*
 ** =============================================================================
@@ -104,6 +164,7 @@ typedef struct		s_gtk_shape
 	GtkWidget		*notebook;
 	t_transform_tab	transform;
 	t_material_tab	material;
+	t_color_tab		color;
 	t_section_tab	section;
 	SHAPE			*shape;
 }					t_gtk_shape;
@@ -241,7 +302,9 @@ void				gtk_set_settings_widgets(t_gtk_settings *settings,
 									t_rt *rt);
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 									cl_float value);
-void				gtk_set_spin_button_for_percent(GtkWidget **spin,
+void				gtk_set_spin_button_for_one(GtkWidget **spin,
+									cl_float value);
+void				gtk_set_spin_button_for_radius(GtkWidget **spin,
 									cl_float value);
 
 /*
@@ -288,6 +351,12 @@ gboolean			scroll_on_image_event_box(GtkWidget *event_box,
 gboolean			spin_button_scroll_locker(GtkWidget *widget,
 									GdkEvent *event, gpointer data);
 void				spin_button_shape_position_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_position_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_radius_changer(GtkSpinButton *button,
+									gpointer data);
+void				spin_button_section_direction_changer(GtkSpinButton *button,
 									gpointer data);
 void				shapes_tree_selection_changer(GtkTreeSelection *selection,
 									gpointer data);
@@ -344,6 +413,15 @@ void				move_shape_by_camera_rotating(t_rt *rt, guint key);
 void				move_shape_by_mouse(t_rt *rt, INT2 diff);
 void				rotate_shape(t_rt *rt, guint key);
 /*
+** ============================== Sections motion ==============================
+*/
+void				move_sections_by_camera_movement(DTO_SHAPE *dto,
+										DTO_CAM *cam, guint key);
+void				move_sections_by_mouse(FLT3 diff, SECTION *sections);
+void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
+										cl_float angle, guint key);
+
+/*
 ** ======================== Change the shape parameters ========================
 */
 void				change_shape_param(t_rt *rt);
@@ -351,6 +429,8 @@ void				change_shape_param(t_rt *rt);
 ** ============================== Update widgets ===============================
 */
 gboolean			update_shape_widget(gpointer data);
+void				update_gtk_shape_sec_spins(t_section_tab *tab,
+										SECTION *section);
 
 /*
 ** =============================================================================

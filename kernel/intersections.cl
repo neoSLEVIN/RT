@@ -216,8 +216,12 @@ void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float 
 		}
 	/*пересекли обычный объект*/
 	} else {
-		ray->t = t;
-		ray->hit_id = i;
+		/*Отдаем приоритет непрозрачным объектам*/
+		if (!(selected_obj->material.transparency > 0 && fabs(t - ray->t) < 1))
+		{
+			ray->t = t;
+			ray->hit_id = i;
+		}
 	}
 }
 

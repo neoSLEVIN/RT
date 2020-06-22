@@ -3,9 +3,6 @@
 float3 sphere_normal(float3 hitpoint, float3 position, float3 rayDir) {
 	float3 normal;
 	normal = normalize(hitpoint - position);
-	/*
-	return dot(rayDir, normal) < 0.0f ? normal : normal * (-1.0f);
-	*/
 	return normal;
 }
 
@@ -14,8 +11,6 @@ float3 plane_normal(float3 planeDir, float3 rayDir) {
 	float d;
 	normal = planeDir;
 	d = dot(rayDir, normal);
-	if (d > 0)
-		normal = normal * (-1.0f);
 	return normal;
 }
 
@@ -182,5 +177,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 	if (hit_obj->normal_map.id >= 0) {
 		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);
 	}
+	/*Уже после наложения normal map мы исправляем нормаль для корректного отбражения света*/
+	float d = dot(ray->dir, normal);
+	if (d > 0)
+		normal = normal * (-1.0f);
 	return normal;
 }

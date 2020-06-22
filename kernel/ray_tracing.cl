@@ -76,7 +76,7 @@ __kernel void render_kernel(__global t_object *objects,
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
-	
+
 	/*тест для вывода первой картинки в левый верхний угол*/
 	/*
  	int x = work_item_id % cam.screen_w;

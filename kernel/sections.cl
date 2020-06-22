@@ -29,9 +29,9 @@ float2	cut_by_sphere_section(t_ray *ray,
 
 	/* Если точка фигуры находится между точками сечения, то эту точку мы не видим,
 	    поэтому этой точке ставим значение t = -1 */
-	if (new_t.x >= min_t && new_t.x <= max_t)
+	if (new_t.x - min_t >= -0.0005f && new_t.x - max_t <= 0.0005f)
 		new_t.x = -1.0f;
-	if (new_t.y >= min_t && new_t.y <= max_t)
+	if (new_t.y - min_t >= -0.0005f && new_t.y - max_t <= 0.0005f)
 		new_t.y = -1.0f;
 	return new_t;
 }

@@ -33,6 +33,7 @@ typedef struct	s_info
 	_Bool		update_s_pos;
 	_Bool		update_s_rot;
 	_Bool		update_s_mat;
+	_Bool		update_s_col;
 	_Bool		update_s_sec;
 	_Bool		update_s_param;
 	_Bool		update_shapes;
