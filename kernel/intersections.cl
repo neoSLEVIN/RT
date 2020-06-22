@@ -170,7 +170,7 @@ float	ellipse_intersect(t_ray *ray, t_object *ellipse)
 
 float	box_intersect(t_ray *ray, t_object *box)
 {
-	float3 rddroo[2];
+	float3 oc;
 	float3 mnk[3];
 	float3 t[2];
 	float tN[2];
@@ -180,11 +180,10 @@ float	box_intersect(t_ray *ray, t_object *box)
 	param.y = box->radius;
 	param.z = box->radius;
 
-	rddroo[0] = ray->dir;
-	rddroo[1] = ray->origin - box->transform.position;
+	oc = ray->origin - box->transform.position;
 
-	mnk[0] = 1.0f / rddroo[0];
-    mnk[1] = mnk[0] * rddroo[1];
+	mnk[0] = 1.0f / ray->dir;
+    mnk[1] = mnk[0] * oc;
 	mnk[2] = module_float3(mnk[0]) * param;
 
 	t[0] = -mnk[1] - mnk[2];

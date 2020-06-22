@@ -93,33 +93,28 @@ float3 ellipsoid_normal(t_object *hit_obj, t_ray *ray)
 
 float3	box_normal(t_object *hit_obj, t_ray *ray)
 {
-	float3 rddroo[2];
-    float3 mnk[3];
-    float3 t[2];
-    float tN[2];
-    float3 param;
-    float3 norm;
+	float3 oc;
+	float3 mnk[3];
+	float3 t[2];
+	float3 param;
+	float3 norm;
 
-    param.x = hit_obj->radius;
-    param.y = hit_obj->radius;
-    param.z = hit_obj->radius;
+	param.x = hit_obj->radius;
+	param.y = hit_obj->radius;
+	param.z = hit_obj->radius;
 
-	rddroo[0] = ray->dir;
-	rddroo[1] = ray->origin - hit_obj->transform.position;
+	oc = ray->origin - hit_obj->transform.position;
 
-	mnk[0] = 1.0f / rddroo[0];
-    mnk[1] = mnk[0] * rddroo[1];
-    mnk[2] = module_float3(mnk[0]) * param;
+	mnk[0] = 1.0f / ray->dir;
+	mnk[1] = mnk[0] * oc;
+	mnk[2] = module_float3(mnk[0]) * param;
 
-    t[0] = -mnk[1] - mnk[2];
-    t[1] = -mnk[1] + mnk[2];
+	t[0] = -mnk[1] - mnk[2];
+	t[1] = -mnk[1] + mnk[2];
 
-    tN[0] = max( max(t[0].x, t[0].y), t[0].z);
-	tN[1] = min( min(t[1].x, t[1].y), t[1].z);
+	norm = -sign(ray->dir) * step(t[0].yzx, t[0].xyz) * step(t[0].zxy, t[0].xyz);
 
-	norm = -sign(rddroo[0]) * step(t[0].yzx, t[0].xyz) * step(t[0].zxy, t[0].xyz);
-
-    return (norm);
+	return (norm);
 }
 
 float3	ellipse_normal(t_object *hit_obj, t_ray *ray)

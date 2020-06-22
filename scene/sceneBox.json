@@ -26,7 +26,7 @@
         "type": "BOX",
         "radius": 1,
         "transform": {"position": [1,5,1], "direction": [1,1,1]}, "rotation": 0,
-        "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"color": "00ff00", "specular": 0, "reflective": 0, "transparency": 0}
       }
     ]
   }
