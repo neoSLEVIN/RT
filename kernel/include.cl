@@ -91,7 +91,9 @@ typedef struct			s_object
 	t_section			section[6];
 	int					working_sections;
 	bool				is_complex_section;
-	float				radius;
+	float				radius_x;
+	float				radius_y;
+	float				radius_z;
 	bool				marker;
 }						t_object;
 

@@ -35,7 +35,7 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 	float3	tmp[8];
 	float3	normal;
 
-	k = tan(hit_obj->radius);
+	k = tan(hit_obj->radius_x);
 	tmp[0] = ray->origin - hit_obj->transform.position;
 	m = dot(ray->dir, hit_obj->transform.direction) * ray->t + dot(tmp[0], hit_obj->transform.direction);
 	tmp[1] = ray->hitPoint - hit_obj->transform.position;
@@ -57,8 +57,8 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
     float y;
 	float3 rarb[2];
 
-	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->radius;
-    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius;
+	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->radius_x;
+    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius_x;
     abc[0] = rarb[1] - rarb[0];/*ca*/
     abc[1] = ray->origin - rarb[0]; /*oc*/
     tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
@@ -66,13 +66,13 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
     tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
     tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
     tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
-    tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(hit_obj->radius, 2) * tmp[0];/*c*/
+    tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(hit_obj->radius_x, 2) * tmp[0];/*c*/
     tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
     tmp[6] = sqrt(tmp[6]);
     t = (-tmp[4] - tmp[6]) / tmp[3];
     y = tmp[2] + t * tmp[1];
     if (y > 0.0f && y < tmp[0])
-    	return ((abc[1] + t * ray->origin - abc[0] * y / tmp[0]) / hit_obj->radius);
+    	return ((abc[1] + t * ray->origin - abc[0] * y / tmp[0]) / hit_obj->radius_x);
     t = (((y < 0.0) ? 0.0 : tmp[0]) - tmp[2]) / tmp[1];
     return abc[0] * sign(y) / tmp[0];
 }
@@ -80,9 +80,9 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
 float3 ellipsoid_normal(t_object *hit_obj, t_ray *ray)
 {
 	float3 param;
-	param.x = 2;
-	param.y = 1;
-	param.z = 3;
+	param.x = hit_obj->radius_x;
+	param.y = hit_obj->radius_y;
+	param.z = hit_obj->radius_z;
 	return (normalize((ray->hitPoint - hit_obj->transform.position) / param));
 }
 
@@ -94,9 +94,9 @@ float3	box_normal(t_object *hit_obj, t_ray *ray)
 	float3 param;
 	float3 norm;
 
-	param.x = hit_obj->radius;
-	param.y = hit_obj->radius;
-	param.z = hit_obj->radius;
+	param.x = hit_obj->radius_x;
+	param.y = hit_obj->radius_y;
+	param.z = hit_obj->radius_z;
 
 	oc = ray->origin - hit_obj->transform.position;
 
@@ -120,8 +120,8 @@ float3	ellipse_normal(t_object *hit_obj, t_ray *ray)
 	r.x = 3;
     r.y = 1;
     r.z = 1;
-    radius[0] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius;
-    radius[1] = hit_obj->transform.position + r * hit_obj->radius;
+    radius[0] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius_x;
+    radius[1] = hit_obj->transform.position + r * hit_obj->radius_x;
     return (normalize(cross(radius[0], radius[1])));
 }
 

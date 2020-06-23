@@ -27,32 +27,40 @@ static char		*unnamed_shape(size_t index)
 	return (name);
 }
 
-static float	parse_shape_param_by_type(const JC_FIELD shape_field,
-										SHAPE_TYPE type)
+static void	parse_shape_param_by_type(const JC_FIELD shape_field,
+										DTO_SHAPE *shape)
 {
-	float	param;
 
-	if (type == PLANE)
-		param = 0.0f;
-	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER
-	|| type == ELLIPSOID || type == ELLIPSE || type == BOX)
+	if (shape->type == PLANE)
+		shape->param_x = 0.0f;
+	else if (shape->type == SPHERE || shape->type == CYLINDER ||
+		shape->type == CAPPEDCYLINDER || shape->type == ELLIPSE)
 	{
-		param = jc_get_float(shape_field, "radius");
-		if (param < 0.1f)
+		shape->param_x = jc_get_float(shape_field, "radius");
+		if (shape->param_x < 0.1f)
 			parse_error(jc_full_name(shape_field), "radius",
 				"The value must be greater or equal than 0.1");
 	}
-	else if (type == CONE)
+	else if (shape->type == BOX || shape->type == ELLIPSOID)
 	{
-		param = jc_get_float(shape_field, "angle");
-		if (param < 1.0f || param > 89.0f)
+		shape->param_x = jc_get_float(shape_field, "radius_x");
+		shape->param_y = jc_get_float(shape_field, "radius_y");
+		shape->param_z = jc_get_float(shape_field, "radius_z");
+		if (shape->param_x < 0.1f || shape->param_y < 0.1f
+			|| shape->param_z < 0.1f)
+			parse_error(jc_full_name(shape_field), "radius",
+				"The value must be greater or equal than 0.1");
+	}
+	else if (shape->type == CONE)
+	{
+		shape->param_x = jc_get_float(shape_field, "angle");
+		if (shape->param_x < 1.0f || shape->param_x > 89.0f)
 			parse_error(jc_full_name(shape_field), "angle",
 				"Value must be in range [1.0; 89.0].");
-		param = deg_to_rad(param);
+		shape->param_x = deg_to_rad(shape->param_x);
 	}
 	else
 		ft_error("Unknown action");
-	return (param);
 }
 
 static void		init_default_shape_params(SHAPE *shape)
@@ -86,8 +94,7 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 		parse_error(jc_full_name(shape_field), "name",
 			"The field length must be in the range (0; 20].");
 	shape->dto->type = parse_shape_type(shape_field, "type");
-	shape->dto->param =
-		parse_shape_param_by_type(shape_field, shape->dto->type);
+	parse_shape_param_by_type(shape_field, shape->dto);
 	shape->dto->transform = parse_transform(shape_field, "transform");
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",

@@ -24,9 +24,11 @@
       },
       {
         "type": "ELLIPSOID",
-        "radius": 3,
+        "radius_x": 3,
+        "radius_y": 3,
+        "radius_z": 3,
         "transform": {"position": [1,1,1], "direction": [2,2,2]}, "rotation": 0,
-        "material": {"color": "00ff00", "specular": 100, "reflective": 0, "transparency": 0}
+        "material": {"color": "00ff00", "specular": 1, "reflective": 0, "transparency": 0}
       }
     ]
   }

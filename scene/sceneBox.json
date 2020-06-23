@@ -24,7 +24,9 @@
       },
       {
         "type": "BOX",
-        "radius": 1,
+        "radius_x": 1,
+        "radius_y": 1,
+        "radius_z": 1,
         "transform": {"position": [1,5,1], "direction": [1,1,1]}, "rotation": 0,
         "material": {"color": "00ff00", "specular": 0, "reflective": 0, "transparency": 0}
       }

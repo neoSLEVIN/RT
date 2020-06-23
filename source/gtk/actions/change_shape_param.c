@@ -49,7 +49,7 @@ void	change_shape_param(t_rt *rt)
 	}
 	if (!rt->info->scroll_cnt)
 		return ;
-	if (do_change_shape_param(&rt->info->s_marker->dto->param,
+	if (do_change_shape_param(&rt->info->s_marker->dto->param_x,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 		update_shapes_flags(&rt->info->update_shapes,
 			&rt->info->update_s_param);

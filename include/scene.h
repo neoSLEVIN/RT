@@ -140,7 +140,9 @@ struct			s_dto_shape
 	SECTION		sections[SECTION_CNT];
 	cl_int		working_sections;
 	_Bool		is_complex_section;
-	cl_float	param;
+	cl_float	param_x;
+	cl_float	param_y;
+	cl_float	param_z;
 	_Bool		marker;
 };
 /*

@@ -57,7 +57,7 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"
-			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER, ELLIPSOID, ELLIPSE]");
+			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER, ELLIPSOID, ELLIPSE, BOX]");
 	ft_strdel(&str_type);
 	return (type);
 }
