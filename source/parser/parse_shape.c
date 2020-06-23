@@ -33,13 +33,20 @@ static void	parse_shape_param_by_type(const JC_FIELD shape_field,
 
 	if (shape->type == PLANE)
 		shape->param_x = 0.0f;
-	else if (shape->type == SPHERE || shape->type == CYLINDER ||
-		shape->type == CAPPEDCYLINDER || shape->type == ELLIPSE)
+	else if (shape->type == SPHERE || shape->type == CYLINDER)
 	{
 		shape->param_x = jc_get_float(shape_field, "radius");
 		if (shape->param_x < 0.1f)
 			parse_error(jc_full_name(shape_field), "radius",
 				"The value must be greater or equal than 0.1");
+	}
+	else if (shape->type == CAPPEDCYLINDER || shape->type == ELLIPSE)
+	{
+		shape->param_x = jc_get_float(shape_field, "radius_x");
+		shape->param_y = jc_get_float(shape_field, "radius_y");
+		if (shape->param_x < 0.1f || shape->param_y < 0.1f)
+			parse_error(jc_full_name(shape_field), "radius",
+						"The value must be greater or equal than 0.1");
 	}
 	else if (shape->type == BOX || shape->type == ELLIPSOID)
 	{

@@ -96,8 +96,8 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	float y;
 	float3 rarb[2];
 
-	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->radius_x;
-	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->radius_x;
+	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->radius_y;
+	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->radius_y;
 	abc[0] = rarb[1] - rarb[0];/*ca*/
 	abc[1] = ray->origin - rarb[0]; /*oc*/
 	tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
@@ -150,13 +150,13 @@ float	ellipse_intersect(t_ray *ray, t_object *ellipse)
 	float3 radius[2];
 	float3 qn[2];
 	float trs[3];
-	float3 r;
+	float3 dir_ort;
 
-	r.x = 3;
-	r.y = 1;
-	r.z = 1;
+	dir_ort.x = ellipse->transform.direction.y;
+	dir_ort.y = -ellipse->transform.direction.x;
+	dir_ort.z = ellipse->transform.direction.z;
 	radius[0] = ellipse->transform.position + ellipse->transform.direction * ellipse->radius_x;
-	radius[1] = ellipse->transform.position + r * ellipse->radius_x;
+	radius[1] = ellipse->transform.position + dir_ort * ellipse->radius_y;
 
 	qn[0] = ray->origin - ellipse->transform.position;
 	qn[1] = cross(radius[0],radius[1]);

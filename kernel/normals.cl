@@ -57,8 +57,8 @@ float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
     float y;
 	float3 rarb[2];
 
-	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->radius_x;
-    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius_x;
+	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->radius_y;
+    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius_y;
     abc[0] = rarb[1] - rarb[0];/*ca*/
     abc[1] = ray->origin - rarb[0]; /*oc*/
     tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
@@ -115,13 +115,13 @@ float3	box_normal(t_object *hit_obj, t_ray *ray)
 float3	ellipse_normal(t_object *hit_obj, t_ray *ray)
 {
 	float3 radius[2];
-	float3 r;
+	float3 dir_ort;
 
-	r.x = 3;
-    r.y = 1;
-    r.z = 1;
+	dir_ort.x = hit_obj->transform.direction.y;
+    dir_ort.y = -hit_obj->transform.direction.x;
+    dir_ort.z = hit_obj->transform.direction.z;
     radius[0] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->radius_x;
-    radius[1] = hit_obj->transform.position + r * hit_obj->radius_x;
+    radius[1] = hit_obj->transform.position + dir_ort * hit_obj->radius_x;
     return (normalize(cross(radius[0], radius[1])));
 }
 

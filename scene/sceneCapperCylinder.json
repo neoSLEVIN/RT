@@ -23,12 +23,14 @@
         "material": {"color": "00f", "specular": 0, "reflective": 0, "transparency": 0}
       },
       {
-        "type": "ELLIPSE",
+        "type": "CAPPED CYLINDER",
         "radius_x": 3,
-        "radius_y": 1,
-        "transform": {"position": [1,1,1], "direction": [2,2,2]}, "rotation": 0,
-        "material": {"color": "00ff00", "specular": 1, "reflective": 0, "transparency": 0}
+        "radius_y": 3,
+        "transform": {"position": [0,0,0], "direction": [0,1,0]}, "rotation": 0,
+        "material": {"texture": "360", "specular": 1, "reflective": 0, "transparency": 0}
       }
-    ]
+    ],
+    "textures": [
+      {"name": "360", "path": "C:\\Users\\Tariv_000\\Desktop\\RT\\extras\\textures\\360.ppm"}]
   }
 }
