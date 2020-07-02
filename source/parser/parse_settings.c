@@ -25,14 +25,14 @@ FILTER	parse_filter_type(const JC_FIELD parent, const char *child_name)
 		filter = NEGATIVE;
 	else if (ft_strequ(str_type, "NOISE"))
 		filter = NOISE;
-	else if (ft_strequ(str_type, "SHADES_OF_GRAY"))
+	else if (ft_strequ(str_type, "SHADES OF GRAY"))
 		filter = SHADES_OF_GRAY;
 	else if (ft_strequ(str_type, "NO FILTERS"))
 		filter = NO_FILTER;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of filter.\n\t"
-			"Allowed types: [SEPIA, NEGATIVE, NOISE, SHADES_OF_GRAY]");
+			"Allowed types: [SEPIA, NEGATIVE, NOISE, SHADES OF GRAY]");
 	ft_strdel(&str_type);
 	return (filter);
 }

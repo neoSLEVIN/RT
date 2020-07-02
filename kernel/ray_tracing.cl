@@ -69,31 +69,16 @@ __kernel void render_kernel(__global t_object *objects,
 	}
 	finalColor /= (float)xQuality;
 
-	if (filter != NO_FILTER)
-		apply_filter(&finalColor, filter);
+	//if (filter != NO_FILTER)
+	//	apply_filter(&finalColor, filter);
 	
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);
 	char blue = convertColorFromFloat(finalColor.z);
-
-	/* first version
-	if (filter != NO_FILTER)
-		apply_filter(&red, &green, &blue, filter);*/
 	
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
-	
-	/*тест для вывода первой картинки в левый верхний угол*/
-	/*
- 	int x = work_item_id % cam.screen_w;
- 	int y = work_item_id / cam.screen_w;
- 	if (x < 640 && y < 640) {
- 		int i = y * 640 + x;
- 		output[work_item_id] = (char4)(normal_maps->data[i * 3], normal_maps->data[i * 3 + 1], normal_maps->data[i * 3 + 2], alfa);
- 	}
- 	*/
-	
 
 	if (work_item_id == cursor.y * cam.screen_w + cursor.x)
 		output_id[0] = ray.hit_id;

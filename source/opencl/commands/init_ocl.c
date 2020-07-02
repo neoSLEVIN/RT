@@ -44,7 +44,7 @@ static void	init_dto(t_dto *dto, const size_t work_size)
 	dto->output_data = NULL;
 	dto->output_id = NULL;
 	dto->shape_id = NULL;
-	dto->buffer = (cl_char4*)malloc(sizeof(cl_char4) * work_size);
+	dto->buffer = (cl_uchar4*)malloc(sizeof(cl_uchar4) * work_size);
 	if (!dto->buffer)
 		ft_error("Can't allocate memory");
 }

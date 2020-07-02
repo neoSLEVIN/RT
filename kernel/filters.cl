@@ -1,5 +1,4 @@
 
-
 void filter_sepia(float3 *color, float depth)
 {
 	float average;
@@ -35,17 +34,17 @@ void filter_shades_of_gray(float3 *color)
 	color->z = average;
 }
 
-void apply_filter(float3 *color, FILTER filter)
+void		apply_filter(float3 *color, FILTER filter)
 {
 	float depth_sepia = 30.0f / 255.0f;
 	float noise = -50.0f / 255.0f;
 	
 	if (filter == SEPIA)
 		filter_sepia(color, depth_sepia);
-	if (filter == NEGATIVE)
+	else if (filter == NEGATIVE)
 		filter_negative(color);
-	if (filter == NOISE)
+	else if (filter == NOISE)
 		filter_noise(color, noise);
-	if (filter == SHADES_OF_GRAY)
+	else if (filter == SHADES_OF_GRAY)
 		filter_shades_of_gray(color);
 }
