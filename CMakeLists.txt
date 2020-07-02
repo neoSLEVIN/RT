@@ -329,6 +329,10 @@ set(SRCNAME_GTK
         source/gtk/callbacks/spin_button_position_changer.c
         source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c)
 
+if (APPLE)
+LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+endif()
+
 add_executable(RT
         main.c
         ${INCNAME_LIBFT}
@@ -404,4 +408,17 @@ if (WIN32)
     include_directories(${OPENCL_INCLUDE_DIR})
     target_link_libraries(RT OpenCL::OpenCL)
     add_definitions(-DCL_TARGET_OPENCL_VERSION=220)
+endif()
+
+
+if (APPLE)
+    find_package(PkgConfig REQUIRED)
+    pkg_check_modules(GTK REQUIRED "gtk+-3.0")
+    target_link_libraries(RT ${GTK_LIBRARIES})
+    add_definitions(${GTK_CFLAGS} ${GTK_CFLAGS_OTHER})
+
+    include(FindOpenCL)
+    find_package(OpenCL REQUIRED)
+    include_directories(${OPENCL_INCLUDE_DIR})
+    target_link_libraries(RT OpenCL::OpenCL)
 endif()
