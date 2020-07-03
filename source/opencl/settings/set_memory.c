@@ -82,7 +82,7 @@ void	set_memory_output(t_ocl *ocl)
 	cl_int	err;
 
 	ocl->dto.output_data = clCreateBuffer(ocl->context, CL_MEM_WRITE_ONLY,
-		sizeof(cl_char4) * ocl->work_size, NULL, &err);
+		sizeof(cl_uchar4) * ocl->work_size, NULL, &err);
 	check_error_cl(err,"clCreateBuffer", "output_data");
 	ocl->dto.output_id = clCreateBuffer(ocl->context, CL_MEM_WRITE_ONLY,
 		sizeof(int), NULL, &err);

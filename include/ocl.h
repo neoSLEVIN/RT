@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 6
+# define GTK_IMAGE_SIZE 20
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -121,9 +121,10 @@ typedef struct			s_dto
 	cl_mem				input_normal_maps;
 	cl_mem				output_data;
 	cl_mem				output_id;
-	cl_char4			*buffer;
+	cl_uchar4			*buffer;
 	int					*shape_id;
 	FILTER				*filter;
+	cl_uchar4			*filter_buff;
 }						t_dto;
 
 /*

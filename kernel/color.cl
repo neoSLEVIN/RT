@@ -89,7 +89,7 @@ float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
 }
 
 char convertColorFromFloat(float f) {
-	if (f <= 0)
-		return 0;
-	return floor(f >= 1.0 ? 255 : f * 256.0);
+	char a = (f >= 1.0 ? 255 : f * 256.0);
+	return a;
 }
+

@@ -32,8 +32,8 @@ float surflet( float x, float y, float grad_x, float grad_y ) {
 float noise(float x, float y) {
 	
 	float result = 0.0f;
-	int cell_x = floor(x);
-	int cell_y = floor(y);
+	int cell_x = (int)(x);
+	int cell_y = (int)(y);
 	
 	for (int grid_y = cell_y; grid_y <= cell_y + 1; grid_y++) {
 		for (int grid_x = cell_x; grid_x <= cell_x + 1; grid_x++) {
@@ -65,7 +65,7 @@ float3 typical_noise(t_object *obj, float2 uv, int size) {
 
 float3 wood(t_object *obj, float2 uv, int size) {
 	float n = 20 * noise(uv.x * size, uv.y * size);
-	n = n - floor(n);
+	n = n - (int)(n);
 	return obj->material.color * n;
 }
 

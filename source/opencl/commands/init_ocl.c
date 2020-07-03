@@ -47,6 +47,9 @@ static void	init_dto(t_dto *dto, const size_t work_size)
 	dto->buffer = (cl_uchar4*)malloc(sizeof(cl_uchar4) * work_size);
 	if (!dto->buffer)
 		ft_error("Can't allocate memory");
+	dto->filter_buff = (cl_uchar4*)malloc(sizeof(cl_uchar4) * work_size);
+	if (!dto->filter_buff)
+		ft_error("Can't allocate memory");
 }
 
 void		init_ocl(t_ocl *ocl)

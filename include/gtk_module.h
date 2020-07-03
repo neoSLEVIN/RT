@@ -231,7 +231,7 @@ void				gtk_set_positions(t_gtk *gtk);
 ** =============================================================================
 */
 void				gtk_set_image_with_dependencies(t_gtk *gtk,
-									cl_char4 *dto_buffer);
+									cl_uchar4 *dto_buffer);
 void				gtk_set_ui_widgets(t_ui *ui);
 void				gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 									SHAPE *scene_shape);

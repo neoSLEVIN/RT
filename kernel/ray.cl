@@ -1,4 +1,3 @@
-
 float3 send_ray(t_ray *ray, t_scene *scene) {
 
 	float3 backColor = 0;
@@ -11,9 +10,7 @@ float3 send_ray(t_ray *ray, t_scene *scene) {
 	intensity = get_light_intensity(ray, scene);
 	resColor = get_obj_color(&hit_obj, ray, scene);
 	resColor =  resColor * intensity;
-	return resColor;
 }
-
 
 void init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand)
 {

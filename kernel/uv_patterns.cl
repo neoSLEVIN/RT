@@ -3,8 +3,8 @@
 float3 uv_patter_checker(int checkerW, int checkerH, float2 uv) {
 	float3 color;
 	
-	int u2 = floor(uv.x * checkerW);
-	int v2 = floor(uv.y * checkerH);
+	int u2 = (int)(uv.x * checkerW);
+	int v2 = (int)(uv.y * checkerH);
 	
 	if ((u2 + v2) % 2 == 0) {
 		color = 1.0f;

@@ -131,13 +131,7 @@ void	compute_cartoon(t_rt *rt)
 
 int		is_border(int i)
 {
-	if (i / COLS == 0)
-		return (1);
-	if (i % ROWS == 0)
-		return (1);
-	if (i % COLS == COLS - 1)
-		return (1);
-	if (i / COLS == ROWS - 1)
+	if (i < COLS || i > (ROWS - 1) * COLS)
 		return (1);
 	return (0);
 }
@@ -248,7 +242,7 @@ void	compute_blur(t_rt *rt)
 	** Дублируем массив пиксилей в новый массив,
 	** где будут происходить изменения
 	*/
-	buffer = (cl_uchar4*)malloc(sizeof(cl_uchar4) * rt->ocl->work_size);
+	buffer = rt->ocl->dto.filter_buff;
 	i = -1;
 	while (++i < ROWS * COLS)
 		buffer[i] = rt->ocl->dto.buffer[i];
@@ -260,20 +254,19 @@ void	compute_blur(t_rt *rt)
 			buffer[i] = calc_matrix_values(b_matrix, i, rt, 9);
 	}
 	update_buff(buffer, rt);
-	free(buffer);
 }
 
 void	compute_emboss(t_rt *rt)
 {
 	cl_uchar4	*buffer;
-	int			e_matrix[9] = {-2, -1, 0, -1, 1, 1, 0, 1, 2};
+	int			e_matrix[9] = {0, -1, 0, -1, 5, -1, 0, -1, 0};
 	int			i;
 	
 	/*
 	** Дублируем массив пиксилей в новый массив,
 	** где будут происходить изменения
 	*/
-	buffer = (cl_uchar4*)malloc(sizeof(cl_uchar4) * rt->ocl->work_size);
+	buffer = rt->ocl->dto.filter_buff;
 	i = -1;
 	while (++i < ROWS * COLS)
 		buffer[i] = rt->ocl->dto.buffer[i];
@@ -285,7 +278,6 @@ void	compute_emboss(t_rt *rt)
 			buffer[i] = calc_matrix_values(e_matrix, i, rt, 1);
 	}
 	update_buff(buffer, rt);
-	free(buffer);
 }
 
 void	compute_sharpen(t_rt *rt)
@@ -298,7 +290,7 @@ void	compute_sharpen(t_rt *rt)
 	** Дублируем массив пиксилей в новый массив,
 	** где будут происходить изменения
 	*/
-	buffer = (cl_uchar4*)malloc(sizeof(cl_uchar4) * rt->ocl->work_size);
+	buffer = rt->ocl->dto.filter_buff;
 	i = -1;
 	while (++i < ROWS * COLS)
 		buffer[i] = rt->ocl->dto.buffer[i];
@@ -310,7 +302,6 @@ void	compute_sharpen(t_rt *rt)
 			buffer[i] = calc_matrix_values(sh_matrix, i, rt, 1);
 	}
 	update_buff(buffer, rt);
-	free(buffer);
 }
 
 static gboolean	compute_draw(gpointer data)
@@ -320,7 +311,7 @@ static gboolean	compute_draw(gpointer data)
 	rt = (t_rt*)data;
 	run_cl(rt->ocl);
 	//compute_cartoon(rt);
-	compute_blur(rt);
+	//compute_blur(rt);
 	//compute_emboss(rt);
 	//compute_sharpen(rt);
 	
