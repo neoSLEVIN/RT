@@ -58,6 +58,7 @@ typedef enum		e_shape_tabs
 	TRANSFORM_TAB,
 	MATERIAL_TAB,
 	COLOR_TAB,
+	TEXTURE_TAB,
 	SECTION_TAB
 }					t_tabs;
 
@@ -89,6 +90,21 @@ typedef struct		s_material_tab
 	t_spinner		reflective;
 	t_spinner		transparency;
 }					t_material_tab;
+
+/*
+** =============================================================================
+** =========== Tab for changing texture and normal mapping of shape ============
+** =============================================================================
+*/
+typedef struct		s_texture_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*grid;
+	GtkWidget		*texture_label;
+	GtkWidget		*texture_combo;
+	GtkWidget		*normals_label;
+	GtkWidget		*normals_combo;
+}					t_texture_tab;
 
 /*
 ** =============================================================================
@@ -166,6 +182,7 @@ typedef struct		s_gtk_shape
 	t_material_tab	material;
 	t_color_tab		color;
 	t_section_tab	section;
+	t_texture_tab	texture;
 	SHAPE			*shape;
 }					t_gtk_shape;
 
@@ -312,7 +329,7 @@ void				gtk_set_image_with_dependencies(t_gtk *gtk,
 									cl_uchar4 *dto_buffer);
 void				gtk_set_ui_widgets(t_ui *ui);
 void				gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
-									SHAPE *scene_shape);
+									SCENE *scene);
 void				gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt);
 void				gtk_set_textures_tree(t_gtk_textures *textures, t_rt *rt);
 void				gtk_set_settings_widgets(t_gtk_settings *settings,

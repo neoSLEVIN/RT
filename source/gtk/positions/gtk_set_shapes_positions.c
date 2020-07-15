@@ -51,6 +51,21 @@ void	gtk_set_shape_material_positions(t_material_tab *material)
 		GTK_POS_RIGHT, 1, 1);
 }
 
+void	gtk_set_shape_texture_positions(t_texture_tab *texture)
+{
+	gtk_grid_attach(GTK_GRID(texture->grid), texture->texture_label,
+		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(texture->grid),
+		texture->texture_combo, texture->texture_label,
+		GTK_POS_RIGHT, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(texture->grid),
+		texture->normals_label, texture->texture_label,
+		GTK_POS_BOTTOM, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(texture->grid),
+		texture->normals_combo, texture->normals_label,
+		GTK_POS_RIGHT, 1, 1);
+}
+
 void	gtk_set_shape_color_positions(t_color_tab *color)
 {
 	gtk_container_add(GTK_CONTAINER(color->scrolled_window), color->color);
@@ -128,16 +143,19 @@ void	gtk_set_shape_positions(t_gtk_shape *shape)
 	gtk_set_shape_transform_positions(&shape->transform);
 	gtk_set_shape_material_positions(&shape->material);
 	gtk_set_shape_color_positions(&shape->color);
+	gtk_set_shape_texture_positions(&shape->texture);
 	gtk_set_shape_section_positions(&shape->section);
 
-	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
-		shape->transform.grid, shape->transform.label);
-	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
-		shape->material.grid, shape->material.label);
-	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
-		shape->color.scrolled_window, shape->color.label);
-	gtk_notebook_append_page(GTK_NOTEBOOK(shape->notebook),
-		shape->section.scrolled_window, shape->section.label);
+	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
+		shape->transform.grid, shape->transform.label, TRANSFORM_TAB);
+	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
+		shape->material.grid, shape->material.label, MATERIAL_TAB);
+	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
+		shape->color.scrolled_window, shape->color.label, COLOR_TAB);
+	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
+		shape->texture.grid, shape->texture.label, TEXTURE_TAB);
+	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
+		shape->section.scrolled_window, shape->section.label, SECTION_TAB);
 }
 
 void	gtk_set_shapes_positions(t_gtk_shapes *shapes)
