@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 20
+# define GTK_IMAGE_SIZE 2
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -68,7 +68,7 @@
 # if __APPLE__
 #  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
 # else
-#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
+#  define ABSOLUTE_PATH "kernel/"
 # endif
 
 /*

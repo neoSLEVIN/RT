@@ -18,7 +18,8 @@ FILTER	parse_filter_type(const JC_FIELD parent, const char *child_name)
 	FILTER		filter;
 	
 	filter = NO_FILTER;
-	str_type = ft_str_to_upper(jc_get_string_or_default(parent, child_name, "NO FILTERS"));
+	str_type = ft_str_to_upper(jc_get_string_or_default(parent, child_name,
+		"NO FILTERS"));
 	if (ft_strequ(str_type, "SEPIA"))
 		filter = SEPIA;
 	else if (ft_strequ(str_type, "NEGATIVE"))
@@ -27,12 +28,19 @@ FILTER	parse_filter_type(const JC_FIELD parent, const char *child_name)
 		filter = NOISE;
 	else if (ft_strequ(str_type, "SHADES OF GRAY"))
 		filter = SHADES_OF_GRAY;
+	else if (ft_strequ(str_type, "BLUR"))
+		filter = BLUR;
+	else if (ft_strequ(str_type, "EMBOSS"))
+		filter = EMBOSS;
+	else if (ft_strequ(str_type, "SHARPEN"))
+		filter = SHARPEN;
 	else if (ft_strequ(str_type, "NO FILTERS"))
 		filter = NO_FILTER;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of filter.\n\t"
-			"Allowed types: [SEPIA, NEGATIVE, NOISE, SHADES OF GRAY]");
+			"Allowed types: [SEPIA, NEGATIVE, NOISE, SHADES OF GRAY, BLUR, "
+			"EMBOSS, SHARPEN, NO FILTERS]");
 	ft_strdel(&str_type);
 	return (filter);
 }

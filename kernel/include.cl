@@ -1,6 +1,5 @@
 __constant float MY_EPSILON = 0.00003f;
 __constant float MY_INFINITY = 1e20f;
-__constant float M_PI = 3.1415926535f;
 
 typedef enum			e_light_type
 {
@@ -16,7 +15,10 @@ typedef enum			e_filters
 						SEPIA,
 						NEGATIVE,
 						NOISE,
-						SHADES_OF_GRAY
+						SHADES_OF_GRAY,
+						BLUR,
+						EMBOSS,
+						SHARPEN
 }						FILTER;
 
 typedef struct			s_light

@@ -69,8 +69,8 @@ __kernel void render_kernel(__global t_object *objects,
 	}
 	finalColor /= (float)xQuality;
 
-	//if (filter != NO_FILTER)
-	//	apply_filter(&finalColor, filter);
+	if (filter != NO_FILTER)
+		apply_filter(&finalColor, filter);
 	
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);

@@ -235,7 +235,10 @@ enum			e_filters
 	SEPIA,
 	NEGATIVE,
 	NOISE,
-	SHADES_OF_GRAY
+	SHADES_OF_GRAY,
+	BLUR,
+	EMBOSS,
+	SHARPEN
 };
 
 /*

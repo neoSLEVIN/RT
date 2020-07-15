@@ -1,6 +1,7 @@
 {
   "settings": {
     "fps": 30.0,
+    "filter": "SHADES OF GRAY",
     "tips": "========================================================",
     "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
     "tip_2": "But if you see lags, reduce FPS value"

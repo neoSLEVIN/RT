@@ -327,7 +327,7 @@ set(SRCNAME_GTK
         source/gtk/actions/update_shape_widget.c
         source/gtk/signals/gtk_set_shape_signals.c
         source/gtk/callbacks/spin_button_position_changer.c
-        source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c)
+        source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c source/gtk/actions/filters/compute_filter.c source/gtk/actions/filters/compute_blur.c source/gtk/actions/filters/blur_functions.c source/gtk/actions/filters/matrix_functions.c)
 
 if (APPLE)
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
