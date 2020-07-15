@@ -83,6 +83,9 @@ void		parse_sections(const JC_FIELD parent, const char *child_name,
 	if (jc_is_null(sections_array_field))
 		return ;
 	cnt = jc_get_array_length(sections_array_field);
+	if (cnt > SECTION_CNT)
+		parse_error(jc_full_name(sections_array_field), NULL,
+			"Max count of elements: 6");
 	i = -1;
 	while (++i < cnt)
 	{

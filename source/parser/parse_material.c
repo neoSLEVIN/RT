@@ -55,7 +55,6 @@ MATERIAL	parse_material(const JC_FIELD parent, const char *child_name)
 	material.color = parse_color_or_default(material_field, "color", "f");
 	material.specular =
 		jc_get_float_or_default(material_field, "specular", 0.0f);
-	// TODO jc_get_int(material_field, "specular");
 	material.reflective =
 		jc_get_float_or_default(material_field, "reflective", 0.0f);
 	material.transparency =

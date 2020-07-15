@@ -32,7 +32,7 @@ typedef struct			s_transform
 {
 	float3				position;
 	float3				direction;
-	float				rotation;
+	float3				rotation;
 }						t_transform;
 
 /*Ray cam*/
