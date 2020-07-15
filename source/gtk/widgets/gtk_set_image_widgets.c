@@ -18,7 +18,7 @@ static void	free_pixels(guchar *pixels, gpointer data)
 	free(pixels);
 }
 
-void		gtk_set_image_with_dependencies(t_gtk *gtk, cl_char4 *dto_buffer)
+void		gtk_set_image_with_dependencies(t_gtk *gtk, cl_uchar4 *dto_buffer)
 {
 	gtk->img.image_event_box = gtk_event_box_new();
 	gtk_widget_set_events(gtk->img.image_event_box, GDK_SCROLL_MASK);

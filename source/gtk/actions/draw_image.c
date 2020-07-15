@@ -18,8 +18,9 @@ static gboolean	compute_draw(gpointer data)
 
 	rt = (t_rt*)data;
 	run_cl(rt->ocl);
+	compute_filter(rt);
 	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->img.image),
-										rt->gtk->img.pixbuf);
+								rt->gtk->img.pixbuf);
 	return (FALSE);
 }
 

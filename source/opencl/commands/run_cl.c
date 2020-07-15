@@ -20,7 +20,7 @@ void	run_cl(t_ocl *ocl)
 		&ocl->work_size, &ocl->group_size, 0, NULL, NULL);
 	check_error_cl(err, "clEnqueueNDRangeKernel", NULL);
 	err = clEnqueueReadBuffer(ocl->queue, ocl->dto.output_data, CL_FALSE, 0,
-		ocl->work_size * sizeof(cl_char4), ocl->dto.buffer, 0, NULL, NULL);
+		ocl->work_size * sizeof(cl_uchar4), ocl->dto.buffer, 0, NULL, NULL);
 	check_error_cl(err, "clEnqueueReadBuffer", NULL);
 	err = clEnqueueReadBuffer(ocl->queue, ocl->dto.output_id, CL_FALSE, 0,
 		sizeof(int), ocl->dto.shape_id, 0, NULL, NULL);

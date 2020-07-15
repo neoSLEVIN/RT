@@ -25,6 +25,7 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.n_cnt = &scene->n_cnt;
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
+	ocl->dto.filter = &scene->filter;
 	set_memory_output(ocl);
 	set_memory_input(ocl, scene);
 	set_memory_input_seeds(ocl);

@@ -66,7 +66,7 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define ABSOLUTE_PATH PROJECT_DIR
+#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
 # else
 #  define ABSOLUTE_PATH "kernel/"
 # endif
@@ -77,7 +77,7 @@
 ** =============================================================================
 */
 # define KERNEL_FILE_SIZE 13000
-# define KERNEL_FILE_CNT 14
+# define KERNEL_FILE_CNT 15
 static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"include.cl",
 		ABSOLUTE_PATH"normals.cl",
@@ -92,7 +92,8 @@ static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
 		ABSOLUTE_PATH"ray_tracing.cl",
 		ABSOLUTE_PATH"uv_mapping.cl",
 		ABSOLUTE_PATH"uv_patterns.cl",
-		ABSOLUTE_PATH"perlin_noise.cl"
+		ABSOLUTE_PATH"perlin_noise.cl",
+		ABSOLUTE_PATH"filters.cl"
 };
 
 /*
@@ -120,8 +121,10 @@ typedef struct			s_dto
 	cl_mem				input_normal_maps;
 	cl_mem				output_data;
 	cl_mem				output_id;
-	cl_char4			*buffer;
+	cl_uchar4			*buffer;
 	int					*shape_id;
+	FILTER				*filter;
+	cl_uchar4			*filter_buff;
 }						t_dto;
 
 /*

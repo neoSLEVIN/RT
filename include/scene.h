@@ -225,6 +225,24 @@ struct			s_ppm_img
 
 /*
 ** =============================================================================
+** ================================== FILTERS ==================================
+** =============================================================================
+*/
+# define FILTER enum e_filters
+enum			e_filters
+{
+	NO_FILTER,
+	SEPIA,
+	NEGATIVE,
+	NOISE,
+	SHADES_OF_GRAY,
+	BLUR,
+	EMBOSS,
+	SHARPEN
+};
+
+/*
+** =============================================================================
 ** =========================== Main Entity for Scene ===========================
 ** ==== Contains information about camera, shapes, lights and app settings =====
 ** =============================================================================
@@ -242,6 +260,7 @@ struct			s_scene
 	int			t_cnt;
 	int			n_cnt;
 	float		fps;
+	FILTER		filter;
 };
 
 #endif

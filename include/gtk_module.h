@@ -227,6 +227,8 @@ typedef struct		s_gtk_settings
 	GtkWidget		*y_axis;
 	GtkWidget		*separator;
 	GtkWidget		*x_axis;
+	GtkWidget		*filter_label;
+	GtkWidget		*filter_combo;
 }					t_gtk_settings;
 
 /*
@@ -278,6 +280,21 @@ typedef struct		s_rt_data
 
 /*
 ** =============================================================================
+** ======================== Entity for calculating blur ========================
+** =============================================================================
+*/
+typedef struct		s_blur
+{
+	cl_uint3		average;
+	cl_uint			segment_size;
+	cl_int2			count_of_segments;
+	cl_int2			segment;
+	cl_int2			pix_of_segment;
+	cl_int			pix;
+}					t_blur;
+
+/*
+** =============================================================================
 ** ================================= Settings ==================================
 ** =============================================================================
 */
@@ -292,7 +309,7 @@ void				gtk_set_positions(t_gtk *gtk);
 ** =============================================================================
 */
 void				gtk_set_image_with_dependencies(t_gtk *gtk,
-									cl_char4 *dto_buffer);
+									cl_uchar4 *dto_buffer);
 void				gtk_set_ui_widgets(t_ui *ui);
 void				gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 									SHAPE *scene_shape);
@@ -431,6 +448,17 @@ void				change_shape_param(t_rt *rt);
 gboolean			update_shape_widget(gpointer data);
 void				update_gtk_shape_sec_spins(t_section_tab *tab,
 										SECTION *section);
+/*
+** ============================== Compute filter ===============================
+*/
+void				compute_filter(t_rt *rt);
+void				compute_blur(t_rt *rt);
+void				put_pixel_to_average_sum(cl_uchar4 *pixel,
+										cl_uint3 *average);
+cl_uint3			get_average_from_sum(cl_uint3 *average_sum,
+										cl_uint count_of_pixels);
+void				put_average_to_pixel(cl_uchar4 *pixel, cl_uint3 *average);
+cl_uchar4			calc_matrix_values(const int matrix[9], int i, t_rt *rt);
 
 /*
 ** =============================================================================

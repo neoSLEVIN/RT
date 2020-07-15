@@ -93,3 +93,4 @@ char convertColorFromFloat(float f) {
 		return 0;
 	return floor(f >= 1.0 ? 255 : f * 256.0);
 }
+

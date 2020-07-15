@@ -9,6 +9,18 @@ typedef enum			e_light_type
 						CNT_OF_TYPES_L
 }						t_light_type;
 
+typedef enum			e_filters
+{
+						NO_FILTER,
+						SEPIA,
+						NEGATIVE,
+						NOISE,
+						SHADES_OF_GRAY,
+						BLUR,
+						EMBOSS,
+						SHARPEN
+}						FILTER;
+
 typedef struct			s_light
 {
 	t_light_type		type;
@@ -117,7 +129,7 @@ typedef struct			s_ray
 	float3				hitPoint;
 	float3				hitNormal;
 	int					hit_id;
-	t_shape_type        hit_type;
+	t_shape_type		hit_type;
 }						t_ray;
 
 
@@ -191,10 +203,16 @@ float3 	reflect(float3 rayDir, float3 targetNormal);
 
 float3 	go_refract(t_ray ray, t_scene *scene);
 float3	continue_refract_ray(t_ray *ray, t_scene *scene);
-float3 	refract(t_ray *ray);
+float3	refract(t_ray *ray);
 
-float3 	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
+float3	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
 char	convertColorFromFloat(float f);
 
-float3 	send_ray(t_ray *ray, t_scene *scene);
-void 	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
+float3	send_ray(t_ray *ray, t_scene *scene);
+void	init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand);
+
+void	filter_sepia(float3 *color, float depth);
+void	filter_negative(float3 *color);
+void	filter_noise(float3 *color, float noise);
+void	filter_shades_of_gray(float3 *color);
+void	apply_filter(float3 *color, FILTER filter);

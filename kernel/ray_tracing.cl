@@ -1,4 +1,3 @@
-
 float3 compute_color(t_scene *scene, t_ray *ray) {
 	float3 finalColor = 0;
 	
@@ -49,6 +48,7 @@ __kernel void render_kernel(__global t_object *objects,
 							int2 cursor,
 							__global t_ppm_image *textures,
 							__global t_ppm_image *normal_maps,
+							FILTER filter,
 							__global int *output_id)
 {
 	float3 finalColor = 0;
@@ -69,24 +69,17 @@ __kernel void render_kernel(__global t_object *objects,
 	}
 	finalColor /= (float)xQuality;
 
-
+	if (filter != NO_FILTER)
+		apply_filter(&finalColor, filter);
+	
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);
 	char blue = convertColorFromFloat(finalColor.z);
+	
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);
 
-	/*тест для вывода первой картинки в левый верхний угол*/
-	/*
- 	int x = work_item_id % cam.screen_w;
- 	int y = work_item_id / cam.screen_w;
- 	if (x < 640 && y < 640) {
- 		int i = y * 640 + x;
- 		output[work_item_id] = (char4)(normal_maps->data[i * 3], normal_maps->data[i * 3 + 1], normal_maps->data[i * 3 + 2], alfa);
- 	}
- 	*/
-	
 
 	if (work_item_id == cursor.y * cam.screen_w + cursor.x)
 		output_id[0] = ray.hit_id;
