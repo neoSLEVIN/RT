@@ -12,7 +12,19 @@
 
 #include "gtk_module.h"
 
-void	gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
+static void	gtk_set_filters_list(GtkComboBoxText *filter_combo)
+{
+	gtk_combo_box_text_append_text(filter_combo, "NO FILTER");
+	gtk_combo_box_text_append_text(filter_combo, "SEPIA");
+	gtk_combo_box_text_append_text(filter_combo, "NEGATIVE");
+	gtk_combo_box_text_append_text(filter_combo, "NOISE");
+	gtk_combo_box_text_append_text(filter_combo, "SHADES OF GRAY");
+	gtk_combo_box_text_append_text(filter_combo, "BLUR");
+	gtk_combo_box_text_append_text(filter_combo, "EMBOSS");
+	gtk_combo_box_text_append_text(filter_combo, "SHARPEN");
+}
+
+void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 {
 	GtkAdjustment	*fps_adj;
 
@@ -32,4 +44,10 @@ void	gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 	gtk_widget_set_halign(settings->separator, GTK_ALIGN_CENTER);
 	settings->x_axis = gtk_check_button_new_with_label("Invert X-axis");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->x_axis), FALSE);
+	settings->filter_label = gtk_label_new("Filter:");
+	gtk_widget_set_margin_end(settings->filter_label, 5);
+	settings->filter_combo = gtk_combo_box_text_new();
+	gtk_set_filters_list(GTK_COMBO_BOX_TEXT(settings->filter_combo));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(settings->filter_combo),
+		rt->scene->filter);
 }

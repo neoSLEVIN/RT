@@ -227,6 +227,8 @@ typedef struct		s_gtk_settings
 	GtkWidget		*y_axis;
 	GtkWidget		*separator;
 	GtkWidget		*x_axis;
+	GtkWidget		*filter_label;
+	GtkWidget		*filter_combo;
 }					t_gtk_settings;
 
 /*

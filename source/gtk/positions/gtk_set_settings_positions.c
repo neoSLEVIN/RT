@@ -25,4 +25,8 @@ void	gtk_set_settings_positions(t_gtk_settings *settings)
 		settings->y_axis, GTK_POS_RIGHT, 3, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->x_axis,
 		settings->separator, GTK_POS_RIGHT, 3, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_label,
+		settings->y_axis, GTK_POS_BOTTOM, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_combo,
+		settings->filter_label, GTK_POS_RIGHT, 1, 1);
 }
