@@ -19,7 +19,8 @@ void		gtk_set_widgets(t_gtk *gtk, t_rt *rt)
 	gtk_set_ui_widgets(&gtk->ui);
 	gtk_set_shape_widgets(&gtk->ui.shape, rt->scene);
 	gtk_set_shapes_tree(&gtk->ui.shapes, rt);
-	gtk_set_textures_tree(&gtk->ui.texture, rt);
+	gtk_set_textures_tree(&gtk->ui.texture, "_Textures", rt->scene->textures);
+	gtk_set_textures_tree(&gtk->ui.normals, "_Normal maps",
+		rt->scene->normal_maps);
 	gtk_set_settings_widgets(&gtk->ui.settings, rt);
-	gtk->button = gtk_button_new_with_label("Update");
 }

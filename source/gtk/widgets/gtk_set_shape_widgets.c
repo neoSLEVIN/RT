@@ -292,6 +292,8 @@ void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape, SCENE *scene)
 	gtk_frame_set_label_align(GTK_FRAME((*gtk_shape)->frame), 0.5, 0.0);
 
 	(*gtk_shape)->notebook = gtk_notebook_new();
+	gtk_notebook_set_scrollable(GTK_NOTEBOOK((*gtk_shape)->notebook), TRUE);
+	gtk_notebook_popup_enable(GTK_NOTEBOOK((*gtk_shape)->notebook));
 	gtk_widget_set_hexpand(GTK_WIDGET((*gtk_shape)->notebook), TRUE);
 	gtk_set_transform_tab_widgets(&(*gtk_shape)->transform,
 		&scene_shape->dto->transform);

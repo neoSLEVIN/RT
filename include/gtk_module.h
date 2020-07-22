@@ -261,6 +261,7 @@ typedef struct		s_ui
 	t_gtk_shape		*shape;
 	t_gtk_shapes	shapes;
 	t_gtk_textures	texture;
+	t_gtk_textures	normals;
 	t_gtk_settings	settings;
 }					t_ui;
 
@@ -276,7 +277,6 @@ typedef struct		s_gtk_data
 	GtkWidget		*window_h_box;
 	t_gtk_image		img;
 	t_ui			ui;
-	GtkWidget		*button;
 	guint			timeout_id;
 }					t_gtk;
 
@@ -331,7 +331,8 @@ void				gtk_set_ui_widgets(t_ui *ui);
 void				gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 									SCENE *scene);
 void				gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt);
-void				gtk_set_textures_tree(t_gtk_textures *textures, t_rt *rt);
+void				gtk_set_textures_tree(t_gtk_textures *textures,
+									const char *name, PPM_IMG *ppm);
 void				gtk_set_settings_widgets(t_gtk_settings *settings,
 									t_rt *rt);
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
