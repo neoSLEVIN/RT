@@ -197,6 +197,7 @@ struct			s_camera
 ** =============================================================================
 */
 # define MAX_DIMENSION 640
+# define MIN_DIMENSION 100
 # define MAX_PPM_IMG_SIZE 640 * 640 * 3
 /*
 ** === PPM image Data Transfer Object (Set as an element of kernel argument) ===

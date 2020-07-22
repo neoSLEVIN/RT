@@ -37,6 +37,15 @@ static void	update_gtk_shape_col(t_color_tab tab, FLT3 color)
 		&(GdkRGBA){color.x, color.y, color.z, 1});
 }
 
+static void	update_gtk_shape_tex(t_texture_tab tab,
+							int texture_id, int normal_map_id)
+{
+	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.texture_combo),
+		texture_id + 5);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.normals_combo),
+		normal_map_id + 1);
+}
+
 void	update_gtk_shape_sec_spins(t_section_tab *tab, SECTION *section)
 {
 	gtk_widget_set_visible(tab->plane_grid, section->type == PLANE);
@@ -112,6 +121,10 @@ gboolean	update_shape_widget(gpointer data)
 		else if (current_page == COLOR_TAB && rt->info->update_s_col)
 			update_gtk_shape_col(shape->color,
 				shape->shape->dto->material.color);
+		else if (current_page == TEXTURE_TAB && rt->info->update_s_tex)
+			update_gtk_shape_tex(shape->texture,
+				shape->shape->dto->texture.id,
+				shape->shape->dto->normal_map.id);
 		else if (current_page == SECTION_TAB && rt->info->update_s_sec)
 			update_gtk_shape_sec(shape->section, shape->shape->dto->sections,
 					shape->shape->dto->is_complex_section);

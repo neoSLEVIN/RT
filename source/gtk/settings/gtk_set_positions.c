@@ -28,8 +28,10 @@ void	gtk_set_ui_positions(t_ui *ui)
 		ui->shape->expander, GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->texture.expander,
 		ui->shapes.expander, GTK_POS_BOTTOM, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->settings.expander,
+	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->normals.expander,
 		ui->texture.expander, GTK_POS_BOTTOM, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->settings.expander,
+		ui->normals.expander, GTK_POS_BOTTOM, 1, 1);
 }
 
 void	gtk_set_positions(t_gtk *gtk)
@@ -47,8 +49,7 @@ void	gtk_set_positions(t_gtk *gtk)
 	gtk_set_shape_positions(gtk->ui.shape);
 	gtk_set_shapes_positions(&gtk->ui.shapes);
 	gtk_set_textures_positions(&gtk->ui.texture);
+	gtk_set_textures_positions(&gtk->ui.normals);
 	gtk_set_settings_positions(&gtk->ui.settings);
 	gtk_set_ui_positions(&gtk->ui);
-	gtk_grid_attach_next_to(GTK_GRID(gtk->ui.grid), gtk->button,
-		gtk->ui.settings.expander, GTK_POS_BOTTOM, 1, 1);
 }
