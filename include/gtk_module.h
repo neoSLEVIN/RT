@@ -479,7 +479,7 @@ void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 /*
 ** ======================== Change the shape parameters ========================
 */
-_Bool				do_change_shape_param(cl_float *param, SHAPE_TYPE type,
+_Bool				do_change_shape_param(FLT3 *params, SHAPE_TYPE type,
 										int diff);
 void				change_shape_param(t_rt *rt);
 /*

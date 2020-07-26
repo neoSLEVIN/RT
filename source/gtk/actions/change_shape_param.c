@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-_Bool	do_change_shape_param(cl_float *param, SHAPE_TYPE type, int diff)
+_Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 {
 	cl_float	coefficient;
 
@@ -21,24 +21,24 @@ _Bool	do_change_shape_param(cl_float *param, SHAPE_TYPE type, int diff)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
 	{
-		if (*param < 0.1f)
-			*param = 0.1f;
-		else if (*param * coefficient < 0.1f)
+		if (params->x < 0.1f)
+			params->x = 0.1f;
+		else if (params->x * coefficient < 0.1f)
 			return (FALSE);
 		else
-			*param *= coefficient;
+			params->x *= coefficient;
 	}
 	else if (type == CONE)
 	{
-		if (rad_to_deg(*param) < 1.0f)
-			*param = deg_to_rad(1.0f);
-		else if (rad_to_deg(*param) > 89.0f)
-			*param = deg_to_rad(89.0f);
-		else if (rad_to_deg(*param) + (cl_float)diff * 2 < 1.0f ||
-				rad_to_deg(*param) + (cl_float)diff * 2 > 89.0f)
+		if (rad_to_deg(params->x) < 1.0f)
+			params->x = deg_to_rad(1.0f);
+		else if (rad_to_deg(params->x) > 89.0f)
+			params->x = deg_to_rad(89.0f);
+		else if (rad_to_deg(params->x) + (cl_float)diff * 2 < 1.0f ||
+				rad_to_deg(params->x) + (cl_float)diff * 2 > 89.0f)
 			return (FALSE);
 		else
-			*param += deg_to_rad(diff * 2);
+			params->x += deg_to_rad(diff * 2);
 	}
 	else
 		ft_error("Unknown type (change_shape_param)");
@@ -54,7 +54,7 @@ void	change_shape_param(t_rt *rt)
 	}
 	if (!rt->info->scroll_cnt)
 		return ;
-	if (do_change_shape_param(&rt->info->s_marker->dto->param,
+	if (do_change_shape_param(&rt->info->s_marker->dto->params,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 		update_shapes_flags(&rt->info->update_shapes,
 			&rt->info->update_s_param);

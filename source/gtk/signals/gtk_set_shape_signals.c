@@ -236,7 +236,7 @@ static void	changing_shape_type(GtkComboBox *type_combo, gpointer data)
 	rt = (t_rt*)data;
 	rt->gtk->ui.shape->shape->dto->type =
 			gtk_combo_box_get_active(type_combo) + 1;
-	do_change_shape_param(&rt->gtk->ui.shape->shape->dto->param,
+	do_change_shape_param(&rt->gtk->ui.shape->shape->dto->params,
 		rt->gtk->ui.shape->shape->dto->type, 0);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,

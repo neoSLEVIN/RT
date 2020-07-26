@@ -12,7 +12,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	new_origin = ray->origin - sphere->transform.position;
 	coef[0] = dot(ray->dir, ray->dir);
 	coef[1] = 2.0 * dot(ray->dir, new_origin);
-	coef[2] = dot(new_origin, new_origin) - sphere->radius * sphere->radius;
+	coef[2] = dot(new_origin, new_origin) - sphere->params.x * sphere->params.x;
 	discriminant = coef[1] * coef[1] - 4.0 * coef[0] * coef[2];
 	if (discriminant < 0.0f)
 		return (0);
@@ -51,7 +51,7 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	x = ray->origin - cylinder->transform.position;
 	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, cylinder->transform.direction), 2);
 	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, cylinder->transform.direction) * dot(x, cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, cylinder->transform.direction), 2) - cylinder->radius * cylinder->radius;
+	abcd[2] = dot(x, x) - pow(dot(x, cylinder->transform.direction), 2) - cylinder->params.x * cylinder->params.x;
 	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
 	if (abcd[3] < 0)
 		return 0;
@@ -72,7 +72,7 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	float		k_and_discr[2];
 
 	x = ray->origin - cone->transform.position;
-	k_and_discr[0] = 1 + tan(cone->radius) * tan(cone->radius);
+	k_and_discr[0] = 1 + tan(cone->params.x) * tan(cone->params.x);
 	abc[0] = dot(ray->dir, ray->dir) - k_and_discr[0] * pow(dot(ray->dir, cone->transform.direction), 2);
 	abc[1] = 2 * (dot(ray->dir, x) - k_and_discr[0] * dot(ray->dir, cone->transform.direction) * dot(x, cone->transform.direction));
 	abc[2] = dot(x,x) - k_and_discr[0] * pow(dot(x, cone->transform.direction), 2);
@@ -96,8 +96,8 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	float y;
 	float3 rarb[2];
 
-	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->radius;
-	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->radius;
+	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.x;
+	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.x;
 	abc[0] = rarb[1] - rarb[0];/*ca*/
 	abc[1] = ray->origin - rarb[0]; /*oc*/
 	tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
@@ -105,7 +105,7 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
 	tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
 	tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
-	tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(capped_cylinder->radius, 2) * tmp[0];/*c*/
+	tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(capped_cylinder->params.x, 2) * tmp[0];/*c*/
 	tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
 	if (tmp[6] < 0)
 		return (0);

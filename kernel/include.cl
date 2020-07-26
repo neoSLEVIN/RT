@@ -100,7 +100,7 @@ typedef struct			s_object
 	t_section			section[6];
 	int					working_sections;
 	bool				is_complex_section;
-	float				radius;
+	float3				params;
 	bool				marker;
 }						t_object;
 
