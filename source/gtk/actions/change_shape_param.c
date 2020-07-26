@@ -21,14 +21,20 @@ _Bool	do_change_shape_param(cl_float *param, SHAPE_TYPE type, int diff)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
 	{
-		if (*param * coefficient < 0.1f)
+		if (*param < 0.1f)
+			*param = 0.1f;
+		else if (*param * coefficient < 0.1f)
 			return (FALSE);
 		else
 			*param *= coefficient;
 	}
 	else if (type == CONE)
 	{
-		if (rad_to_deg(*param) + (cl_float)diff * 2 < 1.0f ||
+		if (rad_to_deg(*param) < 1.0f)
+			*param = deg_to_rad(1.0f);
+		else if (rad_to_deg(*param) > 89.0f)
+			*param = deg_to_rad(89.0f);
+		else if (rad_to_deg(*param) + (cl_float)diff * 2 < 1.0f ||
 				rad_to_deg(*param) + (cl_float)diff * 2 > 89.0f)
 			return (FALSE);
 		else

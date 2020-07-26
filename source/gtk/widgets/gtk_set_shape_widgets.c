@@ -271,6 +271,31 @@ static void		gtk_set_sections_tab_widgets(t_section_tab *section_tab,
 	gtk_widget_set_margin_end(section_tab->radius.spin, 5);
 }
 
+static void		gtk_set_type_list(GtkComboBoxText *type_combo)
+{
+	gtk_combo_box_text_append_text(type_combo, "PLANE");
+	gtk_combo_box_text_append_text(type_combo, "SPHERE");
+	gtk_combo_box_text_append_text(type_combo, "CONE");
+	gtk_combo_box_text_append_text(type_combo, "CYLINDER");
+	gtk_combo_box_text_append_text(type_combo, "CAPPED CYLINDER");
+	//TODO add new types
+}
+
+static void		gtk_set_main_tab_widgets(t_main_tab *main_tab, DTO_SHAPE *dto)
+{
+	main_tab->label = gtk_label_new("Main");
+	main_tab->grid = gtk_grid_new();
+	main_tab->type_label = gtk_label_new("Type:");
+	gtk_widget_set_margin_start(main_tab->type_label, 5);
+	gtk_widget_set_margin_end(main_tab->type_label, 5);
+	gtk_widget_set_margin_top(main_tab->type_label, 5);
+	main_tab->type_combo = gtk_combo_box_text_new();
+	gtk_widget_set_margin_end(main_tab->type_combo, 5);
+	gtk_widget_set_margin_top(main_tab->type_combo, 5);
+	gtk_set_type_list(GTK_COMBO_BOX_TEXT(main_tab->type_combo));
+	gtk_combo_box_set_active(GTK_COMBO_BOX(main_tab->type_combo), 0);
+}
+
 
 
 void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape, SCENE *scene)
@@ -295,6 +320,7 @@ void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape, SCENE *scene)
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK((*gtk_shape)->notebook), TRUE);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK((*gtk_shape)->notebook));
 	gtk_widget_set_hexpand(GTK_WIDGET((*gtk_shape)->notebook), TRUE);
+	gtk_set_main_tab_widgets(&(*gtk_shape)->main, scene_shape->dto);
 	gtk_set_transform_tab_widgets(&(*gtk_shape)->transform,
 		&scene_shape->dto->transform);
 	gtk_set_material_tab_widgets(&(*gtk_shape)->material,

@@ -30,6 +30,7 @@ typedef struct	s_info
 	_Bool		update_cam;
 	_Bool		update_s_name;
 	_Bool		update_s_marker;
+	_Bool		update_s_main;
 	_Bool		update_s_pos;
 	_Bool		update_s_rot;
 	_Bool		update_s_mat;

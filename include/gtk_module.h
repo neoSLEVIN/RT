@@ -55,12 +55,31 @@ typedef struct		s_gtk_image
 */
 typedef enum		e_shape_tabs
 {
+	MAIN_TAB,
 	TRANSFORM_TAB,
 	MATERIAL_TAB,
 	COLOR_TAB,
 	TEXTURE_TAB,
 	SECTION_TAB
 }					t_tabs;
+
+/*
+** =============================================================================
+** ================ Tab for changing type/name/params of shape =================
+** =============================================================================
+*/
+typedef struct		s_main_tab
+{
+	GtkWidget		*label;
+	GtkWidget		*grid;
+	GtkWidget		*name_label;
+	GtkWidget		*name_changer;
+	GtkWidget		*type_label;
+	GtkWidget		*type_combo;
+	t_spinner		param1;
+	t_spinner		param2;
+	t_spinner		param3;
+}					t_main_tab;
 
 /*
 ** =============================================================================
@@ -178,6 +197,7 @@ typedef struct		s_gtk_shape
 	GtkWidget		*expander;
 	GtkWidget		*frame;
 	GtkWidget		*notebook;
+	t_main_tab		main;
 	t_transform_tab	transform;
 	t_material_tab	material;
 	t_color_tab		color;
@@ -459,6 +479,8 @@ void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 /*
 ** ======================== Change the shape parameters ========================
 */
+_Bool				do_change_shape_param(cl_float *param, SHAPE_TYPE type,
+										int diff);
 void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================

@@ -60,7 +60,9 @@ void	switch_page_shape_notebook(GtkNotebook *notebook, GtkWidget *page,
 	(void)notebook;
 	(void)page;
 	rt = (t_rt*)data;
-	if (page_num == TRANSFORM_TAB)
+	if (page_num == MAIN_TAB)
+		rt->info->update_s_main = TRUE;
+	else if (page_num == TRANSFORM_TAB)
 		rt->info->update_s_pos = TRUE;
 	else if (page_num == MATERIAL_TAB)
 		rt->info->update_s_mat = TRUE;
@@ -227,6 +229,20 @@ void	color_activated_changer(GtkColorChooser *chooser,
 	rt->info->update = TRUE;
 }
 
+static void	changing_shape_type(GtkComboBox *type_combo, gpointer data)
+{
+	t_rt	*rt;
+
+	rt = (t_rt*)data;
+	rt->gtk->ui.shape->shape->dto->type =
+			gtk_combo_box_get_active(type_combo) + 1;
+	do_change_shape_param(&rt->gtk->ui.shape->shape->dto->param,
+		rt->gtk->ui.shape->shape->dto->type, 0);
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+					&rt->info->update_shapes);
+	rt->info->update = TRUE;
+}
 
 static void	changing_texture_type(GtkComboBox *texture_combo, gpointer data)
 {
@@ -312,8 +328,12 @@ void	gtk_set_shape_signals(t_rt *rt)
 					 G_CALLBACK(sections_style_toggle_button), rt);
 	g_signal_connect(GTK_BUTTON(rt->gtk->ui.shape->section.centre_button), "button-press-event",
 					 G_CALLBACK(centralize_section_position), rt);
+
 	g_signal_connect(G_OBJECT(rt->gtk->ui.shape->texture.texture_combo),
 		"changed", G_CALLBACK(changing_texture_type), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.shape->texture.normals_combo),
 		"changed", G_CALLBACK(changing_normals_type), rt);
+
+	g_signal_connect(G_OBJECT(rt->gtk->ui.shape->main.type_combo),
+		"changed", G_CALLBACK(changing_shape_type), rt);
 }

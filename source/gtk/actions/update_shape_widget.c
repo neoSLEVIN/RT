@@ -37,6 +37,11 @@ static void	update_gtk_shape_col(t_color_tab tab, FLT3 color)
 		&(GdkRGBA){color.x, color.y, color.z, 1});
 }
 
+static void	update_gtk_shape_main(t_main_tab tab, DTO_SHAPE *dto)
+{
+	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.type_combo), dto->type - 1);
+}
+
 static void	update_gtk_shape_tex(t_texture_tab tab,
 							int texture_id, int normal_map_id)
 {
@@ -113,7 +118,9 @@ gboolean	update_shape_widget(gpointer data)
 			gtk_widget_set_visible(rt->gtk->ui.shape->color.color, FALSE);
 		if (rt->info->update_s_name)
 			gtk_frame_set_label(GTK_FRAME(shape->frame), shape->shape->name);
-		if (current_page == TRANSFORM_TAB && rt->info->update_s_pos)
+		if (current_page == MAIN_TAB && rt->info->update_s_main)
+			update_gtk_shape_main(shape->main, shape->shape->dto);
+		else if (current_page == TRANSFORM_TAB && rt->info->update_s_pos)
 			update_gtk_shape_pos(shape->transform,
 				shape->shape->dto->transform.position);
 		else if (current_page == MATERIAL_TAB && rt->info->update_s_mat)
