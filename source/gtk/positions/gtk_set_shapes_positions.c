@@ -14,8 +14,12 @@
 
 void	gtk_set_shape_main_positions(t_main_tab *main_tab)
 {
-	gtk_grid_attach(GTK_GRID(main_tab->grid), main_tab->type_label,
+	gtk_grid_attach(GTK_GRID(main_tab->grid), main_tab->name_label,
 		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(main_tab->grid), main_tab->name_changer,
+		main_tab->name_label, GTK_POS_RIGHT, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(main_tab->grid), main_tab->type_label,
+		main_tab->name_label, GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(main_tab->grid), main_tab->type_combo,
 		main_tab->type_label, GTK_POS_RIGHT, 1, 1);
 }

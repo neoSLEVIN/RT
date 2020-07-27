@@ -85,8 +85,8 @@ gboolean		press_key_on_window(GtkWidget *window, GdkEventKey *event,
 
 	(void)window;
 	rt = (t_rt*)data;
-	if (event->state == GDK_MOD1_MASK)
-// TODO maybe delete		 gtk_widget_is_focus(rt->gtk->ui.shape->entry_name))
+	if (event->state == GDK_MOD1_MASK ||
+			gtk_widget_is_focus(rt->gtk->ui.shape->main.name_changer))
 		return (FALSE);
 	if (do_press_key_for_camera(rt, event) ||
 		do_press_numpad_for_camera(rt, event) ||

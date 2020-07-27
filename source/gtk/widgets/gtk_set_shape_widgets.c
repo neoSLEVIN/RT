@@ -285,6 +285,14 @@ static void		gtk_set_main_tab_widgets(t_main_tab *main_tab, DTO_SHAPE *dto)
 {
 	main_tab->label = gtk_label_new("Main");
 	main_tab->grid = gtk_grid_new();
+	main_tab->name_label = gtk_label_new("Name:");
+	gtk_widget_set_margin_start(main_tab->name_label, 5);
+	gtk_widget_set_margin_end(main_tab->name_label, 5);
+	gtk_widget_set_margin_top(main_tab->name_label, 5);
+	main_tab->name_changer = gtk_entry_new();
+	gtk_widget_set_margin_end(main_tab->name_changer, 5);
+	gtk_widget_set_margin_top(main_tab->name_changer, 5);
+	gtk_entry_set_max_length(GTK_ENTRY(main_tab->name_changer), 20);
 	main_tab->type_label = gtk_label_new("Type:");
 	gtk_widget_set_margin_start(main_tab->type_label, 5);
 	gtk_widget_set_margin_end(main_tab->type_label, 5);

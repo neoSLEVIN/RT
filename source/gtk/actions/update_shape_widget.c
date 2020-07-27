@@ -37,9 +37,11 @@ static void	update_gtk_shape_col(t_color_tab tab, FLT3 color)
 		&(GdkRGBA){color.x, color.y, color.z, 1});
 }
 
-static void	update_gtk_shape_main(t_main_tab tab, DTO_SHAPE *dto)
+static void	update_gtk_shape_main(t_main_tab tab, SHAPE *shape)
 {
-	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.type_combo), dto->type - 1);
+	gtk_entry_set_text(GTK_ENTRY(tab.name_changer), shape->name);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.type_combo),
+			shape->dto->type - 1);
 }
 
 static void	update_gtk_shape_tex(t_texture_tab tab,
@@ -119,7 +121,7 @@ gboolean	update_shape_widget(gpointer data)
 		if (rt->info->update_s_name)
 			gtk_frame_set_label(GTK_FRAME(shape->frame), shape->shape->name);
 		if (current_page == MAIN_TAB && rt->info->update_s_main)
-			update_gtk_shape_main(shape->main, shape->shape->dto);
+			update_gtk_shape_main(shape->main, shape->shape);
 		else if (current_page == TRANSFORM_TAB && rt->info->update_s_pos)
 			update_gtk_shape_pos(shape->transform,
 				shape->shape->dto->transform.position);
