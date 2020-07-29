@@ -34,7 +34,7 @@ static FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 
 	if (type == PLANE)
 		params = (FLT3){0.0f, 0.0f, 0.0f};
-	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
+	else if (type == SPHERE || type == CYLINDER)
 	{
 		params = (FLT3){jc_get_float(shape_field, "radius"), 0.0f, 0.0f};
 		if (params.x < 0.1f)
@@ -48,6 +48,17 @@ static FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 			parse_error(jc_full_name(shape_field), "angle",
 				"Value must be in range [1.0; 89.0].");
 		params.x = deg_to_rad(params.x);
+	}
+	else if (type == CAPPEDCYLINDER)
+	{
+		params = (FLT3){jc_get_float(shape_field, "radius"),
+						jc_get_float(shape_field, "height"), 0.0f};
+		if (params.x < 0.1f)
+			parse_error(jc_full_name(shape_field), "radius",
+						"The value must be greater or equal than 0.1");
+		if (params.y < 0.1f)
+			parse_error(jc_full_name(shape_field), "height",
+						"The value must be greater or equal than 0.1");
 	}
 	else
 		ft_error("Unknown action");

@@ -77,6 +77,17 @@
         "material": {
           "color": "f00",
           "specular": 1, "reflective": 0, "transparency": 0}
+      },
+      {
+        "type": "CAPPED CYLINDER",
+        "radius": 3,
+        "height": 20,
+        "transform": {"position": [5,0,3], "direction": [5,7,1]},
+        "sections": {"style": "SIMPLE",
+          "elements":[{"type": "SPHERE", "radius": 3, "direction": [0,1,0]}]},
+        "material": {
+          "color": "f00",
+          "specular": 1, "reflective": 0, "transparency": 0}
       }
     ],
     "textures": [

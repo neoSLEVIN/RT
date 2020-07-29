@@ -241,6 +241,7 @@ static void	changing_shape_type(GtkComboBox *type_combo, gpointer data)
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
+	rt->info->update_s_main = TRUE;
 	rt->info->update = TRUE;
 }
 
@@ -296,6 +297,71 @@ gboolean		press_key_on_shape_name(GtkWidget *entry_name, GdkEventKey *event,
 	return (FALSE);
 }
 
+gboolean	spin_button_shape_radius_changer_safe(gpointer data)
+{
+	t_rt	*rt;
+	FLT3	*params;
+
+	rt = (t_rt*)data;
+	params = &rt->gtk->ui.shape->shape->dto->params;
+	params->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
+					rt->gtk->ui.shape->main.radius.spin));
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+					  &rt->info->update_shapes);
+	rt->info->update = TRUE;
+	return (FALSE);
+}
+
+void	spin_button_shape_radius_changer(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(spin_button_shape_radius_changer_safe, data);
+}
+
+gboolean	spin_button_shape_height_changer_safe(gpointer data)
+{
+	t_rt	*rt;
+	FLT3	*params;
+
+	rt = (t_rt*)data;
+	params = &rt->gtk->ui.shape->shape->dto->params;
+	params->y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
+					rt->gtk->ui.shape->main.height.spin));
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+					  &rt->info->update_shapes);
+	rt->info->update = TRUE;
+	return (FALSE);
+}
+
+void	spin_button_shape_height_changer(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(spin_button_shape_height_changer_safe, data);
+}
+
+gboolean	spin_button_shape_angle_changer_safe(gpointer data)
+{
+	t_rt	*rt;
+	FLT3	*params;
+
+	rt = (t_rt*)data;
+	params = &rt->gtk->ui.shape->shape->dto->params;
+	params->x = deg_to_rad(gtk_spin_button_get_value(GTK_SPIN_BUTTON(
+							rt->gtk->ui.shape->main.angle.spin)));
+	rt->info->update_shapes = TRUE;
+	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
+					  &rt->info->update_shapes);
+	rt->info->update = TRUE;
+	return (FALSE);
+}
+
+void	spin_button_shape_angle_changer(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(spin_button_shape_angle_changer_safe, data);
+}
 
 void	gtk_set_shape_signals(t_rt *rt)
 {
@@ -363,4 +429,11 @@ void	gtk_set_shape_signals(t_rt *rt)
 		"changed", G_CALLBACK(changing_shape_type), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.shape->main.name_changer),
 			"key-press_event", G_CALLBACK(press_key_on_shape_name), rt);
+
+	g_signal_connect(G_OBJECT(shape->main.radius.spin), "value-changed",
+					 G_CALLBACK(spin_button_shape_radius_changer), rt);
+	g_signal_connect(G_OBJECT(shape->main.height.spin), "value-changed",
+					 G_CALLBACK(spin_button_shape_height_changer), rt);
+	g_signal_connect(G_OBJECT(shape->main.angle.spin), "value-changed",
+					 G_CALLBACK(spin_button_shape_angle_changer), rt);
 }

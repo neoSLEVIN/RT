@@ -76,9 +76,14 @@ typedef struct		s_main_tab
 	GtkWidget		*name_changer;
 	GtkWidget		*type_label;
 	GtkWidget		*type_combo;
-	t_spinner		param1;
-	t_spinner		param2;
-	t_spinner		param3;
+	GtkWidget		*params_frame;
+	GtkWidget		*v_params;
+	GtkWidget		*h_radius;
+	t_spinner		radius;
+	GtkWidget		*h_height;
+	t_spinner		height;
+	GtkWidget		*h_angle;
+	t_spinner		angle;
 }					t_main_tab;
 
 /*
@@ -360,6 +365,8 @@ void				gtk_set_spin_button_for_float(GtkWidget **spin,
 void				gtk_set_spin_button_for_one(GtkWidget **spin,
 									cl_float value);
 void				gtk_set_spin_button_for_radius(GtkWidget **spin,
+									cl_float value);
+void				gtk_set_spin_button_for_angle(GtkWidget **spin,
 									cl_float value);
 
 /*

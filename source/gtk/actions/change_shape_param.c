@@ -15,11 +15,13 @@
 _Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 {
 	cl_float	coefficient;
+	_Bool		res;
 
+	res = TRUE;
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
-	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
+	else if (type == SPHERE || type == CYLINDER)
 	{
 		if (params->x < 0.1f)
 			params->x = 0.1f;
@@ -40,6 +42,22 @@ _Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 		else
 			params->x += deg_to_rad(diff * 2);
 	}
+	else if (type == CAPPEDCYLINDER)
+	{
+		if (params->x < 0.1f)
+			params->x = 0.1f;
+		else if (params->x * coefficient < 0.1f)
+			res = FALSE;
+		else
+			params->x *= coefficient;
+		if (params->y < 0.1f)
+			params->y = 0.1f;
+		else if (params->y * coefficient < 0.1f)
+			res = FALSE;
+		else
+			params->y *= coefficient;
+		return (res);
+	}
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);
@@ -56,7 +74,10 @@ void	change_shape_param(t_rt *rt)
 		return ;
 	if (do_change_shape_param(&rt->info->s_marker->dto->params,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
+	{
 		update_shapes_flags(&rt->info->update_shapes,
-			&rt->info->update_s_param);
+							&rt->info->update_s_param);
+		rt->info->update_s_main = TRUE;
+	}
 	rt->info->scroll_cnt = 0;
 }

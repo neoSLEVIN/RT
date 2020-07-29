@@ -49,34 +49,66 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 	return normal;
 }
 
-float3 capped_cylinder_normal(t_object *hit_obj, t_ray *ray)
+int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float value)
 {
-	float3 abc[2];
-    float tmp[7];
-    float t;
-    float y;
-	float3 rarb[2];
-
-	rarb[0] = hit_obj->transform.position - hit_obj->transform.direction * hit_obj->params.x;
-    rarb[1] = hit_obj->transform.position + hit_obj->transform.direction * hit_obj->params.x;
-    abc[0] = rarb[1] - rarb[0];/*ca*/
-    abc[1] = ray->origin - rarb[0]; /*oc*/
-    tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
-    tmp[1] = dot(abc[0], ray->dir); /*card*/
-    tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
-    tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
-    tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
-    tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(hit_obj->params.x, 2) * tmp[0];/*c*/
-    tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
-    tmp[6] = sqrt(tmp[6]);
-    t = (-tmp[4] - tmp[6]) / tmp[3];
-    y = tmp[2] + t * tmp[1];
-    if (y > 0.0f && y < tmp[0])
-    	return ((abc[1] + t * ray->origin - abc[0] * y / tmp[0]) / hit_obj->params.x);
-    t = (((y < 0.0) ? 0.0 : tmp[0]) - tmp[2]) / tmp[1];
-    return abc[0] * sign(y) / tmp[0];
+	return (pow(length(capped_cylinder->transform.position - (ray->origin + value * ray->dir)), 2) > (pow((capped_cylinder->params.y / 2.0f), 2) + pow(capped_cylinder->params.x, 2)));
 }
 
+float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
+{
+	float		abcd[4];
+	float		t[4] = {-1.0f, -1.0f, -1.0f, -1.0f};
+	float3		x;
+	float		d_dot_n;
+
+	x = ray->origin - capped_cylinder->transform.position;
+	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, capped_cylinder->transform.direction), 2);
+	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, capped_cylinder->transform.direction) * dot(x, capped_cylinder->transform.direction)));
+	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params.x * capped_cylinder->params.x;
+	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
+	if (abcd[3] >= 0) {
+		t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
+		t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
+		if (is_outside_capped_cylinder(ray, capped_cylinder, t[0]))
+			t[0] = -1.0f;
+		if (is_outside_capped_cylinder(ray, capped_cylinder, t[1]))
+			t[1] = -1.0f;
+	}
+
+	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
+	if ((d_dot_n = dot(ray->dir, capped_cylinder->transform.direction)) != 0.0f) {
+		t[2] = dot(x, capped_cylinder->transform.direction) / d_dot_n;
+		if (is_outside_capped_cylinder(ray, capped_cylinder, t[2]))
+			t[2] = -1.0f;
+	}
+
+	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
+	if ((d_dot_n = dot(ray->dir, -capped_cylinder->transform.direction)) != 0.0f) {
+		t[3] = dot(x, -capped_cylinder->transform.direction) / d_dot_n;
+		if (is_outside_capped_cylinder(ray, capped_cylinder, t[3]))
+			t[3] = -1.0f;
+	}
+
+	if (minT(t[0], t[1]) <= 0.0f)
+	{
+		if (t[2] <= t[3] && t[2] > 0.0f) {
+			return plane_normal(capped_cylinder->transform.direction, ray->dir);
+		} else {
+			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
+		}
+	} else if (minT(t[2], t[3]) <= 0.0f) {
+		return (cyl_normal(capped_cylinder, ray));
+	} else if (minT(t[0], t[1]) <= minT(t[2], t[3])) {
+		return (cyl_normal(capped_cylinder, ray));
+	} else {
+		if (t[2] <= t[3] && t[2] > 0.0f) {
+			return plane_normal(capped_cylinder->transform.direction, ray->dir);
+		} else {
+			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
+		}
+	}
+
+}
 
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
 	
