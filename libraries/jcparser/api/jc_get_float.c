@@ -17,12 +17,14 @@ static double	jcp_atof(const char *start, const size_t length)
 	char	*dot;
 	char	*dbl_str;
 	double	dbl;
+	char	test_str[4];
 
+	ft_strcpy(test_str, "0.1");
 	if (!(dbl_str = ft_strnew(length)))
 		ft_error("Can't allocate memory");
 	ft_strncat(dbl_str, (char*)start, length);
 	dot = ft_strchr(dbl_str, '.');
-	if (dot != NULL)
+	if (dot != NULL && atof(test_str) != 0.1)
 		*dot = ',';
 	dbl = atof(dbl_str);
 	ft_strdel(&dbl_str);
