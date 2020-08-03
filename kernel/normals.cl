@@ -56,58 +56,15 @@ int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float valu
 
 float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
 {
-	float		abcd[4];
-	float		t[4] = {-1.0f, -1.0f, -1.0f, -1.0f};
-	float3		x;
-	float		d_dot_n;
-
-	x = ray->origin - capped_cylinder->transform.position;
-	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, capped_cylinder->transform.direction), 2);
-	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, capped_cylinder->transform.direction) * dot(x, capped_cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params.x * capped_cylinder->params.x;
-	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
-	if (abcd[3] >= 0) {
-		t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
-		t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[0]))
-			t[0] = -1.0f;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[1]))
-			t[1] = -1.0f;
+	/*Скалярное произведение вектора (из двух точек на крышке и в центре крышки) и dir равно 0. Однако с флотами есть погрешность*/
+	float3 centerTop = capped_cylinder->transform.position + capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
+	float3 centerBottom = capped_cylinder->transform.position - capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
+	if (fabs(dot(centerTop - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
+		return plane_normal(capped_cylinder->transform.direction, ray->dir);
+	} else if (fabs(dot(centerBottom - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
+		return plane_normal(capped_cylinder->transform.direction, ray->dir);
 	}
-
-	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, capped_cylinder->transform.direction)) != 0.0f) {
-		t[2] = dot(x, capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[2]))
-			t[2] = -1.0f;
-	}
-
-	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, -capped_cylinder->transform.direction)) != 0.0f) {
-		t[3] = dot(x, -capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[3]))
-			t[3] = -1.0f;
-	}
-
-	if (minT(t[0], t[1]) <= 0.0f)
-	{
-		if (t[2] <= t[3] && t[2] > 0.0f) {
-			return plane_normal(capped_cylinder->transform.direction, ray->dir);
-		} else {
-			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
-		}
-	} else if (minT(t[2], t[3]) <= 0.0f) {
-		return (cyl_normal(capped_cylinder, ray));
-	} else if (minT(t[0], t[1]) <= minT(t[2], t[3])) {
-		return (cyl_normal(capped_cylinder, ray));
-	} else {
-		if (t[2] <= t[3] && t[2] > 0.0f) {
-			return plane_normal(capped_cylinder->transform.direction, ray->dir);
-		} else {
-			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
-		}
-	}
-
+	return cyl_normal(capped_cylinder, ray);
 }
 
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
