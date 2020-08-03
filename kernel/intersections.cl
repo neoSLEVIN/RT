@@ -142,6 +142,20 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 }
 
 
+float	circle_intersect(t_ray *ray, t_object *circle)
+{
+	float	t;
+	float3 hitPoint;
+	
+	t = plane_intersect(ray, circle);
+	hitPoint = ray->origin + t * ray->dir;
+	if (length(circle->transform.position - hitPoint) > circle->params.x) {
+		return -1.0f;
+	}
+	return t;
+}
+
+
 void make_ray_empty(t_ray *ray) {
 	ray->t = MY_INFINITY;
 	ray->hitPoint = 0.0f;
@@ -191,6 +205,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = cone_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDCYLINDER)
 			t = capped_cylinder_intersect(ray, &selected_obj);
+		else if (selected_obj.type == CIRCLE)
+			t = circle_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}

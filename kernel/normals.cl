@@ -94,6 +94,7 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 		case SPHERE:
 			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position, ray->dir);
 			break;
+		case CIRCLE:
 		case PLANE:
 			normal = plane_normal(hit_obj->transform.direction, ray->dir);
 			break;

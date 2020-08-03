@@ -34,7 +34,7 @@ static FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 
 	if (type == PLANE)
 		params = (FLT3){0.0f, 0.0f, 0.0f};
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 	{
 		params = (FLT3){jc_get_float(shape_field, "radius"), 0.0f, 0.0f};
 		if (params.x < 0.1f)
