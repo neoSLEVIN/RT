@@ -62,7 +62,8 @@ typedef enum			e_shape_type
 						CONE,
 						CYLINDER,
 						CAPPEDCYLINDER,
-						CIRCLE
+						CIRCLE,
+						CAPPEDPLANE,
 }						t_shape_type;
 
 typedef struct			s_material

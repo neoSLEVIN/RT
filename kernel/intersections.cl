@@ -155,6 +155,27 @@ float	circle_intersect(t_ray *ray, t_object *circle)
 	return t;
 }
 
+/*странно крутится*/
+float cappedplane_instersect(t_ray *ray, t_object *plane)
+{
+	float	t;
+	float2 	coord;
+	
+	t = plane_intersect(ray, plane);
+	ray->hitPoint = ray->origin + t * ray->dir;
+	coord = translate_plane_coord(plane->transform.direction, ray);
+	float left = plane->transform.position.x - plane->params.x / 2.0f;
+	float right = plane->transform.position.x +  plane->params.x / 2.0f;
+	float up = plane->transform.position.y + plane->params.y / 2.0f;
+	float down = plane->transform.position.y - plane->params.y / 2.0f;
+	if (coord.x <= left || coord.x >= right)
+		return -1.0f;
+	if (coord.y <= down || coord.y >= up)
+		return -1.0f;
+	return t;
+}
+
+
 
 void make_ray_empty(t_ray *ray) {
 	ray->t = MY_INFINITY;
@@ -207,6 +228,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = capped_cylinder_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CIRCLE)
 			t = circle_intersect(ray, &selected_obj);
+		else if (selected_obj.type == CAPPEDPLANE)
+			t = cappedplane_instersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}

@@ -50,6 +50,8 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CAPPEDCYLINDER;
 	else if (ft_strequ(str_type, "CIRCLE"))
 		type = CIRCLE;
+	else if (ft_strequ(str_type, "CAPPEDPLANE"))
+		type = CAPPEDPLANE;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"

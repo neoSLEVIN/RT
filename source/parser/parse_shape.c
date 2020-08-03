@@ -60,6 +60,17 @@ static FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 			parse_error(jc_full_name(shape_field), "height",
 						"The value must be greater or equal than 0.1");
 	}
+	else if (type == CAPPEDPLANE)
+	{
+		params = (FLT3){jc_get_float(shape_field, "width"),
+						jc_get_float(shape_field, "height"), 0.0f};
+		if (params.x < 0.1f)
+			parse_error(jc_full_name(shape_field), "width",
+						"The value must be greater or equal than 0.1");
+		if (params.y < 0.1f)
+			parse_error(jc_full_name(shape_field), "height",
+						"The value must be greater or equal than 0.1");
+	}
 	else
 		ft_error("Unknown action");
 	return (params);
