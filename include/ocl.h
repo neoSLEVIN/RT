@@ -36,7 +36,7 @@
 ** #  define FPS (FRAME_PER_SECOND)
 ** =============================================================================
 */
-# define GTK_IMAGE_SIZE 2
+# define GTK_IMAGE_SIZE 5
 # if GTK_IMAGE_SIZE == 1
 #  define COLS 1280
 #  define ROWS 1024
@@ -57,7 +57,7 @@
 #  define ROWS 200
 # endif
 
-# define GROUP_SIZE 64
+# define GROUP_SIZE 10
 
 /*
 ** =============================================================================
@@ -66,7 +66,7 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
+#  define ABSOLUTE_PATH "/Users/dmitry/Documents/xcode staff/gtk_RT/gtk_RT/kernel/"
 # else
 #  define ABSOLUTE_PATH "kernel/"
 # endif

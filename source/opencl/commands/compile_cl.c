@@ -51,7 +51,7 @@ void		compile_cl(t_ocl *ocl)
 	ft_strdel(&ocl->kernel_text);
 	err = clBuildProgram(ocl->program, 1, &ocl->device, options, NULL, NULL);
 	clGetProgramBuildInfo(ocl->program, ocl->device,
-		CL_PROGRAM_BUILD_LOG, 1, NULL, &log_size);
+		CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
 	if (!(log_str = (char*)malloc(log_size)))
 		ft_error("Can't allocate memory");
 	clGetProgramBuildInfo(ocl->program, ocl->device,
