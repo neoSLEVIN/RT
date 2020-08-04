@@ -3,6 +3,14 @@ project(RT C)
 
 set(CMAKE_C_STANDARD 99)
 
+if (APPLE)
+FIND_PACKAGE(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
+LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
+endif()
+
 # ==============================================================================
 # ================================= Libraries ==================================
 # =========================== LIBFT JCPARSER OCLMATH ===========================
@@ -329,9 +337,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/spin_button_position_changer.c
         source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c source/gtk/actions/filters/compute_filter.c source/gtk/actions/filters/compute_blur.c source/gtk/actions/filters/blur_functions.c source/gtk/actions/filters/matrix_functions.c)
 
-if (APPLE)
-LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
-endif()
+
 
 add_executable(RT
         main.c
