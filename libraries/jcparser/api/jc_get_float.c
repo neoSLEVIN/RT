@@ -22,8 +22,8 @@ static double	jcp_atof(const char *start, const size_t length)
 		ft_error("Can't allocate memory");
 	ft_strncat(dbl_str, (char*)start, length);
 	dot = ft_strchr(dbl_str, '.');
-	if (dot != NULL)
-		*dot = ',';
+	//if (dot != NULL)
+		//*dot = ',';
 	dbl = atof(dbl_str);
 	ft_strdel(&dbl_str);
 	return (dbl);
