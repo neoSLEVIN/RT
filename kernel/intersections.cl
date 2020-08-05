@@ -90,33 +90,37 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 
 float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 {
-	float3 abc[2];
+	float3 abc[2];//ba i oc
 	float tmp[7];
-	float t;
+	float t[2];
 	float y;
 	float3 rarb[2];
 
+    //down point(a)
 	rarb[0] = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->radius_y;
+	//up point (b)
 	rarb[1] = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->radius_y;
-	abc[0] = rarb[1] - rarb[0];/*ca*/
-	abc[1] = ray->origin - rarb[0]; /*oc*/
-	tmp[0] = dot(abc[0], abc[0]); 	/*caca*/
-	tmp[1] = dot(abc[0], ray->dir); /*card*/
-	tmp[2] = dot(abc[0], abc[1]);	/*caoc*/
-	tmp[3] = tmp[0] - pow(tmp[1], 2); /*a*/
+	abc[0] = rarb[1] - rarb[0];/*ba*/
+	abc[1] = ray->origin - rarb[0]; /*oa*/
+	tmp[0] = dot(abc[0], abc[0]); 	/*|a|*/
+	tmp[1] = dot(abc[0], ray->dir); /*ba*ray->dir*/
+	tmp[2] = dot(abc[0], abc[1]);	/*ba*oa*/
+	=//a*t^2+b*t+c=0
+	tmp[3] = tmp[0] - pow(tmp[1], 2); /*c*/
 	tmp[4] = tmp[0] * dot(abc[1], ray->dir) - tmp[2] * tmp[1]; /*b*/
-	tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(capped_cylinder->radius_x, 2) * tmp[0];/*c*/
-	tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*h*/
+	tmp[5] = tmp[0] * dot(abc[1], abc[1]) - pow(tmp[2], 2) - pow(capped_cylinder->radius_x, 2) * tmp[0];/*a*/
+	tmp[6] = pow(tmp[4], 2) - tmp[3] * tmp[5]; /*D*/
 	if (tmp[6] < 0)
 		return (0);
 	tmp[6] = sqrt(tmp[6]);
-	t = (-tmp[4] - tmp[6]) / tmp[3];
+	t[0] = (-tmp[4] - tmp[6]) / tmp[3];
+	t[1] = (-tmp[4] + tmp[6]) / tmp[3];
 	y = tmp[2] + t * tmp[1];
 	if (y > 0.0f && y < tmp[0])
-		return t;
+		return t[0];
 	t = (((y < 0.0) ? 0.0 : tmp[0]) - tmp[2]) / tmp[1];
 	if ((module(tmp[4] + tmp[3] * t)) < tmp[6])
-		return t;
+		return t[0];
 	return (0);
 }
 
