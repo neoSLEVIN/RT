@@ -76,7 +76,8 @@ enum			e_shape_type
 	CYLINDER,
 	CAPPEDCYLINDER,
 	CIRCLE,
-	CAPPEDPLANE
+	CAPPEDPLANE,
+	TRIANGLE
 };
 /*
 ** =============================== Location info ===============================

@@ -67,6 +67,15 @@ float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
 	return cyl_normal(capped_cylinder, ray);
 }
 
+float3 triangle_normal(t_object *hit_obj, t_ray *ray)
+{
+	float3 v[2];
+
+	v[0] = hit_obj->transform.direction - hit_obj->transform.position;
+	v[1] = hit_obj->transform.rotation - hit_obj->transform.direction;
+	return (normalize(cross(v[0], v[1])));
+}
+
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
 	
 	float2 uv;
@@ -95,6 +104,8 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position, ray->dir);
 			break;
 		case CAPPEDPLANE:
+		    normal = plane_normal(hit_obj->transform.direction, ray->dir);
+            break;
 		case CIRCLE:
 		case PLANE:
 			normal = plane_normal(hit_obj->transform.direction, ray->dir);
@@ -108,6 +119,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 		case CAPPEDCYLINDER:
         	normal = capped_cylinder_normal(hit_obj, ray);
         	break;
+		case TRIANGLE:
+			normal = triangle_normal(hit_obj, ray);
+			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {
 		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);

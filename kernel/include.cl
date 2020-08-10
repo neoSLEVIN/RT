@@ -64,6 +64,7 @@ typedef enum			e_shape_type
 						CAPPEDCYLINDER,
 						CIRCLE,
 						CAPPEDPLANE,
+						TRIANGLE,
 }						t_shape_type;
 
 typedef struct			s_material
@@ -172,6 +173,7 @@ float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
+float3	triangle_normal(t_object *hit_obj, t_ray *ray);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
 float	compute_sections(t_ray *ray, t_section *sections, int is_complex, float t1, float t2);
@@ -181,6 +183,7 @@ float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
+float	triangle_intersect(t_ray *ray, t_object *triangle);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
 float	nothingOrMaxT(float a, float b);

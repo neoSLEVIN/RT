@@ -32,7 +32,7 @@ static FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 {
 	FLT3	params;
 
-	if (type == PLANE)
+	if (type == PLANE || type == TRIANGLE)
 		params = (FLT3){0.0f, 0.0f, 0.0f};
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 	{

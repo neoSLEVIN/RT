@@ -160,7 +160,7 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 {
 	float	t;
 	float2 	coord;
-	
+
 	t = plane_intersect(ray, plane);
 	ray->hitPoint = ray->origin + t * ray->dir;
 	coord = translate_plane_coord(plane->transform.direction, ray);
@@ -175,7 +175,37 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 	return t;
 }
 
+/*Из-за нормализации direction коряво рисуется*/
+float triangle_intersect(t_ray *ray, t_object *triangle)
+{
+	float3 normal;
+	float3 x;
+	float3 v[3];
+	float t;
+	float d;
+	float3 c[3];
 
+	/*вычисляем стороны AB BC CA*/
+	v[0] = triangle->transform.direction - triangle->transform.position;
+	v[1] = triangle->transform.rotation - triangle->transform.direction;
+	v[2] = triangle->transform.position - triangle->transform.rotation;
+	x = ray->origin - triangle->transform.position;
+	normal = normalize(cross(v[0], v[1]));//нормаль для проверки перпендикулярности луча и нормали
+	if ((d = dot(ray->dir, normal)) == 0.0f)
+		return (-1.0f);
+	//находим точку пересечения
+	t = -dot(x, normal) / d;
+	ray->hitPoint = ray->origin + t * ray->dir;
+	//находим вектора от каждой точки треугольника до точки пересечения AP BP CP
+	c[0] = ray->hitPoint - triangle->transform.position;
+	c[1] = ray->hitPoint - triangle->transform.direction;
+	c[2] = ray->hitPoint - triangle->transform.rotation;
+	//проверяем что площади получившихся параллелограммов AB AP + BC BP + CA CP < AB BC + eps
+	//eps нужна для того, если точка лежит на границе треугольника
+	if (length(cross(v[0], c[0])) + length(cross(v[1], c[1])) + length(cross(v[2], c[2])) < length(cross(v[1], v[2])) + MY_EPSILON)
+		return (t);
+	return (-1.0f);
+}
 
 void make_ray_empty(t_ray *ray) {
 	ray->t = MY_INFINITY;
@@ -230,6 +260,8 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = circle_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDPLANE)
 			t = cappedplane_instersect(ray, &selected_obj);
+		else if (selected_obj.type == TRIANGLE)
+			t = triangle_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
 			set_t(ray, &selected_obj, skiped, t, i);
 		}
