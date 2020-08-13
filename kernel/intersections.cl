@@ -156,7 +156,7 @@ float	circle_intersect(t_ray *ray, t_object *circle)
 }
 
 /*странно крутится*/
-float cappedplane_instersect(t_ray *ray, t_object *plane)
+float cappedplane_instersect1(t_ray *ray, t_object *plane)
 {
 	float	t;
 	float2 	coord;
@@ -174,6 +174,45 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 		return -1.0f;
 	return t;
 }
+
+float cappedplane_instersect2(t_ray *ray, t_object *plane)
+{
+    float    t;
+    float3   hitPoint;
+    float3   u;
+    float3   v;
+    
+    t = plane_intersect(ray, plane);
+    hitPoint = ray->origin + t * ray->dir;
+    set_uv_basis(plane->transform.direction, &u, &v);
+    
+    float3 fromOrigToHit = plane->transform.position - hitPoint;
+    float3 w_vec = plane->params.x * u;
+    float3 h_vec = plane->params.y * v;
+    
+    float w_projection = dot(fromOrigToHit, w_vec) / plane->params.x;
+    float h_projection = dot(fromOrigToHit, h_vec) / plane->params.y;
+    if (w_projection < 0 || w_projection > plane->params.x) {
+        return -1.0f;
+    } else if (h_projection < 0 || h_projection > plane->params.y) {
+        return -1.0f;
+    }
+    return t;
+}
+
+
+float cappedplane_instersect(t_ray *ray, t_object *plane)
+{
+    float    t;
+    float    t1;
+
+    
+    t = cappedplane_instersect2(ray, plane);
+    plane->transform.position = plane->transform.position + plane->transform.direction * 3;
+    t1 = cappedplane_instersect2(ray, plane);
+    return minT(t, t1);
+}
+
 
 /*Из-за нормализации direction коряво рисуется*/
 float triangle_intersect(t_ray *ray, t_object *triangle)
