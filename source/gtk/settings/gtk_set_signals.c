@@ -12,8 +12,10 @@
 
 #include "gtk_module.h"
 
-void		gtk_set_signals(t_rt *rt)
+void	gtk_set_signals(t_rt *rt)
 {
+	g_signal_connect(G_OBJECT(rt->gtk->ui.add_shape), "clicked",
+					 G_CALLBACK(new_shape), rt);
 	gtk_set_motions_signals(rt->gtk->window, rt->gtk->img.image_event_box, rt);
 	gtk_set_shape_signals(rt);
 	gtk_set_shapes_signals(rt);

@@ -17,6 +17,14 @@ void		gtk_set_widgets(t_gtk *gtk, t_rt *rt)
 	gtk->window_h_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	gtk_set_image_with_dependencies(gtk, rt->ocl->dto.buffer);
 	gtk_set_ui_widgets(&gtk->ui);
+
+	gtk->ui.add_shape = gtk_button_new_with_mnemonic("_New shape");
+	gtk_widget_set_halign(gtk->ui.add_shape, GTK_ALIGN_START);
+	gtk_button_set_image_position(GTK_BUTTON(gtk->ui.add_shape), GTK_POS_TOP);
+	gtk_button_set_always_show_image(GTK_BUTTON(gtk->ui.add_shape), TRUE);
+	gtk_button_set_image(GTK_BUTTON(gtk->ui.add_shape),
+		gtk_image_new_from_file("extras/icons/new_shape.png"));
+
 	gtk_set_shape_widgets(&gtk->ui.shape, rt->scene);
 	gtk_set_shapes_tree(&gtk->ui.shapes, rt);
 	gtk_set_textures_tree(&gtk->ui.texture, "_Textures", rt->scene->textures);

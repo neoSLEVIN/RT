@@ -34,6 +34,7 @@ SECTION		parse_section_idx(const JC_FIELD parent, const size_t index,
 						FLT3 dto_position);
 _Bool		parse_section_style(const JC_FIELD parent, const char *child_name);
 SHAPE_TYPE	parse_section_type(const JC_FIELD parent, const char *child_name);
+void		init_default_shape_sections(DTO_SHAPE *dto);
 /*
 ** ============================== Parse textures ===============================
 */

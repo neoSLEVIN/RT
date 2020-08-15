@@ -283,6 +283,7 @@ typedef struct		s_ui
 {
 	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
+	GtkWidget		*add_shape;
 	t_gtk_shape		*shape;
 	t_gtk_shapes	shapes;
 	t_gtk_textures	texture;
@@ -427,6 +428,7 @@ void				shapes_tree_double_click(GtkTreeView *tree,
 									gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
+void				new_shape(GtkButton *button, gpointer data);
 
 /*
 ** =============================================================================
@@ -523,5 +525,9 @@ void				clear_rt(t_rt *rt);
 void				clear_lights(LIGHT **light);
 void				clear_shapes(SHAPE **shape);
 char				*get_shape_type_name(SHAPE_TYPE type);
+SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
+void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
+void				gtk_new_shape_update_everything(t_rt *rt,
+										t_gtk_shapes *gtk_shapes, SHAPE *shape);
 
 #endif

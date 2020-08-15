@@ -1,6 +1,6 @@
 #include "parser.h"
 
-static void	init_default_shape_sections(DTO_SHAPE *dto)
+void	init_default_shape_sections(DTO_SHAPE *dto)
 {
 	int	i;
 

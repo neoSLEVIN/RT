@@ -78,6 +78,8 @@ void	shape_to_false(t_info *info)
 	info->update_s_param = FALSE;
 }
 
+
+
 void	init_info(t_info **info)
 {
 	if (!(*info = (t_info*)malloc(sizeof(t_info))))
@@ -93,4 +95,5 @@ void	init_info(t_info **info)
 	(*info)->shape_id = -1;
 	(*info)->l_marker = NULL;
 	(*info)->s_marker = NULL;
+	(*info)->s_copy = NULL;
 }

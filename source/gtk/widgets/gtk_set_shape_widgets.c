@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-static SHAPE	*get_default_shape(SHAPE *shape, DTO_SHAPE *dto)
+SHAPE	*get_default_shape(SHAPE *shape, DTO_SHAPE *dto)
 {
 	shape->tree_iter = NULL;
 	shape->name = NULL;
@@ -22,7 +22,6 @@ static SHAPE	*get_default_shape(SHAPE *shape, DTO_SHAPE *dto)
 	shape->texture_name = NULL;
 	shape->normal_map_name = NULL;
 	shape->dto = dto;
-	shape->dto->type = SPHERE;
 	return (shape);
 }
 
@@ -335,6 +334,7 @@ void			gtk_set_shape_widgets(t_gtk_shape **gtk_shape, SCENE *scene)
 	if ((*gtk_shape = (t_gtk_shape*)malloc(sizeof(t_gtk_shape))) == NULL)
 		ft_error("Can't allocate memory");
 	(*gtk_shape)->shape = scene_shape ? scene_shape : NULL;
+	default_dto_shape.type = SPHERE;
 	if (!scene_shape)
 		scene_shape = get_default_shape(&default_shape, &default_dto_shape);
 	(*gtk_shape)->expander = gtk_expander_new_with_mnemonic("_Shape");

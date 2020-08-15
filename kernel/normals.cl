@@ -1,6 +1,6 @@
 
 
-float3 sphere_normal(float3 hitpoint, float3 position, float3 rayDir) {
+float3 sphere_normal(float3 hitpoint, float3 position) {
 	float3 normal;
 	normal = normalize(hitpoint - position);
 	return normal;
@@ -135,7 +135,7 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 	switch (hit_obj->type)
 	{
 		case SPHERE:
-			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position, ray->dir);
+			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position);
 			break;
 		case PLANE:
 			normal = plane_normal(hit_obj->transform.direction, ray->dir);

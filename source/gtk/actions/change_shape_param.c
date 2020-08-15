@@ -15,9 +15,9 @@
 _Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 {
 	cl_float	coefficient;
-	_Bool		res;
+	int			without_changes;
 
-	res = TRUE;
+	without_changes = 0;
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
@@ -47,16 +47,16 @@ _Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 		if (params->x < 0.1f)
 			params->x = 0.1f;
 		else if (params->x * coefficient < 0.1f)
-			res = FALSE;
+			++without_changes;
 		else
 			params->x *= coefficient;
 		if (params->y < 0.1f)
 			params->y = 0.1f;
 		else if (params->y * coefficient < 0.1f)
-			res = FALSE;
+			++without_changes;
 		else
 			params->y *= coefficient;
-		return (res);
+		return (without_changes == 2 ? FALSE : TRUE);
 	}
 	else
 		ft_error("Unknown type (change_shape_param)");

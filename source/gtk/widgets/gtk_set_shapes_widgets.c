@@ -44,7 +44,7 @@ static void	gtk_insert_rows_in_shape_tree(SHAPE *shape, t_gtk_shapes *shapes)
 
 void		gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt)
 {
-	shapes->expander = gtk_expander_new_with_mnemonic("_Shapes");
+	shapes->expander = gtk_expander_new_with_mnemonic("Sh_apes");
 	shapes->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(
 		shapes->scrolled_window), 200);

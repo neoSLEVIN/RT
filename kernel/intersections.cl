@@ -15,7 +15,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	coef[2] = dot(new_origin, new_origin) - sphere->params.x * sphere->params.x;
 	discriminant = coef[1] * coef[1] - 4.0 * coef[0] * coef[2];
 	if (discriminant < 0.0f)
-		return (0);
+		return (-1.0f);
 
 	t[0] = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
 	t[1] = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);

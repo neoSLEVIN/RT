@@ -22,16 +22,20 @@ void	gtk_set_textures_positions(t_gtk_textures *textures)
 void	gtk_set_ui_positions(t_ui *ui)
 {
 	gtk_container_add(GTK_CONTAINER(ui->scrolled_window), ui->grid);
-	gtk_grid_attach(GTK_GRID(ui->grid), ui->shape->expander,
+
+	gtk_grid_attach(GTK_GRID(ui->grid), ui->add_shape,
 		0, 0, 1, 1);
+
+	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->shape->expander,
+		ui->add_shape, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->shapes.expander,
-		ui->shape->expander, GTK_POS_BOTTOM, 1, 1);
+		ui->shape->expander, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->texture.expander,
-		ui->shapes.expander, GTK_POS_BOTTOM, 1, 1);
+		ui->shapes.expander, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->normals.expander,
-		ui->texture.expander, GTK_POS_BOTTOM, 1, 1);
+		ui->texture.expander, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->settings.expander,
-		ui->normals.expander, GTK_POS_BOTTOM, 1, 1);
+		ui->normals.expander, GTK_POS_BOTTOM, 2, 1);
 }
 
 void	gtk_set_positions(t_gtk *gtk)

@@ -74,6 +74,8 @@ typedef struct	s_info
 	int			shape_id;
 	LIGHT		*l_marker;
 	SHAPE		*s_marker;
+	SHAPE		*s_copy;
+	DTO_SHAPE	default_shape_dto;
 }				t_info;
 
 #endif
