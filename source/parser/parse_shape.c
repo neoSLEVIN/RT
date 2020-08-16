@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-static char		*unnamed_shape(size_t index)
+char		*unnamed_obj(size_t index)
 {
 	char	*name;
 	char	*str_index;
@@ -90,8 +90,8 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	init_default_shape_params(shape);
 	shape->name = jc_get_string(shape_field, "name", TRUE);
 	if (!shape->name)
-		shape->name = unnamed_shape(index);
-	length = ft_strlen(shape->name);
+		shape->name = unnamed_obj(index);
+	length = ft_strlen_rus(shape->name);
 	if (length == 0 || length > 20)
 		parse_error(jc_full_name(shape_field), "name",
 			"The field length must be in the range (0; 20].");

@@ -20,7 +20,6 @@
 # include "parser.h"
 # include "ocl.h"
 
-// TODO dynamic value
 # define STEP 0.5
 # define UI_WIDTH 400
 # define GTK_SELECT GtkTreeSelection
@@ -452,12 +451,11 @@ void				make_action(t_rt *rt);
 void				increase_holders_cnt(int *count, _Bool *button, t_rt *rt);
 void				decrease_holders_cnt(int *count, _Bool *button);
 /*
-** ================= Update the marked (selected) shape/light ==================
+** ==================== Update the marked (selected) shape =====================
 */
 void				get_shape_id(t_rt *rt);
 void				update_shape_marker(t_rt *rt, SHAPE *shape);
 void				clear_shape_marker(t_rt *rt);
-void				clear_light_marker(t_rt *rt);
 void				update_shapes_flags(_Bool *update_shapes,
 										_Bool *update_property);
 /*

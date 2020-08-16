@@ -50,9 +50,7 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 	if (type != PLANE)
 		gtk_widget_set_visible(tab->params_frame, TRUE);
 	if (type == PLANE)
-	{
-		//TODO before defending delete this and else
-	}
+		(void)type;
 	else if (type == SPHERE || type == CYLINDER)
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 	else if (type == CONE)
@@ -69,9 +67,7 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 static void	update_gtk_shape_params(t_main_tab *tab, DTO_SHAPE *dto)
 {
 	if (dto->type == PLANE)
-	{
-		//TODO before defending delete this and else
-	}
+		(void)dto;
 	else if (dto->type == SPHERE || dto->type == CYLINDER)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
 			dto->params.x);

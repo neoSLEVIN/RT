@@ -59,7 +59,6 @@ MATERIAL	parse_material(const JC_FIELD parent, const char *child_name)
 		jc_get_float_or_default(material_field, "reflective", 0.0f);
 	material.transparency =
 		jc_get_float_or_default(material_field, "transparency", 0.0f);
-	// TODO add validation for params
 	validate_material(material,material_field);
 	return (material);
 }

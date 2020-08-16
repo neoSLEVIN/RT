@@ -19,8 +19,6 @@ void	jcp_free_tree(JCP_OBJ **obj)
 	jcp_free_tree(&(*obj)->next);
 	jcp_free_tree(&(*obj)->child);
 	jcp_free_tree(&(*obj)->trash);
-	if (DEBUG) // TODO DELETE THIS BEFORE DEFENDING
-		ft_printf("%s\n", (*obj)->full_name);
 	ft_strdel(&(*obj)->full_name);
 	ft_memdel((void**)obj);
 }

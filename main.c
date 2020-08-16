@@ -12,18 +12,6 @@
 
 #include "gtk_module.h"
 
-// TODO delete it before defending
-void	test_ocl(t_ocl *ocl)
-{
-	for (int i = 0; i < ocl->work_size; ++i)
-		if (ocl->dto.buffer[i].x != 0 || ocl->dto.buffer[i].y != 0 || ocl->dto.buffer[i].z != 0)
-			ft_printf("%{}.f %{}.f %{}.f\t",
-					  FT_BLUE, ocl->dto.buffer[i].x,
-					  FT_PURPLE, ocl->dto.buffer[i].y,
-					  FT_YELLOW, ocl->dto.buffer[i].z);
-	ft_putendl("\n");
-}
-
 static void	usage(char *app_name)
 {
 	ft_printf("Usage:\t%s\n", app_name);

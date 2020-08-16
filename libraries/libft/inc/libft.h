@@ -130,5 +130,6 @@ int					ft_printf(const char *format, ...);
 void				ft_del(void *content, size_t content_size);
 char				*ft_get_text_file(const char *filename, size_t max_size);
 void				ft_error(char *message);
+size_t				ft_strlen_rus(const char *s);
 
 #endif

@@ -27,7 +27,6 @@ typedef struct			s_light
 	float				intensity;
 	float3				position;
 	float3				direction;
-	bool				marker;
 }						t_light;
 
 typedef struct			s_transform

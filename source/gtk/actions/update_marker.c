@@ -73,10 +73,3 @@ void		clear_shape_marker(t_rt *rt)
 	}
 	rt->info->s_marker = NULL;
 }
-
-void		clear_light_marker(t_rt *rt)
-{
-	if (rt->info->l_marker && rt->info->l_marker->dto)
-		rt->info->l_marker->dto->marker = FALSE;
-	rt->info->l_marker = NULL;
-}

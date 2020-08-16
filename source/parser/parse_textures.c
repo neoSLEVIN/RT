@@ -45,7 +45,6 @@ TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
 	}
 	if (!(*texture_name = jc_get_string(texture_field, "name", TRUE)))
 		texture.id = -1;
-	//TODO check for our inside textures (checkmate, etc)
 	else if ((texture.id =
 				check_for_texture_name(textures, *texture_name)) == -1)
 		parse_error(jc_full_name(texture_field), "name",
@@ -89,7 +88,7 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 	texture->next = NULL;
 	texture->dto = NULL;
 	texture->name = jc_get_string(texture_field, "name", FALSE);
-	length = ft_strlen(texture->name);
+	length = ft_strlen_rus(texture->name);
 	if (length == 0 || length > 20)
 		parse_error(jc_full_name(texture_field), "name",
 			"The field length must be in the range (0; 20].");

@@ -110,7 +110,7 @@ set(SRCNAME_LIBFT
         libraries/libft/src/ft_strsplit_del.c
         libraries/libft/src/ft_get_text_file.c
         libraries/libft/src/ft_str_to_upper.c
-)
+        libraries/libft/src/ft_strlen_rus.c)
 
 set(LIBFTPRINTF_SRC ${LIBFT_SRC}/libftprintf)
 include_directories(${LIBFTPRINTF_SRC})

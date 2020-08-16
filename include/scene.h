@@ -42,7 +42,6 @@ struct			s_dto_light
 	cl_float	intensity;
 	FLT3		position;
 	FLT3		direction;
-	_Bool		marker;
 };
 /*
 ** === Light Node (Contains DTO, references to next/prev nodes and widgets) ====
@@ -52,7 +51,6 @@ struct			s_light
 {
 	DTO_LIGHT	*dto;
 	char		*name;
-	void		*widgets;
 	LIGHT		*prev;
 	LIGHT		*next;
 };

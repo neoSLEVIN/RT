@@ -16,8 +16,6 @@
 # include "libft.h"
 # include "jc_data.h"
 
-//TODO delete this before defending
-# define DEBUG 0
 /*
 ** =============================================================================
 ** ============================= Private functions =============================

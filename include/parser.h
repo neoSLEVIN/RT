@@ -78,5 +78,9 @@ MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);
 */
 void		parse_error(const char *parent_name, const char *child_name,
 						const char *cause);
+/*
+** =================================== Utils ===================================
+*/
+char		*unnamed_obj(size_t index);
 
 #endif
