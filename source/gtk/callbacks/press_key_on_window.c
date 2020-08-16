@@ -126,6 +126,12 @@ static void	paste_shape(t_rt *rt)
 			v3_scale(rt->ocl->dto.cam.forward, 50)));
 	if (!(shape->name = ft_strdup(rt->info->s_copy->name)))
 		ft_error("Can't allocate memory");
+	if (rt->scene->shapes == NULL)
+	{
+		rt->scene->shapes = shape;
+		return (gtk_new_shape_update_everything(rt, &rt->gtk->ui.shapes,
+												shape));
+	}
 	temp = rt->scene->shapes;
 	while (temp->next)
 		temp = temp->next;

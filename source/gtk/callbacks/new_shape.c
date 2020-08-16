@@ -11,6 +11,11 @@ static SHAPE	*gtk_new_shape_init(t_rt *rt)
 	init_default_shape_dto(&rt->ocl->dto.cam, shape->dto);
 	if (!(shape->name = ft_strdup("Shape")))
 		ft_error("Can't allocate memory");
+	if (rt->scene->shapes == NULL)
+	{
+		rt->scene->shapes = shape;
+		return (shape);
+	}
 	temp = rt->scene->shapes;
 	while (temp->next)
 		temp = temp->next;

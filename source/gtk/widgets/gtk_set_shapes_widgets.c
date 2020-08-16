@@ -16,6 +16,8 @@ static void	gtk_insert_columns_in_shape_tree(t_gtk_shapes *shapes)
 {
 	shapes->text_renderer = gtk_cell_renderer_text_new();
 	shapes->toggle_renderer = gtk_cell_renderer_toggle_new();
+	shapes->pixbuf_renderer = gtk_cell_renderer_pixbuf_new();
+	g_object_set(shapes->pixbuf_renderer, "icon-name", "window-close", NULL);
 	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(shapes->tree),
 		S_NAME_COL, "Name", shapes->text_renderer, "text", S_NAME_COL, NULL);
 	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(shapes->tree),
@@ -23,6 +25,9 @@ static void	gtk_insert_columns_in_shape_tree(t_gtk_shapes *shapes)
 	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(shapes->tree),
 		S_MARKER_COL, "Marked", shapes->toggle_renderer,
 		"active", S_MARKER_COL, NULL);
+	gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(shapes->tree),
+		S_DELETE_COL, "Delete", shapes->pixbuf_renderer,
+		NULL);
 }
 
 static void	gtk_insert_rows_in_shape_tree(SHAPE *shape, t_gtk_shapes *shapes)
@@ -51,7 +56,8 @@ void		gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(shapes->scrolled_window),
 		GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	shapes->store = gtk_tree_store_new(S_COL_CNT,
-		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_POINTER);
+		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+		G_TYPE_POINTER);
 	shapes->model = GTK_TREE_MODEL(shapes->store);
 	gtk_insert_rows_in_shape_tree(rt->scene->shapes, shapes);
 	shapes->tree = gtk_tree_view_new_with_model(GTK_TREE_MODEL(shapes->store));
@@ -59,4 +65,5 @@ void		gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt)
 	gtk_insert_columns_in_shape_tree(shapes);
 	shapes->select = gtk_tree_view_get_selection(GTK_TREE_VIEW(shapes->tree));
 	gtk_tree_selection_set_mode(shapes->select, GTK_SELECTION_SINGLE);
+	shapes->path = NULL;
 }

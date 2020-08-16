@@ -224,18 +224,21 @@ typedef struct		s_gtk_shapes
 	GtkTreeStore	*store;
 	GtkTreeModel	*model;
 	GtkTreeIter		iter;
+	GtkTreePath		*path;
 	GTK_SELECT		*select;
 	GtkCellRenderer	*text_renderer;
 	GtkCellRenderer	*toggle_renderer;
+	GtkCellRenderer	*pixbuf_renderer;
 }					t_gtk_shapes;
 /*
 ** ========================== Columns for shapes tree ==========================
 */
 typedef enum		e_shapes_column
 {
+	S_MARKER_COL,
 	S_NAME_COL,
 	S_TYPE_COL,
-	S_MARKER_COL,
+	S_DELETE_COL,
 	S_POINTER_COL,
 	S_COL_CNT
 }					t_shapes_column;
