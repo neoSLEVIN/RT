@@ -27,5 +27,6 @@ TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name)
 			"The vector must not be a zero vector.");
 	trans.rotation = parse_cl_float3_or_default(transform_field, "rotation",
 		(FLT3){0.0f, 0.0f, 0.0f});
+	trans.rotation = v3_norm(trans.rotation);
 	return (trans);
 }

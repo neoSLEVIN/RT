@@ -183,9 +183,16 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
     float3   v;
     
     t = plane_intersect(ray, plane);
+	if (fabs(t) < 0.1f) {
+		return -1.0f;
+	}
     hitPoint = ray->origin + t * ray->dir;
-    set_uv_basis(plane->transform.direction, &u, &v);
     
+	
+	u = plane->transform.rotation;
+	v = cross(plane->transform.direction, u);
+
+	 
     float3 fromOrigToHit = plane->transform.position - hitPoint;
     float3 w_vec = plane->params.x * u;
     float3 h_vec = plane->params.y * v;
@@ -201,16 +208,39 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
 }
 
 
+
 float cappedplane_instersect(t_ray *ray, t_object *plane)
 {
     float    t;
     float    t1;
-
-    
+	float	 t2;
+	float	 t3;
+	float	 t4;
+	
+	float3 u = plane->transform.rotation;
+	float3 norm = plane->transform.direction;
+    float3 v = cross(norm, u);
+	
     t = cappedplane_instersect2(ray, plane);
     plane->transform.position = plane->transform.position + plane->transform.direction * 3;
     t1 = cappedplane_instersect2(ray, plane);
-    return minT(t, t1);
+	
+	plane->transform.direction = u;
+	plane->transform.rotation = v;
+	t2 = cappedplane_instersect2(ray, plane);
+	
+	plane->transform.position = plane->transform.position - plane->transform.direction * 3;
+	t3 = cappedplane_instersect2(ray, plane);
+	
+	plane->transform.direction = v;
+	plane->transform.rotation = -u;
+	t4 = cappedplane_instersect2(ray, plane);
+	
+	float r = minT(t1, t2);
+	float r1 = minT(r,t3);
+	float r2 = minT(r1,t4);
+	 
+    return minT(t, r2);
 }
 
 
