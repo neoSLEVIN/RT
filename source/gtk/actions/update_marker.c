@@ -34,8 +34,6 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
-		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = shape;
 	if (shape && shape->dto)
@@ -47,8 +45,6 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)shape->tree_iter,
 			S_MARKER_COL, TRUE,
 			-1);
-		if (shape == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 }
 
@@ -68,8 +64,6 @@ void		clear_shape_marker(t_rt *rt)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
-		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = NULL;
 }

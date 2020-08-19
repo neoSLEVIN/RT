@@ -29,7 +29,6 @@ typedef struct	s_info
 	_Bool		update;
 	_Bool		update_cam;
 	_Bool		update_s_name;
-	_Bool		update_s_marker;
 	_Bool		update_s_main;
 	_Bool		update_s_pos;
 	_Bool		update_s_rot;
@@ -40,6 +39,10 @@ typedef struct	s_info
 	_Bool		update_s_param;
 	_Bool		update_shapes;
 	_Bool		update_s_cnt;
+	_Bool		update_lights;
+	_Bool		update_l_cnt;
+	_Bool		update_l_name;
+	_Bool		update_l_params;
 	int			keyhold_cnt;
 	_Bool		space_key;
 	_Bool		c_key;
@@ -72,7 +75,6 @@ typedef struct	s_info
 	INT2		lmc_current_pos;
 	INT2		axis;
 	int			shape_id;
-	LIGHT		*l_marker;
 	SHAPE		*s_marker;
 	SHAPE		*s_copy;
 	DTO_SHAPE	default_shape_dto;

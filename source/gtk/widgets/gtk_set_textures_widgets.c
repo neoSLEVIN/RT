@@ -18,7 +18,7 @@ void	gtk_set_textures_tree(t_gtk_textures *textures, const char *name,
 	textures->expander = gtk_expander_new_with_mnemonic(name);
 	textures->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_min_content_height(GTK_SCROLLED_WINDOW(
-		textures->scrolled_window), 200);
+		textures->scrolled_window), 110);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(
 		textures->scrolled_window),
 		GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

@@ -93,7 +93,6 @@ static void	update_gtk_shape_main(t_main_tab tab, SHAPE *shape)
 	do_invisible_params(&tab);
 	do_visible_params(&tab, shape->dto->type);
 	update_gtk_shape_params(&tab, shape->dto);
-
 }
 
 static void	update_gtk_shape_tex(t_texture_tab tab,

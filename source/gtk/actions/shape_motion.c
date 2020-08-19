@@ -36,7 +36,7 @@ void	move_shape_by_camera_movement(t_rt *rt, guint key)
 	else
 		return ;
 	move_sections_by_camera_movement(rt->info->s_marker->dto, cam, key);
-	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
+	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;
 }
 
@@ -76,7 +76,7 @@ void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
 	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
 		rt->info->s_marker->dto->sections);
-	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
+	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;
 }
 
@@ -105,7 +105,7 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	rt->info->lmc_start_pos = rt->info->lmc_current_pos;
 	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
 		rt->info->s_marker->dto->sections);
-	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
+	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;
 }
 
@@ -141,6 +141,6 @@ void	rotate_shape(t_rt *rt, guint key)
 	else
 		return ;
 	rotate_sections(rt->info->s_marker->dto, cam, angle, key);
-	update_shapes_flags(&rt->info->update_shapes, &rt->info->update_s_rot);
+	update_flags(&rt->info->update_shapes, &rt->info->update_s_rot);
 	rt->info->update_s_sec = TRUE;
 }

@@ -288,7 +288,7 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
         source/gtk/utils/cleaner.c
-        source/gtk/utils/get_shape_type_name.c
+        source/gtk/utils/get_type_name.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_widgets.c
         source/gtk/settings/gtk_set_signals.c
@@ -296,7 +296,7 @@ set(SRCNAME_GTK
         source/gtk/widgets/gtk_set_shapes_widgets.c
         source/gtk/widgets/gtk_set_ui_widgets.c
         source/gtk/widgets/gtk_set_shape_widgets.c
-        source/gtk/widgets/gtk_set_spin_button_for_float.c
+        source/gtk/widgets/gtk_set_spin_button.c
         source/gtk/widgets/gtk_set_image_widgets.c
         source/gtk/widgets/gtk_set_settings_widgets.c
         source/gtk/widgets/gtk_set_textures_widgets.c
@@ -309,7 +309,6 @@ set(SRCNAME_GTK
         source/gtk/callbacks/fps_scale_moved.c
         source/gtk/callbacks/change_axis.c
         source/gtk/callbacks/draw_by_timeout.c
-        source/gtk/callbacks/spin_button_scroll_locker.c
         source/gtk/callbacks/shapes_tree_double_click.c
         source/gtk/actions/update_marker.c
         source/gtk/actions/holders_cnt.c
@@ -326,8 +325,8 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shapes_tree_selection_changer.c
         source/gtk/actions/update_shape_widget.c
         source/gtk/signals/gtk_set_shape_signals.c
-        source/gtk/callbacks/spin_button_position_changer.c
-        source/gtk/actions/update_shapes_flags.c source/gtk/actions/sections_motion.c source/gtk/actions/filters/compute_filter.c source/gtk/actions/filters/compute_blur.c source/gtk/actions/filters/blur_functions.c source/gtk/actions/filters/matrix_functions.c source/gtk/utils/init_default_shape_dto.c source/gtk/callbacks/new_shape.c)
+        source/gtk/callbacks/shape/spin_button_section_radius_changer.c
+        source/gtk/actions/update_flags.c source/gtk/actions/sections_motion.c source/gtk/actions/filters/compute_filter.c source/gtk/actions/filters/compute_blur.c source/gtk/actions/filters/blur_functions.c source/gtk/actions/filters/matrix_functions.c source/gtk/utils/init_default_shape_dto.c source/gtk/callbacks/new_shape.c source/gtk/widgets/gtk_set_lights_widgets.c source/gtk/positions/gtk_set_lights_positions.c source/gtk/signals/gtk_set_lights_signals.c source/gtk/callbacks/lights_tree_selection_changer.c source/gtk/callbacks/shapes_tree_single_click.c source/gtk/callbacks/lights_tree_single_click.c source/gtk/widgets/gtk_set_light_widgets.c source/gtk/positions/gtk_set_light_positions.c source/gtk/actions/update_light_widget.c source/gtk/signals/gtk_set_light_signals.c source/gtk/callbacks/light/light_expander_callback.c source/gtk/callbacks/shape/shape_expander_callback.c source/gtk/callbacks/shape/switch_page_shape_notebook.c source/gtk/callbacks/shape/spin_button_shape_material_changer.c source/gtk/callbacks/shape/cell_editable_holders.c source/gtk/callbacks/shape/section_callbacks.c source/gtk/callbacks/shape/color_activated_changer.c source/gtk/callbacks/shape/changing_shape_type.c source/gtk/callbacks/shape/changing_textures_normals.c source/gtk/callbacks/shape/press_key_on_shape_name.c source/gtk/callbacks/light/press_key_on_light_name.c source/gtk/callbacks/light/changing_light_type.c source/gtk/signals/gtk_set_buttons_signals.c source/gtk/widgets/gtk_set_buttons_widgets.c source/gtk/positions/gtk_set_textures_positions.c source/gtk/positions/gtk_set_buttons_positions.c source/gtk/callbacks/shape/spin_button_shape_angle_changer.c source/gtk/callbacks/shape/spin_button_shape_height_changer.c source/gtk/callbacks/shape/spin_button_shape_radius_changer.c source/gtk/actions/new_shape_update_everything.c source/gtk/callbacks/shape/spin_button_shape_position_changer.c source/gtk/callbacks/shape/spin_button_section_position_changer.c source/gtk/callbacks/shape/spin_button_section_direction_changer.c source/gtk/callbacks/light/spin_button_light_intensity_changer.c source/gtk/callbacks/light/spin_button_light_position_changer.c source/gtk/callbacks/light/spin_button_light_direction_changer.c)
 
 if (APPLE)
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})

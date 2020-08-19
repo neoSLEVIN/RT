@@ -75,8 +75,7 @@ void	change_shape_param(t_rt *rt)
 	if (do_change_shape_param(&rt->info->s_marker->dto->params,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 	{
-		update_shapes_flags(&rt->info->update_shapes,
-							&rt->info->update_s_param);
+		update_flags(&rt->info->update_shapes, &rt->info->update_s_param);
 		rt->info->update_s_main = TRUE;
 	}
 	rt->info->scroll_cnt = 0;

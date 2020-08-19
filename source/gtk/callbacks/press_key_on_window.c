@@ -129,15 +129,14 @@ static void	paste_shape(t_rt *rt)
 	if (rt->scene->shapes == NULL)
 	{
 		rt->scene->shapes = shape;
-		return (gtk_new_shape_update_everything(rt, &rt->gtk->ui.shapes,
-												shape));
+		return (new_shape_update_everything(rt, &rt->gtk->ui.shapes, shape));
 	}
 	temp = rt->scene->shapes;
 	while (temp->next)
 		temp = temp->next;
 	temp->next = shape;
 	shape->prev = temp;
-	gtk_new_shape_update_everything(rt, &rt->gtk->ui.shapes, shape);
+	new_shape_update_everything(rt, &rt->gtk->ui.shapes, shape);
 }
 
 gboolean		press_key_on_window(GtkWidget *window, GdkEventKey *event,
@@ -148,7 +147,8 @@ gboolean		press_key_on_window(GtkWidget *window, GdkEventKey *event,
 	(void)window;
 	rt = (t_rt*)data;
 	if (event->state == GDK_MOD1_MASK ||
-			gtk_widget_is_focus(rt->gtk->ui.shape->main.name_changer))
+			gtk_widget_is_focus(rt->gtk->ui.shape->main.name_changer) ||
+			gtk_widget_is_focus(rt->gtk->ui.light->name_changer))
 		return (FALSE);
 	if (event->state == GDK_CONTROL_MASK &&
 			(event->keyval == GDK_KEY_c || event->keyval == GDK_KEY_v))

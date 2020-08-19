@@ -51,6 +51,7 @@ struct			s_light
 {
 	DTO_LIGHT	*dto;
 	char		*name;
+	void		*tree_iter;
 	LIGHT		*prev;
 	LIGHT		*next;
 };

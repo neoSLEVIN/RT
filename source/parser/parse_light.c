@@ -54,6 +54,7 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index)
 		ft_error("Can't allocate memory");
 	light->prev = NULL;
 	light->next = NULL;
+	light->tree_iter = NULL;
 	light->name = parse_light_name(&light_field, index);
 	light->dto->type = parse_light_type(light_field, "type");
 	light->dto->intensity = jc_get_float(light_field, "intensity");
