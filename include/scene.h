@@ -184,7 +184,6 @@ struct			s_dto_cam
 # define CAMERA struct s_camera
 struct			s_camera
 {
-//	DTO_CAM		*dto;
 	FLT3		position;
 	FLT3		direction;
 	cl_float	rotation;

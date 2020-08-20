@@ -12,7 +12,7 @@
 
 #include "ocl.h"
 
-void	set_memory_input_seeds(t_ocl *ocl)
+void		set_memory_input_seeds(t_ocl *ocl)
 {
 	cl_int			err;
 	int				i;
@@ -38,20 +38,11 @@ void	set_memory_input_seeds(t_ocl *ocl)
 	check_error_cl(err,"clEnqueueWriteBuffer", NULL);
 }
 
-void	set_memory_input(t_ocl *ocl, SCENE *scene)
+static void	set_memory_input_textures_normals(t_ocl *ocl, SCENE *scene)
 {
 	cl_int	err;
 	int		alloc_size;
 
-	alloc_size = (scene->s_cnt == 0) ? 1 : scene->s_cnt;
-	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-		sizeof(DTO_SHAPE) * alloc_size, ocl->dto.shapes, &err);
-	check_error_cl(err,"clCreateBuffer", "input_shapes");
-	ocl->dto.input_lights = clCreateBuffer(ocl->context,
-		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-		sizeof(DTO_LIGHT) * scene->l_cnt, ocl->dto.lights, &err);
-	check_error_cl(err,"clCreateBuffer", "input_lights");
 	alloc_size = (scene->t_cnt == 0) ? 1 : scene->t_cnt;
 	ocl->dto.input_texture = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
 		sizeof(DTO_PPM_IMG) * alloc_size, NULL, &err);
@@ -63,7 +54,6 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 			ocl->dto.textures, 0, NULL, NULL);
 		check_error_cl(err,"clEnqueueWriteBuffer", "input_texture");
 	}
-	
 	alloc_size = (scene->n_cnt == 0) ? 1 : scene->n_cnt;
 	ocl->dto.input_normal_maps = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
 		sizeof(DTO_PPM_IMG) * alloc_size, NULL, &err);
@@ -77,7 +67,24 @@ void	set_memory_input(t_ocl *ocl, SCENE *scene)
 	}
 }
 
-void	set_memory_output(t_ocl *ocl)
+void		set_memory_input(t_ocl *ocl, SCENE *scene)
+{
+	cl_int	err;
+	int		alloc_size;
+
+	alloc_size = (scene->s_cnt == 0) ? 1 : scene->s_cnt;
+	ocl->dto.input_shapes = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(DTO_SHAPE) * alloc_size, ocl->dto.shapes, &err);
+	check_error_cl(err,"clCreateBuffer", "input_shapes");
+	ocl->dto.input_lights = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(DTO_LIGHT) * scene->l_cnt, ocl->dto.lights, &err);
+	check_error_cl(err,"clCreateBuffer", "input_lights");
+	set_memory_input_textures_normals(ocl, scene);
+}
+
+void		set_memory_output(t_ocl *ocl)
 {
 	cl_int	err;
 

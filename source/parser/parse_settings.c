@@ -12,35 +12,41 @@
 
 #include "parser.h"
 
-FILTER	parse_filter_type(const JC_FIELD parent, const char *child_name)
+static void	set_filter_type_by_str(const JC_FIELD parent,
+						const char *child_name, char *str_type, FILTER *filter)
 {
-	char		*str_type;
-	FILTER		filter;
-	
-	filter = NO_FILTER;
-	str_type = ft_str_to_upper(jc_get_string_or_default(parent, child_name,
-		"NO FILTERS"));
 	if (ft_strequ(str_type, "SEPIA"))
-		filter = SEPIA;
+		*filter = SEPIA;
 	else if (ft_strequ(str_type, "NEGATIVE"))
-		filter = NEGATIVE;
+		*filter = NEGATIVE;
 	else if (ft_strequ(str_type, "NOISE"))
-		filter = NOISE;
+		*filter = NOISE;
 	else if (ft_strequ(str_type, "SHADES OF GRAY"))
-		filter = SHADES_OF_GRAY;
+		*filter = SHADES_OF_GRAY;
 	else if (ft_strequ(str_type, "BLUR"))
-		filter = BLUR;
+		*filter = BLUR;
 	else if (ft_strequ(str_type, "EMBOSS"))
-		filter = EMBOSS;
+		*filter = EMBOSS;
 	else if (ft_strequ(str_type, "SHARPEN"))
-		filter = SHARPEN;
+		*filter = SHARPEN;
 	else if (ft_strequ(str_type, "NO FILTERS"))
-		filter = NO_FILTER;
+		*filter = NO_FILTER;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of filter.\n\t"
 			"Allowed types: [SEPIA, NEGATIVE, NOISE, SHADES OF GRAY, BLUR, "
 			"EMBOSS, SHARPEN, NO FILTERS]");
+}
+
+FILTER		parse_filter_type(const JC_FIELD parent, const char *child_name)
+{
+	char		*str_type;
+	FILTER		filter;
+
+	filter = NO_FILTER;
+	str_type = ft_str_to_upper(jc_get_string_or_default(parent, child_name,
+		"NO FILTERS"));
+	set_filter_type_by_str(parent, child_name, str_type, &filter);
 	ft_strdel(&str_type);
 	return (filter);
 }
@@ -51,7 +57,7 @@ static void	default_settings(SCENE *scene)
 	scene->filter = NO_FILTER;
 }
 
-void parse_settings(JC_FIELD json_field, SCENE *scene)
+void 		parse_settings(JC_FIELD json_field, SCENE *scene)
 {
 	JC_FIELD	settings_field;
 

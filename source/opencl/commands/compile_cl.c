@@ -46,7 +46,8 @@ void		compile_cl(t_ocl *ocl)
 	options = BUILD_OPTIONS_CL;
 	get_kernel_text(&ocl->kernel_text, &ocl->kernel_size);
 	ocl->program = clCreateProgramWithSource(ocl->context, 1,
-		(const char **)&ocl->kernel_text, (const size_t *)&ocl->kernel_size, &err);
+		(const char **)&ocl->kernel_text, (const size_t *)&ocl->kernel_size,
+		&err);
 	check_error_cl(err, "clCreateProgramWithSource", NULL);
 	ft_strdel(&ocl->kernel_text);
 	err = clBuildProgram(ocl->program, 1, &ocl->device, options, NULL, NULL);

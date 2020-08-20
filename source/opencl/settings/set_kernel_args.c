@@ -12,7 +12,15 @@
 
 #include "ocl.h"
 
-void	set_kernel_args(cl_kernel kernel, t_dto *dto)
+static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
+{
+	cl_int	err;
+
+	err = clSetKernelArg(kernel, 11, sizeof(cl_mem), &dto->output_id);
+	check_error_cl(err,"clSetKernelArg", "output_id");
+}
+
+void		set_kernel_args(cl_kernel kernel, t_dto *dto)
 {
 	cl_int	err;
 
@@ -38,6 +46,5 @@ void	set_kernel_args(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err,"clSetKernelArg", "input_normal_maps");
 	err = clSetKernelArg(kernel, 10, sizeof(FILTER), dto->filter);
 	check_error_cl(err,"clSetKernelArg", "filter");
-	err = clSetKernelArg(kernel, 11, sizeof(cl_mem), &dto->output_id);
-	check_error_cl(err,"clSetKernelArg", "output_id");
+	set_kernel_args2(kernel, dto);
 }
