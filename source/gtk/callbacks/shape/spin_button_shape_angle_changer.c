@@ -6,6 +6,7 @@ static gboolean	spin_button_shape_angle_changer_safe(gpointer data)
 	FLT3	*params;
 
 	rt = (t_rt*)data;
+	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	params = &rt->gtk->ui.shape->shape->dto->params;
 	params->x = deg_to_rad(gtk_spin_button_get_value(GTK_SPIN_BUTTON(
 										rt->gtk->ui.shape->main.angle.spin)));

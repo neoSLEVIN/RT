@@ -24,13 +24,19 @@ static SHAPE	*new_shape_init(t_rt *rt)
 	return (shape);
 }
 
-void			new_shape(GtkButton *button, gpointer data)
+static gboolean	new_shape_safe(gpointer data)
 {
 	t_rt	*rt;
 	SHAPE	*shape;
 
-	(void)button;
 	rt = (t_rt*)data;
 	shape = new_shape_init(rt);
 	new_shape_update_everything(rt, &rt->gtk->ui.shapes, shape);
+	return (FALSE);
+}
+
+void			new_shape(GtkButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(new_shape_safe, data);
 }

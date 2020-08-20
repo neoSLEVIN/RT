@@ -7,6 +7,7 @@ gboolean	press_key_on_shape_name(GtkWidget *entry_name, GdkEventKey *event,
 	const gchar	*text;
 
 	rt = (t_rt*)data;
+	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	if (event->keyval == GDK_KEY_Return)
 	{
 		gtk_widget_set_visible(entry_name, FALSE);

@@ -43,6 +43,7 @@ gboolean	update_light_widget(gpointer data)
 	t_gtk_light	*light;
 
 	rt = (t_rt*)data;
+	ASSERT_LIGHT(rt->gtk->ui.light->light);
 	light = rt->gtk->ui.light;
 	if (gtk_expander_get_expanded(GTK_EXPANDER(light->expander)))
 	{

@@ -5,6 +5,7 @@ void	changing_shape_type(GtkComboBox *type_combo, gpointer data)
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
+	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
 	rt->gtk->ui.shape->shape->dto->type =
 			gtk_combo_box_get_active(type_combo) + 1;
 	gtk_tree_store_set(rt->gtk->ui.shapes.store,

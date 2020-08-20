@@ -23,6 +23,10 @@
 # define STEP 0.5
 # define UI_WIDTH 400
 # define GTK_SELECT GtkTreeSelection
+# define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
+# define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
+# define ASSERT_SHAPE(shape) if (!shape || !shape->dto) {return (FALSE);}
+# define ASSERT_LIGHT(light) if (!light || !light->dto) {return (FALSE);}
 
 /*
 ** =================== Entity for spin button and his label ====================
@@ -57,6 +61,7 @@ typedef struct		s_gtk_buttons
 {
 	GtkWidget		*grid;
 	GtkWidget		*add_shape;
+	GtkWidget		*add_light;
 }					t_gtk_buttons;
 
 /*
@@ -440,6 +445,26 @@ void				gtk_set_textures_tree(t_gtk_textures *textures,
 								const char *name, PPM_IMG *ppm);
 void				gtk_set_settings_widgets(t_gtk_settings *settings,
 								t_rt *rt);
+/*
+** ============================= Shape tab widgets =============================
+*/
+void				gtk_set_main_tab_widgets(t_main_tab *main_tab,
+								DTO_SHAPE *dto);
+void				gtk_set_transform_tab_widgets(t_transform_tab *tab,
+								TRANSFORM *shape_transform);
+void				gtk_set_material_tab_widgets(t_material_tab *material_tab,
+								MATERIAL *shape_material);
+void				gtk_set_color_tab_widgets(t_color_tab *color_tab,
+								FLT3 *color);
+void				gtk_set_texture_tab_widgets(t_texture_tab *texture_tab,
+								PPM_IMG *textures, PPM_IMG *normals);
+void				gtk_set_sections_tab_widgets(t_section_tab *section_tab,
+								SECTION *shape_sections, _Bool is_complex);
+void				gtk_set_sections_tab_tree_widgets(t_section_tab *tab,
+								SECTION *shape_sections);
+/*
+** ============================ Spin button widgets ============================
+*/
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 								cl_float value);
 void				gtk_set_spin_button_for_one(GtkWidget **spin,
@@ -463,6 +488,15 @@ void				gtk_set_light_positions(t_gtk_light *light);
 void				gtk_set_lights_positions(t_gtk_lights *lights);
 void				gtk_set_textures_positions(t_gtk_textures *textures);
 void				gtk_set_settings_positions(t_gtk_settings *settings);
+/*
+** ============================== Shape positions ==============================
+*/
+void				gtk_set_shape_main_positions(t_main_tab *main_tab);
+void				gtk_set_shape_transform_positions(t_transform_tab *tab);
+void				gtk_set_shape_material_positions(t_material_tab *material);
+void				gtk_set_shape_texture_positions(t_texture_tab *texture);
+void				gtk_set_shape_color_positions(t_color_tab *color);
+void				gtk_set_shape_section_positions(t_section_tab *section);
 
 /*
 ** =============================================================================
@@ -512,7 +546,10 @@ gboolean			lights_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
+void				changing_filter_type(GtkComboBox *filter_combo,
+								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
+void				new_light(GtkButton *button, gpointer data);
 /*
 ** ============================== Shape callbacks ==============================
 */
@@ -599,8 +636,12 @@ void				decrease_holders_cnt(int *count, _Bool *button);
 void				get_shape_id(t_rt *rt);
 void				update_shape_marker(t_rt *rt, SHAPE *shape);
 void				clear_shape_marker(t_rt *rt);
+/*
+** ===================== Update flags/arguments for opencl =====================
+*/
 void				update_flags(_Bool *update_property1,
 								_Bool *update_property2);
+void				make_update_args(t_rt *rt);
 /*
 ** ========= Bindings for calling actions for camera and shape motion ==========
 */
@@ -613,6 +654,7 @@ void				rotate_camera_by_mouse_with_shape(t_rt *rt);
 void				move_camera(t_rt *rt, guint key);
 void				rotate_camera(t_rt *rt, guint key);
 void				rotate_camera_by_mouse(t_rt *rt, INT2 diff);
+void				restart_position(t_rt *rt);
 /*
 ** =============================== Shape motion ================================
 */
@@ -640,8 +682,19 @@ void				change_shape_param(t_rt *rt);
 */
 gboolean			update_light_widget(gpointer data);
 gboolean			update_shape_widget(gpointer data);
-void				update_gtk_shape_sec_spins(t_section_tab *tab,
-								SECTION *section);
+/*
+** ========================= Update shape tab widgets ==========================
+*/
+void				update_gtk_shape_main(t_main_tab tab, SHAPE *shape);
+void				update_gtk_shape_position(t_transform_tab tab,
+								FLT3 shape_pos);
+void				update_gtk_shape_material(t_material_tab tab,
+								MATERIAL shape_mat);
+void				update_gtk_shape_color(t_color_tab tab, FLT3 color);
+void				update_gtk_shape_texture(t_texture_tab tab,
+								int texture_id, int normal_map_id);
+void				update_gtk_shape_section(t_section_tab tab,
+								SECTION *shape_sec, _Bool is_complex);
 /*
 ** ============================== Compute filter ===============================
 */
@@ -658,19 +711,25 @@ cl_uchar4			calc_matrix_values(const int matrix[9], int i, t_rt *rt);
 */
 void				new_shape_update_everything(t_rt *rt,
 								t_gtk_shapes *gtk_shapes, SHAPE *shape);
+/*
+** ============================= Copy/Paste shape ==============================
+*/
+void				copy_shape(t_rt *rt);
+void				paste_shape(t_rt *rt);
 
 /*
 ** =============================================================================
 ** =================================== Utils ===================================
 ** =============================================================================
 */
+void				usage(char *app_name);
+void				new_scene(SCENE **scene);
+void				new_gtk(t_rt *rt);
 void				init_info(t_info **info);
 void				keys_to_false(t_info *info);
 void				mouse_to_false(t_info *info);
 void				shape_to_false(t_info *info);
 void				shape_to_true(t_info *info);
-void				new_scene(SCENE **scene);
-void				new_gtk(t_rt *rt);
 void				clear_rt(t_rt *rt);
 void				clear_lights(LIGHT **light);
 void				clear_shapes(SHAPE **shape);

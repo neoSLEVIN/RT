@@ -41,7 +41,7 @@ void	move_shape_by_camera_movement(t_rt *rt, guint key)
 }
 
 static cl_float	get_angle_to_move_shape(cl_float default_angle, guint key,
-											 INT2 axis)
+											INT2 axis)
 {
 	if (key == GDK_KEY_KP_2 || key == GDK_KEY_KP_6 || key == GDK_KEY_q)
 		default_angle *= -1.0f;
@@ -60,6 +60,7 @@ void	move_shape_by_camera_rotating(t_rt *rt, guint key)
 	cl_float	angle;
 
 	cam = &rt->ocl->dto.cam;
+	ASSERT_SHAPE_VOID(rt->info->s_marker);
 	v_shape = v3_sub(rt->info->s_marker->dto->transform.position, cam->origin);
 	v_shape_old = v_shape;
 	angle = get_angle_to_move_shape(RAD, key, rt->info->axis);
@@ -109,28 +110,21 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	rt->info->update_s_sec = TRUE;
 }
 
-static cl_float	get_angle_to_rotate_shape(cl_float default_angle, guint key,
-									INT2 axis)
-{
-	if (key == GDK_KEY_k || key == GDK_KEY_l || key == GDK_KEY_u)
-		default_angle *= -1.0f;
-	if (key == GDK_KEY_k || key == GDK_KEY_i)
-		default_angle *= -axis.y;
-	else if (key == GDK_KEY_j || key == GDK_KEY_l)
-		default_angle *= -axis.x;
-	return (default_angle);
-}
-
 void	rotate_shape(t_rt *rt, guint key)
 {
 	FLT3		*shape_dir;
 	DTO_CAM		*cam;
 	cl_float	angle;
 
-	if (!rt->info->s_marker || !rt->info->s_marker->dto)
-		return ;
+	ASSERT_SHAPE_VOID(rt->info->s_marker);
 	cam = &rt->ocl->dto.cam;
-	angle = get_angle_to_rotate_shape(RAD * 2, key, rt->info->axis);
+	angle = RAD * 2;
+	if (key == GDK_KEY_k || key == GDK_KEY_l || key == GDK_KEY_u)
+		angle *= -1.0f;
+	if (key == GDK_KEY_k || key == GDK_KEY_i)
+		angle *= -rt->info->axis.y;
+	else if (key == GDK_KEY_j || key == GDK_KEY_l)
+		angle *= -rt->info->axis.x;
 	shape_dir = &rt->info->s_marker->dto->transform.direction;
 	if (key == GDK_KEY_k || key == GDK_KEY_i)
 		*shape_dir = v3_rot_v(*shape_dir, cam->right, angle);

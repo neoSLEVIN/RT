@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-static void	gtk_set_shape_basic_signals(t_gtk_shape *shape, t_rt *rt)
+static void	gtk_set_shape_base_signals(t_gtk_shape *shape, t_rt *rt)
 {
 	g_signal_connect(G_OBJECT(shape->expander), "notify::expanded",
 		G_CALLBACK(shape_expander_callback), rt);
@@ -91,7 +91,7 @@ void		gtk_set_shape_signals(t_rt *rt)
 	t_gtk_shape	*shape;
 
 	shape = rt->gtk->ui.shape;
-	gtk_set_shape_basic_signals(shape, rt);
+	gtk_set_shape_base_signals(shape, rt);
 	gtk_set_shape_trans_mat_color_signals(&shape->transform, &shape->material,
 		&shape->color, rt);
 	gtk_set_shape_sections_signals(&shape->section, rt);

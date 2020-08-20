@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-static void	gtk_set_main_positions(t_gtk *gtk)
+static void	gtk_set_base_positions(t_gtk *gtk)
 {
 	gtk_container_add(GTK_CONTAINER(gtk->window), gtk->window_h_box);
 	gtk_box_pack_start(GTK_BOX(gtk->window_h_box),
@@ -46,7 +46,7 @@ static void	gtk_set_ui_positions(t_ui *ui)
 
 void		gtk_set_positions(t_gtk *gtk)
 {
-	gtk_set_main_positions(gtk);
+	gtk_set_base_positions(gtk);
 	gtk_set_buttons_positions(&gtk->ui.buttons);
 	gtk_set_shape_positions(gtk->ui.shape);
 	gtk_set_shapes_positions(&gtk->ui.shapes);

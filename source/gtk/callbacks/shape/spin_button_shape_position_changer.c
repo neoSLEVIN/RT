@@ -9,6 +9,7 @@ static gboolean	spin_button_shape_position_changer_safe(gpointer data)
 	t_transform_tab	*transform;
 
 	rt = (t_rt*)data;
+	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	position = &rt->gtk->ui.shape->shape->dto->transform.position;
 	temp_position = *position;
 	transform = &rt->gtk->ui.shape->transform;
@@ -22,10 +23,9 @@ static gboolean	spin_button_shape_position_changer_safe(gpointer data)
 		position = &rt->gtk->ui.shape->shape->dto->sections[i].position;
 		*position = v3_add(*position, temp_position);
 	}
-	rt->info->update_shapes = TRUE;
+	update_flags(&rt->info->update_shapes, &rt->info->update);
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
-	rt->info->update = TRUE;
 	return (FALSE);
 }
 

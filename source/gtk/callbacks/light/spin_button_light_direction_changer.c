@@ -15,6 +15,7 @@ static gboolean	spin_button_light_direction_changer_safe(gpointer data)
 	FLT3		temp_dir;
 
 	rt = (t_rt*)data;
+	ASSERT_LIGHT(rt->gtk->ui.light->light);
 	light = rt->gtk->ui.light;
 	temp_dir.x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(light->dir_x.spin));
 	temp_dir.y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(light->dir_y.spin));

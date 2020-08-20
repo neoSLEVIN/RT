@@ -10,6 +10,7 @@ void	color_activated_changer(GtkColorChooser *chooser,
 	if (!gtk_widget_get_visible(GTK_WIDGET(chooser)))
 		return ;
 	rt = (t_rt*)data;
+	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
 	gtk_color_chooser_get_rgba(chooser, &color);
 	rt->gtk->ui.shape->shape->dto->material.color =
 			(FLT3){(float)color.red, (float)color.green, (float)color.blue};

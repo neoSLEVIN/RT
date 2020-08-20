@@ -17,13 +17,12 @@ static void	action_for_left_mouse_click(t_rt *rt, t_info *info,
 {
 	if (event->type == GDK_DOUBLE_BUTTON_PRESS)
 	{
-		if (rt->info->s_marker && rt->info->s_marker->dto)
-		{
-			rt->gtk->ui.shape->shape = rt->info->s_marker;
-			gtk_tree_selection_select_iter(rt->gtk->ui.shapes.select, rt->gtk->ui.shape->shape->tree_iter);
-			shape_to_true(info);
-			g_idle_add(update_shape_widget, rt);
-		}
+		ASSERT_SHAPE_VOID(rt->info->s_marker);
+		rt->gtk->ui.shape->shape = rt->info->s_marker;
+		gtk_tree_selection_select_iter(rt->gtk->ui.shapes.select,
+									rt->gtk->ui.shape->shape->tree_iter);
+		shape_to_true(info);
+		g_idle_add(update_shape_widget, rt);
 	}
 	else if (event->type == GDK_TRIPLE_BUTTON_PRESS)
 	{

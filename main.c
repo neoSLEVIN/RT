@@ -12,13 +12,7 @@
 
 #include "gtk_module.h"
 
-static void	usage(char *app_name)
-{
-	ft_printf("Usage:\t%s\n", app_name);
-	exit(1);
-}
-
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_rt	rt;
 

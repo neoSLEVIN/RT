@@ -8,6 +8,7 @@ void	spin_button_shape_material_changer(GtkSpinButton *button, gpointer data)
 
 	(void)button;
 	rt = (t_rt*)data;
+	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
 	material = &rt->gtk->ui.shape->shape->dto->material;
 	material_tab = &rt->gtk->ui.shape->material;
 	material->transparency = gtk_spin_button_get_value(

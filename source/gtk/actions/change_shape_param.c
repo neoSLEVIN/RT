@@ -12,58 +12,58 @@
 
 #include "gtk_module.h"
 
-_Bool	do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
+static _Bool	do_change_shape_radius(cl_float *radius, cl_float coefficient)
+{
+	if (*radius < 0.1f)
+		*radius = 0.1f;
+	else if (*radius * coefficient < 0.1f)
+		return (FALSE);
+	else
+		*radius *= coefficient;
+	return (TRUE);
+}
+
+static _Bool	do_change_shape_angle(cl_float *angle, cl_float diff)
+{
+	if (rad_to_deg(*angle) < 1.0f)
+		*angle = deg_to_rad(1.0f);
+	else if (rad_to_deg(*angle) > 89.0f)
+		*angle = deg_to_rad(89.0f);
+	else if (rad_to_deg(*angle) + (cl_float)diff * 2 < 1.0f ||
+			rad_to_deg(*angle) + (cl_float)diff * 2 > 89.0f)
+		return (FALSE);
+	else
+		*angle += deg_to_rad(diff * 2);
+	return (TRUE);
+}
+
+_Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 {
 	cl_float	coefficient;
-	int			without_changes;
+	_Bool		do_change;
 
-	without_changes = 0;
+	do_change = FALSE;
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER)
-	{
-		if (params->x < 0.1f)
-			params->x = 0.1f;
-		else if (params->x * coefficient < 0.1f)
-			return (FALSE);
-		else
-			params->x *= coefficient;
-	}
+		return (do_change_shape_radius(&params->x, coefficient));
 	else if (type == CONE)
-	{
-		if (rad_to_deg(params->x) < 1.0f)
-			params->x = deg_to_rad(1.0f);
-		else if (rad_to_deg(params->x) > 89.0f)
-			params->x = deg_to_rad(89.0f);
-		else if (rad_to_deg(params->x) + (cl_float)diff * 2 < 1.0f ||
-				rad_to_deg(params->x) + (cl_float)diff * 2 > 89.0f)
-			return (FALSE);
-		else
-			params->x += deg_to_rad(diff * 2);
-	}
+		return (do_change_shape_angle(&params->x, diff));
 	else if (type == CAPPEDCYLINDER)
 	{
-		if (params->x < 0.1f)
-			params->x = 0.1f;
-		else if (params->x * coefficient < 0.1f)
-			++without_changes;
-		else
-			params->x *= coefficient;
-		if (params->y < 0.1f)
-			params->y = 0.1f;
-		else if (params->y * coefficient < 0.1f)
-			++without_changes;
-		else
-			params->y *= coefficient;
-		return (without_changes == 2 ? FALSE : TRUE);
+		if (do_change_shape_radius(&params->x, coefficient))
+			do_change = TRUE;
+		if (do_change_shape_radius(&params->y, coefficient))
+			do_change = TRUE;
+		return (do_change);
 	}
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);
 }
 
-void	change_shape_param(t_rt *rt)
+void			change_shape_param(t_rt *rt)
 {
 	if (!rt->info->s_marker || !rt->info->s_marker->dto)
 	{

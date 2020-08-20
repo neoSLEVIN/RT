@@ -6,6 +6,7 @@ static gboolean	spin_button_light_intensity_changer_safe(gpointer data)
 	cl_float	*intensity;
 
 	rt = (t_rt*)data;
+	ASSERT_LIGHT(rt->gtk->ui.light->light);
 	intensity = &rt->gtk->ui.light->light->dto->intensity;
 	*intensity = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
 									rt->gtk->ui.light->intensity.spin));

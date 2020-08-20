@@ -27,9 +27,9 @@ void	gtk_set_textures_tree(t_gtk_textures *textures, const char *name,
 	{
 		gtk_tree_store_append(textures->store, &textures->iter, NULL);
 		gtk_tree_store_set(textures->store, &textures->iter,
-						   0, ppm->name,
-						   1, ppm->path,
-						   -1);
+						0, ppm->name,
+						1, ppm->path,
+						-1);
 		ppm = ppm->next;
 	}
 	textures->tree =

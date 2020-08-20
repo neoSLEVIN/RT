@@ -7,6 +7,7 @@ static gboolean	spin_button_light_position_changer_safe(gpointer data)
 	t_gtk_light	*light;
 
 	rt = (t_rt*)data;
+	ASSERT_LIGHT(rt->gtk->ui.light->light);
 	pos = &rt->gtk->ui.light->light->dto->position;
 	light = rt->gtk->ui.light;
 	pos->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(light->pos_x.spin));

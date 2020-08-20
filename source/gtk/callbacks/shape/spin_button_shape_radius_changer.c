@@ -6,6 +6,7 @@ static gboolean	spin_button_shape_radius_changer_safe(gpointer data)
 	FLT3	*params;
 
 	rt = (t_rt*)data;
+	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	params = &rt->gtk->ui.shape->shape->dto->params;
 	params->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
 										rt->gtk->ui.shape->main.radius.spin));
