@@ -98,13 +98,27 @@ float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *s
 float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 	float3 normal = 0;
 
+	float3 tmp = 0;
+	
 	switch (hit_obj->type)
 	{
 		case SPHERE:
 			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position, ray->dir);
 			break;
 		case CAPPEDPLANE:
-		    normal = plane_normal(hit_obj->transform.direction, ray->dir);
+			
+			
+			cappedplane_instersect(ray, hit_obj);
+			
+			if (hit_obj->params.z == 3) {
+				tmp = hit_obj->transform.rotation;
+			} else if (hit_obj->params.z == 4) {
+				tmp = cross(hit_obj->transform.direction, hit_obj->transform.rotation);
+			} else if (hit_obj->params.z == 2) {
+				tmp = hit_obj->transform.direction;
+			}
+		    normal = plane_normal(tmp, ray->dir);
+			 
             break;
 		case CIRCLE:
 		case PLANE:

@@ -148,7 +148,7 @@ typedef struct				s_scene
 	__global t_ppm_image	*normal_maps;
 }							t_scene;
 
-
+float cappedplane_instersect(t_ray *ray, t_object *plane);
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);

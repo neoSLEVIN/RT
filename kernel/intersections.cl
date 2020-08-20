@@ -207,7 +207,11 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
     return t;
 }
 
-
+int is_equal(float a, float b) {
+	if (fabs(a - b) < 0.001f)
+		return 1;
+	return 0;
+}
 
 float cappedplane_instersect(t_ray *ray, t_object *plane)
 {
@@ -236,11 +240,26 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 	plane->transform.rotation = -u;
 	t4 = cappedplane_instersect2(ray, plane);
 	
+	
+	plane->transform.direction = norm;
+	plane->transform.rotation = u;
+	
 	float r = minT(t1, t2);
 	float r1 = minT(r,t3);
 	float r2 = minT(r1,t4);
-	 
-    return minT(t, r2);
+	float r3 = minT(t, r2);
+	
+	if (r3 == t || r3 == t1) {
+		plane->params.z = 2;
+	} else if (r3 == t2 || r3 == t3) {
+		plane->params.z = 3;
+	} else if (r3 = t4) {
+		plane->params.z = 4;
+	} else {
+		plane->params.z = 1;
+	}
+	
+    return r3;
 }
 
 
