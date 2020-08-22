@@ -47,6 +47,8 @@ static LIGHT	*new_light_init(t_rt *rt)
 static void		new_light_update_everything(t_rt *rt, t_gtk_lights *gtk_lights,
 											LIGHT *light)
 {
+	GtkTreePath	*path;
+
 	gtk_tree_store_append(gtk_lights->store, &gtk_lights->iter, NULL);
 	if (!(light->tree_iter = (void*)gtk_tree_iter_copy(&gtk_lights->iter)))
 		ft_error("Can't allocate memory");
@@ -55,6 +57,10 @@ static void		new_light_update_everything(t_rt *rt, t_gtk_lights *gtk_lights,
 					LIGHT_TYPE_COL, get_light_type_name(light->dto->type),
 					LIGHT_POINTER_COL, light,
 					-1);
+	if (!(path = gtk_tree_model_get_path(gtk_lights->model, light->tree_iter)))
+		ft_error("Can't allocate memory");
+	gtk_tree_selection_select_path(gtk_lights->select, path);
+	gtk_tree_path_free(path);
 	realloc_lights_dto(&rt->ocl->dto.lights, rt->scene->lights,
 					++rt->scene->l_cnt);
 	update_flags(&rt->info->update_lights, &rt->info->update_l_cnt);

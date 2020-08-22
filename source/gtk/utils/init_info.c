@@ -95,4 +95,6 @@ void	init_info(t_info **info)
 	(*info)->shape_id = -1;
 	(*info)->s_marker = NULL;
 	(*info)->s_copy = NULL;
+	(*info)->image_filename = NULL;
+	(*info)->scene_filename = NULL;
 }

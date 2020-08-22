@@ -79,6 +79,8 @@ typedef struct	s_info
 	SHAPE		*s_copy;
 	DTO_SHAPE	default_shape_dto;
 	DTO_LIGHT	default_light_dto;
+	char		*image_filename;
+	char		*scene_filename;
 }				t_info;
 
 #endif

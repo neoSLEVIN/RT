@@ -62,6 +62,10 @@ typedef struct		s_gtk_buttons
 	GtkWidget		*grid;
 	GtkWidget		*add_shape;
 	GtkWidget		*add_light;
+	GtkWidget		*save_image;
+	GtkWidget		*save_image_as;
+	GtkWidget		*save_scene;
+	GtkWidget		*save_scene_as;
 }					t_gtk_buttons;
 
 /*
@@ -550,6 +554,8 @@ void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
+void				save_image(GtkButton *button, gpointer data);
+void				save_image_as(GtkButton *button, gpointer data);
 /*
 ** ============================== Shape callbacks ==============================
 */
@@ -716,6 +722,10 @@ void				new_shape_update_everything(t_rt *rt,
 */
 void				copy_shape(t_rt *rt);
 void				paste_shape(t_rt *rt);
+/*
+** ============================= Get new filename ==============================
+*/
+_Bool				get_new_file_name(char **filename);
 
 /*
 ** =============================================================================

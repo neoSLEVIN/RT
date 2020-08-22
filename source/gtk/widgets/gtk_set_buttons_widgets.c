@@ -18,4 +18,16 @@ void		gtk_set_buttons_widgets(t_gtk_buttons *buttons)
 						"icons/new_shape.png");
 	gtk_set_button_image(&buttons->add_light, "Ne_w light",
 						"icons/new_light.png");
+	gtk_set_button_image(&buttons->save_image, "Sa_ve image",
+						"icons/lens.png");
+	gtk_widget_set_tooltip_text(buttons->save_image,
+								"The file is not selected");
+	gtk_set_button_image(&buttons->save_image_as, "as...",
+						"icons/save.png");
+	gtk_set_button_image(&buttons->save_scene, "Save s_cene",
+						"icons/lens.png");
+	gtk_widget_set_tooltip_text(buttons->save_scene,
+								"The file is not selected");
+	gtk_set_button_image(&buttons->save_scene_as, "as...",
+						"icons/save.png");
 }
