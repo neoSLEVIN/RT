@@ -10,8 +10,8 @@ void	gtk_set_buttons_signals(t_rt *rt)
 		"clicked", G_CALLBACK(save_image), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_image_as),
 		"clicked", G_CALLBACK(save_image_as), rt);
-/*	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_scene),
+	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_scene),
 		"clicked", G_CALLBACK(save_scene), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_scene_as),
-		"clicked", G_CALLBACK(save_scene_as), rt);*/
+		"clicked", G_CALLBACK(save_scene_as), rt);
 }

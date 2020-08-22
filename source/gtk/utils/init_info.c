@@ -97,4 +97,6 @@ void	init_info(t_info **info)
 	(*info)->s_copy = NULL;
 	(*info)->image_filename = NULL;
 	(*info)->scene_filename = NULL;
+	(*info)->image_file_folder = NULL;
+	(*info)->scene_file_folder = NULL;
 }

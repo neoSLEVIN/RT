@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef GTK_MODULE_H
-#define GTK_MODULE_H
+# define GTK_MODULE_H
 
 # include <gtk/gtk.h>
 # include <glib.h>
 # include <cairo.h>
 # include <gdk-pixbuf/gdk-pixbuf.h>
 # include "parser.h"
+# include "serializer.h"
 # include "ocl.h"
 
 # define STEP 0.5
@@ -556,6 +557,8 @@ void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
 void				save_image(GtkButton *button, gpointer data);
 void				save_image_as(GtkButton *button, gpointer data);
+void				save_scene(GtkButton *button, gpointer data);
+void				save_scene_as(GtkButton *button, gpointer data);
 /*
 ** ============================== Shape callbacks ==============================
 */
@@ -725,7 +728,12 @@ void				paste_shape(t_rt *rt);
 /*
 ** ============================= Get new filename ==============================
 */
-_Bool				get_new_file_name(char **filename);
+_Bool				get_new_file_name(char **filename, char **folder,
+									char *default_name);
+/*
+** ============================== Call serializer ==============================
+*/
+gboolean			serialize_scene_to_json(gpointer data);
 
 /*
 ** =============================================================================
@@ -743,8 +751,6 @@ void				shape_to_true(t_info *info);
 void				clear_rt(t_rt *rt);
 void				clear_lights(LIGHT **light);
 void				clear_shapes(SHAPE **shape);
-char				*get_shape_type_name(SHAPE_TYPE type);
-char				*get_light_type_name(LIGHT_TYPE type);
 SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
 void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
 

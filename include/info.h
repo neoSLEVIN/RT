@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef INFO_H
-#define INFO_H
+# define INFO_H
 
 # include "scene.h"
 
@@ -81,6 +81,8 @@ typedef struct	s_info
 	DTO_LIGHT	default_light_dto;
 	char		*image_filename;
 	char		*scene_filename;
+	char		*image_file_folder;
+	char		*scene_file_folder;
 }				t_info;
 
 #endif

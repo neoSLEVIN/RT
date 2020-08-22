@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef PARSE_H
-#define PARSE_H
+# define PARSE_H
 
 # include "jc_parser.h"
 # include "scene.h"
 
-# define PARSE_TEXT_SIZE 12000
+# define PARSE_TEXT_SIZE 120000
 /*
 ** ========================== Parse main Scene entity ==========================
 */

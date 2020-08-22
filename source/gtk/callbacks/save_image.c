@@ -6,7 +6,8 @@ void	save_image_as(GtkButton *button, gpointer data)
 
 	(void)button;
 	rt = (t_rt*)data;
-	if (get_new_file_name(&rt->info->image_filename))
+	if (get_new_file_name(&rt->info->image_filename,
+						&rt->info->image_file_folder, "Untitled.png"))
 	{
 		gdk_pixbuf_save(rt->gtk->img.pixbuf, rt->info->image_filename, "png",
 						NULL, NULL);

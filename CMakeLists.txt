@@ -236,6 +236,7 @@ include_directories(${RT_INC})
 set(INCNAME_RT
         include/scene.h
         include/parser.h
+        include/serializer.h
         include/info.h
         include/ocl.h
         include/gtk_module.h)
@@ -288,7 +289,7 @@ set(SRCNAME_GTK
         source/gtk/utils/new_gtk.c
         source/gtk/utils/clear_rt.c
         source/gtk/utils/cleaner.c
-        source/gtk/utils/get_type_name.c
+        source/serializer/serialize_type_name.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_widgets.c
         source/gtk/settings/gtk_set_signals.c
@@ -326,7 +327,86 @@ set(SRCNAME_GTK
         source/gtk/actions/update_shape_widget.c
         source/gtk/signals/gtk_set_shape_signals.c
         source/gtk/callbacks/shape/spin_button_section_radius_changer.c
-        source/gtk/actions/update_flags.c source/gtk/actions/sections_motion.c source/gtk/actions/filters/compute_filter.c source/gtk/actions/filters/compute_blur.c source/gtk/actions/filters/blur_functions.c source/gtk/actions/filters/matrix_functions.c source/gtk/utils/init_default_shape_dto.c source/gtk/callbacks/new_shape.c source/gtk/widgets/gtk_set_lights_widgets.c source/gtk/positions/gtk_set_lights_positions.c source/gtk/signals/gtk_set_lights_signals.c source/gtk/callbacks/lights_tree_selection_changer.c source/gtk/callbacks/shapes_tree_single_click.c source/gtk/callbacks/lights_tree_single_click.c source/gtk/widgets/gtk_set_light_widgets.c source/gtk/positions/gtk_set_light_positions.c source/gtk/actions/update_light_widget.c source/gtk/signals/gtk_set_light_signals.c source/gtk/callbacks/light/light_expander_callback.c source/gtk/callbacks/shape/shape_expander_callback.c source/gtk/callbacks/shape/switch_page_shape_notebook.c source/gtk/callbacks/shape/spin_button_shape_material_changer.c source/gtk/callbacks/shape/cell_editable_holders.c source/gtk/callbacks/shape/section_callbacks.c source/gtk/callbacks/shape/color_activated_changer.c source/gtk/callbacks/shape/changing_shape_type.c source/gtk/callbacks/shape/changing_textures_normals.c source/gtk/callbacks/shape/press_key_on_shape_name.c source/gtk/callbacks/light/press_key_on_light_name.c source/gtk/callbacks/light/changing_light_type.c source/gtk/signals/gtk_set_buttons_signals.c source/gtk/widgets/gtk_set_buttons_widgets.c source/gtk/positions/gtk_set_textures_positions.c source/gtk/positions/gtk_set_buttons_positions.c source/gtk/callbacks/shape/spin_button_shape_angle_changer.c source/gtk/callbacks/shape/spin_button_shape_height_changer.c source/gtk/callbacks/shape/spin_button_shape_radius_changer.c source/gtk/actions/new_shape_update_everything.c source/gtk/callbacks/shape/spin_button_shape_position_changer.c source/gtk/callbacks/shape/spin_button_section_position_changer.c source/gtk/callbacks/shape/spin_button_section_direction_changer.c source/gtk/callbacks/light/spin_button_light_intensity_changer.c source/gtk/callbacks/light/spin_button_light_position_changer.c source/gtk/callbacks/light/spin_button_light_direction_changer.c source/gtk/callbacks/new_light.c source/gtk/callbacks/changing_filter_type.c source/gtk/positions/gtk_set_shape_positions.c source/gtk/positions/shape_positions/gtk_set_shape_main_positions.c source/gtk/positions/shape_positions/gtk_set_shape_transform_positions.c source/gtk/positions/shape_positions/gtk_set_shape_material_positions.c source/gtk/positions/shape_positions/gtk_set_shape_texture_positions.c source/gtk/positions/shape_positions/gtk_set_shape_color_positions.c source/gtk/positions/shape_positions/gtk_set_shape_section_positions.c source/gtk/callbacks/copy_paste_shape.c source/gtk/utils/usage.c source/gtk/utils/get_default_shape.c source/gtk/actions/restart_position.c source/gtk/actions/make_update_args.c source/gtk/widgets/shape_tabs/gtk_set_main_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_transform_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_material_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_color_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_texture_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_sections_tab_widgets.c source/gtk/widgets/shape_tabs/gtk_set_sections_tab_tree_widgets.c source/gtk/actions/shape_tabs/update_gtk_shape_position.c source/gtk/actions/shape_tabs/update_gtk_shape_material.c source/gtk/actions/shape_tabs/update_gtk_shape_color.c source/gtk/actions/shape_tabs/update_gtk_shape_main.c source/gtk/actions/shape_tabs/update_gtk_shape_texture.c source/gtk/actions/shape_tabs/update_gtk_shape_section.c source/parser/parse_shape_param_by_type.c source/gtk/actions/get_new_file_name.c source/gtk/callbacks/save_image.c)
+        source/gtk/actions/update_flags.c
+        source/gtk/actions/sections_motion.c
+        source/gtk/actions/filters/compute_filter.c
+        source/gtk/actions/filters/compute_blur.c
+        source/gtk/actions/filters/blur_functions.c
+        source/gtk/actions/filters/matrix_functions.c
+        source/gtk/utils/init_default_shape_dto.c
+        source/gtk/callbacks/new_shape.c
+        source/gtk/widgets/gtk_set_lights_widgets.c
+        source/gtk/positions/gtk_set_lights_positions.c
+        source/gtk/signals/gtk_set_lights_signals.c
+        source/gtk/callbacks/lights_tree_selection_changer.c
+        source/gtk/callbacks/shapes_tree_single_click.c
+        source/gtk/callbacks/lights_tree_single_click.c
+        source/gtk/widgets/gtk_set_light_widgets.c
+        source/gtk/positions/gtk_set_light_positions.c
+        source/gtk/actions/update_light_widget.c
+        source/gtk/signals/gtk_set_light_signals.c
+        source/gtk/callbacks/light/light_expander_callback.c
+        source/gtk/callbacks/shape/shape_expander_callback.c
+        source/gtk/callbacks/shape/switch_page_shape_notebook.c
+        source/gtk/callbacks/shape/spin_button_shape_material_changer.c
+        source/gtk/callbacks/shape/cell_editable_holders.c
+        source/gtk/callbacks/shape/section_callbacks.c
+        source/gtk/callbacks/shape/color_activated_changer.c
+        source/gtk/callbacks/shape/changing_shape_type.c
+        source/gtk/callbacks/shape/changing_textures_normals.c
+        source/gtk/callbacks/shape/press_key_on_shape_name.c
+        source/gtk/callbacks/light/press_key_on_light_name.c
+        source/gtk/callbacks/light/changing_light_type.c
+        source/gtk/signals/gtk_set_buttons_signals.c
+        source/gtk/widgets/gtk_set_buttons_widgets.c
+        source/gtk/positions/gtk_set_textures_positions.c
+        source/gtk/positions/gtk_set_buttons_positions.c
+        source/gtk/callbacks/shape/spin_button_shape_angle_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_height_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_radius_changer.c
+        source/gtk/actions/new_shape_update_everything.c
+        source/gtk/callbacks/shape/spin_button_shape_position_changer.c
+        source/gtk/callbacks/shape/spin_button_section_position_changer.c
+        source/gtk/callbacks/shape/spin_button_section_direction_changer.c
+        source/gtk/callbacks/light/spin_button_light_intensity_changer.c
+        source/gtk/callbacks/light/spin_button_light_position_changer.c
+        source/gtk/callbacks/light/spin_button_light_direction_changer.c
+        source/gtk/callbacks/new_light.c
+        source/gtk/callbacks/changing_filter_type.c
+        source/gtk/positions/gtk_set_shape_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_main_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_transform_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_material_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_texture_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_color_positions.c
+        source/gtk/positions/shape_positions/gtk_set_shape_section_positions.c
+        source/gtk/callbacks/copy_paste_shape.c
+        source/gtk/utils/usage.c
+        source/gtk/utils/get_default_shape.c
+        source/gtk/actions/restart_position.c
+        source/gtk/actions/make_update_args.c
+        source/gtk/widgets/shape_tabs/gtk_set_main_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_transform_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_material_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_color_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_texture_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_sections_tab_widgets.c
+        source/gtk/widgets/shape_tabs/gtk_set_sections_tab_tree_widgets.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_position.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_material.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_color.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_main.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_texture.c
+        source/gtk/actions/shape_tabs/update_gtk_shape_section.c
+        source/parser/parse_shape_param_by_type.c
+        source/gtk/actions/get_new_file_name.c
+        source/gtk/callbacks/save_image.c)
+
+set(SERIALIZER_SRC ${RT_SRC}/serializer)
+include_directories(${SERIALIZER_SRC})
+
+set(SRCNAME_SERIALIZER
+        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c)
 
 if (APPLE)
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
@@ -343,6 +423,7 @@ add_executable(RT
         ${SRCNAME_OCLMATH}
         ${INCNAME_RT}
         ${SRCNAME_GTK}
+        ${SRCNAME_SERIALIZER}
         ${SRCNAME_PARSER}
         ${SRCNAME_OPEN_CL}
 )

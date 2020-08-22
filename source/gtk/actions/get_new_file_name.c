@@ -15,7 +15,23 @@ static void	change_filename(char **filename, GtkWidget *dialog)
 	}
 }
 
-_Bool		get_new_file_name(char **filename)
+static void	change_folder(char **folder, GtkWidget *dialog)
+{
+	char	*new_folder;
+
+	new_folder = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(dialog));
+	if (ft_strequ(*folder, new_folder))
+		g_free(new_folder);
+	else
+	{
+		if (*folder)
+			g_free(*folder);
+		*folder = new_folder;
+	}
+}
+
+_Bool		get_new_file_name(char **filename, char **folder,
+							char *default_name)
 {
 	GtkWidget	*dialog;
 	GtkWidget	*window;
@@ -28,9 +44,13 @@ _Bool		get_new_file_name(char **filename)
 								NULL);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog),
 													TRUE);
+	if (*folder)
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), *folder);
+	gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER(dialog), default_name);
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 		change_filename(filename, dialog);
+		change_folder(folder, dialog);
 		gtk_widget_destroy(dialog);
 		return (TRUE);
 	}

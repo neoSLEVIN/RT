@@ -34,9 +34,7 @@
         "name": "Dan",
         "transform": {"position": [0,0,20], "direction": [0,0,-10]},
         "texture": {"name": "Dan"},
-        "material": {
-          "texture": "360",
-          "specular": 0, "reflective": 0, "transparency": 0}
+        "material": {"specular": 0, "reflective": 0, "transparency": 0}
       },
       {
         "type": "SPHERE",

@@ -31,7 +31,6 @@ static void		init_default_shape_params(SHAPE *shape)
 {
 	shape->prev = NULL;
 	shape->next = NULL;
-	shape->widgets = NULL;
 	shape->tree_iter = NULL;
 	shape->dto->marker = FALSE;
 	shape->texture_name = NULL;

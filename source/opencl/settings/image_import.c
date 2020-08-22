@@ -84,5 +84,6 @@ DTO_PPM_IMG	*read_ppm(const char *filename)
 		ppm_error("Can't open the file", filename);
 	read(fd, NULL, dto->start_image);
 	read(fd, dto->data, dto->width * dto->height * 3);
+	close(fd);
 	return (dto);
 }

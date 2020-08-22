@@ -140,14 +140,13 @@ struct			s_dto_shape
 	_Bool		marker;
 };
 /*
-** === Shape Node (Contains DTO, references to next/prev nodes and widgets) ====
+** ==== Shape Node (Contains DTO, references to next/prev nodes and widget) ====
 */
 # define SHAPE struct s_shape
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
 	char		*name;
-	void		*widgets;
 	void		*tree_iter;
 	char		*texture_name;
 	char		*normal_map_name;
@@ -184,6 +183,7 @@ struct			s_dto_cam
 # define CAMERA struct s_camera
 struct			s_camera
 {
+	DTO_CAM		*dto;
 	FLT3		position;
 	FLT3		direction;
 	cl_float	rotation;
