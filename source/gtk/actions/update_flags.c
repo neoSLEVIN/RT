@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_shapes_flags.c                              :+:      :+:    :+:   */
+/*   update_flags.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,8 @@
 
 #include "gtk_module.h"
 
-void	update_shapes_flags(_Bool *update_shapes, _Bool *update_property)
+void	update_flags(_Bool *update_property1, _Bool *update_property2)
 {
-	*update_shapes = TRUE;
-	*update_property = TRUE;
+	*update_property1 = TRUE;
+	*update_property2 = TRUE;
 }

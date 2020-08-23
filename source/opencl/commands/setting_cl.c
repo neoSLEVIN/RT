@@ -14,6 +14,7 @@
 
 void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 {
+	scene->cam.dto = &ocl->dto.cam;
 	translate_cam(&ocl->dto.cam, &scene->cam);
 	translate_shapes(&ocl->dto.shapes, scene->shapes, scene->s_cnt);
 	ocl->dto.s_cnt = &scene->s_cnt;

@@ -53,7 +53,7 @@ void	mouse_to_false(t_info *info)
 void	shape_to_true(t_info *info)
 {
 	info->update_s_name = TRUE;
-	info->update_s_marker = TRUE;
+	info->update_s_main = TRUE;
 	info->update_s_pos = TRUE;
 	info->update_s_rot = TRUE;
 	info->update_s_mat = TRUE;
@@ -66,7 +66,7 @@ void	shape_to_true(t_info *info)
 void	shape_to_false(t_info *info)
 {
 	info->update_s_name = FALSE;
-	info->update_s_marker = FALSE;
+	info->update_s_main = FALSE;
 	info->update_s_pos = FALSE;
 	info->update_s_rot = FALSE;
 	info->update_s_mat = FALSE;
@@ -83,12 +83,20 @@ void	init_info(t_info **info)
 	(*info)->update = TRUE;
 	(*info)->update_cam = FALSE;
 	(*info)->update_shapes = FALSE;
+	(*info)->update_lights = FALSE;
 	(*info)->update_s_cnt = FALSE;
+	(*info)->update_l_cnt = FALSE;
+	(*info)->update_l_name = FALSE;
+	(*info)->update_l_params = FALSE;
 	shape_to_false(*info);
 	keys_to_false(*info);
 	mouse_to_false(*info);
 	(*info)->axis = (INT2){-1, -1};
 	(*info)->shape_id = -1;
-	(*info)->l_marker = NULL;
 	(*info)->s_marker = NULL;
+	(*info)->s_copy = NULL;
+	(*info)->image_filename = NULL;
+	(*info)->scene_filename = NULL;
+	(*info)->image_file_folder = NULL;
+	(*info)->scene_file_folder = NULL;
 }

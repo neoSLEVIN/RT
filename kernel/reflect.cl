@@ -28,7 +28,8 @@ float3 go_reflect(t_ray ray, t_scene *scene) {
 	
 	/*цвет первого отраженного объекта*/
 	finalColor = continue_reflect_ray(&ray, scene);
-	
+	if (ray.hit_id < 0)
+		return (finalColor);
 	/*простой объект*/
 	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {
 		return finalColor;

@@ -12,11 +12,11 @@
 
 #include "gtk_module.h"
 
-void	new_gtk(t_rt *rt)
+void	new_gtk(t_rt *rt, const char *filename)
 {
 	if ((rt->gtk = g_slice_new(t_gtk)) == NULL)
 		ft_error("Can't allocate memory");
-	gtk_set_main_window(rt->gtk);
+	gtk_set_main_window(rt->gtk, filename);
 	gtk_set_widgets(rt->gtk, rt);
 	gtk_set_signals(rt);
 	gtk_set_positions(rt->gtk);

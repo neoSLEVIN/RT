@@ -2,7 +2,7 @@
 float3 image_texture(float2 uv, __global t_ppm_image *texture, int id)  {
 	
 	float3 res = 0;
-	
+
 	int nx = texture[id].width;
 	int ny = texture[id].height;
 	
@@ -38,7 +38,7 @@ float2 get_uv(t_object *obj, t_ray *ray, int splits) {
 		return sphere_map(obj, ray);
 	} else if (obj->type == CONE) {
 		return cylindrical_map(obj, ray, splits);
-	} else if (obj->type == CYLINDER) {
+	} else if (obj->type == CYLINDER || obj->type == CAPPEDCYLINDER) {
 		return cylindrical_map(obj, ray, splits);
 	}
 	/*по дефолту*/

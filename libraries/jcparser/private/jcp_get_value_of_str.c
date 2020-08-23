@@ -31,7 +31,8 @@ void			jcp_get_value_of_str(const char *json, size_t *i, JCP_OBJ *obj)
 		ft_error("Bad syntax of JSON");
 	obj->type |= JC_STR;
 	obj->value.start = &json[*i];
-	while (json[*i] > 31 && json[*i] < 127 && json[*i] != '"' && ++(*i))
+	while (((json[*i] > 31 && json[*i] < 127) || json[*i] < 0) &&
+			json[*i] != '"' && ++(*i))
 		++obj->value.length;
 	if (json[(*i)++] != '"')
 		ft_error("Bad syntax of JSON");

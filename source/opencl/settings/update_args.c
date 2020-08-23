@@ -51,3 +51,26 @@ void	update_shapes_arg(t_ocl *ocl, _Bool *update_size, _Bool *update_shapes)
 	}
 	*update_shapes = FALSE;
 }
+
+void	update_lights_arg(t_ocl *ocl, _Bool *update_size, _Bool *update_lights)
+{
+	int	err;
+	int	alloc_size;
+
+	clReleaseMemObject(ocl->dto.input_lights);
+	alloc_size = (*ocl->dto.l_cnt == 0) ? 1 : *ocl->dto.l_cnt;
+	ocl->dto.input_lights = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(DTO_LIGHT) * alloc_size, ocl->dto.lights, &err);
+	check_error_cl(err,"clCreateBuffer", "input_lights");
+	err = clSetKernelArg(ocl->kernel, 2, sizeof(cl_mem),
+						&(ocl->dto.input_lights));
+	check_error_cl(err,"clSetKernelArg", "input_lights");
+	if (*update_size)
+	{
+		err = clSetKernelArg(ocl->kernel, 3, sizeof(int), ocl->dto.l_cnt);
+		check_error_cl(err,"clSetKernelArg", "l_cnt");
+		*update_size = FALSE;
+	}
+	*update_lights = FALSE;
+}

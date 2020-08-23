@@ -12,6 +12,34 @@
 
 #include "gtk_module.h"
 
+char	*get_filter_type_name(FILTER filter)
+{
+	char	*name;
+
+	name = NULL;
+	if (filter == SEPIA)
+		name = ft_strdup("SEPIA");
+	else if (filter == NEGATIVE)
+		name = ft_strdup("NEGATIVE");
+	else if (filter == NOISE)
+		name = ft_strdup("NOISE");
+	else if (filter == SHADES_OF_GRAY)
+		name = ft_strdup("SHADES OF GRAY");
+	else if (filter == BLUR)
+		name = ft_strdup("BLUR");
+	else if (filter == EMBOSS)
+		name = ft_strdup("EMBOSS");
+	else if (filter == SHARPEN)
+		name = ft_strdup("SHARPEN");
+	else if (filter == NO_FILTER)
+		name = ft_strdup("NO FILTERS");
+	else
+		ft_error("Unknown filter type (get_filter_type_name)");
+	if (!name)
+		ft_error("Can't allocate memory");
+	return (name);
+}
+
 char	*get_shape_type_name(SHAPE_TYPE type)
 {
 	char	*res;
@@ -28,6 +56,23 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 		res = ft_strdup("CAPPED CYLINDER");
 	else
 		ft_error("Unknown shape type (get_shape_type_name)");
+	if (res == NULL)
+		ft_error("Can't allocate memory");
+	return (res);
+}
+
+char	*get_light_type_name(LIGHT_TYPE type)
+{
+	char	*res;
+
+	if (type == AMBIENT)
+		res = ft_strdup("AMBIENT");
+	else if (type == POINT)
+		res = ft_strdup("POINT");
+	else if (type == DIRECTION)
+		res = ft_strdup("DIRECTION");
+	else
+		ft_error("Unknown light type (get_light_type_name)");
 	if (res == NULL)
 		ft_error("Can't allocate memory");
 	return (res);

@@ -6,6 +6,7 @@
       <w>buttonhold</w>
       <w>bzero</w>
       <w>cappedcylinder</w>
+      <w>cene</w>
       <w>cschoen</w>
       <w>ctxt</w>
       <w>dflt</w>
@@ -17,9 +18,11 @@
       <w>dlstnew</w>
       <w>dlstsplit</w>
       <w>elif</w>
+      <w>ettings</w>
       <w>ffff</w>
       <w>ftlib</w>
       <w>ftprintf</w>
+      <w>ights</w>
       <w>incname</w>
       <w>itoa</w>
       <w>jcparser</w>
@@ -34,6 +37,7 @@
       <w>lstmap</w>
       <w>lstnew</w>
       <w>lstsplit</w>
+      <w>mage</w>
       <w>memalloc</w>
       <w>memccpy</w>
       <w>memchr</w>

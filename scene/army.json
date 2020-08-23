@@ -10,8 +10,8 @@
     },
 
     "lights": [
-      {"type": "AMBIENT", "intensity": 0.3, "position": [0,0,0], "direction": [0,0,0]},
-      {"type": "POINT", "intensity": 0.8, "position": [350.823853, 520.638672, 246.811111], "direction": [0,0,0]}
+      {"type": "AMBIENT", "intensity": 0.3},
+      {"type": "POINT", "intensity": 0.8, "position": [350.823853, 520.638672, 246.811111]}
     ],
 
     "shapes": [
@@ -34,6 +34,7 @@
         "type": "CAPPED CYLINDER",
         "name": "12345678901234567890",
         "radius": 4,
+        "height": 4,
         "transform": {"position": [359.815796, 309.970703, 300.151184]},
         "texture": {"name": "nova"},
         "material": {"color": "0f0", "specular": 0, "reflective": 0, "transparency": 0}

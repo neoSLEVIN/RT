@@ -85,9 +85,19 @@ gboolean		press_key_on_window(GtkWidget *window, GdkEventKey *event,
 
 	(void)window;
 	rt = (t_rt*)data;
-	if (event->state == GDK_MOD1_MASK)
-// TODO maybe delete		 gtk_widget_is_focus(rt->gtk->ui.shape->entry_name))
+	if (event->state == GDK_MOD1_MASK ||
+			gtk_widget_is_focus(rt->gtk->ui.shape->main.name_changer) ||
+			gtk_widget_is_focus(rt->gtk->ui.light->name_changer))
 		return (FALSE);
+	if (event->state == GDK_CONTROL_MASK &&
+			(event->keyval == GDK_KEY_c || event->keyval == GDK_KEY_v))
+	{
+		if (event->keyval == GDK_KEY_c)
+			copy_shape(rt);
+		else
+			paste_shape(rt);
+		return (TRUE);
+	}
 	if (do_press_key_for_camera(rt, event) ||
 		do_press_numpad_for_camera(rt, event) ||
 		do_press_key_for_shape(rt, event))

@@ -26,14 +26,7 @@ void	get_shape_id(t_rt *rt)
 	while (temp && ++i < rt->info->shape_id)
 		temp = temp->next;
 	if (temp && rt->info->shape_id == i)
-	{
 		update_shape_marker(rt, temp);
-		ft_printf("DEL_ME:\n%s\n%f, %f, %f\n",
-			rt->info->s_marker->name,
-			rt->ocl->dto.cam.origin.x,
-			rt->ocl->dto.cam.origin.y,
-			rt->ocl->dto.cam.origin.z);
-	}
 	else
 		clear_shape_marker(rt);
 }

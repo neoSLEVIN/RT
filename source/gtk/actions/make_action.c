@@ -35,6 +35,7 @@ static void	make_rotate_camera_with_shape(t_rt *rt)
 
 static void	make_rotate_shape(t_rt *rt)
 {
+	ASSERT_SHAPE_VOID(rt->info->s_marker);
 	(rt->info->i_key) ? rotate_shape(rt, GDK_KEY_i) : 0;
 	(rt->info->j_key) ? rotate_shape(rt, GDK_KEY_j) : 0;
 	(rt->info->k_key) ? rotate_shape(rt, GDK_KEY_k) : 0;
@@ -55,32 +56,13 @@ static void	make_mouse_action_on_camera_and_shape(t_rt * rt)
 		change_shape_param(rt);
 }
 
-static void	make_update_args(t_rt *rt)
-{
-	if (rt->info->update_cam)
-		update_cam_arg(rt->ocl, &rt->info->update_cam);
-	if (rt->info->update_shapes)
-		update_shapes_arg(rt->ocl,
-			&rt->info->update_s_cnt, &rt->info->update_shapes);
-}
-
-static void	restart_position(t_rt *rt)
-{
-	if (!rt->info->r_key)
-		return ;
-	translate_cam(&rt->ocl->dto.cam, &rt->scene->cam);
-	clear_shape_marker(rt);
-	rt->info->update_cam = TRUE;
-}
-
 void		make_action(t_rt *rt)
 {
 	restart_position(rt);
 	make_move_camera_with_shape(rt);
 	make_rotate_camera_with_shape(rt);
 	make_mouse_action_on_camera_and_shape(rt);
-	if (rt->info->s_marker && rt->info->s_marker->dto)
-		make_rotate_shape(rt);
+	make_rotate_shape(rt);
 	make_update_args(rt);
 	g_idle_add(update_shape_widget, rt);
 }

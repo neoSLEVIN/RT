@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-static char		*unnamed_shape(size_t index)
+char		*unnamed_obj(size_t index)
 {
 	char	*name;
 	char	*str_index;
@@ -27,38 +27,10 @@ static char		*unnamed_shape(size_t index)
 	return (name);
 }
 
-static float	parse_shape_param_by_type(const JC_FIELD shape_field,
-										SHAPE_TYPE type)
-{
-	float	param;
-
-	if (type == PLANE)
-		param = 0.0f;
-	else if (type == SPHERE || type == CYLINDER || type == CAPPEDCYLINDER)
-	{
-		param = jc_get_float(shape_field, "radius");
-		if (param < 0.1f)
-			parse_error(jc_full_name(shape_field), "radius",
-				"The value must be greater or equal than 0.1");
-	}
-	else if (type == CONE)
-	{
-		param = jc_get_float(shape_field, "angle");
-		if (param < 1.0f || param > 89.0f)
-			parse_error(jc_full_name(shape_field), "angle",
-				"Value must be in range [1.0; 89.0].");
-		param = deg_to_rad(param);
-	}
-	else
-		ft_error("Unknown action");
-	return (param);
-}
-
 static void		init_default_shape_params(SHAPE *shape)
 {
 	shape->prev = NULL;
 	shape->next = NULL;
-	shape->widgets = NULL;
 	shape->tree_iter = NULL;
 	shape->dto->marker = FALSE;
 	shape->texture_name = NULL;
@@ -78,14 +50,12 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 		ft_error("Can't allocate memory");
 	init_default_shape_params(shape);
 	shape->name = jc_get_string(shape_field, "name", TRUE);
-	if (!shape->name)
-		shape->name = unnamed_shape(index);
-	length = ft_strlen(shape->name);
-	if (length == 0 || length > 20)
+	(!shape->name) ? shape->name = unnamed_obj(index) : 0;
+	if ((length = ft_strlen_rus(shape->name)) == 0 || length > 20)
 		parse_error(jc_full_name(shape_field), "name",
 			"The field length must be in the range (0; 20].");
 	shape->dto->type = parse_shape_type(shape_field, "type");
-	shape->dto->param =
+	shape->dto->params =
 		parse_shape_param_by_type(shape_field, shape->dto->type);
 	shape->dto->transform = parse_transform(shape_field, "transform");
 	shape->dto->material = parse_material(shape_field, "material");
@@ -117,7 +87,8 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
 	i = 0;
 	while (++i < length)
 	{
-		temp_shape->next = parse_shape_idx(shapes_field, i, textures, normal_maps);
+		temp_shape->next =
+			parse_shape_idx(shapes_field, i, textures, normal_maps);
 		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}

@@ -198,6 +198,8 @@ void					update_cursor_arg(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
+void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
+								_Bool *update_lights);
 /*
 ** =============================================================================
 ** =================================== Utils ===================================

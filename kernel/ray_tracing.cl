@@ -75,7 +75,7 @@ __kernel void render_kernel(__global t_object *objects,
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);
 	char blue = convertColorFromFloat(finalColor.z);
-	
+
 	char alfa = 255;
 
 	output[work_item_id] = (char4)(red, green, blue, alfa);

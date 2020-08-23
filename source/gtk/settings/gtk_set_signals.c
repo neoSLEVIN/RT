@@ -12,11 +12,14 @@
 
 #include "gtk_module.h"
 
-void		gtk_set_signals(t_rt *rt)
+void	gtk_set_signals(t_rt *rt)
 {
+	gtk_set_buttons_signals(rt);
 	gtk_set_motions_signals(rt->gtk->window, rt->gtk->img.image_event_box, rt);
 	gtk_set_shape_signals(rt);
 	gtk_set_shapes_signals(rt);
+	gtk_set_light_signals(rt);
+	gtk_set_lights_signals(rt);
 	gtk_set_ui_settings_signals(&rt->gtk->ui.settings, rt);
 	rt->gtk->timeout_id =
 		g_timeout_add(1000 / rt->scene->fps, draw_by_timeout, rt);

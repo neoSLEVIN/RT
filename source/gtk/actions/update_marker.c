@@ -20,8 +20,7 @@ static void	set_focus_on_marked_shape(t_gtk_shapes *shapes,
 	if (!(path = gtk_tree_model_get_path(shapes->model, shape_iter)))
 		ft_error("Can't allocate memory");
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(shapes->tree),
-			gtk_tree_model_get_path(shapes->model, shape_iter),
-			NULL, FALSE, 0,0);
+			path, NULL, FALSE, 0,0);
 	gtk_tree_path_free(path);
 }
 
@@ -34,8 +33,6 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
-		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = shape;
 	if (shape && shape->dto)
@@ -47,8 +44,6 @@ void		update_shape_marker(t_rt *rt, SHAPE *shape)
 			(GtkTreeIter*)shape->tree_iter,
 			S_MARKER_COL, TRUE,
 			-1);
-		if (shape == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 }
 
@@ -68,15 +63,6 @@ void		clear_shape_marker(t_rt *rt)
 			(GtkTreeIter*)rt->info->s_marker->tree_iter,
 			S_MARKER_COL, FALSE,
 			-1);
-		if (rt->info->s_marker == rt->gtk->ui.shape->shape)
-			rt->info->update_s_marker = TRUE;
 	}
 	rt->info->s_marker = NULL;
-}
-
-void		clear_light_marker(t_rt *rt)
-{
-	if (rt->info->l_marker && rt->info->l_marker->dto)
-		rt->info->l_marker->dto->marker = FALSE;
-	rt->info->l_marker = NULL;
 }

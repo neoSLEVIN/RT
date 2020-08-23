@@ -12,25 +12,7 @@
 
 #include "gtk_module.h"
 
-// TODO delete it before defending
-void	test_ocl(t_ocl *ocl)
-{
-	for (int i = 0; i < ocl->work_size; ++i)
-		if (ocl->dto.buffer[i].x != 0 || ocl->dto.buffer[i].y != 0 || ocl->dto.buffer[i].z != 0)
-			ft_printf("%{}.f %{}.f %{}.f\t",
-					  FT_BLUE, ocl->dto.buffer[i].x,
-					  FT_PURPLE, ocl->dto.buffer[i].y,
-					  FT_YELLOW, ocl->dto.buffer[i].z);
-	ft_putendl("\n");
-}
-
-static void	usage(char *app_name)
-{
-	ft_printf("Usage:\t%s\n", app_name);
-	exit(1);
-}
-
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_rt	rt;
 
@@ -40,7 +22,7 @@ int			main(int argc, char **argv)
 	new_ocl(&rt.ocl);
 	new_scene(&rt.scene);
 	setting_cl(rt.ocl, rt.scene, rt.info);
-	new_gtk(&rt);
+	new_gtk(&rt, rt.scene->filename);
 	draw_image(&rt);
 	gtk_widget_show_all(rt.gtk->window);
 	gtk_main();

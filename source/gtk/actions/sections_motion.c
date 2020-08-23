@@ -1,6 +1,6 @@
 #include "gtk_module.h"
 
-void	move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
+void		move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
 										guint key)
 {
 	int		i;
@@ -27,7 +27,7 @@ void	move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
 	}
 }
 
-void	move_sections_by_mouse(FLT3 diff, SECTION *sections)
+void		move_sections_by_mouse(FLT3 diff, SECTION *sections)
 {
 	int	i;
 
@@ -36,8 +36,19 @@ void	move_sections_by_mouse(FLT3 diff, SECTION *sections)
 		sections[i].position = v3_add(sections[i].position, diff);
 }
 
-void	rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
-						guint key)
+static void	change_section_direction(FLT3 *direction, DTO_CAM *cam,
+									cl_float angle, guint key)
+{
+	if (key == GDK_KEY_k || key == GDK_KEY_i)
+		*direction = v3_rot_v(*direction, cam->right, angle);
+	else if (key == GDK_KEY_j || key == GDK_KEY_l)
+		*direction = v3_rot_v(*direction, cam->upguide, angle);
+	else if (key == GDK_KEY_u || key == GDK_KEY_o)
+		*direction = v3_rot_v(*direction, cam->forward, angle);
+}
+
+void		rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
+							guint key)
 {
 	int			i;
 	FLT3		sec_target;
@@ -56,12 +67,7 @@ void	rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
 			sec_target = v3_rot_v(sec_target, cam->upguide, angle);
 		else if ((key == GDK_KEY_u || key == GDK_KEY_o) && len > 0.01f)
 			sec_target = v3_rot_v(sec_target, cam->forward, angle);
-		if (key == GDK_KEY_k || key == GDK_KEY_i)
-			sections[i].direction = v3_rot_v(sections[i].direction, cam->right, angle);
-		else if (key == GDK_KEY_j || key == GDK_KEY_l)
-			sections[i].direction = v3_rot_v(sections[i].direction, cam->upguide, angle);
-		else if (key == GDK_KEY_u || key == GDK_KEY_o)
-			sections[i].direction = v3_rot_v(sections[i].direction, cam->forward, angle);
+		change_section_direction(&sections[i].direction, cam, angle, key);
 		sections[i].position = v3_add(dto->transform.position, sec_target);
 	}
 }

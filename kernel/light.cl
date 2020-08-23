@@ -28,6 +28,8 @@ float get_point_light(t_light *light, t_ray *ray, t_scene *scene) {
 	float transparent_coef = 1.0f;
 	
 	if (!is_in_shadow_point(light, ray, scene, &transparent_coef)) {
+/*		if (ray->hit_id < 0)
+			printf("%d ", ray->hit_id);*/
 		float specular = scene->objects[ray->hit_id].material.specular;
 		totalLight = diffuse_light(light, ray, specular) * transparent_coef;
 	}

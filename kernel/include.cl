@@ -27,7 +27,6 @@ typedef struct			s_light
 	float				intensity;
 	float3				position;
 	float3				direction;
-	bool				marker;
 }						t_light;
 
 typedef struct			s_transform
@@ -100,7 +99,7 @@ typedef struct			s_object
 	t_section			section[6];
 	int					working_sections;
 	bool				is_complex_section;
-	float				radius;
+	float3				params;
 	bool				marker;
 }						t_object;
 
@@ -166,7 +165,7 @@ float3 uv_patter_plane_lines_cross(float2 uv);
 float3 typical_noise(t_object *obj, float2 uv, int size);
 float3 wood(t_object *obj, float2 uv, int size);
 
-float3 	sphere_normal(float3 hitpoint, float3 position, float3 rayDir);
+float3 	sphere_normal(float3 hitpoint, float3 position);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);

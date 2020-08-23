@@ -42,7 +42,6 @@ struct			s_dto_light
 	cl_float	intensity;
 	FLT3		position;
 	FLT3		direction;
-	_Bool		marker;
 };
 /*
 ** === Light Node (Contains DTO, references to next/prev nodes and widgets) ====
@@ -52,7 +51,7 @@ struct			s_light
 {
 	DTO_LIGHT	*dto;
 	char		*name;
-	void		*widgets;
+	void		*tree_iter;
 	LIGHT		*prev;
 	LIGHT		*next;
 };
@@ -137,18 +136,17 @@ struct			s_dto_shape
 	SECTION		sections[SECTION_CNT];
 	cl_int		working_sections;
 	_Bool		is_complex_section;
-	cl_float	param;
+	FLT3		params;
 	_Bool		marker;
 };
 /*
-** === Shape Node (Contains DTO, references to next/prev nodes and widgets) ====
+** ==== Shape Node (Contains DTO, references to next/prev nodes and widget) ====
 */
 # define SHAPE struct s_shape
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
 	char		*name;
-	void		*widgets;
 	void		*tree_iter;
 	char		*texture_name;
 	char		*normal_map_name;
@@ -185,7 +183,7 @@ struct			s_dto_cam
 # define CAMERA struct s_camera
 struct			s_camera
 {
-//	DTO_CAM		*dto;
+	DTO_CAM		*dto;
 	FLT3		position;
 	FLT3		direction;
 	cl_float	rotation;
@@ -262,6 +260,7 @@ struct			s_scene
 	int			n_cnt;
 	float		fps;
 	FILTER		filter;
+	char		*filename;
 };
 
 #endif

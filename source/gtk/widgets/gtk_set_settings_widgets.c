@@ -28,7 +28,7 @@ void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 {
 	GtkAdjustment	*fps_adj;
 
-	settings->expander = gtk_expander_new_with_mnemonic("_Settings");
+	settings->expander = gtk_expander_new_with_mnemonic("S_ettings");
 	settings->grid = gtk_grid_new();
 	settings->fps_label = gtk_label_new("FPS:");
 	gtk_widget_set_hexpand(settings->fps_label, FALSE);

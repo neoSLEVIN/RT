@@ -12,18 +12,6 @@
 
 #include "gtk_module.h"
 
-//TODO delete this before defending
-void	del_print(t_rt *rt)
-{
-	cl_float	angle;
-
-	angle = v3_angle_to_xz(rt->ocl->dto.cam.right);
-	if (v3_angle_to_xz(rt->ocl->dto.cam.upguide) < 0.0f)
-		angle = ((angle < 0) ? -PI : PI) - angle;
-	if (angle == 0.0f && rt->ocl->dto.cam.upguide.y == 0.0f)
-		angle = -atan2f(rt->ocl->dto.cam.right.z, -rt->ocl->dto.cam.right.x);
-}
-
 static void	do_rotate_camera(DTO_CAM *cam, cl_float angle, _Bool *update_cam,
 								guint key)
 {

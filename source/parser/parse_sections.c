@@ -1,6 +1,6 @@
 #include "parser.h"
 
-static void	init_default_shape_sections(DTO_SHAPE *dto)
+void		init_default_shape_sections(DTO_SHAPE *dto)
 {
 	int	i;
 
@@ -63,13 +63,27 @@ _Bool		parse_section_style(const JC_FIELD parent, const char *child_name)
 	return (is_complex);
 }
 
+static void	parse_sections_loop(JC_FIELD sections_array_field, DTO_SHAPE *dto,
+								int cnt)
+{
+	int	i;
+
+	i = -1;
+	while (++i < cnt)
+	{
+		dto->sections[i] =
+			parse_section_idx(sections_array_field, i, dto->transform.position);
+		if (dto->sections[i].on)
+			++dto->working_sections;
+	}
+}
+
 void		parse_sections(const JC_FIELD parent, const char *child_name,
 							DTO_SHAPE *dto)
 {
 	JC_FIELD	sections_entity_field;
 	JC_FIELD	sections_array_field;
 	int			cnt;
-	int			i;
 
 	init_default_shape_sections(dto);
 	sections_entity_field =
@@ -86,12 +100,5 @@ void		parse_sections(const JC_FIELD parent, const char *child_name,
 	if (cnt > SECTION_CNT)
 		parse_error(jc_full_name(sections_array_field), NULL,
 			"Max count of elements: 6");
-	i = -1;
-	while (++i < cnt)
-	{
-		dto->sections[i] =
-			parse_section_idx(sections_array_field, i, dto->transform.position);
-		if (dto->sections->on)
-			++dto->working_sections;
-	}
+	parse_sections_loop(sections_array_field, dto, cnt);
 }

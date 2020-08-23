@@ -27,7 +27,6 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 	dto->right = v3_rot_v(dto->right, dto->forward, -(*angle));
 	dto->up = v3_cross(dto->right, dto->forward);
 	dto->upguide = v3_norm(dto->up);
-//	cam->dto = dto;
 }
 
 void	translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture, int cnt)
