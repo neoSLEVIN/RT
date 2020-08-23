@@ -2,7 +2,7 @@
 float3 image_texture(float2 uv, __global t_ppm_image *texture, int id)  {
 	
 	float3 res = 0;
-	
+
 	int nx = texture[id].width;
 	int ny = texture[id].height;
 	

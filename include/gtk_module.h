@@ -426,7 +426,7 @@ typedef struct		s_blur
 ** ================================= Settings ==================================
 ** =============================================================================
 */
-void				gtk_set_main_window(t_gtk *gtk);
+void				gtk_set_main_window(t_gtk *gtk, const char *filename);
 void				gtk_set_widgets(t_gtk *gtk, t_rt *rt);
 void				gtk_set_signals(t_rt *rt);
 void				gtk_set_positions(t_gtk *gtk);
@@ -742,7 +742,7 @@ gboolean			serialize_scene_to_json(gpointer data);
 */
 void				usage(char *app_name);
 void				new_scene(SCENE **scene);
-void				new_gtk(t_rt *rt);
+void				new_gtk(t_rt *rt, const char *filename);
 void				init_info(t_info **info);
 void				keys_to_false(t_info *info);
 void				mouse_to_false(t_info *info);

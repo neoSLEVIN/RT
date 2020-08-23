@@ -58,7 +58,7 @@ static void	set_memory_input_textures_normals(t_ocl *ocl, SCENE *scene)
 	ocl->dto.input_normal_maps = clCreateBuffer(ocl->context, CL_MEM_READ_WRITE,
 		sizeof(DTO_PPM_IMG) * alloc_size, NULL, &err);
 	check_error_cl(err,"clCreateBuffer", "input_normal_maps");
-	if (ocl->dto.t_cnt > 0)
+	if (ocl->dto.n_cnt > 0)
 	{
 		err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.input_normal_maps,
 			CL_TRUE, 0, sizeof(DTO_PPM_IMG) * *ocl->dto.n_cnt,

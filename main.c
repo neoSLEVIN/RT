@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	new_ocl(&rt.ocl);
 	new_scene(&rt.scene);
 	setting_cl(rt.ocl, rt.scene, rt.info);
-	new_gtk(&rt);
+	new_gtk(&rt, rt.scene->filename);
 	draw_image(&rt);
 	gtk_widget_show_all(rt.gtk->window);
 	gtk_main();

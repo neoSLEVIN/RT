@@ -97,7 +97,10 @@
     ],
     "normal maps": [
       {"name": "ground", "path": "extras\\normalmaps\\Wood_n.ppm"},
-      {"name": "Wood", "path": "extras\\normalmaps\\Wood_n.ppm"}
+      {"name": "Wood", "path": "extras\\textures\\earth.ppm"},
+      {"name": "Wood2", "path": "extras\\textures\\dan.ppm"},
+      {"name": "Wood3", "path": "extras\\textures\\dan.ppm"},
+      {"name": "Wood4", "path": "extras\\textures\\dan.ppm"}
     ]
   }
 }

@@ -260,6 +260,7 @@ struct			s_scene
 	int			n_cnt;
 	float		fps;
 	FILTER		filter;
+	char		*filename;
 };
 
 #endif

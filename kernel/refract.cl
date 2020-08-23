@@ -5,7 +5,11 @@ float3 go_refract(t_ray ray, t_scene *scene) {
 	float3 finalColor = 0;
 	
 	finalColor = continue_refract_ray(&ray, scene);
-	
+	if (ray.hit_id < 0)
+	{
+/*		printf("%d ", ray.hit_id);*/
+		return finalColor;
+	}
 	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {
 		return finalColor;
 	}
@@ -28,7 +32,7 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	
 	int maxBounds = 3;
 	int oldHit_id = ray->hit_id;
-	
+
 	while (oldHit_id == ray->hit_id && maxBounds != 0) {
 		ray->origin = ray->hitPoint + ray->dir * 0.1f;
 		ray->dir = refract(ray);

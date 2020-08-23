@@ -41,5 +41,7 @@ void			new_scene(SCENE **scene)
 
 	filename = get_file_name_of_scene();
 	*scene = parse_scene(filename);
+	if (!((*scene)->filename = ft_strdup(filename)))
+		ft_error("Can't allocate memory");
 	g_free(filename);
 }
