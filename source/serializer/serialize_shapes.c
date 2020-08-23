@@ -14,7 +14,7 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 	else if (type == CONE)
 	{
 		s_name(s, "angle");
-		s_float(s, deg_to_rad(params->x));
+		s_float(s, rad_to_deg(params->x));
 		s_comma(s);
 	}
 	else if (type == CAPPEDCYLINDER)
