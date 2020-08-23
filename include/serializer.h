@@ -27,12 +27,16 @@ void				s_str(t_serializer *s, const char *str);
 void				s_str_free(t_serializer *s, char *str);
 void				s_str_in_quotes(t_serializer *s, const char *str);
 void				s_str_in_quotes_free(t_serializer *s, char *str);
-void				s_open_json_obj(t_serializer *s);
+void				s_open_obj_no_indent(t_serializer *s);
+void				s_open_arr_no_indent(t_serializer *s);
 void				s_open_obj(t_serializer *s);
 void				s_open_arr(t_serializer *s);
+void				s_name_no_indent(t_serializer *s, const char *name);
 void				s_name(t_serializer *s, const char *name);
 void				s_open_obj_with_name(t_serializer *s, const char *name);
 void				s_open_arr_with_name(t_serializer *s, const char *name);
+void				s_close_obj_no_indent(t_serializer *s);
+void				s_close_arr_no_indent(t_serializer *s);
 void				s_close_obj(t_serializer *s);
 void				s_close_arr(t_serializer *s);
 /*
@@ -41,6 +45,8 @@ void				s_close_arr(t_serializer *s);
 char				*get_filter_type_name(FILTER filter);
 char				*get_shape_type_name(SHAPE_TYPE type);
 char				*get_light_type_name(LIGHT_TYPE type);
+char				*get_ppm_name_by_index(PPM_IMG *ppm, int index,
+								_Bool is_normal_map);
 void				s_float3(t_serializer *s, FLT3 num_value);
 void				s_json_obj(const char *scene_filename, SCENE *scene);
 void				s_settings_obj(t_serializer *s, SCENE *scene);
@@ -51,9 +57,11 @@ void				s_shapes_arr(t_serializer *s, SHAPE *shape,
 void				s_lights_arr(t_serializer *s, LIGHT *light);
 void				s_ppm_img_arr(t_serializer *s, const char *name,
 								PPM_IMG *ppm);
-void				s_shape_ppm_img_obj(t_serializer *s, int id,
-								const char *name, PPM_IMG *ppm);
-void				s_transform_obj(t_serializer *s, TRANSFORM *transform);
+void				s_shape_texture_obj(t_serializer *s, int id, PPM_IMG *ppm);
+void				s_shape_normal_map_obj(t_serializer *s, int id,
+								PPM_IMG *ppm);
+void				s_transform_obj(t_serializer *s, TRANSFORM *transform,
+								SHAPE_TYPE type);
 void				s_material_obj(t_serializer *s, MATERIAL *material);
 void				s_sections_obj(t_serializer *s, DTO_SHAPE *dto);
 

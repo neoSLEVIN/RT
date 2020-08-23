@@ -27,15 +27,21 @@ static void	s_section_obj(t_serializer *s, SECTION *section)
 
 static void	s_sections_elements_arr(t_serializer *s, SECTION *sections)
 {
-	int	i;
+	int		i;
+	_Bool	first_on;
 
 	i = -1;
+	first_on = TRUE;
 	s_open_arr_with_name(s, "elements");
 	while (++i < SECTION_CNT)
 	{
-		s_section_obj(s, &sections[i]);
-		if (i != SECTION_CNT - 1)
-			s_comma(s);
+		if (sections[i].on || (i == SECTION_CNT - 1 && first_on))
+		{
+			if (first_on == FALSE)
+				s_comma(s);
+			first_on = FALSE;
+			s_section_obj(s, &sections[i]);
+		}
 	}
 	s_close_arr(s);
 }

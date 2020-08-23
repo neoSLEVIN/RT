@@ -16,7 +16,7 @@
 # include "jc_parser.h"
 # include "scene.h"
 
-# define PARSE_TEXT_SIZE 120000
+# define PARSE_TEXT_SIZE 1200000
 /*
 ** ========================== Parse main Scene entity ==========================
 */
@@ -43,7 +43,8 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index);
 TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
 						const char *child_name, char **texture_name,
 						PPM_IMG *textures);
-int			check_for_texture_name(PPM_IMG *texture, const char *name);
+int			check_for_texture_name(PPM_IMG *texture, const char *name,
+						_Bool is_normal_map);
 /*
 ** =============================== Parse shapes ================================
 */
@@ -84,5 +85,8 @@ void		parse_error(const char *parent_name, const char *child_name,
 ** =================================== Utils ===================================
 */
 char		*unnamed_obj(size_t index);
+void		check_reserved_names(const JC_FIELD texture_field,
+								const char *name, _Bool is_normal_maps);
+int			get_reserved_name_index(const char *name, _Bool is_normal_maps);
 
 #endif

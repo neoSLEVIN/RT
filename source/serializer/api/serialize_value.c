@@ -12,5 +12,5 @@ void	s_bool(t_serializer *s, _Bool bool_value)
 
 void	s_float(t_serializer *s, float num_value)
 {
-	ft_printf("%[f", s->fd, num_value);
+	ft_printf("%[.3f", s->fd, num_value);
 }

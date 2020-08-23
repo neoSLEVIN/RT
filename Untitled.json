@@ -1,0 +1,289 @@
+{
+  "settings": {
+    "fps": 30.000,
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [0.000, 0.000, -35.000],
+      "direction": [0.000, 0.000, 1.000],
+      "rotation": 0.000
+    },
+    "lights": [
+      {
+        "name": "Unnamed_0",
+        "type": "AMBIENT",
+        "intensity": 0.100
+      },
+      {
+        "name": "Unnamed_1",
+        "type": "POINT",
+        "intensity": 0.500,
+        "position": [-4.000, 5.000, -13.000]
+      },
+      {
+        "name": "Unnamed_2",
+        "type": "DIRECTION",
+        "intensity": 0.300,
+        "direction": [0.424, -0.566, 0.707]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "Пол",
+        "transform": {
+          "position": [0.000, -3.000, 0.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "DDAA88",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "SPHERE",
+              "position": [0.000, -3.000, 0.000],
+              "radius": 5.000
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Dan",
+        "transform": {
+          "position": [0.000, 0.000, 20.000],
+          "direction": [0.000, 0.000, -1.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Lines"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, 0.000, 20.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Wood",
+        "radius": 4.000,
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.100,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "ground"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "SPHERE",
+              "position": [0.000, 0.000, 0.000],
+              "radius": 3.000
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Red",
+        "radius": 1.000,
+        "transform": {
+          "position": [4.000, 4.000, -9.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "FF0000",
+          "specular": 0.200,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "SPHERE",
+              "position": [4.000, 4.000, -9.000],
+              "radius": 0.800
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "transparency",
+        "radius": 2.000,
+        "transform": {
+          "position": [-4.000, 2.000, -10.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.300,
+          "reflective": 0.000,
+          "transparency": 0.900
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-4.000, 2.000, -10.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CYLINDER",
+        "name": "Unnamed_5",
+        "radius": 3.000,
+        "transform": {
+          "position": [5.000, 0.000, 3.000],
+          "direction": [-0.577, 0.808, 0.115]
+        },
+        "material": {
+          "color": "FF0000",
+          "specular": 1.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Wood"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "SPHERE",
+              "position": [5.000, 0.000, 3.000],
+              "radius": 3.000
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CYLINDER",
+        "name": "Unnamed_6",
+        "radius": 3.000,
+        "height": 20.000,
+        "transform": {
+          "position": [5.000, 0.000, 3.000],
+          "direction": [0.577, 0.808, 0.115]
+        },
+        "material": {
+          "color": "FF0000",
+          "specular": 1.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Noise"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "SPHERE",
+              "position": [5.000, 0.000, 3.000],
+              "radius": 3.000
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "norm",
+        "path": "extras\\textures\\Wood.ppm"
+      },
+      {
+        "name": "360",
+        "path": "extras\\textures\\marble.ppm"
+      },
+      {
+        "name": "Coffin",
+        "path": "extras\\textures\\4.ppm"
+      },
+      {
+        "name": "Dan",
+        "path": "extras\\textures\\dan.ppm"
+      },
+      {
+        "name": "Earth",
+        "path": "extras\\textures\\earth.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "ground",
+        "path": "extras\\normalmaps\\Wood_n.ppm"
+      },
+      {
+        "name": "Wood",
+        "path": "extras\\normalmaps\\Wood_n.ppm"
+      }
+    ]
+  }
+}

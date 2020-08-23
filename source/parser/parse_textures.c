@@ -12,13 +12,16 @@
 
 #include "parser.h"
 
-int			check_for_texture_name(PPM_IMG *texture, const char *name)
+int			check_for_texture_name(PPM_IMG *texture, const char *name,
+								_Bool is_normal_map)
 {
 	int	index;
 
-	index = 0;
 	if (name == NULL)
-		return (-2);
+		return (-100);
+	index = get_reserved_name_index(name, is_normal_map);
+	if (index != 0)
+		return (index);
 	while (texture)
 	{
 		if (ft_strequ(name, texture->name))
@@ -26,7 +29,7 @@ int			check_for_texture_name(PPM_IMG *texture, const char *name)
 		++index;
 		texture = texture->next;
 	}
-	return (-1);
+	return (-101);
 }
 
 TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
@@ -45,8 +48,8 @@ TEXTURE		parse_texture_info_in_shape(const JC_FIELD parent,
 	}
 	if (!(*texture_name = jc_get_string(texture_field, "name", TRUE)))
 		texture.id = -1;
-	else if ((texture.id =
-				check_for_texture_name(textures, *texture_name)) == -1)
+	else if ((texture.id = check_for_texture_name(textures, *texture_name,
+		ft_strstr(jc_full_name(texture_field), "normal map") != NULL)) == -101)
 		parse_error(jc_full_name(texture_field), "name",
 					"There is no field with this name");
 	texture.direction = parse_cl_float3_or_default(texture_field, "direction",
@@ -63,10 +66,11 @@ static void	error_on_same_texture_name(const JC_FIELD parent, PPM_IMG *texture)
 	index = 0;
 	while (texture)
 	{
-		res = check_for_texture_name(texture->next, texture->name);
-		if (res == -2)
+		res = check_for_texture_name(texture->next, texture->name,
+			ft_strstr(jc_full_name(parent), "normal map") != NULL);
+		if (res == -100)
 			ft_error("NPE: (error_on_same_texture_name)");
-		if (res != -1)
+		if (res >= 0)
 			parse_error(jc_full_name(jc_get_field_idx(parent, index + res + 1,
 				JC_OBJ)), "name", "A ppm_img with this name exists");
 		++index;
@@ -92,6 +96,10 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 	if (length == 0 || length > 20)
 		parse_error(jc_full_name(texture_field), "name",
 			"The field length must be in the range (0; 20].");
+	if (ft_strstr(jc_full_name(parent), "textures"))
+		check_reserved_names(texture_field, texture->name, FALSE);
+	else if (ft_strstr(jc_full_name(parent), "normal maps"))
+		check_reserved_names(texture_field, texture->name, TRUE);
 	texture->path = jc_get_string(texture_field, "path", FALSE);
 	return (texture);
 }

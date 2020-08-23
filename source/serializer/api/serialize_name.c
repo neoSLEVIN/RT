@@ -1,9 +1,14 @@
 #include "serializer.h"
 
+void	s_name_no_indent(t_serializer *s, const char *name)
+{
+	ft_printf("%[s\"%s\": ", s->fd, "", name, '"');
+}
+
 void	s_name(t_serializer *s, const char *name)
 {
 	s_indent(s);
-	ft_printf("%[s\"%s\": ", s->fd, "", name, '"');
+	s_name_no_indent(s, name);
 }
 
 void	s_open_obj_with_name(t_serializer *s, const char *name)

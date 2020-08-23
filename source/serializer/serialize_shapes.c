@@ -41,14 +41,13 @@ static void	s_shape_obj(t_serializer *s, SHAPE *shape,
 	s_str_in_quotes(s, shape->name);
 	s_comma(s);
 	s_shape_params_with_comma(s, shape->dto->type, &shape->dto->params);
-	s_transform_obj(s, &shape->dto->transform);
+	s_transform_obj(s, &shape->dto->transform, shape->dto->type);
 	s_comma(s);
 	s_material_obj(s, &shape->dto->material);
 	s_comma(s);
-	s_shape_ppm_img_obj(s, shape->dto->texture.id, "texture", textures);
+	s_shape_texture_obj(s, shape->dto->texture.id, textures);
 	s_comma(s);
-	s_shape_ppm_img_obj(s, shape->dto->normal_map.id, "normal map",
-						normal_maps);
+	s_shape_normal_map_obj(s, shape->dto->normal_map.id, normal_maps);
 	s_comma(s);
 	s_sections_obj(s, shape->dto);
 	s_close_obj(s);

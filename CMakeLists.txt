@@ -278,7 +278,7 @@ set(SRCNAME_PARSER
         source/parser/parse_light.c
         source/parser/parse_settings.c
         source/parser/parse_textures.c
-        source/parser/parse_sections.c)
+        source/parser/parse_sections.c source/parser/check_reserved_names.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -406,7 +406,7 @@ set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
 
 set(SRCNAME_SERIALIZER
-        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c)
+        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c source/serializer/serialize_reserved_ppm_names.c)
 
 if (APPLE)
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})

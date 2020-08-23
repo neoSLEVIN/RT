@@ -1,25 +1,18 @@
 #include "serializer.h"
 
-static char	*get_ppm_name_by_index(PPM_IMG *ppm, int index)
+void		s_shape_texture_obj(t_serializer *s, int id, PPM_IMG *ppm)
 {
-	int	i;
-
-	if (index < 0)
-		return (NULL);
-	i = 0;
-	while (ppm && i++ != index)
-		ppm = ppm->next;
-	if (!ppm)
-		return (NULL);
-	return (ppm->name);
+	s_open_obj_with_name(s, "texture");
+	s_name(s, "name");
+	s_str_in_quotes_free(s, get_ppm_name_by_index(ppm, id, FALSE));
+	s_close_obj(s);
 }
 
-void		s_shape_ppm_img_obj(t_serializer *s, int id, const char *name,
-								PPM_IMG *ppm)
+void		s_shape_normal_map_obj(t_serializer *s, int id, PPM_IMG *ppm)
 {
-	s_open_obj_with_name(s, name);
+	s_open_obj_with_name(s, "normal map");
 	s_name(s, "name");
-	s_str_in_quotes(s, get_ppm_name_by_index(ppm, id));
+	s_str_in_quotes_free(s, get_ppm_name_by_index(ppm, id, TRUE));
 	s_close_obj(s);
 }
 
