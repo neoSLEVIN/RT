@@ -12,22 +12,20 @@
 
 #include "ocl.h"
 
-static void	init_dto_cam(DTO_CAM *cam)
+void		init_dto_cam(DTO_CAM *cam, cl_float fov)
 {
-	cl_float	fov;
 	cl_float	ratio;
 
 	cam->screen_h = ROWS;
 	cam->screen_w = COLS;
-	fov = 25.0f * RAD;
 	ratio = (float)cam->screen_w / (float)cam->screen_h;
-	cam->viewport_h = tan(fov) / 2;
+	cam->viewport_h = tan((double)(fov * RAD / 2));
 	cam->viewport_w = cam->viewport_h * ratio;
 }
 
 static void	init_dto(t_dto *dto, const size_t work_size)
 {
-	init_dto_cam(&dto->cam);
+	init_dto_cam(&dto->cam, 25.0f);
 	dto->textures = NULL;
 	dto->normal_maps = NULL;
 	dto->shapes = NULL;

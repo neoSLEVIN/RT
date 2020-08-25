@@ -1,9 +1,9 @@
 #include "gtk_module.h"
 
-void	init_blur(t_blur *blur)
+static void	init_blur(t_blur *blur, unsigned segment_size)
 {
 	blur->average = (cl_uint3){0, 0, 0};
-	blur->segment_size = 5;
+	blur->segment_size = segment_size;
 	blur->count_of_segments.x = (COLS % blur->segment_size == 0) ?
 		(COLS / blur->segment_size) : (COLS / blur->segment_size + 1);
 	blur->count_of_segments.y = (ROWS % blur->segment_size == 0) ?
@@ -13,7 +13,7 @@ void	init_blur(t_blur *blur)
 	blur->pix = -1;
 }
 
-void	segment_loop(void (*action_for_pixel)(cl_uchar4 *, cl_uint3 *),
+static void	segment_loop(void (*action_for_pixel)(cl_uchar4 *, cl_uint3 *),
 					cl_uchar4 *buffer, t_blur *blur)
 {
 	cl_int2	segment_start;
@@ -37,13 +37,13 @@ void	segment_loop(void (*action_for_pixel)(cl_uchar4 *, cl_uint3 *),
 	}
 }
 
-void	compute_blur(t_rt *rt)
+void		compute_blur(t_rt *rt)
 {
 	cl_uchar4	*buffer;
 	t_blur		blur;
 
 	buffer = rt->ocl->dto.buffer;
-	init_blur(&blur);
+	init_blur(&blur, (unsigned)rt->scene->filter_params.x);
 	while (++blur.segment.y < blur.count_of_segments.y)
 	{
 		blur.segment.x = -1;

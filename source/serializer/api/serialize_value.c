@@ -14,3 +14,8 @@ void	s_float(t_serializer *s, float num_value)
 {
 	ft_printf("%[.3f", s->fd, num_value);
 }
+
+void	s_int(t_serializer *s, int num_value)
+{
+	ft_printf("%[d", s->fd, num_value);
+}

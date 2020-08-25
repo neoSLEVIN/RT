@@ -28,5 +28,9 @@ CAMERA	parse_camera(const JC_FIELD parent, const char *child_name)
 					"The vector must not be a zero vector.");
 	cam.rotation = jc_get_float_or_default(cam_field, "rotation", 0.0f);
 	cam.rotation = deg_to_rad(cam.rotation);
+	cam.fov = jc_get_float_or_default(cam_field, "fov", 25.0f);
+	if (cam.fov < 10.0f || cam.fov > 160.0f)
+		parse_error(jc_full_name(cam_field), "fov",
+					"Value must be in range [10.0; 160.0].");
 	return (cam);
 }

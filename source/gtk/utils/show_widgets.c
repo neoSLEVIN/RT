@@ -1,14 +1,11 @@
 #include "gtk_module.h"
 
-void	changing_filter_type(GtkComboBox *filter_combo, gpointer data)
+void	show_widgets(t_rt *rt)
 {
-	t_rt	*rt;
-	cl_int	err;
 	FILTER	filter;
 
-	rt = (t_rt*)data;
-	filter = gtk_combo_box_get_active(filter_combo);
-	rt->scene->filter = filter;
+	gtk_widget_show_all(rt->gtk->window);
+	filter = rt->scene->filter;
 	if (filter == BLUR || filter == SEPIA || filter == NOISE)
 	{
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, TRUE);
@@ -18,8 +15,4 @@ void	changing_filter_type(GtkComboBox *filter_combo, gpointer data)
 	}
 	else
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, FALSE);
-	err = clSetKernelArg(rt->ocl->kernel, 10, sizeof(FILTER),
-						rt->ocl->dto.filter);
-	check_error_cl(err,"clSetKernelArg", "filter");
-	draw_image(rt);
 }

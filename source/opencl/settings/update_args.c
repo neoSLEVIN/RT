@@ -12,6 +12,15 @@
 
 #include "ocl.h"
 
+void	update_filter_params(t_ocl *ocl)
+{
+	int	err;
+
+	err = clSetKernelArg(ocl->kernel, 12, sizeof(FLT3),
+						ocl->dto.filter_params);
+	check_error_cl(err,"clSetKernelArg", "filter_params");
+}
+
 void	update_cursor_arg(t_ocl *ocl)
 {
 	int	err;

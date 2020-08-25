@@ -49,7 +49,8 @@ __kernel void render_kernel(__global t_object *objects,
 							__global t_ppm_image *textures,
 							__global t_ppm_image *normal_maps,
 							FILTER filter,
-							__global int *output_id)
+							__global int *output_id,
+							float3 filter_params)
 {
 	float3 finalColor = 0;
 	t_ray ray;
@@ -70,7 +71,7 @@ __kernel void render_kernel(__global t_object *objects,
 	finalColor /= (float)xQuality;
 
 	if (filter != NO_FILTER)
-		apply_filter(&finalColor, filter);
+		apply_filter(&finalColor, filter, filter_params);
 	
 	char red = convertColorFromFloat(finalColor.x);
 	char green = convertColorFromFloat(finalColor.y);

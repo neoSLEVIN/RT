@@ -22,4 +22,12 @@ void	gtk_set_ui_settings_signals(t_gtk_settings *settings, t_rt *rt)
 		G_CALLBACK(change_axis), &rt->info->axis.x);
 	g_signal_connect(G_OBJECT(settings->filter_combo), "changed",
 		G_CALLBACK(changing_filter_type), rt);
+	g_signal_connect(G_OBJECT(settings->blur_size.spin), "value-changed",
+		G_CALLBACK(spin_button_blur_filter_changer), rt);
+	g_signal_connect(G_OBJECT(settings->sepia_depth.spin), "value-changed",
+		G_CALLBACK(spin_button_sepia_filter_changer), rt);
+	g_signal_connect(G_OBJECT(settings->noise_depth.spin), "value-changed",
+		G_CALLBACK(spin_button_noise_filter_changer), rt);
+	g_signal_connect(G_OBJECT(settings->fov.spin), "value-changed",
+		G_CALLBACK(spin_button_fov_changer), rt);
 }

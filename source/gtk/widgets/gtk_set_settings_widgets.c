@@ -12,16 +12,23 @@
 
 #include "gtk_module.h"
 
-static void	gtk_set_filters_list(GtkComboBoxText *filter_combo)
+static void	gtk_set_spin_button_for_fov(GtkWidget **spin, cl_float value)
 {
-	gtk_combo_box_text_append_text(filter_combo, "NO FILTER");
-	gtk_combo_box_text_append_text(filter_combo, "SEPIA");
-	gtk_combo_box_text_append_text(filter_combo, "NEGATIVE");
-	gtk_combo_box_text_append_text(filter_combo, "NOISE");
-	gtk_combo_box_text_append_text(filter_combo, "SHADES OF GRAY");
-	gtk_combo_box_text_append_text(filter_combo, "BLUR");
-	gtk_combo_box_text_append_text(filter_combo, "EMBOSS");
-	gtk_combo_box_text_append_text(filter_combo, "SHARPEN");
+	GtkAdjustment	*adj;
+
+	adj = gtk_adjustment_new(value, 10, 160, 1.0, 10.0, 0);
+	*spin = gtk_spin_button_new(adj, 1.0, 1);
+	gtk_entry_set_width_chars(GTK_ENTRY(*spin), 4);
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(*spin), TRUE);
+	gtk_widget_set_margin_top(*spin, 5);
+	gtk_widget_set_margin_bottom(*spin, 5);
+}
+
+static void	gtk_set_setting_fov_widgets(t_gtk_settings *settings, t_rt *rt)
+{
+	settings->fov.label = gtk_label_new("FOV:");
+	gtk_widget_set_margin_end(settings->fov.label, 5);
+	gtk_set_spin_button_for_fov(&settings->fov.spin, rt->scene->cam.fov);
 }
 
 void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
@@ -29,6 +36,7 @@ void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 	GtkAdjustment	*fps_adj;
 
 	settings->expander = gtk_expander_new_with_mnemonic("S_ettings");
+	settings->v_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	settings->grid = gtk_grid_new();
 	settings->fps_label = gtk_label_new("FPS:");
 	gtk_widget_set_hexpand(settings->fps_label, FALSE);
@@ -44,10 +52,6 @@ void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 	gtk_widget_set_halign(settings->separator, GTK_ALIGN_CENTER);
 	settings->x_axis = gtk_check_button_new_with_label("Invert X-axis");
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->x_axis), FALSE);
-	settings->filter_label = gtk_label_new("Filter:");
-	gtk_widget_set_margin_end(settings->filter_label, 5);
-	settings->filter_combo = gtk_combo_box_text_new();
-	gtk_set_filters_list(GTK_COMBO_BOX_TEXT(settings->filter_combo));
-	gtk_combo_box_set_active(GTK_COMBO_BOX(settings->filter_combo),
-		rt->scene->filter);
+	gtk_set_setting_fov_widgets(settings, rt);
+	gtk_set_setting_filter_widgets(settings, rt);
 }

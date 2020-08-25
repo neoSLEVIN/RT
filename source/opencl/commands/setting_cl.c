@@ -15,6 +15,7 @@
 void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 {
 	scene->cam.dto = &ocl->dto.cam;
+	init_dto_cam(scene->cam.dto, scene->cam.fov);
 	translate_cam(&ocl->dto.cam, &scene->cam);
 	translate_shapes(&ocl->dto.shapes, scene->shapes, scene->s_cnt);
 	ocl->dto.s_cnt = &scene->s_cnt;
@@ -27,6 +28,7 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
 	ocl->dto.filter = &scene->filter;
+	ocl->dto.filter_params = &scene->filter_params;
 	set_memory_output(ocl);
 	set_memory_input(ocl, scene);
 	set_memory_input_seeds(ocl);

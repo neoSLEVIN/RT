@@ -400,7 +400,7 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
         source/gtk/actions/get_new_file_name.c
-        source/gtk/callbacks/save_image.c)
+        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/spin_button_fov_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

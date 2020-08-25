@@ -214,4 +214,4 @@ void	filter_sepia(float3 *color, float depth);
 void	filter_negative(float3 *color);
 void	filter_noise(float3 *color, float noise);
 void	filter_shades_of_gray(float3 *color);
-void	apply_filter(float3 *color, FILTER filter);
+void	apply_filter(float3 *color, FILTER filter, float3 filter_params);

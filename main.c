@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	setting_cl(rt.ocl, rt.scene, rt.info);
 	new_gtk(&rt, rt.scene->filename);
 	draw_image(&rt);
-	gtk_widget_show_all(rt.gtk->window);
+	show_widgets(&rt);
 	gtk_main();
 //	clear_rt(&rt);
 	return (0);

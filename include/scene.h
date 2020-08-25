@@ -184,6 +184,7 @@ struct			s_dto_cam
 struct			s_camera
 {
 	DTO_CAM		*dto;
+	cl_float	fov;
 	FLT3		position;
 	FLT3		direction;
 	cl_float	rotation;
@@ -260,6 +261,7 @@ struct			s_scene
 	int			n_cnt;
 	float		fps;
 	FILTER		filter;
+	FLT3		filter_params;
 	char		*filename;
 };
 

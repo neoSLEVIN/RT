@@ -346,14 +346,23 @@ typedef struct		s_gtk_textures
 typedef struct		s_gtk_settings
 {
 	GtkWidget		*expander;
+	GtkWidget		*v_box;
 	GtkWidget		*grid;
 	GtkWidget		*fps_label;
 	GtkWidget		*fps_scale;
 	GtkWidget		*y_axis;
 	GtkWidget		*separator;
 	GtkWidget		*x_axis;
+	t_spinner		fov;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
+	GtkWidget		*v_filter_params;
+	GtkWidget		*h_blur;
+	t_spinner		blur_size;
+	GtkWidget		*h_sepia;
+	t_spinner		sepia_depth;
+	GtkWidget		*h_noise;
+	t_spinner		noise_depth;
 }					t_gtk_settings;
 
 /*
@@ -449,6 +458,8 @@ void				gtk_set_lights_tree(t_gtk_lights *lights, t_rt *rt);
 void				gtk_set_textures_tree(t_gtk_textures *textures,
 								const char *name, PPM_IMG *ppm);
 void				gtk_set_settings_widgets(t_gtk_settings *settings,
+								t_rt *rt);
+void				gtk_set_setting_filter_widgets(t_gtk_settings *settings,
 								t_rt *rt);
 /*
 ** ============================= Shape tab widgets =============================
@@ -552,6 +563,14 @@ gboolean			lights_tree_single_click(GtkTreeView *tree,
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
+								gpointer data);
+void				spin_button_blur_filter_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_sepia_filter_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_noise_filter_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_fov_changer(GtkSpinButton *button,
 								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
@@ -744,6 +763,7 @@ void				usage(char *app_name);
 void				new_scene(SCENE **scene);
 void				new_gtk(t_rt *rt, const char *filename);
 void				init_info(t_info **info);
+void				show_widgets(t_rt *rt);
 void				keys_to_false(t_info *info);
 void				mouse_to_false(t_info *info);
 void				shape_to_false(t_info *info);

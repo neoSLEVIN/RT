@@ -1,13 +1,17 @@
 {
   "settings": {
     "fps": 30.0,
+    "filter": "NO FILTERS",
+    "blur size": 50,
+    "sepia depth": 50,
+    "noise depth": 10,
 
     "tips": "========================================================",
     "tip_1": "Recommended FPS is 30. Picture will be update in 33ms.",
     "tip_2": "But if you see lags, reduce FPS value"
   },
   "scene": {
-    "camera": {"position": [0,0,-35],"direction":[0,0,10],"rotation":0},
+    "camera": {"position": [0,0,-35],"direction":[0,0,10],"fov":80},
     "lights": [
       {"type": "AMBIENT", "intensity": 0.1},
       {"type": "POINT", "intensity": 0.5, "position": [-4,5,-13]},

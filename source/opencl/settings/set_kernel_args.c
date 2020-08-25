@@ -18,6 +18,8 @@ static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
 
 	err = clSetKernelArg(kernel, 11, sizeof(cl_mem), &dto->output_id);
 	check_error_cl(err,"clSetKernelArg", "output_id");
+	err = clSetKernelArg(kernel, 12, sizeof(FLT3), dto->filter_params);
+	check_error_cl(err,"clSetKernelArg", "filter_params");
 }
 
 void		set_kernel_args(cl_kernel kernel, t_dto *dto)

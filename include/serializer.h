@@ -23,6 +23,7 @@ void				s_comma(t_serializer *s);
 void				s_null(t_serializer *s);
 void				s_bool(t_serializer *s, _Bool bool_value);
 void				s_float(t_serializer *s, float num_value);
+void				s_int(t_serializer *s, int num_value);
 void				s_str(t_serializer *s, const char *str);
 void				s_str_free(t_serializer *s, char *str);
 void				s_str_in_quotes(t_serializer *s, const char *str);
@@ -51,7 +52,7 @@ void				s_float3(t_serializer *s, FLT3 num_value);
 void				s_json_obj(const char *scene_filename, SCENE *scene);
 void				s_settings_obj(t_serializer *s, SCENE *scene);
 void				s_scene_obj(t_serializer *s, SCENE *scene);
-void				s_camera_obj(t_serializer *s, DTO_CAM *cam);
+void				s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov);
 void				s_shapes_arr(t_serializer *s, SHAPE *shape,
 								PPM_IMG *textures, PPM_IMG *normal_maps);
 void				s_lights_arr(t_serializer *s, LIGHT *light);

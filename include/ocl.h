@@ -114,6 +114,7 @@ typedef struct			s_dto
 	int					*t_cnt;
 	int					*n_cnt;
 	INT2				*cursor;
+	FLT3				*filter_params;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
@@ -195,6 +196,7 @@ void					realloc_lights_dto(DTO_LIGHT **dto, LIGHT *light,
 ** ====================== Update arguments for the kernel ======================
 */
 void					update_cursor_arg(t_ocl *ocl);
+void					update_filter_params(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
@@ -206,6 +208,7 @@ void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 ** =============================================================================
 */
 void					new_ocl(t_ocl **ocl);
+void					init_dto_cam(DTO_CAM *cam, cl_float fov);
 void					check_error_cl(const int num, const char *message,
 								char *path);
 DTO_PPM_IMG				*read_ppm(const char *filename);
