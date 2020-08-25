@@ -65,7 +65,7 @@ gboolean		shapes_tree_single_click(GtkTreeView *tree,
 		}
 		if (column == gtk_tree_view_get_column(tree, S_DELETE_COL))
 		{
-			g_idle_add(delete_shape, rt);
+			delete_shape(data);
 			return (TRUE);
 		}
 		gtk_tree_path_free(rt->gtk->ui.shapes.path);

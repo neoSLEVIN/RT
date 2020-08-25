@@ -55,7 +55,7 @@ gboolean		lights_tree_single_click(GtkTreeView *tree,
 			return (FALSE);
 		if (column == gtk_tree_view_get_column(tree, LIGHT_DELETE_COL))
 		{
-			g_idle_add(delete_light, rt);
+			delete_light(rt);
 			return (TRUE);
 		}
 		gtk_tree_path_free(rt->gtk->ui.lights.path);
