@@ -19,6 +19,8 @@ void	gtk_set_camera_signals(t_rt *rt)
 		G_CALLBACK(display_height_scale_moved), rt);
 	g_signal_connect(G_OBJECT(camera->fov.scale), "value-changed",
 		G_CALLBACK(fov_scale_moved), rt);
+	g_signal_connect(G_OBJECT(camera->fps.scale), "value-changed",
+		G_CALLBACK(fps_scale_moved), rt);
 	g_signal_connect(G_OBJECT(camera->pos[0].spin), "value-changed",
 		G_CALLBACK(spin_button_camera_position_changer), rt);
 	g_signal_connect(G_OBJECT(camera->pos[1].spin), "value-changed",

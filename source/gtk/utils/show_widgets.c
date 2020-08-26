@@ -9,9 +9,9 @@ void	show_widgets(t_rt *rt)
 	if (filter == BLUR || filter == SEPIA || filter == NOISE)
 	{
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, TRUE);
-		gtk_widget_set_visible(rt->gtk->ui.settings.h_blur, filter == BLUR);
-		gtk_widget_set_visible(rt->gtk->ui.settings.h_sepia, filter == SEPIA);
-		gtk_widget_set_visible(rt->gtk->ui.settings.h_noise, filter == NOISE);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_blur, filter == BLUR);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_sepia, filter == SEPIA);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_noise, filter == NOISE);
 	}
 	else
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, FALSE);

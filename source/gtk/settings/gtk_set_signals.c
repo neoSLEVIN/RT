@@ -23,5 +23,5 @@ void	gtk_set_signals(t_rt *rt)
 	gtk_set_lights_signals(rt);
 	gtk_set_ui_settings_signals(&rt->gtk->ui.settings, rt);
 	rt->gtk->timeout_id =
-		g_timeout_add(1000 / rt->scene->fps, draw_by_timeout, rt);
+		g_timeout_add(1000 / rt->scene->cam.fps, draw_by_timeout, rt);
 }

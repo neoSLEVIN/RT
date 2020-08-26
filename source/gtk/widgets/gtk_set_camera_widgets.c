@@ -1,18 +1,5 @@
 #include "gtk_module.h"
 
-static void	gtk_set_scale(t_scale *scale, INT2 range, int value,
-						const char *label)
-{
-	GtkAdjustment	*adj;
-
-	scale->label = gtk_label_new(label);
-	gtk_widget_set_hexpand(scale->label, FALSE);
-	adj = gtk_adjustment_new(value, range.x, range.y, 1,1, 0);
-	scale->scale = gtk_scale_new(GTK_ORIENTATION_HORIZONTAL, adj);
-	gtk_scale_set_digits(GTK_SCALE(scale->scale), 0);
-	gtk_widget_set_hexpand(scale->scale, TRUE);
-}
-
 void	gtk_set_camera_widgets(t_gtk_camera *gtk_camera, CAMERA *cam)
 {
 	gtk_camera->expander = gtk_expander_new_with_mnemonic("Came_ra");
@@ -33,6 +20,8 @@ void	gtk_set_camera_widgets(t_gtk_camera *gtk_camera, CAMERA *cam)
 				cam->display.y, "Height:");
 	gtk_set_scale(&gtk_camera->fov, (INT2){10, 160},
 				cam->fov, "FOV:");
+	gtk_set_scale(&gtk_camera->fps, (INT2){1, 80},
+				cam->fps, "FPS:");
 	gtk_camera->pos_expander = gtk_expander_new("Camera position");
 	gtk_camera->pos_grid = gtk_grid_new();
 	gtk_set_float_spinner(&gtk_camera->pos[0], "X:", cam->dto->origin.x);

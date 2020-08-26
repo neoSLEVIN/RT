@@ -17,8 +17,8 @@ void	fps_scale_moved(GtkRange *range, gpointer data)
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	rt->scene->fps = gtk_range_get_value(range);
+	rt->scene->cam.fps = gtk_range_get_value(range);
 	g_source_remove(rt->gtk->timeout_id);
 	rt->gtk->timeout_id =
-			g_timeout_add(1000 / rt->scene->fps, draw_by_timeout, rt);
+			g_timeout_add(1000 / rt->scene->cam.fps, draw_by_timeout, rt);
 }

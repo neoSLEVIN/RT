@@ -14,24 +14,26 @@
 
 static void	gtk_set_filter_params_positions(t_gtk_settings *settings)
 {
-	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->h_blur,
+	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->grid_blur,
 						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->h_sepia,
+	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->grid_sepia,
 						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->h_noise,
+	gtk_box_pack_start(GTK_BOX(settings->v_filter_params), settings->grid_noise,
 						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_blur), settings->blur_size.label,
-						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_blur), settings->blur_size.spin,
-						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_sepia), settings->sepia_depth.label,
-						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_sepia), settings->sepia_depth.spin,
-						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_noise), settings->noise_depth.label,
-						FALSE, FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(settings->h_noise), settings->noise_depth.spin,
-						FALSE, FALSE, 0);
+	gtk_grid_attach(GTK_GRID(settings->grid_blur), settings->blur.label,
+		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid_blur), settings->blur.scale,
+		settings->blur.label, GTK_POS_RIGHT, 5, 1);
+	gtk_grid_attach(GTK_GRID(settings->grid_sepia), settings->sepia.label,
+		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid_sepia),
+		settings->sepia.scale, settings->sepia.label,
+		GTK_POS_RIGHT, 5, 1);
+	gtk_grid_attach(GTK_GRID(settings->grid_noise), settings->noise.label,
+		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid_noise),
+		settings->noise.scale, settings->noise.label,
+		GTK_POS_RIGHT, 5, 1);
 }
 
 void		gtk_set_settings_positions(t_gtk_settings *settings)
@@ -42,11 +44,8 @@ void		gtk_set_settings_positions(t_gtk_settings *settings)
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(settings->v_box), settings->v_filter_params,
 		FALSE, FALSE, 0);
-	gtk_grid_attach(GTK_GRID(settings->grid), settings->fps_label, 0, 0, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->fps_scale,
-		settings->fps_label, GTK_POS_RIGHT, 8, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_label,
-		settings->fps_label, GTK_POS_BOTTOM, 1, 1);
+	gtk_grid_attach(GTK_GRID(settings->grid), settings->filter_label,
+		0, 0, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_combo,
 		settings->filter_label, GTK_POS_RIGHT, 1, 1);
 	gtk_set_filter_params_positions(settings);

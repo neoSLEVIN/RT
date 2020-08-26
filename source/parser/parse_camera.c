@@ -65,5 +65,9 @@ CAMERA		parse_camera(const JC_FIELD parent, const char *child_name)
 					"Value must be in range [10; 160].");
 	cam.display =
 		parse_display_or_default(cam_field, "display", (INT2){COLS, ROWS});
+	cam.fps = jc_get_float_or_default(cam_field, "fps", 25);
+	if (cam.fps < 1 || cam.fps > 80)
+		parse_error(jc_full_name(cam_field), "fps",
+					"Value must be in range [1; 80]");
 	return (cam);
 }

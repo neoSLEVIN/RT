@@ -96,6 +96,7 @@ typedef struct		s_gtk_camera
 	t_scale			display_width;
 	t_scale			display_height;
 	t_scale			fov;
+	t_scale			fps;
 	GtkWidget		*pos_expander;
 	GtkWidget		*pos_grid;
 	t_spinner		pos[3];
@@ -380,17 +381,15 @@ typedef struct		s_gtk_settings
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
 	GtkWidget		*grid;
-	GtkWidget		*fps_label;
-	GtkWidget		*fps_scale;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
-	GtkWidget		*h_blur;
-	t_spinner		blur_size;
-	GtkWidget		*h_sepia;
-	t_spinner		sepia_depth;
-	GtkWidget		*h_noise;
-	t_spinner		noise_depth;
+	GtkWidget		*grid_blur;
+	t_scale			blur;
+	GtkWidget		*grid_sepia;
+	t_scale			sepia;
+	GtkWidget		*grid_noise;
+	t_scale			noise;
 }					t_gtk_settings;
 
 /*
@@ -492,6 +491,8 @@ void				gtk_set_settings_widgets(t_gtk_settings *settings,
 								t_rt *rt);
 void				gtk_set_setting_filter_widgets(t_gtk_settings *settings,
 								t_rt *rt);
+void				gtk_set_scale(t_scale *scale, INT2 range, int value,
+								const char *label);
 /*
 ** ============================= Shape tab widgets =============================
 */
@@ -599,12 +600,9 @@ void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
-void				spin_button_blur_filter_changer(GtkSpinButton *button,
-								gpointer data);
-void				spin_button_sepia_filter_changer(GtkSpinButton *button,
-								gpointer data);
-void				spin_button_noise_filter_changer(GtkSpinButton *button,
-								gpointer data);
+void				blur_scale_moved(GtkRange *range, gpointer data);
+void				sepia_scale_moved(GtkRange *range, gpointer data);
+void				noise_scale_moved(GtkRange *range, gpointer data);
 void				display_width_scale_moved(GtkRange *range, gpointer data);
 void				display_height_scale_moved(GtkRange *range, gpointer data);
 void				fov_scale_moved(GtkRange *range, gpointer data);
