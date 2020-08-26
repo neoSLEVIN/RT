@@ -29,7 +29,7 @@ static void	gtk_set_light_name_type_widgets(t_gtk_light *gtk_light)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(gtk_light->type_combo), 0);
 }
 
-static void	gtk_set_float_spinner(t_spinner *spinner, const char *name,
+void		gtk_set_float_spinner(t_spinner *spinner, const char *name,
 								cl_float value)
 {
 	spinner->label = gtk_label_new(name);

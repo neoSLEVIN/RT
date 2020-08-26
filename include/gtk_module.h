@@ -39,6 +39,15 @@ typedef struct		s_spinner
 }					t_spinner;
 
 /*
+** =================== Entity for scale and his label ====================
+*/
+typedef struct		s_scale
+{
+	GtkWidget		*scale;
+	GtkWidget		*label;
+}					t_scale;
+
+/*
 ** =============================================================================
 ** ============================ Main Image entity ==============================
 ** ========== Contains information about pixels and widget-containers ==========
@@ -55,7 +64,7 @@ typedef struct		s_gtk_image
 /*
 ** =============================================================================
 ** ============================ Action bar entity ==============================
-** ========== Contains buttons for shape/light/screen creation etc.  ===========
+** =========== Contains buttons for shape/light/scene creation etc.  ===========
 ** =============================================================================
 */
 typedef struct		s_gtk_buttons
@@ -68,6 +77,29 @@ typedef struct		s_gtk_buttons
 	GtkWidget		*save_scene;
 	GtkWidget		*save_scene_as;
 }					t_gtk_buttons;
+
+/*
+** =============================================================================
+** =============================== Camera entity ===============================
+** ========= Contains widgets for display properties and camera params =========
+** =============================================================================
+*/
+typedef struct		s_gtk_camera
+{
+	GtkWidget		*expander;
+	GtkWidget		*grid;
+	GtkWidget		*y_axis;
+	GtkWidget		*separator;
+	GtkWidget		*x_axis;
+	GtkWidget		*display_frame;
+	GtkWidget		*display_grid;
+	t_scale			display_width;
+	t_scale			display_height;
+	t_scale			fov;
+	GtkWidget		*pos_expander;
+	GtkWidget		*pos_grid;
+	t_spinner		pos[3];
+}					t_gtk_camera;
 
 /*
 ** =============================================================================
@@ -350,10 +382,6 @@ typedef struct		s_gtk_settings
 	GtkWidget		*grid;
 	GtkWidget		*fps_label;
 	GtkWidget		*fps_scale;
-	GtkWidget		*y_axis;
-	GtkWidget		*separator;
-	GtkWidget		*x_axis;
-	t_spinner		fov;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
@@ -376,6 +404,7 @@ typedef struct		s_ui
 	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
 	t_gtk_buttons	buttons;
+	t_gtk_camera	camera;
 	t_gtk_shape		*shape;
 	t_gtk_shapes	shapes;
 	t_gtk_light		*light;
@@ -449,6 +478,8 @@ void				gtk_set_image_with_dependencies(t_gtk *gtk,
 								cl_uchar4 *dto_buffer);
 void				gtk_set_ui_widgets(t_ui *ui);
 void				gtk_set_buttons_widgets(t_gtk_buttons *buttons);
+void				gtk_set_camera_widgets(t_gtk_camera *gtk_camera,
+								CAMERA *cam);
 void				gtk_set_shape_widgets(t_gtk_shape **gtk_shape,
 								SCENE *scene);
 void				gtk_set_light_widgets(t_gtk_light **gtk_light,
@@ -491,6 +522,8 @@ void				gtk_set_spin_button_for_angle(GtkWidget **spin,
 								cl_float value);
 void				gtk_set_spin_button_for_intensity(GtkWidget **spin,
 								cl_float value);
+void				gtk_set_float_spinner(t_spinner *spinner, const char *name,
+								cl_float value);
 
 /*
 ** =============================================================================
@@ -498,6 +531,7 @@ void				gtk_set_spin_button_for_intensity(GtkWidget **spin,
 ** =============================================================================
 */
 void				gtk_set_buttons_positions(t_gtk_buttons *buttons);
+void				gtk_set_camera_positions(t_gtk_camera *camera);
 void				gtk_set_shape_positions(t_gtk_shape *shape);
 void				gtk_set_shapes_positions(t_gtk_shapes *shapes);
 void				gtk_set_light_positions(t_gtk_light *light);
@@ -523,6 +557,7 @@ void				gtk_set_buttons_signals(t_rt *rt);
 void				gtk_set_motions_signals(GtkWidget *window,
 								GtkWidget *image_event_box, t_rt *rt);
 void				gtk_set_shape_signals(t_rt *rt);
+void				gtk_set_camera_signals(t_rt *rt);
 void				gtk_set_shapes_signals(t_rt *rt);
 void				gtk_set_light_signals(t_rt *rt);
 void				gtk_set_lights_signals(t_rt *rt);
@@ -570,7 +605,12 @@ void				spin_button_sepia_filter_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_noise_filter_changer(GtkSpinButton *button,
 								gpointer data);
-void				spin_button_fov_changer(GtkSpinButton *button,
+void				display_width_scale_moved(GtkRange *range, gpointer data);
+void				display_height_scale_moved(GtkRange *range, gpointer data);
+void				fov_scale_moved(GtkRange *range, gpointer data);
+void				camera_expander_callback(GObject *object,
+								GParamSpec *param_spec, gpointer data);
+void				spin_button_camera_position_changer(GtkSpinButton *button,
 								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
@@ -708,6 +748,7 @@ void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================
 */
+gboolean			update_camera_widget(gpointer data);
 gboolean			update_light_widget(gpointer data);
 gboolean			update_shape_widget(gpointer data);
 /*
@@ -773,5 +814,6 @@ void				clear_lights(LIGHT **light);
 void				clear_shapes(SHAPE **shape);
 SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
 void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
+FLT2				get_angle_by_diff(INT2 diff, INT2 axis, INT2 screen_size);
 
 #endif

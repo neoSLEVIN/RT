@@ -48,11 +48,13 @@ char				*get_shape_type_name(SHAPE_TYPE type);
 char				*get_light_type_name(LIGHT_TYPE type);
 char				*get_ppm_name_by_index(PPM_IMG *ppm, int index,
 								_Bool is_normal_map);
+void				s_int2(t_serializer *s, INT2 num_value);
 void				s_float3(t_serializer *s, FLT3 num_value);
 void				s_json_obj(const char *scene_filename, SCENE *scene);
 void				s_settings_obj(t_serializer *s, SCENE *scene);
 void				s_scene_obj(t_serializer *s, SCENE *scene);
-void				s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov);
+void				s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov,
+								INT2 display);
 void				s_shapes_arr(t_serializer *s, SHAPE *shape,
 								PPM_IMG *textures, PPM_IMG *normal_maps);
 void				s_lights_arr(t_serializer *s, LIGHT *light);

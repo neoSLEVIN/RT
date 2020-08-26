@@ -18,6 +18,7 @@ void		gtk_set_widgets(t_gtk *gtk, t_rt *rt)
 	gtk_set_image_with_dependencies(gtk, rt->ocl->dto.buffer);
 	gtk_set_ui_widgets(&gtk->ui);
 	gtk_set_buttons_widgets(&gtk->ui.buttons);
+	gtk_set_camera_widgets(&gtk->ui.camera, &rt->scene->cam);
 	gtk_set_shape_widgets(&gtk->ui.shape, rt->scene);
 	gtk_set_shapes_tree(&gtk->ui.shapes, rt);
 	gtk_set_light_widgets(&gtk->ui.light, rt->scene);

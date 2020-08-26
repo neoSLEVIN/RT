@@ -41,6 +41,8 @@ typedef struct			s_cam
 {
 	int					screen_w;
 	int					screen_h;
+	int2				max_screen;
+	int2				diff_screen;
 	float				viewport_h;
 	float				viewport_w;
 	float3				origin;

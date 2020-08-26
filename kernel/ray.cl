@@ -19,8 +19,8 @@ void init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand)
 {
 
 	ray->origin = cam->origin;
-	float x = work_id % cam->screen_w;
-	float y = work_id / cam->screen_w;
+	float x = work_id % cam->max_screen.x - cam->diff_screen.x;
+	float y = work_id / cam->max_screen.x - cam->diff_screen.y;
 	float2 coord = (float2)(x + rand, y + rand );
 
 	float2 viewport_coordinate;

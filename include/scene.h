@@ -15,6 +15,39 @@
 
 # include "ocl_math.h"
 
+# define MIN_WIDTH 100
+# define MIN_HEIGHT 100
+/*
+** =============================================================================
+** ============================= IMAGE resolution ==============================
+** =================== You can add your favorite resolution: ===================
+** # elif GTK_IMAGE_SIZE == (X)
+** #  define COLS (WIDTH)
+** #  define ROWS (HEIGHT)
+** !!! Don't do it less than MIN_WIDTH and MIN_HEIGHT !!!
+** =============================================================================
+*/
+# define GTK_IMAGE_SIZE 2
+# if GTK_IMAGE_SIZE == 1
+#  define COLS 1280
+#  define ROWS 1024
+# elif GTK_IMAGE_SIZE == 2
+#  define COLS 1440
+#  define ROWS 960
+# elif GTK_IMAGE_SIZE == 3
+#  define COLS 1024
+#  define ROWS 768
+# elif GTK_IMAGE_SIZE == 4
+#  define COLS 800
+#  define ROWS 600
+# elif GTK_IMAGE_SIZE == 5
+#  define COLS 640
+#  define ROWS 480
+# else
+#  define COLS 320
+#  define ROWS 200
+# endif
+
 /*
 ** =============================================================================
 ** =================================== LIGHT ===================================
@@ -168,6 +201,8 @@ struct			s_dto_cam
 {
 	int			screen_w;
 	int			screen_h;
+	INT2		max_screen;
+	INT2		diff_screen;
 	cl_float	viewport_h;
 	cl_float	viewport_w;
 	FLT3		origin;
@@ -185,6 +220,7 @@ struct			s_camera
 {
 	DTO_CAM		*dto;
 	cl_float	fov;
+	INT2		display;
 	FLT3		position;
 	FLT3		direction;
 	cl_float	rotation;

@@ -3,7 +3,7 @@
 void	s_scene_obj(t_serializer *s, SCENE *scene)
 {
 	s_open_obj_with_name(s, "scene");
-	s_camera_obj(s, scene->cam.dto, scene->cam.fov);
+	s_camera_obj(s, scene->cam.dto, scene->cam.fov, scene->cam.display);
 	s_comma(s);
 	s_lights_arr(s, scene->lights);
 	s_comma(s);

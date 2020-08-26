@@ -52,37 +52,51 @@ __kernel void render_kernel(__global t_object *objects,
 							__global int *output_id,
 							float3 filter_params)
 {
-	float3 finalColor = 0;
-	t_ray ray;
-	t_scene scene;
 	const int work_item_id = get_global_id(0);
-	/*Набор случайных чисел*/
 	uint seed = seedsInput[work_item_id];
-	init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures, normal_maps);
-	
-	int xQuality = 1;
-	/*Сглаживание*/
-	for (int i = 0; i < xQuality; i++) {
-		/* разброс [-0.5,0.5] а стреляем из центра пикселя*/
-		float rnd = xQuality > 1 ? ((2 * get_random(&seed) - 1) / 2) : 0;
-		init_ray(&ray, &cam, work_item_id, rnd);
-		finalColor += compute_color(&scene, &ray);
+	if (work_item_id / cam.max_screen.x > cam.screen_h + cam.diff_screen.y ||
+		work_item_id / cam.max_screen.x < cam.diff_screen.y ||
+		work_item_id % cam.max_screen.x > cam.screen_w + cam.diff_screen.x ||
+		work_item_id % cam.max_screen.x < cam.diff_screen.x)
+	{
+		output[work_item_id] = (char4)(255, 255, 255, 0);
+		if (work_item_id == cursor.y * cam.max_screen.x + cursor.x)
+			output_id[0] = -1;
+		seedsInput[work_item_id] = seed;
 	}
-	finalColor /= (float)xQuality;
+	else
+	{
+		float3 finalColor = 0;
+		t_ray ray;
+		t_scene scene;
 
-	if (filter != NO_FILTER)
-		apply_filter(&finalColor, filter, filter_params);
-	
-	char red = convertColorFromFloat(finalColor.x);
-	char green = convertColorFromFloat(finalColor.y);
-	char blue = convertColorFromFloat(finalColor.z);
+		/*Набор случайных чисел*/
+		init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures, normal_maps);
 
-	char alfa = 255;
+		int xQuality = 1;
+		/*Сглаживание*/
+		for (int i = 0; i < xQuality; i++) {
+			/* разброс [-0.5,0.5] а стреляем из центра пикселя*/
+			float rnd = xQuality > 1 ? ((2 * get_random(&seed) - 1) / 2) : 0;
+			init_ray(&ray, &cam, work_item_id, rnd);
+			finalColor += compute_color(&scene, &ray);
+		}
+		finalColor /= (float)xQuality;
 
-	output[work_item_id] = (char4)(red, green, blue, alfa);
+		if (filter != NO_FILTER)
+			apply_filter(&finalColor, filter, filter_params);
+
+		char red = convertColorFromFloat(finalColor.x);
+		char green = convertColorFromFloat(finalColor.y);
+		char blue = convertColorFromFloat(finalColor.z);
+
+		char alfa = 255;
+
+		output[work_item_id] = (char4)(red, green, blue, alfa);
 
 
-	if (work_item_id == cursor.y * cam.screen_w + cursor.x)
-		output_id[0] = ray.hit_id;
-	seedsInput[work_item_id] = seed;
+		if (work_item_id == cursor.y * cam.max_screen.x + cursor.x)
+			output_id[0] = ray.hit_id;
+		seedsInput[work_item_id] = seed;
+	}
 }

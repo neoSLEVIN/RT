@@ -12,7 +12,8 @@ static cl_float	get_cam_rotation(DTO_CAM *cam)
 	return (angle);
 }
 
-void		s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov)
+void		s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov,
+						INT2 display)
 {
 	s_open_obj_with_name(s, "camera");
 	s_name(s, "position");
@@ -25,6 +26,9 @@ void		s_camera_obj(t_serializer *s, DTO_CAM *cam, cl_float fov)
 	s_float(s, rad_to_deg(get_cam_rotation(cam)));
 	s_comma(s);
 	s_name(s, "fov");
-	s_float(s, fov);
+	s_int(s, fov);
+	s_comma(s);
+	s_name(s, "display");
+	s_int2(s, display);
 	s_close_obj(s);
 }

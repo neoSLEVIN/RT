@@ -45,18 +45,8 @@ void		gtk_set_settings_positions(t_gtk_settings *settings)
 	gtk_grid_attach(GTK_GRID(settings->grid), settings->fps_label, 0, 0, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->fps_scale,
 		settings->fps_label, GTK_POS_RIGHT, 8, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->y_axis,
-		settings->fps_label, GTK_POS_BOTTOM, 3, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->separator,
-		settings->y_axis, GTK_POS_RIGHT, 3, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->x_axis,
-		settings->separator, GTK_POS_RIGHT, 3, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->fov.label,
-		settings->y_axis, GTK_POS_BOTTOM, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->fov.spin,
-		settings->fov.label, GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_label,
-		settings->fov.label, GTK_POS_BOTTOM, 1, 1);
+		settings->fps_label, GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_combo,
 		settings->filter_label, GTK_POS_RIGHT, 1, 1);
 	gtk_set_filter_params_positions(settings);

@@ -28,8 +28,10 @@ static void	gtk_set_ui_positions(t_ui *ui)
 	gtk_container_add(GTK_CONTAINER(ui->scrolled_window), ui->grid);
 	gtk_grid_attach(GTK_GRID(ui->grid), ui->buttons.grid,
 		0, 0, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->shape->expander,
+	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->camera.expander,
 		ui->buttons.grid, GTK_POS_BOTTOM, 2, 1);
+	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->shape->expander,
+		ui->camera.expander, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->shapes.expander,
 		ui->shape->expander, GTK_POS_BOTTOM, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(ui->grid), ui->light->expander,
@@ -48,6 +50,7 @@ void		gtk_set_positions(t_gtk *gtk)
 {
 	gtk_set_base_positions(gtk);
 	gtk_set_buttons_positions(&gtk->ui.buttons);
+	gtk_set_camera_positions(&gtk->ui.camera);
 	gtk_set_shape_positions(gtk->ui.shape);
 	gtk_set_shapes_positions(&gtk->ui.shapes);
 	gtk_set_light_positions(gtk->ui.light);

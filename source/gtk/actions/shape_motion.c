@@ -93,8 +93,8 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 	cam = &rt->ocl->dto.cam;
 	v_shape = v3_sub(rt->info->s_marker->dto->transform.position, cam->origin);
 	v_shape_old = v_shape;
-	angle = (FLT2){(cl_float)diff.x / COLS * PI / 4 * rt->info->axis.x,
-				(cl_float)diff.y / ROWS * PI / 6 * rt->info->axis.y};
+	angle = get_angle_by_diff(diff, rt->info->axis,
+							(INT2){cam->screen_w, cam->screen_h});
 	(rt->info->axis.x == 1 && !rt->info->right_mc) ? angle.x *= -1 : 0;
 	(rt->info->axis.y == 1 && !rt->info->right_mc) ? angle.y *= -1 : 0;
 	(angle.x) ? v_shape = v3_rot_v(v_shape, cam->upguide, angle.x) : v_shape;

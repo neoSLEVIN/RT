@@ -26,37 +26,6 @@
 	clCreateCommandQueueWithProperties(ctxt, dev, prop, err)
 # endif
 
-/*
-** =============================================================================
-** ============================= IMAGE resolution ==============================
-** =================== You can add your favorite resolution: ===================
-** # elif GTK_IMAGE_SIZE == (X)
-** #  define COLS (WIDTH)
-** #  define ROWS (HEIGHT)
-** #  define FPS (FRAME_PER_SECOND)
-** =============================================================================
-*/
-# define GTK_IMAGE_SIZE 2
-# if GTK_IMAGE_SIZE == 1
-#  define COLS 1280
-#  define ROWS 1024
-# elif GTK_IMAGE_SIZE == 2
-#  define COLS 1440
-#  define ROWS 960
-# elif GTK_IMAGE_SIZE == 3
-#  define COLS 1024
-#  define ROWS 768
-# elif GTK_IMAGE_SIZE == 4
-#  define COLS 800
-#  define ROWS 600
-# elif GTK_IMAGE_SIZE == 5
-#  define COLS 640
-#  define ROWS 480
-# else
-#  define COLS 320
-#  define ROWS 200
-# endif
-
 # define GROUP_SIZE 64
 
 /*
@@ -208,7 +177,7 @@ void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 ** =============================================================================
 */
 void					new_ocl(t_ocl **ocl);
-void					init_dto_cam(DTO_CAM *cam, cl_float fov);
+void					init_dto_cam(DTO_CAM *cam, cl_float fov, INT2 screen);
 void					check_error_cl(const int num, const char *message,
 								char *path);
 DTO_PPM_IMG				*read_ppm(const char *filename);

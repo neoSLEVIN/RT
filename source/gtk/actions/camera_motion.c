@@ -64,8 +64,8 @@ void		rotate_camera_by_mouse(t_rt *rt, INT2 diff)
 	FLT2	angle;
 
 	cam = &rt->ocl->dto.cam;
-	angle = (FLT2){(cl_float)diff.x / COLS * PI / 4 * rt->info->axis.x,
-				(cl_float)diff.y / ROWS * PI / 6 * rt->info->axis.y};
+	angle = get_angle_by_diff(diff, rt->info->axis,
+							(INT2){cam->screen_w, cam->screen_h});
 	if (angle.x)
 	{
 		cam->forward = v3_rot_v(cam->forward, cam->upguide, angle.x);

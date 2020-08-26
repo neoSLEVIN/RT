@@ -1,8 +1,11 @@
 #include "gtk_module.h"
 
-static int	is_border(int i)
+static int	is_border(int i, DTO_CAM *cam)
 {
-	if (i < COLS || i > (ROWS - 1) * COLS)
+	if (i / cam->max_screen.x >= cam->screen_h + cam->diff_screen.y - 1 ||
+		i / cam->max_screen.x <= cam->diff_screen.y ||
+		i % cam->max_screen.x >= cam->screen_w + cam->diff_screen.x - 1 ||
+		i % cam->max_screen.x <= cam->diff_screen.x)
 		return (1);
 	return (0);
 }
@@ -29,7 +32,7 @@ static void	compute_emboss(t_rt *rt)
 	i = -1;
 	while (++i < ROWS * COLS)
 	{
-		if (!is_border(i))
+		if (!is_border(i, rt->scene->cam.dto))
 			buffer[i] = calc_matrix_values(e_matrix, i, rt);
 	}
 	update_buff(buffer, rt);
@@ -48,7 +51,7 @@ static void	compute_sharpen(t_rt *rt)
 	i = -1;
 	while (++i < ROWS * COLS)
 	{
-		if (!is_border(i))
+		if (!is_border(i, rt->scene->cam.dto))
 			buffer[i] = calc_matrix_values(sh_matrix, i, rt);
 	}
 	update_buff(buffer, rt);

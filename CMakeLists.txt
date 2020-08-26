@@ -400,13 +400,13 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
         source/gtk/actions/get_new_file_name.c
-        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/spin_button_fov_changer.c)
+        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
 
 set(SRCNAME_SERIALIZER
-        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c source/serializer/serialize_reserved_ppm_names.c)
+        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c source/serializer/serialize_reserved_ppm_names.c source/serializer/serialize_int2.c)
 
 if (APPLE)
 LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})

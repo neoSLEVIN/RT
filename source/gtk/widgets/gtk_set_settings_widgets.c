@@ -12,26 +12,7 @@
 
 #include "gtk_module.h"
 
-static void	gtk_set_spin_button_for_fov(GtkWidget **spin, cl_float value)
-{
-	GtkAdjustment	*adj;
-
-	adj = gtk_adjustment_new(value, 10, 160, 1.0, 10.0, 0);
-	*spin = gtk_spin_button_new(adj, 1.0, 1);
-	gtk_entry_set_width_chars(GTK_ENTRY(*spin), 4);
-	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(*spin), TRUE);
-	gtk_widget_set_margin_top(*spin, 5);
-	gtk_widget_set_margin_bottom(*spin, 5);
-}
-
-static void	gtk_set_setting_fov_widgets(t_gtk_settings *settings, t_rt *rt)
-{
-	settings->fov.label = gtk_label_new("FOV:");
-	gtk_widget_set_margin_end(settings->fov.label, 5);
-	gtk_set_spin_button_for_fov(&settings->fov.spin, rt->scene->cam.fov);
-}
-
-void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
+void	gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 {
 	GtkAdjustment	*fps_adj;
 
@@ -44,14 +25,5 @@ void		gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 	settings->fps_scale = gtk_scale_new(GTK_ORIENTATION_HORIZONTAL, fps_adj);
 	gtk_scale_set_digits(GTK_SCALE(settings->fps_scale), 1);
 	gtk_widget_set_hexpand(settings->fps_scale, TRUE);
-	settings->y_axis = gtk_check_button_new_with_label("Invert Y-axis");
-	gtk_widget_set_halign(settings->y_axis, GTK_ALIGN_CENTER);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->y_axis), FALSE);
-	settings->separator = gtk_separator_new(GTK_ORIENTATION_VERTICAL);
-	gtk_widget_set_valign(settings->separator, GTK_ALIGN_FILL);
-	gtk_widget_set_halign(settings->separator, GTK_ALIGN_CENTER);
-	settings->x_axis = gtk_check_button_new_with_label("Invert X-axis");
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->x_axis), FALSE);
-	gtk_set_setting_fov_widgets(settings, rt);
 	gtk_set_setting_filter_widgets(settings, rt);
 }
