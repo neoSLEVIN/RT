@@ -60,7 +60,7 @@ float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
 		
 	} else if (obj->texture.id >= 0) {
 		
-		float2 uv = get_uv(obj, ray, 100);
+		float2 uv = get_uv(obj, ray, 10);
 		return image_texture(uv, scene->textures, obj->texture.id);
 		
 	} else if (obj->texture.id == -2) {

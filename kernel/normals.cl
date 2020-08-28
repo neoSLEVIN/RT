@@ -118,7 +118,7 @@ float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *s
 	
 	ray->hitNormal = normal;
 	
-	uv = get_uv(hit_obj, ray, 100);
+	uv = get_uv(hit_obj, ray, 10);
 	new_normal = image_texture(uv, scene->normal_maps, id);
 	new_normal.x = new_normal.x * 2.0f - 1.0f;
 	new_normal.y = new_normal.y * 2.0f - 1.0f;
