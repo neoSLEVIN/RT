@@ -107,7 +107,9 @@ enum			e_shape_type
 	CONE,
 	CYLINDER,
 	CAPPEDCYLINDER,
-	CNT_OF_TYPES
+	CIRCLE,
+	CAPPEDPLANE,
+	TRIANGLE
 };
 /*
 ** =============================== Location info ===============================

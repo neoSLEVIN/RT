@@ -35,7 +35,7 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define ABSOLUTE_PATH "/Users/konstantin/Desktop/RT_KN/RT_KN/RT_KN/kernel/"
+#  define ABSOLUTE_PATH "/Users/dmitry/Documents/xcode staff/gtk_RT/gtk_RT/kernel/"
 # else
 #  define ABSOLUTE_PATH "kernel/"
 # endif

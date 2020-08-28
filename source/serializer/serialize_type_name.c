@@ -54,6 +54,12 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 		res = ft_strdup("CONE");
 	else if (type == CAPPEDCYLINDER)
 		res = ft_strdup("CAPPED CYLINDER");
+	else if (type == CIRCLE)
+		res = ft_strdup("CIRCLE");
+	else if (type == CAPPEDPLANE)
+		res = ft_strdup("CAPPED PLANE");
+	else if (type == TRIANGLE)
+	    res = ft_strdup("TRIANGLE");
 	else
 		ft_error("Unknown shape type (get_shape_type_name)");
 	if (res == NULL)

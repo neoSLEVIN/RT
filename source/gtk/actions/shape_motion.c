@@ -113,6 +113,7 @@ void	move_shape_by_mouse(t_rt *rt, INT2 diff)
 void	rotate_shape(t_rt *rt, guint key)
 {
 	FLT3		*shape_dir;
+	FLT3		*shape_rot;
 	DTO_CAM		*cam;
 	cl_float	angle;
 
@@ -126,12 +127,19 @@ void	rotate_shape(t_rt *rt, guint key)
 	else if (key == GDK_KEY_j || key == GDK_KEY_l)
 		angle *= -rt->info->axis.x;
 	shape_dir = &rt->info->s_marker->dto->transform.direction;
-	if (key == GDK_KEY_k || key == GDK_KEY_i)
+	shape_rot = &rt->info->s_marker->dto->transform.rotation;
+	if (key == GDK_KEY_k || key == GDK_KEY_i) {
 		*shape_dir = v3_rot_v(*shape_dir, cam->right, angle);
-	else if (key == GDK_KEY_j || key == GDK_KEY_l)
+		*shape_rot = v3_rot_v(*shape_rot, cam->right, angle);
+	}
+	else if (key == GDK_KEY_j || key == GDK_KEY_l) {
 		*shape_dir = v3_rot_v(*shape_dir, cam->upguide, angle);
-	else if (key == GDK_KEY_u || key == GDK_KEY_o)
+		*shape_rot = v3_rot_v(*shape_rot, cam->upguide, angle);
+	}
+	else if (key == GDK_KEY_u || key == GDK_KEY_o) {
 		*shape_dir = v3_rot_v(*shape_dir, cam->forward, angle);
+		*shape_rot = v3_rot_v(*shape_rot, cam->forward, angle);
+	}
 	else
 		return ;
 	rotate_sections(rt->info->s_marker->dto, cam, angle, key);

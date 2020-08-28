@@ -71,14 +71,22 @@ float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 
 /*Нужно чтобы uv координаты не отличались при повороте фигуры*/
 void set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis) {
+	
+	float3 default_u = (float3)(1, 0, 0);
+	float3 backup = (float3)(0, 1, 0);
+	
 	if (normal.x != 0 && normal.y != 0) {
 		float3 tmp;
 		tmp.s0 = normal.y;
 		tmp.s1 = -normal.x;
 		tmp.s2 = 0.f;
 		*u_basis = normalize(tmp);
-	} else {
+	} else if (normal.x == 0){
 		*u_basis = (float3)(1, 0, 0);
+	} else if (normal.y == 0) {
+		*u_basis = (float3)(0, 1, 0);
+	} else {
+		*u_basis = (float3)(0, 0, 1);
 	}
 	*v_basis =  cross(normal, *u_basis);
 }

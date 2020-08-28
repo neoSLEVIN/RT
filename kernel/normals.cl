@@ -56,58 +56,24 @@ int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float valu
 
 float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
 {
-	float		abcd[4];
-	float		t[4] = {-1.0f, -1.0f, -1.0f, -1.0f};
-	float3		x;
-	float		d_dot_n;
-
-	x = ray->origin - capped_cylinder->transform.position;
-	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, capped_cylinder->transform.direction), 2);
-	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, capped_cylinder->transform.direction) * dot(x, capped_cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params.x * capped_cylinder->params.x;
-	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
-	if (abcd[3] >= 0) {
-		t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
-		t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[0]))
-			t[0] = -1.0f;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[1]))
-			t[1] = -1.0f;
+	/*Скалярное произведение вектора (из двух точек на крышке и в центре крышки) и dir равно 0. Однако с флотами есть погрешность*/
+	float3 centerTop = capped_cylinder->transform.position + capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
+	float3 centerBottom = capped_cylinder->transform.position - capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
+	if (fabs(dot(centerTop - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
+		return plane_normal(capped_cylinder->transform.direction, ray->dir);
+	} else if (fabs(dot(centerBottom - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
+		return plane_normal(capped_cylinder->transform.direction, ray->dir);
 	}
+	return cyl_normal(capped_cylinder, ray);
+}
 
-	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, capped_cylinder->transform.direction)) != 0.0f) {
-		t[2] = dot(x, capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[2]))
-			t[2] = -1.0f;
-	}
+float3 triangle_normal(t_object *hit_obj, t_ray *ray)
+{
+	float3 v[2];
 
-	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, -capped_cylinder->transform.direction)) != 0.0f) {
-		t[3] = dot(x, -capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[3]))
-			t[3] = -1.0f;
-	}
-
-	if (minT(t[0], t[1]) <= 0.0f)
-	{
-		if (t[2] <= t[3] && t[2] > 0.0f) {
-			return plane_normal(capped_cylinder->transform.direction, ray->dir);
-		} else {
-			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
-		}
-	} else if (minT(t[2], t[3]) <= 0.0f) {
-		return (cyl_normal(capped_cylinder, ray));
-	} else if (minT(t[0], t[1]) <= minT(t[2], t[3])) {
-		return (cyl_normal(capped_cylinder, ray));
-	} else {
-		if (t[2] <= t[3] && t[2] > 0.0f) {
-			return plane_normal(capped_cylinder->transform.direction, ray->dir);
-		} else {
-			return plane_normal(-capped_cylinder->transform.direction, ray->dir);
-		}
-	}
-
+	v[0] = hit_obj->transform.direction - hit_obj->transform.position;
+	v[1] = hit_obj->transform.rotation - hit_obj->transform.direction;
+	return (normalize(cross(v[0], v[1])));
 }
 
 float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id) {
@@ -132,11 +98,29 @@ float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *s
 float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 	float3 normal = 0;
 
+	float3 tmp = 0;
+	
 	switch (hit_obj->type)
 	{
 		case SPHERE:
 			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position);
 			break;
+		case CAPPEDPLANE:
+			
+			
+			cappedplane_instersect(ray, hit_obj);
+			
+			if (hit_obj->params.z == 3) {
+				tmp = hit_obj->transform.rotation;
+			} else if (hit_obj->params.z == 4) {
+				tmp = cross(hit_obj->transform.direction, hit_obj->transform.rotation);
+			} else if (hit_obj->params.z == 2) {
+				tmp = hit_obj->transform.direction;
+			}
+		    normal = plane_normal(tmp, ray->dir);
+			 
+            break;
+		case CIRCLE:
 		case PLANE:
 			normal = plane_normal(hit_obj->transform.direction, ray->dir);
 			break;
@@ -149,6 +133,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 		case CAPPEDCYLINDER:
         	normal = capped_cylinder_normal(hit_obj, ray);
         	break;
+		case TRIANGLE:
+			normal = triangle_normal(hit_obj, ray);
+			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {
 		normal = apply_normal_map(hit_obj, ray, normal, scene, hit_obj->normal_map.id);
