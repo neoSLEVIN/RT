@@ -29,12 +29,12 @@ static void	gtk_set_shape_trans_mat_color_signals(t_transform_tab *transform,
 		G_CALLBACK(spin_button_shape_position_changer), rt);
 	g_signal_connect(G_OBJECT(transform->z.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_position_changer), rt);
-	g_signal_connect(G_OBJECT(material->transparency.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
-	g_signal_connect(G_OBJECT(material->reflective.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
-	g_signal_connect(G_OBJECT(material->specular.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
+	g_signal_connect(G_OBJECT(material->transparency.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
+	g_signal_connect(G_OBJECT(material->reflective.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
+	g_signal_connect(G_OBJECT(material->specular.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
 	g_signal_connect(G_OBJECT(color->color), "notify",
 		G_CALLBACK(color_activated_changer), rt);
 }

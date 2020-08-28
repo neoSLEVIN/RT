@@ -22,13 +22,15 @@ static void	update_shape_tab_widget(t_rt *rt, t_gtk_shape *shape,
 								shape->shape->dto->transform.position);
 	else if (current_page == MATERIAL_TAB && rt->info->update_s_mat)
 		update_gtk_shape_material(shape->material, shape->shape->dto->material);
-	else if (current_page == COLOR_TAB && rt->info->update_s_col)
+	else if (current_page == TEXTURE_COLOR_TAB &&
+			(rt->info->update_s_col || rt->info->update_s_tex))
+	{
 		update_gtk_shape_color(shape->color,
 								shape->shape->dto->material.color);
-	else if (current_page == TEXTURE_TAB && rt->info->update_s_tex)
 		update_gtk_shape_texture(shape->texture,
 								shape->shape->dto->texture.id,
 								shape->shape->dto->normal_map.id);
+	}
 	else if (current_page == SECTION_TAB && rt->info->update_s_sec)
 		update_gtk_shape_section(shape->section, shape->shape->dto->sections,
 								shape->shape->dto->is_complex_section);
@@ -47,8 +49,8 @@ gboolean	update_shape_widget(gpointer data)
 	{
 		current_page =
 			gtk_notebook_get_current_page(GTK_NOTEBOOK(shape->notebook));
-		if (current_page != COLOR_TAB &&
-				gtk_widget_get_visible(rt->gtk->ui.shape->color.color))
+		if (current_page != TEXTURE_COLOR_TAB &&
+			gtk_widget_get_visible(rt->gtk->ui.shape->color.color))
 			gtk_widget_set_visible(rt->gtk->ui.shape->color.color, FALSE);
 		if (rt->info->update_s_name)
 			gtk_frame_set_label(GTK_FRAME(shape->frame), shape->shape->name);

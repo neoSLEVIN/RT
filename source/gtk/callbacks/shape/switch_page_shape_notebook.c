@@ -14,10 +14,8 @@ void	switch_page_shape_notebook(GtkNotebook *notebook, GtkWidget *page,
 		rt->info->update_s_pos = TRUE;
 	else if (page_num == MATERIAL_TAB)
 		rt->info->update_s_mat = TRUE;
-	else if (page_num == COLOR_TAB)
-		rt->info->update_s_col = TRUE;
-	else if (page_num == TEXTURE_TAB)
-		rt->info->update_s_tex = TRUE;
+	else if (page_num == TEXTURE_COLOR_TAB)
+		update_flags(&rt->info->update_s_col, &rt->info->update_s_tex);
 	else if (page_num == SECTION_TAB)
 		rt->info->update_s_sec = TRUE;
 	else
