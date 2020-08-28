@@ -35,7 +35,7 @@ char		*parse_light_name(const JC_FIELD *light_field, const size_t index)
 
 	name = jc_get_string(*light_field, "name", TRUE);
 	if (!name)
-		name = unnamed_obj(index);
+		name = unnamed_obj(index + 1, NULL);
 	length = ft_strlen_rus(name);
 	if (length == 0 || length > 20)
 		parse_error(jc_full_name(*light_field), "name",

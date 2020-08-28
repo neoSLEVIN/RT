@@ -51,3 +51,23 @@ void	realloc_lights_dto(DTO_LIGHT **dto, LIGHT *light, int cnt)
 	}
 	ft_memdel((void**)&temp);
 }
+
+void	realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img, int cnt)
+{
+	DTO_PPM_IMG	*temp;
+	int			i;
+
+	if (!dto || !(*dto))
+		ft_error("NPE: realloc_ppm_img_dto");
+	temp = *dto;
+	if (!(*dto = (DTO_PPM_IMG*)malloc(sizeof(DTO_PPM_IMG) * cnt)))
+		ft_error("Can't allocate memory");
+	i = -1;
+	while (++i < cnt && ppm_img)
+	{
+		(*dto)[i] = *ppm_img->dto;
+		ppm_img->dto = &(*dto)[i];
+		ppm_img = ppm_img->next;
+	}
+	ft_memdel((void**)&temp);
+}

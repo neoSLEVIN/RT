@@ -260,7 +260,7 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/set_kernel_args.c
         source/opencl/settings/realloc_data.c
         source/opencl/settings/update_args.c
-        source/opencl/settings/image_import.c)
+        source/opencl/settings/image_import.c source/opencl/settings/safe_image_import.c source/opencl/utils/ppm_error_safe.c source/opencl/settings/update_ppm_img_args.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -400,7 +400,7 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
         source/gtk/actions/get_new_file_name.c
-        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c source/gtk/widgets/gtk_set_scale.c)
+        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c source/gtk/widgets/gtk_set_scale.c source/gtk/callbacks/new_ppm_img.c source/gtk/actions/error_message_dialog.c source/gtk/actions/new_ppm_img_init.c source/gtk/actions/new_ppm_img_update_everything.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

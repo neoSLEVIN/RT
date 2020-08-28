@@ -12,16 +12,19 @@
 
 #include "parser.h"
 
-char		*unnamed_obj(size_t index)
+char		*unnamed_obj(size_t index, char *prefix)
 {
 	char	*name;
 	char	*str_index;
 
+	if (!prefix)
+		prefix = "Unnamed";
 	if (!(str_index = ft_itoa((int)index)))
 		ft_error("Can't allocate memory");
-	if (!(name = ft_strnew(ft_strlen("Unnamed_") + ft_strlen(str_index))))
+	if (!(name = ft_strnew(ft_strlen(prefix) + 1 + ft_strlen(str_index))))
 		ft_error("Can't allocate memory");
-	ft_strcpy(name, "Unnamed_");
+	ft_strcpy(name, prefix);
+	ft_strcat(name, "_");
 	ft_strcat(name, str_index);
 	ft_strdel(&str_index);
 	return (name);
@@ -50,7 +53,7 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 		ft_error("Can't allocate memory");
 	init_default_shape_params(shape);
 	shape->name = jc_get_string(shape_field, "name", TRUE);
-	(!shape->name) ? shape->name = unnamed_obj(index) : 0;
+	(!shape->name) ? shape->name = unnamed_obj(index + 1, NULL) : 0;
 	if ((length = ft_strlen_rus(shape->name)) == 0 || length > 20)
 		parse_error(jc_full_name(shape_field), "name",
 			"The field length must be in the range (0; 20].");

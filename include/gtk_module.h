@@ -22,7 +22,7 @@
 # include "ocl.h"
 
 # define STEP 0.5
-# define UI_WIDTH 400
+# define UI_WIDTH 475
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
@@ -76,6 +76,8 @@ typedef struct		s_gtk_buttons
 	GtkWidget		*save_image_as;
 	GtkWidget		*save_scene;
 	GtkWidget		*save_scene_as;
+	GtkWidget		*add_texture;
+	GtkWidget		*add_normal_map;
 }					t_gtk_buttons;
 
 /*
@@ -204,7 +206,6 @@ typedef struct		s_color_tab
 typedef struct		s_section_tab
 {
 	GtkWidget		*label;
-	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
 	GtkWidget		*style_frame;
 	GtkWidget		*style_grid;
@@ -288,10 +289,10 @@ typedef struct		s_gtk_shapes
 */
 typedef enum		e_shapes_column
 {
-	S_MARKER_COL,
+	S_DELETE_COL,
 	S_NAME_COL,
 	S_TYPE_COL,
-	S_DELETE_COL,
+	S_MARKER_COL,
 	S_POINTER_COL,
 	S_COL_CNT
 }					t_shapes_column;
@@ -612,6 +613,8 @@ void				spin_button_camera_position_changer(GtkSpinButton *button,
 								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
+void				new_texture(GtkButton *button, gpointer data);
+void				new_normal_map(GtkButton *button, gpointer data);
 void				save_image(GtkButton *button, gpointer data);
 void				save_image_as(GtkButton *button, gpointer data);
 void				save_scene(GtkButton *button, gpointer data);
@@ -774,8 +777,13 @@ cl_uint3			get_average_from_sum(cl_uint3 *average_sum,
 void				put_average_to_pixel(cl_uchar4 *pixel, cl_uint3 *average);
 cl_uchar4			calc_matrix_values(const int matrix[9], int i, t_rt *rt);
 /*
-** ============== Updating everything after creating a new object ==============
+** ============ Init/Update everything after creating a new object =============
 */
+PPM_IMG				*new_ppm_img_init(t_rt *rt, char *filename,
+								PPM_IMG **ppm_list, _Bool is_normal_map);
+void				new_ppm_img_update_everything(t_rt *rt,
+								t_gtk_textures *gtk_ppm, PPM_IMG *new_texture,
+								_Bool is_normal_map);
 void				new_shape_update_everything(t_rt *rt,
 								t_gtk_shapes *gtk_shapes, SHAPE *shape);
 /*
@@ -788,10 +796,16 @@ void				paste_shape(t_rt *rt);
 */
 _Bool				get_new_file_name(char **filename, char **folder,
 									char *default_name);
+char				*get_ppm_filename(void);
 /*
 ** ============================== Call serializer ==============================
 */
 gboolean			serialize_scene_to_json(gpointer data);
+/*
+** ============================ Call message dialog ============================
+*/
+void				error_message_dialog(t_rt *rt, const char *filename,
+									char **err);
 
 /*
 ** =============================================================================

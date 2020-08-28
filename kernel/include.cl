@@ -108,7 +108,7 @@ typedef struct			s_object
 
 typedef struct			s_dto_ppm_img
 {
-	uchar 				data[640*640*3];
+	uchar 				data[1440*1440*3];
 	int 				width;
 	int 				height;
 	int 				max_color;

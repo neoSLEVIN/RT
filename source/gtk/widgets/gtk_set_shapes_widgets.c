@@ -56,7 +56,7 @@ void		gtk_set_shapes_tree(t_gtk_shapes *shapes, t_rt *rt)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(shapes->scrolled_window),
 		GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	shapes->store = gtk_tree_store_new(S_COL_CNT,
-		G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+		G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_BOOLEAN,
 		G_TYPE_POINTER);
 	shapes->model = GTK_TREE_MODEL(shapes->store);
 	gtk_insert_rows_in_shape_tree(rt->scene->shapes, shapes);

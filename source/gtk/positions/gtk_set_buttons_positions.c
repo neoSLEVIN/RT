@@ -6,8 +6,12 @@ void	gtk_set_buttons_positions(t_gtk_buttons *buttons)
 		0, 0, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->add_light,
 		buttons->add_shape, GTK_POS_RIGHT, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->save_image,
+	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->add_texture,
 		buttons->add_light, GTK_POS_RIGHT, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->add_normal_map,
+		buttons->add_texture, GTK_POS_RIGHT, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->save_image,
+		buttons->add_normal_map, GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->save_image_as,
 		buttons->save_image, GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(buttons->grid), buttons->save_scene,

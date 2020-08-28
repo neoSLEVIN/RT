@@ -13,7 +13,7 @@ static void	gtk_set_shape_tabs_positions(t_gtk_shape *shape)
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
 		shape->texture.grid, shape->texture.label, TEXTURE_TAB);
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
-		shape->section.scrolled_window, shape->section.label, SECTION_TAB);
+		shape->section.grid, shape->section.label, SECTION_TAB);
 }
 
 void		gtk_set_shape_positions(t_gtk_shape *shape)

@@ -38,7 +38,7 @@ void		paste_shape(t_rt *rt)
 	SHAPE	*shape;
 	SHAPE	*temp;
 
-	if (!rt->info->s_copy)
+	if (!rt->info->s_copy || rt->scene->s_cnt >= MAX_SHAPES_COUNT)
 		return ;
 	if (!(shape = (SHAPE*)malloc(sizeof(SHAPE))))
 		ft_error("Can't allocate memory");

@@ -17,6 +17,9 @@
 # include "scene.h"
 
 # define PARSE_TEXT_SIZE 1200000
+# define MAX_SHAPES_COUNT 1000
+# define MAX_LIGHTS_COUNT 100
+# define MAX_PPM_IMG_COUNT 20
 /*
 ** ========================== Parse main Scene entity ==========================
 */
@@ -84,7 +87,7 @@ void		parse_error(const char *parent_name, const char *child_name,
 /*
 ** =================================== Utils ===================================
 */
-char		*unnamed_obj(size_t index);
+char		*unnamed_obj(size_t index, char *prefix);
 void		check_reserved_names(const JC_FIELD texture_field,
 								const char *name, _Bool is_normal_maps);
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);

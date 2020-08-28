@@ -57,3 +57,28 @@ _Bool		get_new_file_name(char **filename, char **folder,
 	gtk_widget_destroy(dialog);
 	return (FALSE);
 }
+
+char		*get_ppm_filename(void)
+{
+	GtkWidget	*window;
+	GtkWidget	*dialog;
+	gchar		*gtk_filename;
+	char		*filename;
+
+	filename = NULL;
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	dialog = gtk_file_chooser_dialog_new("Choose PPM", (GtkWindow*)window,
+					GTK_FILE_CHOOSER_ACTION_OPEN,
+					"_Cancel", GTK_RESPONSE_CANCEL,
+					"_Choose", GTK_RESPONSE_ACCEPT,
+					NULL);
+	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
+	{
+		gtk_filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		filename = ft_strdup(gtk_filename);
+		g_free(gtk_filename);
+	}
+	gtk_widget_destroy(dialog);
+	gtk_widget_destroy(window);
+	return (filename);
+}

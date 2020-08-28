@@ -65,7 +65,6 @@ static void	gtk_set_shape_section_addition_positions(t_section_tab *section)
 
 void		gtk_set_shape_section_positions(t_section_tab *section)
 {
-	gtk_container_add(GTK_CONTAINER(section->scrolled_window), section->grid);
 	gtk_set_shape_section_base_positions(section);
 	gtk_set_shape_section_style_positions(section);
 	gtk_set_shape_section_position_positions(section);

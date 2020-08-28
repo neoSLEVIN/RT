@@ -31,7 +31,8 @@ void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 
 void	translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture, int cnt)
 {
-	int	i;
+	int			i;
+	DTO_PPM_IMG	*temp;
 
 	if (!dto)
 		ft_error("NPE: translate_textures");
@@ -42,8 +43,10 @@ void	translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture, int cnt)
 	i = -1;
 	while (++i < cnt && texture)
 	{
-		texture->dto = read_ppm(texture->path);
-		(*dto)[i] = *texture->dto;
+		temp = read_ppm(texture->path);
+		(*dto)[i] = *temp;
+		texture->dto = &(*dto)[i];
+		ft_memdel((void**)&temp);
 		texture = texture->next;
 	}
 }

@@ -32,7 +32,6 @@
     "shapes": [
       {
         "type": "SPHERE",
-        "name": "Check",
         "radius": 4.000,
         "transform": {
           "position": [0.000, 0.000, 0.000],
@@ -433,6 +432,10 @@
       {
         "name": "Earth",
         "path": "extras\\textures\\earth.ppm"
+      },
+      {
+        "name": "5k",
+        "path": "extras\\textures\\5k.ppm"
       }
     ],
     "normal maps": [
@@ -455,6 +458,10 @@
       {
         "name": "Wood4",
         "path": "extras\\textures\\dan.ppm"
+      },
+      {
+        "name": "5k",
+        "path": "extras\\textures\\5k.ppm"
       }
     ]
   }
