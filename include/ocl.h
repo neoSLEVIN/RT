@@ -174,6 +174,7 @@ void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_lights);
 void					update_textures_arg(t_ocl *ocl, int cnt);
+void					update_normal_maps_arg(t_ocl *ocl, int cnt);
 /*
 ** =============================================================================
 ** =================================== Utils ===================================

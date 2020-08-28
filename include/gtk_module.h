@@ -368,9 +368,23 @@ typedef struct		s_gtk_textures
 	GtkWidget		*scrolled_window;
 	GtkWidget		*tree;
 	GtkTreeStore	*store;
+	GtkTreeModel	*model;
 	GtkTreeIter		iter;
 	GtkCellRenderer	*renderer;
+	GtkCellRenderer	*pixbuf_renderer;
+	GtkTreePath		*path;
 }					t_gtk_textures;
+/*
+** ========================= Enum for textures columns =========================
+*/
+typedef enum		e_ppm_column
+{
+	PPM_DELETE_COL,
+	PPM_NAME_COL,
+	PPM_PATH_COL,
+	PPM_POINTER_COL,
+	PPM_COL_CNT
+}					t_ppm_column;
 
 /*
 ** =============================================================================
@@ -563,6 +577,7 @@ void				gtk_set_camera_signals(t_rt *rt);
 void				gtk_set_shapes_signals(t_rt *rt);
 void				gtk_set_light_signals(t_rt *rt);
 void				gtk_set_lights_signals(t_rt *rt);
+void				gtk_set_textures_signals(t_rt *rt);
 void				gtk_set_ui_settings_signals(t_gtk_settings *settings,
 								t_rt *rt);
 
@@ -596,6 +611,10 @@ void				shapes_tree_double_click(GtkTreeView *tree,
 								GtkTreePath *path, GtkTreeViewColumn *col,
 								gpointer data);
 gboolean			lights_tree_single_click(GtkTreeView *tree,
+								GdkEventButton *event, gpointer data);
+gboolean			texture_tree_single_click(GtkTreeView *tree,
+								GdkEventButton *event, gpointer data);
+gboolean			normal_map_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
@@ -806,6 +825,11 @@ gboolean			serialize_scene_to_json(gpointer data);
 */
 void				error_message_dialog(t_rt *rt, const char *filename,
 									char **err);
+/*
+** ============================== Delete PPM IMG ===============================
+*/
+void				delete_texture(t_rt *rt);
+void				delete_normal_map(t_rt *rt);
 
 /*
 ** =============================================================================

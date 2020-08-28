@@ -25,7 +25,8 @@ void		check_for_ambient(LIGHT *light, const JC_FIELD *lights_field)
 	}
 	if (ambient_cnt != 1)
 		parse_error(jc_full_name(*lights_field), NULL,
-			"The list must contain only one object with the type AMBIENT");
+			"The list must contain object with the type AMBIENT. "
+			"AMBIENT must be only one in list.");
 }
 
 char		*parse_light_name(const JC_FIELD *light_field, const size_t index)
@@ -65,7 +66,6 @@ LIGHT		*parse_light_idx(const JC_FIELD parent, const size_t index)
 										(FLT3){0.0f, 0.0f, 0.0f});
 	light->dto->direction = parse_cl_float3_or_default(light_field, "direction",
 										(FLT3){0.0f, -1.0f, 0.0f});
-	light->dto->direction = v3_norm(light->dto->direction);
 	if (v3_length(light->dto->direction) == 0.0f)
 		parse_error(jc_full_name(light_field), "direction",
 					"The vector must not be a zero vector.");

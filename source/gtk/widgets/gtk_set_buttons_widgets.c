@@ -19,9 +19,9 @@ void		gtk_set_buttons_widgets(t_gtk_buttons *buttons)
 	gtk_set_button_image(&buttons->add_light, "Ne_w light",
 						"icons/another_light.png");
 	gtk_set_button_image(&buttons->add_texture, "New _texture",
-						"icons/new_light.png");
+						"icons/new_shape.png");
 	gtk_set_button_image(&buttons->add_normal_map, "New _map",
-						"icons/new_light.png");
+						"icons/normal_map.png");
 	gtk_set_button_image(&buttons->save_image, "Sa_ve image",
 						"icons/another_lens.png");
 	gtk_widget_set_tooltip_text(buttons->save_image,

@@ -1,0 +1,13 @@
+{
+  "scene": {
+    "lights": [
+      {
+        "type": "AmBiEnT",
+        "intensity": 0.01
+      }
+    ],
+    "camera": {
+      "position": [0,0,0]
+    }
+  }
+}
