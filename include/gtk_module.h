@@ -532,8 +532,6 @@ void				gtk_set_sections_tab_tree_widgets(t_section_tab *tab,
 */
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 								cl_float value);
-void				gtk_set_spin_button_for_one(GtkWidget **spin,
-								cl_float value);
 void				gtk_set_spin_button_for_radius(GtkWidget **spin,
 								cl_float value);
 void				gtk_set_spin_button_for_angle(GtkWidget **spin,

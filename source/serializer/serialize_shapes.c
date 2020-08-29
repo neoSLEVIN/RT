@@ -5,7 +5,7 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 {
 	if (type == PLANE)
 		(void)type;
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 	{
 		s_name(s, "radius");
 		s_float(s, params->x);
@@ -25,6 +25,10 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 		s_name(s, "height");
 		s_float(s, params->y);
 		s_comma(s);
+	}
+	else if (type == CAPPEDPLANE || type == TRIANGLE)
+	{
+		//TODO different serialize
 	}
 	else
 		ft_error("Unknown action (s_shape_params_with_comma)");

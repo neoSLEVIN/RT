@@ -8,7 +8,7 @@ void	s_transform_obj(t_serializer *s, TRANSFORM *transform, SHAPE_TYPE type)
 	s_comma(s);
 	s_name(s, "direction");
 	s_float3(s, v3_norm(transform->direction));
-	//TODO for cube/box
+	//TODO for cube/box triangle
 	if (type == NONE)
 	{
 		s_comma(s);

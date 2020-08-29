@@ -46,21 +46,17 @@ _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE || type == TRIANGLE)
 		return (FALSE);
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 		return (do_change_shape_radius(&params->x, coefficient));
 	else if (type == CONE)
 		return (do_change_shape_angle(&params->x, diff));
-	else if (type == CAPPEDCYLINDER)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
 		if (do_change_shape_radius(&params->x, coefficient))
 			do_change = TRUE;
 		if (do_change_shape_radius(&params->y, coefficient))
 			do_change = TRUE;
 		return (do_change);
-	}
-	else if (type == CIRCLE || type == CAPPEDPLANE)
-	{
-//TODO change
 	}
 	else
 		ft_error("Unknown type (change_shape_param)");

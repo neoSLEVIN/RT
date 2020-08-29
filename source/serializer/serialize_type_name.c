@@ -59,7 +59,7 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 	else if (type == CAPPEDPLANE)
 		res = ft_strdup("CAPPED PLANE");
 	else if (type == TRIANGLE)
-	    res = ft_strdup("TRIANGLE");
+		res = ft_strdup("TRIANGLE");
 	else
 		ft_error("Unknown shape type (get_shape_type_name)");
 	if (res == NULL)

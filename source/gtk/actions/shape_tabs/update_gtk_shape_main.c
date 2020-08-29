@@ -6,6 +6,7 @@ static void	do_invisible_params(t_main_tab *tab)
 	gtk_widget_set_visible(tab->h_radius, FALSE);
 	gtk_widget_set_visible(tab->h_height, FALSE);
 	gtk_widget_set_visible(tab->h_angle, FALSE);
+	//TODO new param for width and triangle origin
 }
 
 static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
@@ -14,7 +15,7 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 		gtk_widget_set_visible(tab->params_frame, TRUE);
 	if (type == PLANE)
 		(void)type;
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 	else if (type == CONE)
 		gtk_widget_set_visible(tab->h_angle, TRUE);
@@ -22,6 +23,10 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 	{
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
+	}
+	else if (type == CAPPEDPLANE || type == TRIANGLE)
+	{
+		//TODO different visible
 	}
 	else
 		ft_error("Unknown shape type (do_visible_params)");
@@ -31,7 +36,8 @@ static void	update_gtk_shape_params(t_main_tab *tab, DTO_SHAPE *dto)
 {
 	if (dto->type == PLANE)
 		(void)dto;
-	else if (dto->type == SPHERE || dto->type == CYLINDER)
+	else if (dto->type == SPHERE || dto->type == CYLINDER ||
+			dto->type == CIRCLE)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
 			dto->params.x);
 	else if (dto->type == CONE)
@@ -43,6 +49,10 @@ static void	update_gtk_shape_params(t_main_tab *tab, DTO_SHAPE *dto)
 			dto->params.x);
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
 			dto->params.y);
+	}
+	else if (dto->type == CAPPEDPLANE || dto->type == TRIANGLE)
+	{
+		//TODO different update
 	}
 	else
 		ft_error("Unknown shape type (update_gtk_shape_params)");

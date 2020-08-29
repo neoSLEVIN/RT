@@ -26,15 +26,18 @@ FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
 	params = (FLT3){0.0f, 0.0f, 0.0f};
 	if (type == PLANE)
 		(void)type;
-	else if (type == SPHERE || type == CYLINDER)
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 		parse_shape_param_0_1(shape_field, &params.x, "radius");
 	else if (type == CONE)
 		parse_shape_angle(shape_field, &params.x);
-	else if (type == CAPPEDCYLINDER)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
-		parse_shape_param_0_1(shape_field, &params.x, "radius");
+		parse_shape_param_0_1(shape_field, &params.x,
+			(type == CAPPEDPLANE) ? "width" : "radius");
 		parse_shape_param_0_1(shape_field, &params.y, "height");
 	}
+	else if (type == TRIANGLE)
+		params = parse_cl_float3_or_default(shape_field, "origin", params);
 	else
 		ft_error("Unknown action (parse_shape_param_by_type)");
 	return (params);

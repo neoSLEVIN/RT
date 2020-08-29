@@ -68,7 +68,7 @@ float3 refract(t_ray *ray) {
 	bool inside = dot(ray->dir, hitNormal) > 0;
 	
 	/*Добавлено так как мы проходим через объект два раза. Но не для плоскости*/
-	if (inside && ray->hit_type != PLANE) {
+	if (inside && (ray->hit_type != PLANE && ray->hit_type != CAPPEDPLANE && ray->hit_type != CIRCLE && ray->hit_type != TRIANGLE)) {
 		hitNormal = -hitNormal;
 		eta = ior;
 	} else {
@@ -96,7 +96,7 @@ float3 refract_v1(t_ray *ray) {
 	float eta;
 	float3 hitNormal = ray->hitNormal;
 	bool inside = dot(ray->dir, hitNormal) > 0;
-	if (inside && ray->hit_type != PLANE) {
+	if (inside && (ray->hit_type != PLANE && ray->hit_type != CAPPEDPLANE && ray->hit_type != CIRCLE && ray->hit_type != TRIANGLE)) {
 		hitNormal = -hitNormal;
 		eta = ior;
 	} else {
