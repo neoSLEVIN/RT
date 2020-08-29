@@ -15,7 +15,7 @@ void		gtk_set_buttons_widgets(t_gtk_buttons *buttons)
 {
 	buttons->grid = gtk_grid_new();
 	gtk_set_button_image(&buttons->add_shape, "_New shape",
-						"icons/new_shape.png");
+						"icons/shape.png");
 	gtk_set_button_image(&buttons->add_light, "Ne_w light",
 						"icons/another_light.png");
 	gtk_set_button_image(&buttons->add_texture, "New _texture",
