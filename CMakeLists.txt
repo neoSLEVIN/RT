@@ -3,6 +3,18 @@ project(RT C)
 
 set(CMAKE_C_STANDARD 99)
 
+#магия эпл. Почему надо вызвать FIND_PACKAGE два раза мне не понятно
+#особенность которую я откапал на stackoverflow - link_directories надо вызвать перед add_executable
+if (APPLE)
+FIND_PACKAGE(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
+LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+#в PROJ_DIR будет храниться путь до проекта
+add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
+endif()
+
+
 # ==============================================================================
 # ================================= Libraries ==================================
 # =========================== LIBFT JCPARSER OCLMATH ===========================
@@ -408,9 +420,6 @@ include_directories(${SERIALIZER_SRC})
 set(SRCNAME_SERIALIZER
         source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c source/serializer/serialize_reserved_ppm_names.c source/serializer/serialize_int2.c)
 
-if (APPLE)
-LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
-endif()
 
 add_executable(RT
         main.c

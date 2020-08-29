@@ -22,12 +22,20 @@
 # include "ocl.h"
 
 # define STEP 0.5
-# define UI_WIDTH 400
+# define UI_WIDTH 430
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
 # define ASSERT_SHAPE(shape) if (!shape || !shape->dto) {return (FALSE);}
 # define ASSERT_LIGHT(light) if (!light || !light->dto) {return (FALSE);}
+
+# if __APPLE__
+# ifndef PROJ_DIR
+# define PROJ_DIR "path to proj dir"
+# endif
+# else
+# define PROJ_DIR ""
+# endif
 
 /*
 ** =================== Entity for spin button and his label ====================
