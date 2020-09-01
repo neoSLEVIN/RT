@@ -12,7 +12,7 @@
       {
         "type": "PLANE",
         "name": "floor",
-        "transform": {"position": [0,-3,0], "direction": [0,1,0]},
+        "transform": {"position": [0,0,0], "direction": [0,1,0]},
         "material": {
           "specular": 0, "reflective": 0, "transparency": 0,
           "color": "da8"
@@ -20,15 +20,23 @@
       },
       {
         "type": "TRIANGLE",
+        "dots": {
+          "a": [0,0,0],
+          "b": [1,0,0],
+          "c": [0,1,0]
+        },
         "name": "hz",
-        "transform": {"position": [0,0,1], "direction": [0,2,1] , "rotation": [1,0,1]},
         "material": {
           "specular": 0, "reflective": 0, "transparency": 0, "color": "0f0"}
       },
       {
         "type": "TRIANGLE",
         "name": "hz",
-        "transform": {"position": [1,2,1], "direction": [0,2,1] , "rotation": [1,0,1]},
+        "dots": {
+          "a": [-3,0,0],
+          "b": [-3,1,0],
+          "c": [-2,0,0]
+        },
         "material": {
           "specular": 0, "reflective": 0, "transparency": 0, "color": "0f0"}
       }

@@ -56,8 +56,8 @@ SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name,
 SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index,
 						PPM_IMG *textures, PPM_IMG *normal_maps);
 SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
-FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
-						SHAPE_TYPE type);
+void		parse_shape_param_by_type(const JC_FIELD shape_field,
+						SHAPE_TYPE type, FLT3 *params);
 /*
 ** =============================== Parse lights ================================
 */
@@ -77,7 +77,8 @@ FLT3		parse_cl_float3_or_default(const JC_FIELD parent,
 FLT3		parse_color(const JC_FIELD parent, const char *child_name);
 FLT3		parse_color_or_default(const JC_FIELD parent,
 						const char *child_name, char *default_color);
-TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name);
+TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name,
+						SHAPE_TYPE type, FLT3 *params);
 MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);
 /*
 ** ================================ Send error =================================

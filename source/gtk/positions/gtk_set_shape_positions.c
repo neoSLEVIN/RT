@@ -5,13 +5,11 @@ static void	gtk_set_shape_tabs_positions(t_gtk_shape *shape)
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
 		shape->main.grid, shape->main.label, MAIN_TAB);
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
-		shape->transform.grid, shape->transform.label, TRANSFORM_TAB);
+							 shape->transform.v_box, shape->transform.label, TRANSFORM_TAB);
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
 		shape->material.grid, shape->material.label, MATERIAL_TAB);
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
-							 shape->color.scrolled_window, shape->color.label, TEXTURE_COLOR_TAB);
-/*	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
-		shape->texture.grid, shape->texture.label, TEXTURE_TAB);*/
+		shape->color.scrolled_window, shape->color.label, TEXTURE_COLOR_TAB);
 	gtk_notebook_insert_page(GTK_NOTEBOOK(shape->notebook),
 		shape->section.grid, shape->section.label, SECTION_TAB);
 }

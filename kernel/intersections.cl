@@ -12,7 +12,7 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	new_origin = ray->origin - sphere->transform.position;
 	coef[0] = dot(ray->dir, ray->dir);
 	coef[1] = 2.0 * dot(ray->dir, new_origin);
-	coef[2] = dot(new_origin, new_origin) - sphere->params.x * sphere->params.x;
+	coef[2] = dot(new_origin, new_origin) - sphere->params[0].x * sphere->params[0].x;
 	discriminant = coef[1] * coef[1] - 4.0 * coef[0] * coef[2];
 	if (discriminant < 0.0f)
 		return (-1.0f);
@@ -51,7 +51,7 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	x = ray->origin - cylinder->transform.position;
 	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, cylinder->transform.direction), 2);
 	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, cylinder->transform.direction) * dot(x, cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, cylinder->transform.direction), 2) - cylinder->params.x * cylinder->params.x;
+	abcd[2] = dot(x, x) - pow(dot(x, cylinder->transform.direction), 2) - cylinder->params[0].x * cylinder->params[0].x;
 	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
 	if (abcd[3] < 0)
 		return 0;
@@ -72,7 +72,7 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	float		k_and_discr[2];
 
 	x = ray->origin - cone->transform.position;
-	k_and_discr[0] = 1 + tan(cone->params.x) * tan(cone->params.x);
+	k_and_discr[0] = 1 + tan(cone->params[0].x) * tan(cone->params[0].x);
 	abc[0] = dot(ray->dir, ray->dir) - k_and_discr[0] * pow(dot(ray->dir, cone->transform.direction), 2);
 	abc[1] = 2 * (dot(ray->dir, x) - k_and_discr[0] * dot(ray->dir, cone->transform.direction) * dot(x, cone->transform.direction));
 	abc[2] = dot(x,x) - k_and_discr[0] * pow(dot(x, cone->transform.direction), 2);
@@ -98,7 +98,7 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	x = ray->origin - capped_cylinder->transform.position;
 	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, capped_cylinder->transform.direction), 2);
 	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, capped_cylinder->transform.direction) * dot(x, capped_cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params.x * capped_cylinder->params.x;
+	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params[0].x * capped_cylinder->params[0].x;
 	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
 	if (abcd[3] >= 0) {
 		t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
@@ -109,14 +109,14 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 			t[1] = -1.0f;
 	}
 
-	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
+	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params[0].y / 2.0f - ray->origin;
 	if ((d_dot_n = dot(ray->dir, capped_cylinder->transform.direction)) != 0.0f) {
 		t[2] = dot(x, capped_cylinder->transform.direction) / d_dot_n;
 		if (is_outside_capped_cylinder(ray, capped_cylinder, t[2]))
 			t[2] = -1.0f;
 	}
 
-	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
+	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params[0].y / 2.0f - ray->origin;
 	if ((d_dot_n = dot(ray->dir, -capped_cylinder->transform.direction)) != 0.0f) {
 		t[3] = dot(x, -capped_cylinder->transform.direction) / d_dot_n;
 		if (is_outside_capped_cylinder(ray, capped_cylinder, t[3]))
@@ -148,7 +148,7 @@ float	circle_intersect(t_ray *ray, t_object *circle)
 	
 	t = plane_intersect(ray, circle);
 	hitPoint = ray->origin + t * ray->dir;
-	if (length(circle->transform.position - hitPoint) > circle->params.x) {
+	if (length(circle->transform.position - hitPoint) > circle->params[0].x) {
 		return -1.0f;
 	}
 	return t;
@@ -163,10 +163,10 @@ float cappedplane_instersect1(t_ray *ray, t_object *plane)
 	t = plane_intersect(ray, plane);
 	ray->hitPoint = ray->origin + t * ray->dir;
 	coord = translate_plane_coord(plane->transform.direction, ray);
-	float left = plane->transform.position.x - plane->params.x / 2.0f;
-	float right = plane->transform.position.x +  plane->params.x / 2.0f;
-	float up = plane->transform.position.y + plane->params.y / 2.0f;
-	float down = plane->transform.position.y - plane->params.y / 2.0f;
+	float left = plane->transform.position.x - plane->params[0].x / 2.0f;
+	float right = plane->transform.position.x +  plane->params[0].x / 2.0f;
+	float up = plane->transform.position.y + plane->params[0].y / 2.0f;
+	float down = plane->transform.position.y - plane->params[0].y / 2.0f;
 	if (coord.x <= left || coord.x >= right)
 		return -1.0f;
 	if (coord.y <= down || coord.y >= up)
@@ -193,14 +193,14 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
 
 	 
     float3 fromOrigToHit = plane->transform.position - hitPoint;
-    float3 w_vec = plane->params.x * u;
-    float3 h_vec = plane->params.y * v;
+    float3 w_vec = plane->params[0].x * u;
+    float3 h_vec = plane->params[0].y * v;
     
-    float w_projection = dot(fromOrigToHit, w_vec) / plane->params.x;
-    float h_projection = dot(fromOrigToHit, h_vec) / plane->params.y;
-    if (w_projection < 0 || w_projection > plane->params.x) {
+    float w_projection = dot(fromOrigToHit, w_vec) / plane->params[0].x;
+    float h_projection = dot(fromOrigToHit, h_vec) / plane->params[0].y;
+    if (w_projection < 0 || w_projection > plane->params[0].x) {
         return -1.0f;
-    } else if (h_projection < 0 || h_projection > plane->params.y) {
+    } else if (h_projection < 0 || h_projection > plane->params[0].y) {
         return -1.0f;
     }
     return t;
@@ -249,13 +249,13 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 	float r3 = minT(t, r2);
 	
 	if (r3 == t || r3 == t1) {
-		plane->params.z = 2;
+		plane->params[0].z = 2;
 	} else if (r3 == t2 || r3 == t3) {
-		plane->params.z = 3;
-	} else if (r3 = t4) {
-		plane->params.z = 4;
+		plane->params[0].z = 3;
+	} else if (r3 == t4) {
+		plane->params[0].z = 4;
 	} else {
-		plane->params.z = 1;
+		plane->params[0].z = 1;
 	}
 	
     return r3;
@@ -273,10 +273,10 @@ float triangle_intersect(t_ray *ray, t_object *triangle)
 	float3 c[3];
 
 	/*вычисляем стороны AB BC CA*/
-	v[0] = triangle->transform.direction - triangle->transform.position;
-	v[1] = triangle->transform.rotation - triangle->transform.direction;
-	v[2] = triangle->transform.position - triangle->transform.rotation;
-	x = ray->origin - triangle->transform.position;
+	v[0] = triangle->params[1] - triangle->params[0];
+	v[1] = triangle->params[2] - triangle->params[1];
+	v[2] = triangle->params[0] - triangle->params[2];
+	x = ray->origin - triangle->params[0];
 	normal = normalize(cross(v[0], v[1]));//нормаль для проверки перпендикулярности луча и нормали
 	if ((d = dot(ray->dir, normal)) == 0.0f)
 		return (-1.0f);
@@ -284,13 +284,17 @@ float triangle_intersect(t_ray *ray, t_object *triangle)
 	t = -dot(x, normal) / d;
 	ray->hitPoint = ray->origin + t * ray->dir;
 	//находим вектора от каждой точки треугольника до точки пересечения AP BP CP
-	c[0] = ray->hitPoint - triangle->transform.position;
-	c[1] = ray->hitPoint - triangle->transform.direction;
-	c[2] = ray->hitPoint - triangle->transform.rotation;
+	c[0] = ray->hitPoint - triangle->params[0];
+	c[1] = ray->hitPoint - triangle->params[1];
+	c[2] = ray->hitPoint - triangle->params[2];
 	//проверяем что площади получившихся параллелограммов AB AP + BC BP + CA CP < AB BC + eps
 	//eps нужна для того, если точка лежит на границе треугольника
-	if (length(cross(v[0], c[0])) + length(cross(v[1], c[1])) + length(cross(v[2], c[2])) < length(cross(v[1], v[2])) + MY_EPSILON)
+	if (length(cross(v[0], c[0])) + length(cross(v[1], c[1])) + length(cross(v[2], c[2])) < length(cross(v[1], v[2])) + 0.001f)
+	{
+		if (triangle->working_sections && t > MY_EPSILON && t < ray->t)
+			return compute_sections(ray, triangle->section, triangle->is_complex_section, -1.0f, t);
 		return (t);
+	}
 	return (-1.0f);
 }
 

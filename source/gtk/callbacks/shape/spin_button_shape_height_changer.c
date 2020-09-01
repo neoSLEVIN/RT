@@ -7,8 +7,8 @@ static gboolean	spin_button_shape_height_changer_safe(gpointer data)
 
 	rt = (t_rt*)data;
 	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
-	params = &rt->gtk->ui.shape->shape->dto->params;
-	params->y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
+	params = rt->gtk->ui.shape->shape->dto->params;
+	params[0].y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(
 										rt->gtk->ui.shape->main.height.spin));
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,

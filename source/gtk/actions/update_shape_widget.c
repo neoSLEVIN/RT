@@ -18,8 +18,7 @@ static void	update_shape_tab_widget(t_rt *rt, t_gtk_shape *shape,
 	if (current_page == MAIN_TAB && rt->info->update_s_main)
 		update_gtk_shape_main(shape->main, shape->shape);
 	else if (current_page == TRANSFORM_TAB && rt->info->update_s_pos)
-		update_gtk_shape_position(shape->transform,
-								shape->shape->dto->transform.position);
+		update_gtk_shape_position(shape->transform, shape->shape->dto);
 	else if (current_page == MATERIAL_TAB && rt->info->update_s_mat)
 		update_gtk_shape_material(shape->material, shape->shape->dto->material);
 	else if (current_page == TEXTURE_COLOR_TAB &&

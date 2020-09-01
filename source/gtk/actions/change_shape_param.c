@@ -37,6 +37,22 @@ static _Bool	do_change_shape_angle(cl_float *angle, cl_float diff)
 	return (TRUE);
 }
 
+static _Bool	do_change_triangle_dots(FLT3 *dots, cl_float coefficient)
+{
+	FLT3	new_distance;
+	FLT3	center;
+	int		i;
+
+	center = v3_scale(v3_add(v3_add(dots[0], dots[1]), dots[2]), 1.0f / 3.0f);
+	i = -1;
+	while (++i < 3)
+	{
+		new_distance = v3_scale(v3_sub(dots[i], center), coefficient);
+		dots[i] = v3_add(center, new_distance);
+	}
+	return (TRUE);
+}
+
 _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 {
 	cl_float	coefficient;
@@ -44,20 +60,22 @@ _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 
 	do_change = FALSE;
 	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
-	if (type == PLANE || type == TRIANGLE)
+	if (type == PLANE)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
-		return (do_change_shape_radius(&params->x, coefficient));
+		return (do_change_shape_radius(&params[0].x, coefficient));
 	else if (type == CONE)
-		return (do_change_shape_angle(&params->x, diff));
+		return (do_change_shape_angle(&params[0].x, diff));
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
-		if (do_change_shape_radius(&params->x, coefficient))
+		if (do_change_shape_radius(&params[0].x, coefficient))
 			do_change = TRUE;
-		if (do_change_shape_radius(&params->y, coefficient))
+		if (do_change_shape_radius(&params[0].x, coefficient))
 			do_change = TRUE;
 		return (do_change);
 	}
+	else if (type == TRIANGLE)
+		return (do_change_triangle_dots(params, coefficient));
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);
@@ -72,11 +90,14 @@ void			change_shape_param(t_rt *rt)
 	}
 	if (!rt->info->scroll_cnt)
 		return ;
-	if (do_change_shape_param(&rt->info->s_marker->dto->params,
+	if (do_change_shape_param(rt->info->s_marker->dto->params,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 	{
 		update_flags(&rt->info->update_shapes, &rt->info->update_s_param);
-		rt->info->update_s_main = TRUE;
+		if (rt->info->s_marker->dto->type == TRIANGLE)
+			rt->info->update_s_pos = TRUE;
+		else
+			rt->info->update_s_main = TRUE;
 	}
 	rt->info->scroll_cnt = 0;
 }

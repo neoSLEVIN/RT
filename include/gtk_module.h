@@ -135,6 +135,8 @@ typedef struct		s_main_tab
 	GtkWidget		*v_params;
 	GtkWidget		*h_radius;
 	t_spinner		radius;
+	GtkWidget		*h_width;
+	t_spinner		width;
 	GtkWidget		*h_height;
 	t_spinner		height;
 	GtkWidget		*h_angle;
@@ -149,11 +151,17 @@ typedef struct		s_main_tab
 typedef struct		s_transform_tab
 {
 	GtkWidget		*label;
-	GtkWidget		*grid;
 	GtkWidget		*label_pos;
+	GtkWidget		*v_box;
+	GtkWidget		*pos_grid;
 	t_spinner		x;
 	t_spinner		y;
 	t_spinner		z;
+	GtkWidget		*dots_expander;
+	GtkWidget		*dots_grid;
+	t_spinner		a[3];
+	t_spinner		b[3];
+	t_spinner		c[3];
 }					t_transform_tab;
 
 /*
@@ -516,7 +524,7 @@ t_scale				gtk_get_float_scale(const char *label, FLT2 range,
 void				gtk_set_main_tab_widgets(t_main_tab *main_tab,
 								DTO_SHAPE *dto);
 void				gtk_set_transform_tab_widgets(t_transform_tab *tab,
-								TRANSFORM *shape_transform);
+								TRANSFORM *shape_transform, FLT3 *dots);
 void				gtk_set_material_tab_widgets(t_material_tab *material_tab,
 								MATERIAL *shape_material);
 void				gtk_set_color_tab_widgets(t_color_tab *color_tab,
@@ -573,8 +581,10 @@ void				gtk_set_shape_section_positions(t_section_tab *section);
 void				gtk_set_buttons_signals(t_rt *rt);
 void				gtk_set_motions_signals(GtkWidget *window,
 								GtkWidget *image_event_box, t_rt *rt);
-void				gtk_set_shape_signals(t_rt *rt);
 void				gtk_set_camera_signals(t_rt *rt);
+void				gtk_set_shape_signals(t_rt *rt);
+void				gtk_set_triangle_dots_signals(t_transform_tab *tab,
+								t_rt *rt);
 void				gtk_set_shapes_signals(t_rt *rt);
 void				gtk_set_light_signals(t_rt *rt);
 void				gtk_set_lights_signals(t_rt *rt);
@@ -651,11 +661,19 @@ gboolean			press_key_on_shape_name(GtkWidget *entry_name,
 void				changing_shape_type(GtkComboBox *type_combo, gpointer data);
 void				spin_button_shape_radius_changer(GtkSpinButton *button,
 								gpointer data);
+void				spin_button_shape_width_changer(GtkSpinButton *button,
+								gpointer data);
 void				spin_button_shape_height_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_angle_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_position_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_dot_a_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_dot_b_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_dot_c_changer(GtkSpinButton *button,
 								gpointer data);
 void				shape_material_scale_moved(GtkRange *range, gpointer data);
 void				color_activated_changer(GtkColorChooser *chooser,
@@ -776,7 +794,7 @@ gboolean			update_shape_widget(gpointer data);
 */
 void				update_gtk_shape_main(t_main_tab tab, SHAPE *shape);
 void				update_gtk_shape_position(t_transform_tab tab,
-								FLT3 shape_pos);
+								DTO_SHAPE *dto);
 void				update_gtk_shape_material(t_material_tab tab,
 								MATERIAL shape_mat);
 void				update_gtk_shape_color(t_color_tab tab, FLT3 color);
@@ -851,5 +869,7 @@ void				clear_shapes(SHAPE **shape);
 SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
 void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
 FLT2				get_angle_by_diff(INT2 diff, INT2 axis, INT2 screen_size);
+void				compute_triangle_position(t_transform_tab *tab,
+									FLT3 *pos, FLT3 *dots);
 
 #endif

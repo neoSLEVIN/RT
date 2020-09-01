@@ -1,5 +1,23 @@
 #include "parser.h"
 
+char		*unnamed_obj(size_t index, char *prefix)
+{
+	char	*name;
+	char	*str_index;
+
+	if (!prefix)
+		prefix = "Unnamed";
+	if (!(str_index = ft_itoa((int)index)))
+		ft_error("Can't allocate memory");
+	if (!(name = ft_strnew(ft_strlen(prefix) + 1 + ft_strlen(str_index))))
+		ft_error("Can't allocate memory");
+	ft_strcpy(name, prefix);
+	ft_strcat(name, "_");
+	ft_strcat(name, str_index);
+	ft_strdel(&str_index);
+	return (name);
+}
+
 static void	reserved_parse_error(const JC_FIELD texture_field,
 								_Bool is_normal_maps)
 {

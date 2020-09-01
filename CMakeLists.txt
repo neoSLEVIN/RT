@@ -286,7 +286,7 @@ set(SRCNAME_PARSER
         source/parser/parse_light.c
         source/parser/parse_settings.c
         source/parser/parse_textures.c
-        source/parser/parse_sections.c source/parser/check_reserved_names.c)
+        source/parser/parse_sections.c source/parser/parser_utils.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -326,7 +326,7 @@ set(SRCNAME_GTK
         source/gtk/actions/get_shape_id.c
         source/gtk/actions/camera_with_shape.c
         source/gtk/actions/camera_motion.c
-        source/gtk/actions/shape_motion.c
+        source/gtk/actions/shape_motions/rotate_shape.c
         source/gtk/actions/change_shape_param.c
         source/gtk/signals/gtk_set_motions_signals.c
         source/gtk/signals/gtk_set_ui_settings_signals.c
@@ -408,7 +408,7 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
         source/gtk/actions/get_new_file_name.c
-        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c source/gtk/widgets/gtk_set_scale_widgets.c source/gtk/callbacks/new_ppm_img.c source/gtk/actions/error_message_dialog.c source/gtk/actions/new_ppm_img_init.c source/gtk/actions/new_ppm_img_update_everything.c source/gtk/signals/gtk_set_textures_signals.c source/gtk/callbacks/ppm_img_tree_single_click.c source/gtk/actions/delete_ppm_img.c)
+        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c source/gtk/widgets/gtk_set_scale_widgets.c source/gtk/callbacks/new_ppm_img.c source/gtk/actions/error_message_dialog.c source/gtk/actions/new_ppm_img_init.c source/gtk/actions/new_ppm_img_update_everything.c source/gtk/signals/gtk_set_textures_signals.c source/gtk/callbacks/ppm_img_tree_single_click.c source/gtk/actions/delete_ppm_img.c source/gtk/actions/shape_motions/move_shape_by_camera_movement.c source/gtk/actions/shape_motions/move_shape_by_camera_rotating.c source/gtk/actions/shape_motions/move_shape_by_mouse.c source/gtk/callbacks/shape/spin_button_shape_width_changer.c source/gtk/signals/gtk_set_triangle_dots_signals.c source/gtk/callbacks/shape/spin_button_shape_dot_a_changer.c source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

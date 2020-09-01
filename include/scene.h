@@ -171,7 +171,7 @@ struct			s_dto_shape
 	SECTION		sections[SECTION_CNT];
 	cl_int		working_sections;
 	_Bool		is_complex_section;
-	FLT3		params;
+	FLT3		params[3];
 	_Bool		marker;
 };
 /*

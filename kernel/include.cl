@@ -103,7 +103,7 @@ typedef struct			s_object
 	t_section			section[6];
 	int					working_sections;
 	bool				is_complex_section;
-	float3				params;
+	float3				params[3];
 	bool				marker;
 }						t_object;
 
@@ -174,7 +174,7 @@ float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
-float3	triangle_normal(t_object *hit_obj, t_ray *ray);
+float3	triangle_normal(t_object *hit_obj);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
 float	compute_sections(t_ray *ray, t_section *sections, int is_complex, float t1, float t2);

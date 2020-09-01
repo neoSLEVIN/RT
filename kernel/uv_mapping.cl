@@ -11,7 +11,7 @@ float2 sphere_map(t_object *obj, t_ray *ray) {
 	/*azimut from -pi to pi */
 	float theta = atan2(z, x);
 	/*polar angle 0 to pi*/
-	float phi = acos(y / (obj->params.x));
+	float phi = acos(y / (obj->params[0].x));
 	/* from 0 to 1 */
 	float raw_u = 0.5f + theta / (2 * M_PI);
 	
@@ -33,7 +33,13 @@ float2 translate_plane_coord_with_static(float3 plane_norm, t_ray *ray, float3 p
 
 float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;
-	float2 coord = translate_plane_coord_with_static(obj->transform.direction, ray, obj->transform.position);
+	float2 coord;
+	if (obj->type == TRIANGLE) {
+		coord = translate_plane_coord_with_static(triangle_normal(obj), ray, obj->transform.position);
+	} else {
+		coord = translate_plane_coord_with_static(obj->transform.direction, ray, obj->transform.position);
+	}
+
 	/*Плодадь ничем не ограничена, поэтому все разделено на области со сторонами size*/
 	uv.x = fmod(coord.x, size) / (float)(size);
 	uv.y = fmod(coord.y, size) / (float)(size);

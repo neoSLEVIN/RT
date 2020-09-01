@@ -12,24 +12,6 @@
 
 #include "parser.h"
 
-char		*unnamed_obj(size_t index, char *prefix)
-{
-	char	*name;
-	char	*str_index;
-
-	if (!prefix)
-		prefix = "Unnamed";
-	if (!(str_index = ft_itoa((int)index)))
-		ft_error("Can't allocate memory");
-	if (!(name = ft_strnew(ft_strlen(prefix) + 1 + ft_strlen(str_index))))
-		ft_error("Can't allocate memory");
-	ft_strcpy(name, prefix);
-	ft_strcat(name, "_");
-	ft_strcat(name, str_index);
-	ft_strdel(&str_index);
-	return (name);
-}
-
 static void		init_default_shape_params(SHAPE *shape)
 {
 	shape->prev = NULL;
@@ -40,27 +22,35 @@ static void		init_default_shape_params(SHAPE *shape)
 	shape->normal_map_name = NULL;
 }
 
+static void		parse_shape_name(const JC_FIELD shape_field,
+								const size_t index, SHAPE *shape)
+{
+	size_t	length;
+
+	shape->name = jc_get_string(shape_field, "name", TRUE);
+	(!shape->name) ? shape->name = unnamed_obj(index + 1, NULL) : 0;
+	if ((length = ft_strlen_rus(shape->name)) == 0 || length > 20)
+		parse_error(jc_full_name(shape_field), "name",
+					"The field length must be in the range (0; 20].");
+}
+
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 								PPM_IMG *textures, PPM_IMG *normal_maps)
 {
 	JC_FIELD	shape_field;
 	SHAPE		*shape;
-	size_t		length;
 
 	shape_field = jc_get_field_idx(parent, index, JC_OBJ);
 	shape = (SHAPE*)malloc(sizeof(SHAPE));
 	if (!shape || !(shape->dto = (DTO_SHAPE*)malloc(sizeof(DTO_SHAPE))))
 		ft_error("Can't allocate memory");
 	init_default_shape_params(shape);
-	shape->name = jc_get_string(shape_field, "name", TRUE);
-	(!shape->name) ? shape->name = unnamed_obj(index + 1, NULL) : 0;
-	if ((length = ft_strlen_rus(shape->name)) == 0 || length > 20)
-		parse_error(jc_full_name(shape_field), "name",
-			"The field length must be in the range (0; 20].");
+	parse_shape_name(shape_field, index, shape);
 	shape->dto->type = parse_shape_type(shape_field, "type");
-	shape->dto->params =
-		parse_shape_param_by_type(shape_field, shape->dto->type);
-	shape->dto->transform = parse_transform(shape_field, "transform");
+	parse_shape_param_by_type(shape_field, shape->dto->type,
+							shape->dto->params);
+	shape->dto->transform = parse_transform(shape_field, "transform",
+										shape->dto->type, shape->dto->params);
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
 		&shape->texture_name, textures);
