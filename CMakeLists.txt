@@ -3,12 +3,15 @@ project(RT C)
 
 set(CMAKE_C_STANDARD 99)
 
+#магия эпл. Почему надо вызвать FIND_PACKAGE два раза мне не понятно
+#особенность которую я откапал на stackoverflow - link_directories надо вызвать перед add_executable
 if (APPLE)
-FIND_PACKAGE(PkgConfig REQUIRED)
-PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
-INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
-LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
-ADD_DEFINITIONS(${GTK3_CFLAGS_OTHER})
+    FIND_PACKAGE(PkgConfig REQUIRED)
+    PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+    INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
+    LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+    #в PROJ_DIR будет храниться путь до проекта
+    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
 endif()
 
 # ==============================================================================

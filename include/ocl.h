@@ -35,8 +35,12 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
-#  define ABSOLUTE_PATH "/Users/dmitry/Documents/xcode staff/gtk_RT/gtk_RT/kernel/"
+#  ifndef PROJ_DIR
+#   define PROJ_DIR "path to proj dir"
+#  endif
+#  define ABSOLUTE_PATH PROJ_DIR"/kernel/"
 # else
+#  define PROJ_DIR ""
 #  define ABSOLUTE_PATH "kernel/"
 # endif
 
