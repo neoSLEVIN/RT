@@ -17,11 +17,13 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 		s_name_float_value_comma(s, "radius", params->x);
 	else if (type == CONE)
 		s_name_float_value_comma(s, "angle", rad_to_deg(params->x));
-	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
 	{
-		s_name_float_value_comma(s, (type == CAPPEDPLANE) ? "width" : "radius",
-								params->x);
+		s_name_float_value_comma(s,
+			(type == CAPPEDCYLINDER) ? "radius" : "width", params->x);
 		s_name_float_value_comma(s, "height", params->y);
+		if (type == BOX)
+			s_name_float_value_comma(s, "depth", params->z);
 	}
 	else
 		ft_error("Unknown action (s_shape_params_with_comma)");

@@ -9,6 +9,7 @@ static void	gtk_set_type_list(GtkComboBoxText *type_combo)
 	gtk_combo_box_text_append_text(type_combo, "CAPPED CYLINDER");
 	gtk_combo_box_text_append_text(type_combo, "CIRCLE");
 	gtk_combo_box_text_append_text(type_combo, "CAPPED PLANE");
+	gtk_combo_box_text_append_text(type_combo, "BOX");
 	gtk_combo_box_text_append_text(type_combo, "TRIANGLE");
 	//TODO add new types
 }

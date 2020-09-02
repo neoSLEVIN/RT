@@ -185,57 +185,67 @@ float cappedplane_intersect(t_ray *ray, t_object *plane)
     return t;
 }
 
-float cube_intersect(t_ray *ray, t_object *plane)
-{
-	float	t;
-	float	t1;
-	float	t2;
-	float	t3;
-	float	t4;
-	float	t5;
-	
-	float3 u = plane->transform.rotation;
-	float3 norm = plane->transform.direction;
-    float3 v = cross(norm, u);
-	
-    t = cappedplane_intersect2(ray, plane);
-    plane->transform.position = plane->transform.position + plane->transform.direction * 3;
-    t1 = cappedplane_intersect2(ray, plane);
-	
-	plane->transform.direction = u;
-	plane->transform.rotation = v;
-	t2 = cappedplane_intersect2(ray, plane);
-	
-	plane->transform.position = plane->transform.position - plane->transform.direction * 3;
-	t3 = cappedplane_intersect2(ray, plane);
-	
-	plane->transform.direction = v;
-	plane->transform.rotation = -u;
-	t4 = cappedplane_intersect2(ray, plane);
-
-	plane->transform.position = plane->transform.position - plane->transform.direction * 3;
-	t5 = cappedplane_intersect(ray, plane);
-	
-	plane->transform.direction = norm;
-	plane->transform.rotation = u;
-	
-	float r = minT(t1, t2);
-	float r1 = minT(r,t3);
-	float r2 = minT(r1,t4);
-	float r3 = minT(t, r2);
-	float r4 = minT(t5, r3);
-
-	if (r4 == t || r4 == t1) {
-		plane->params.z = 2;
-	} else if (r4 == t2 || r4 == t3) {
-		plane->params.z = 3;
-	} else if (r4 == t4 || r4 == t5) {
-		plane->params.z = 4;
-	} else {
-		plane->params.z = 1;
+float minTwithIndexes(float a, float b, int index_a, int index_b, int *result_index) {
+	if (a > 0 && b > 0) {
+		*result_index = (a < b) ? index_a : index_b;
+		return a < b ? a : b;
 	}
+	if (a > 0 && b < 0) {
+		*result_index = index_a;
+		return a;
+	}
+	*result_index = index_b;
+	return b;
+}
 
-    return r4;
+float box_intersect(t_ray *ray, t_object *cube, int *index)
+{
+	float	t[6];
+	t_object plane = *cube;
+
+	float3 resolution = plane.params;
+	float3 center = plane.transform.position;
+	float3 forward = plane.transform.direction;
+	float3 left = plane.transform.rotation;
+	float3 up = normalize(cross(forward, left));
+
+	// FRONT
+	plane.transform.position = center + forward * resolution.z / 2;
+	t[0] = cappedplane_intersect(ray, &plane);
+	// BACK
+	plane.transform.position = center - forward * resolution.z / 2;
+	t[1] = cappedplane_intersect(ray, &plane);
+
+	plane.transform.direction = up;
+	plane.params.y = resolution.z;
+
+	// UP
+	plane.transform.position = center + up * resolution.y / 2;
+	t[2] = cappedplane_intersect(ray, &plane);
+	// BOTTOM
+	plane.transform.position = center - up * resolution.y / 2;
+	t[3] = cappedplane_intersect(ray, &plane);
+
+	plane.transform.direction = left;
+	plane.transform.rotation = forward;
+	plane.params.x = resolution.z;
+	plane.params.y = resolution.y;
+
+	// LEFT
+	plane.transform.position = center + left * resolution.x / 2;
+	t[4] = cappedplane_intersect(ray, &plane);
+	// RIGHT
+	plane.transform.position = center - left * resolution.x / 2;
+	t[5] = cappedplane_intersect(ray, &plane);
+
+	float res_t = t[0];
+	res_t = minTwithIndexes(res_t, t[1], 0, 1, index);
+	res_t = minTwithIndexes(res_t, t[2], *index, 2, index);
+	res_t = minTwithIndexes(res_t, t[3], *index, 3, index);
+	res_t = minTwithIndexes(res_t, t[4], *index, 4, index);
+	res_t = minTwithIndexes(res_t, t[5], *index, 5, index);
+
+	return res_t;
 }
 
 
@@ -281,10 +291,11 @@ void make_ray_empty(t_ray *ray) {
 	ray->hitNormal = 0.0f;
 	ray->hit_id = -1;
 	ray->hit_type = NONE;
+	ray->index = -1;
 }
 
 
-void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float t, int i) {
+void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float t, int i, int part_index) {
 	/*Пропускаем прозрачные объекты, если нам передали не null*/
 	if (skiped != 0 && selected_obj->material.transparency > 0) {
 		/*ищем ближайший прозрачный объект*/
@@ -299,6 +310,7 @@ void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float 
 		{
 			ray->t = t;
 			ray->hit_id = i;
+			ray->index = part_index;
 		}
 	}
 }
@@ -308,11 +320,13 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 {
 
 	int i = 0;
+	int part_index;
 	float t = 0;
 	make_ray_empty(ray);
 
 	while (i < scene->num_obj)
 	{
+		part_index = -1;
 		t_object selected_obj = scene->objects[i];
 		if (selected_obj.type == SPHERE)
 			t = sphere_intersect(ray, &selected_obj);
@@ -328,10 +342,12 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 			t = circle_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDPLANE)
 			t = cappedplane_intersect(ray, &selected_obj);
+		else if (selected_obj.type == BOX)
+			t = box_intersect(ray, &selected_obj, &part_index);
 		else if (selected_obj.type == TRIANGLE)
 			t = triangle_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {
-			set_t(ray, &selected_obj, skiped, t, i);
+			set_t(ray, &selected_obj, skiped, t, i, part_index);
 		}
 		i++;
 	}
@@ -353,13 +369,6 @@ float minT(float a, float b) {
 		return a;
 	}
 	return b;
-}
-
-float nothingOrMaxT(float a, float b) {
-	if (a < 0 || b < 0) {
-		return a < b ? a : b;
-	}
-	return a > b ? a : b;
 }
 
 float module(float a)

@@ -51,6 +51,31 @@ float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	return uv;
 }
 
+float2 box_map(t_object *obj, t_ray *ray, int size) {
+	t_object plane = *obj;
+
+	if (ray->index < 2) {
+		plane.transform.position += (ray->index == 1 ? 1 : -1) *
+									plane.transform.direction * plane.params.z / 2;
+	} else if (ray->index < 4) {
+		plane.transform.direction =
+			normalize(cross(plane.transform.direction, plane.transform.rotation));
+
+		plane.transform.position += (ray->index == 3 ? 1 : -1) *
+									plane.transform.direction * plane.params.y / 2;
+		plane.params.y = plane.params.z;
+	} else {
+		float3 forward = plane.transform.direction;
+		plane.transform.direction = plane.transform.rotation;
+		plane.transform.rotation = forward;
+
+		plane.transform.position += (ray->index == 5 ? 1 : -1) *
+									plane.transform.direction * plane.params.x / 2;
+		plane.params.x = plane.params.z;
+	}
+	return plane_map(&plane, ray, size);
+}
+
 /*Подходит и для конуса*/
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;

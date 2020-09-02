@@ -67,6 +67,7 @@ typedef enum			e_shape_type
 						CAPPEDCYLINDER,
 						CIRCLE,
 						CAPPEDPLANE,
+						BOX,
 						TRIANGLE,
 }						t_shape_type;
 
@@ -134,6 +135,7 @@ typedef struct			s_ray
 	float3				hitPoint;
 	float3				hitNormal;
 	int					hit_id;
+	int					index;
 	t_shape_type		hit_type;
 }						t_ray;
 
@@ -155,6 +157,7 @@ float cappedplane_intersect(t_ray *ray, t_object *plane);
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
+float2 box_map(t_object *obj, t_ray *ray, int size);
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
 float2 translate_plane_coord(float3 plane_norm, t_ray *ray);
 void 	set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
@@ -189,7 +192,6 @@ float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
 float	triangle_intersect(t_ray *ray, t_object *triangle);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
-float	nothingOrMaxT(float a, float b);
 float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);

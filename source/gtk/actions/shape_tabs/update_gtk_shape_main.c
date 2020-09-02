@@ -25,10 +25,13 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
 	}
-	else if (type == CAPPEDPLANE)
+	else if (type == CAPPEDPLANE || type == BOX)
 	{
 		gtk_widget_set_visible(tab->h_width, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
+//TODO BOX
+		/*		if (type == BOX)
+			gtk_widget_set_visible(tab->h_depth, TRUE);*/
 	}
 	else
 		ft_error("Unknown shape type (do_visible_params)");
@@ -52,12 +55,16 @@ static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
 			dto->params.y);
 	}
-	else if (dto->type == CAPPEDPLANE)
+	else if (dto->type == CAPPEDPLANE || dto->type == BOX)
 	{
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->width.spin),
 			dto->params.x);
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
 			dto->params.y);
+//TODO box
+		/*		if (dto->type == BOX)
+			gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->depth.spin),
+				dto->params.z);*/
 	}
 	else
 		ft_error("Unknown shape type (update_gtk_shape_main_params)");

@@ -109,6 +109,7 @@ enum			e_shape_type
 	CAPPEDCYLINDER,
 	CIRCLE,
 	CAPPEDPLANE,
+	BOX,
 	TRIANGLE
 };
 /*

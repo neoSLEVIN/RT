@@ -34,6 +34,8 @@ float3 image_texture(float2 uv, __global t_ppm_image *texture, int id)  {
 float2 get_uv(t_object *obj, t_ray *ray, int splits) {
 	if (obj->type == PLANE || obj->type == CAPPEDPLANE || obj->type == CIRCLE || obj->type == TRIANGLE) {
 		return plane_map(obj, ray, splits);
+	} else if (obj->type == BOX) {
+		return box_map(obj, ray, splits);
 	} else if (obj->type == SPHERE) {
 		return sphere_map(obj, ray);
 	} else if (obj->type == CONE) {

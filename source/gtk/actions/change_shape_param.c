@@ -61,27 +61,27 @@ static _Bool	do_change_triangle_dots(FLT3 *dots, cl_float coefficient)
 _Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
 									int diff)
 {
-	cl_float	coefficient;
+	cl_float	coeff;
 	_Bool		do_change;
 
 	do_change = FALSE;
-	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
+	coeff = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
-		return (do_change_shape_radius(&params->x, coefficient));
+		return (do_change_shape_radius(&params->x, coeff));
 	else if (type == CONE)
 		return (do_change_shape_angle(&params->x, diff));
-	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
 	{
-		if (do_change_shape_radius(&params->x, coefficient))
-			do_change = TRUE;
-		if (do_change_shape_radius(&params->y, coefficient))
-			do_change = TRUE;
+		(do_change_shape_radius(&params->x, coeff)) ? do_change = TRUE : 0;
+		(do_change_shape_radius(&params->y, coeff)) ? do_change = TRUE : 0;
+		if (type == BOX)
+			(do_change_shape_radius(&params->z, coeff)) ? do_change = TRUE : 0;
 		return (do_change);
 	}
 	else if (type == TRIANGLE)
-		return (do_change_triangle_dots(dots, coefficient));
+		return (do_change_triangle_dots(dots, coeff));
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);

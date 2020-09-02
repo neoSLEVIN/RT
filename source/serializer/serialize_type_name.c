@@ -58,6 +58,8 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 		res = ft_strdup("CIRCLE");
 	else if (type == CAPPEDPLANE)
 		res = ft_strdup("CAPPED PLANE");
+	else if (type == BOX)
+		res = ft_strdup("BOX");
 	else if (type == TRIANGLE)
 		res = ft_strdup("TRIANGLE");
 	else

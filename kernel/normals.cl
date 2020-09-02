@@ -14,6 +14,17 @@ float3 plane_normal(float3 planeDir, float3 rayDir) {
 	return normal;
 }
 
+float3 box_normal(t_object *hit_obj, t_ray *ray) {
+	float3	plane_dir;
+	if (ray->index < 2)
+		plane_dir = hit_obj->transform.direction;
+	else if (ray->index < 4)
+		plane_dir = normalize(cross(hit_obj->transform.direction, hit_obj->transform.rotation));
+	else
+		plane_dir = hit_obj->transform.rotation;
+	return plane_normal(plane_dir, ray->dir);
+}
+
 float3 cyl_normal(t_object *hit_obj, t_ray *ray) {
 	float	m;
 	float3	x;
@@ -117,8 +128,11 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			normal = cone_normal(hit_obj, ray);
 			break;
 		case CAPPEDCYLINDER:
-        	normal = capped_cylinder_normal(hit_obj, ray);
-        	break;
+			normal = capped_cylinder_normal(hit_obj, ray);
+			break;
+		case BOX:
+			normal = box_normal(hit_obj, ray);
+			break;
 		case TRIANGLE:
 			normal = triangle_normal(hit_obj);
 			break;

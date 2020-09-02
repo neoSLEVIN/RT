@@ -52,13 +52,15 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CIRCLE;
 	else if (ft_strequ(str_type, "CAPPED PLANE"))
 		type = CAPPEDPLANE;
+	else if (ft_strequ(str_type, "BOX"))
+		type = BOX;
 	else if (ft_strequ(str_type, "TRIANGLE"))
 		type = TRIANGLE;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"
 			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER, "
-			"CIRCLE, CAPPED PLANE, TRIANGLE]");
+			"CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
 	ft_strdel(&str_type);
 	return (type);
 }
