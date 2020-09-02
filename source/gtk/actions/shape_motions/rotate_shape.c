@@ -83,8 +83,7 @@ void			rotate_shape(t_rt *rt, guint key)
 	angle = get_angle_for_rotate_shape(rt, key);
 	if (!rotate_transform(cam, key, angle, &rt->info->s_marker->dto->transform))
 		return ;
-	if (rt->info->s_marker->dto->type == TRIANGLE)
-		rotate_dots(rt->info->s_marker->dto, cam, angle, key);
+	rotate_dots(rt->info->s_marker->dto, cam, angle, key);
 	rotate_sections(rt->info->s_marker->dto, cam, angle, key);
 	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;

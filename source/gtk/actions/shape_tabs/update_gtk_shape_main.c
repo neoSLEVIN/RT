@@ -66,8 +66,10 @@ static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
 void		update_gtk_shape_main(t_main_tab tab, SHAPE *shape)
 {
 	gtk_entry_set_text(GTK_ENTRY(tab.name_changer), shape->name);
+	gtk_editable_select_region(GTK_EDITABLE(tab.name_changer), 0, 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(tab.type_combo),
 							shape->dto->type - 1);
+	gtk_widget_grab_focus(tab.type_combo);
 	do_invisible_params(&tab);
 	do_visible_params(&tab, shape->dto->type);
 	update_gtk_shape_main_params(&tab, shape->dto);
