@@ -41,23 +41,23 @@ static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
 	else if (dto->type == SPHERE || dto->type == CYLINDER ||
 			dto->type == CIRCLE)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
-			dto->params[0].x);
+			dto->params.x);
 	else if (dto->type == CONE)
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->angle.spin),
-			rad_to_deg(dto->params[0].x));
+			rad_to_deg(dto->params.x));
 	else if (dto->type == CAPPEDCYLINDER)
 	{
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
-			dto->params[0].x);
+			dto->params.x);
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
-			dto->params[0].y);
+			dto->params.y);
 	}
 	else if (dto->type == CAPPEDPLANE)
 	{
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->width.spin),
-			dto->params[0].x);
+			dto->params.x);
 		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
-			dto->params[0].y);
+			dto->params.y);
 	}
 	else
 		ft_error("Unknown shape type (update_gtk_shape_main_params)");

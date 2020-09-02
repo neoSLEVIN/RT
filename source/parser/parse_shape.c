@@ -35,7 +35,7 @@ static void		parse_shape_name(const JC_FIELD shape_field,
 }
 
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
-								PPM_IMG *textures, PPM_IMG *normal_maps)
+								SCENE *scene)
 {
 	JC_FIELD	shape_field;
 	SHAPE		*shape;
@@ -48,20 +48,20 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	parse_shape_name(shape_field, index, shape);
 	shape->dto->type = parse_shape_type(shape_field, "type");
 	parse_shape_param_by_type(shape_field, shape->dto->type,
-							shape->dto->params);
-	shape->dto->transform = parse_transform(shape_field, "transform",
-										shape->dto->type, shape->dto->params);
+							&shape->dto->params);
+	shape->dto->transform =
+			parse_transform(shape_field, "transform", shape->dto->type);
 	shape->dto->material = parse_material(shape_field, "material");
 	shape->dto->texture = parse_texture_info_in_shape(shape_field, "texture",
-		&shape->texture_name, textures);
+		&shape->texture_name, scene->textures);
 	shape->dto->normal_map = parse_texture_info_in_shape(shape_field,
-		"normal map", &shape->normal_map_name, normal_maps);
+		"normal map", &shape->normal_map_name, scene->normal_maps);
 	parse_sections(shape_field, "sections", shape->dto);
 	return (shape);
 }
 
 SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
-							PPM_IMG *textures, PPM_IMG *normal_maps)
+							SCENE *scene)
 {
 	JC_FIELD	shapes_field;
 	SHAPE		*shapes;
@@ -75,13 +75,13 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
 	length = jc_get_array_length(shapes_field);
 	if (length == 0)
 		return (NULL);
-	shapes = parse_shape_idx(shapes_field, 0, textures, normal_maps);
+	shapes = parse_shape_idx(shapes_field, 0, scene);
 	temp_shape = shapes;
 	i = 0;
 	while (++i < length)
 	{
 		temp_shape->next =
-			parse_shape_idx(shapes_field, i, textures, normal_maps);
+			parse_shape_idx(shapes_field, i, scene);
 		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}

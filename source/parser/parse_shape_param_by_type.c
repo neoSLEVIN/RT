@@ -18,37 +18,23 @@ static void	parse_shape_angle(const JC_FIELD shape_field, cl_float *angle)
 	*angle = deg_to_rad(*angle);
 }
 
-static void	parse_triangle_dots(const JC_FIELD shape_field, FLT3 *dots)
-{
-	JC_FIELD	dots_field;
-
-	dots_field = jc_get_field(shape_field, "dots", JC_OBJ);
-	dots[0] = parse_cl_float3(dots_field, "a");
-	dots[1] = parse_cl_float3(dots_field, "b");
-	dots[2] = parse_cl_float3(dots_field, "c");
-}
-
 void		parse_shape_param_by_type(const JC_FIELD shape_field,
 									SHAPE_TYPE type, FLT3 *params)
 {
 
-	params[0] = (FLT3){0.0f, 0.0f, 0.0f};
-	params[1] = (FLT3){1.0f, 1.0f, 0.0f};
-	params[2] = (FLT3){0.0f, 0.0f, 1.0f};
-	if (type == PLANE)
+	*params = (FLT3){0.5f, 0.5f, 0.5f};
+	if (type == PLANE || type == TRIANGLE)
 		(void)type;
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
-		parse_shape_param_0_1(shape_field, &params[0].x, "radius");
+		parse_shape_param_0_1(shape_field, &params->x, "radius");
 	else if (type == CONE)
-		parse_shape_angle(shape_field, &params[0].x);
+		parse_shape_angle(shape_field, &params->x);
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
-		parse_shape_param_0_1(shape_field, &params[0].x,
+		parse_shape_param_0_1(shape_field, &params->x,
 			(type == CAPPEDPLANE) ? "width" : "radius");
-		parse_shape_param_0_1(shape_field, &params[0].y, "height");
+		parse_shape_param_0_1(shape_field, &params->y, "height");
 	}
-	else if (type == TRIANGLE)
-		parse_triangle_dots(shape_field, params);
 	else
 		ft_error("Unknown action (parse_shape_param_by_type)");
 }

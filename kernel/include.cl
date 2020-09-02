@@ -35,6 +35,7 @@ typedef struct			s_transform
 	float3				direction;
 	float3				rotation;
 	float				angle;
+	float3				dots[3];
 }						t_transform;
 
 /*Ray cam*/
@@ -104,7 +105,7 @@ typedef struct			s_object
 	t_section			section[6];
 	int					working_sections;
 	bool				is_complex_section;
-	float3				params[3];
+	float3				params;
 	bool				marker;
 }						t_object;
 

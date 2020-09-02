@@ -121,6 +121,7 @@ struct			s_transform
 	FLT3		direction;
 	FLT3		rotation;
 	cl_float	angle;
+	FLT3		dots[3];
 };
 /*
 ** ============================== Properties info ==============================
@@ -172,7 +173,7 @@ struct			s_dto_shape
 	SECTION		sections[SECTION_CNT];
 	cl_int		working_sections;
 	_Bool		is_complex_section;
-	FLT3		params[3];
+	FLT3		params;
 	_Bool		marker;
 };
 /*

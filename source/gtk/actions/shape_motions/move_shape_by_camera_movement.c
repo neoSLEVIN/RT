@@ -30,12 +30,9 @@ void			move_shape_by_camera_movement(t_rt *rt, guint key)
 	shape = rt->info->s_marker->dto;
 	if (!change_vec_by_camera_movement(&shape->transform.position, cam, key))
 		return ;
-	if (shape->type == TRIANGLE)
-	{
-		change_vec_by_camera_movement(&shape->params[0], cam, key);
-		change_vec_by_camera_movement(&shape->params[1], cam, key);
-		change_vec_by_camera_movement(&shape->params[2], cam, key);
-	}
+	change_vec_by_camera_movement(&shape->transform.dots[0], cam, key);
+	change_vec_by_camera_movement(&shape->transform.dots[1], cam, key);
+	change_vec_by_camera_movement(&shape->transform.dots[2], cam, key);
 	move_sections_by_camera_movement(rt->info->s_marker->dto, cam, key);
 	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;

@@ -58,8 +58,7 @@ SCENE		*parse_scene(const char *file_name)
 	scene->cam = parse_camera(scene_field, "camera");
 	scene->textures = parse_textures(scene_field, "textures");
 	scene->normal_maps = parse_textures(scene_field, "normal maps");
-	scene->shapes = parse_shapes(scene_field, "shapes",
-								scene->textures, scene->normal_maps);
+	scene->shapes = parse_shapes(scene_field, "shapes", scene);
 	scene->lights = parse_lights(scene_field, "lights");
 	parse_settings(json_field, scene);
 	jc_clear_all(json_field);

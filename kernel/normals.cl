@@ -35,7 +35,7 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 	float3	tmp[8];
 	float3	normal;
 
-	k = tan(hit_obj->params[0].x);
+	k = tan(hit_obj->params.x);
 	tmp[0] = ray->origin - hit_obj->transform.position;
 	m = dot(ray->dir, hit_obj->transform.direction) * ray->t + dot(tmp[0], hit_obj->transform.direction);
 	tmp[1] = ray->hitPoint - hit_obj->transform.position;
@@ -51,14 +51,14 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 
 int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float value)
 {
-	return (pow(length(capped_cylinder->transform.position - (ray->origin + value * ray->dir)), 2) > (pow((capped_cylinder->params[0].y / 2.0f), 2) + pow(capped_cylinder->params[0].x, 2)));
+	return (pow(length(capped_cylinder->transform.position - (ray->origin + value * ray->dir)), 2) > (pow((capped_cylinder->params.y / 2.0f), 2) + pow(capped_cylinder->params.x, 2)));
 }
 
 float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
 {
 	/*Скалярное произведение вектора (из двух точек на крышке и в центре крышки) и dir равно 0. Однако с флотами есть погрешность*/
-	float3 centerTop = capped_cylinder->transform.position + capped_cylinder->transform.direction * (capped_cylinder->params[0].y / 2.0f);
-	float3 centerBottom = capped_cylinder->transform.position - capped_cylinder->transform.direction * (capped_cylinder->params[0].y / 2.0f);
+	float3 centerTop = capped_cylinder->transform.position + capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
+	float3 centerBottom = capped_cylinder->transform.position - capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
 	if (fabs(dot(centerTop - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
 		return plane_normal(capped_cylinder->transform.direction, ray->dir);
 	} else if (fabs(dot(centerBottom - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
@@ -71,8 +71,8 @@ float3 triangle_normal(t_object *hit_obj)
 {
 	float3 v[2];
 
-	v[0] = hit_obj->params[1] - hit_obj->params[0];
-	v[1] = hit_obj->params[2] - hit_obj->params[1];
+	v[0] = hit_obj->transform.dots[1] - hit_obj->transform.dots[0];
+	v[1] = hit_obj->transform.dots[2] - hit_obj->transform.dots[1];
 	return (normalize(cross(v[0], v[1])));
 }
 

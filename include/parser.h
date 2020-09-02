@@ -52,9 +52,9 @@ int			check_for_texture_name(PPM_IMG *texture, const char *name,
 ** =============================== Parse shapes ================================
 */
 SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name,
-						PPM_IMG *textures, PPM_IMG *normal_maps);
+						SCENE *scene);
 SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index,
-						PPM_IMG *textures, PPM_IMG *normal_maps);
+						SCENE *scene);
 SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
 void		parse_shape_param_by_type(const JC_FIELD shape_field,
 						SHAPE_TYPE type, FLT3 *params);
@@ -78,7 +78,7 @@ FLT3		parse_color(const JC_FIELD parent, const char *child_name);
 FLT3		parse_color_or_default(const JC_FIELD parent,
 						const char *child_name, char *default_color);
 TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name,
-						SHAPE_TYPE type, FLT3 *params);
+						SHAPE_TYPE type);
 MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);
 /*
 ** ================================ Send error =================================

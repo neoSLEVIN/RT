@@ -40,9 +40,8 @@ void		move_shape_by_mouse(t_rt *rt, INT2 diff)
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
 	rt->info->scroll_cnt = 0;
 	rt->info->lmc_start_pos = rt->info->lmc_current_pos;
-	if (rt->info->s_marker->dto->type == TRIANGLE)
-		change_triangle_dots_by_mouse(rt->info->s_marker->dto->params,
-										v3_sub(v_shape, v_shape_old));
+	change_triangle_dots_by_mouse(rt->info->s_marker->dto->transform.dots,
+									v3_sub(v_shape, v_shape_old));
 	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
 						rt->info->s_marker->dto->sections);
 	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);

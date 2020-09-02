@@ -11,7 +11,7 @@ float2 sphere_map(t_object *obj, t_ray *ray) {
 	/*azimut from -pi to pi */
 	float theta = atan2(z, x);
 	/*polar angle 0 to pi*/
-	float phi = acos(y / (obj->params[0].x));
+	float phi = acos(y / (obj->params.x));
 	/* from 0 to 1 */
 	float raw_u = 0.5f + theta / (2 * M_PI);
 	

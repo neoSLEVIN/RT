@@ -11,11 +11,11 @@ static void		change_position_by_widgets(FLT3 *position,
 static void		change_dots_with_widgets(FLT3 *dots, t_transform_tab *trans,
 										FLT3 diff, DTO_SHAPE *dto)
 {
-	if (dto->type != TRIANGLE)
-		return ;
 	dots[0] = v3_add(dots[0], diff);
 	dots[1] = v3_add(dots[1], diff);
 	dots[2] = v3_add(dots[2], diff);
+	if (dto->type != TRIANGLE)
+		return ;
 	if (!gtk_expander_get_expanded(GTK_EXPANDER(trans->dots_expander)))
 		return ;
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(trans->a[0].spin), dots[0].x);
@@ -44,7 +44,7 @@ static gboolean	spin_button_shape_position_changer_safe(gpointer data)
 	transform = &rt->gtk->ui.shape->transform;
 	change_position_by_widgets(position, transform);
 	temp_position = v3_sub(*position, temp_position);
-	change_dots_with_widgets(rt->gtk->ui.shape->shape->dto->params,
+	change_dots_with_widgets(rt->gtk->ui.shape->shape->dto->transform.dots,
 					transform, temp_position, rt->gtk->ui.shape->shape->dto);
 	i = -1;
 	while (++i < SECTION_CNT)

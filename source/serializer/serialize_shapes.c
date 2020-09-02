@@ -8,38 +8,21 @@ static void	s_name_float_value_comma(t_serializer *s, const char *name,
 	s_comma(s);
 }
 
-static void	s_triangle_dots_with_comma(t_serializer *s, FLT3 *dots)
-{
-	s_open_obj_with_name(s, "dots");
-	s_name(s, "a");
-	s_float3(s, dots[0]);
-	s_comma(s);
-	s_name(s, "b");
-	s_float3(s, dots[1]);
-	s_comma(s);
-	s_name(s, "c");
-	s_float3(s, dots[2]);
-	s_close_obj(s);
-	s_comma(s);
-}
-
 static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 									FLT3 *params)
 {
-	if (type == PLANE)
+	if (type == PLANE || type == TRIANGLE)
 		(void)type;
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
-		s_name_float_value_comma(s, "radius", params[0].x);
+		s_name_float_value_comma(s, "radius", params->x);
 	else if (type == CONE)
-		s_name_float_value_comma(s, "angle", rad_to_deg(params[0].x));
+		s_name_float_value_comma(s, "angle", rad_to_deg(params->x));
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
 		s_name_float_value_comma(s, (type == CAPPEDPLANE) ? "width" : "radius",
-								params[0].x);
-		s_name_float_value_comma(s, "height", params[0].y);
+								params->x);
+		s_name_float_value_comma(s, "height", params->y);
 	}
-	else if (type == TRIANGLE)
-		s_triangle_dots_with_comma(s, params);
 	else
 		ft_error("Unknown action (s_shape_params_with_comma)");
 }
@@ -54,7 +37,7 @@ static void	s_shape_obj(t_serializer *s, SHAPE *shape,
 	s_name(s, "name");
 	s_str_in_quotes(s, shape->name);
 	s_comma(s);
-	s_shape_params_with_comma(s, shape->dto->type, shape->dto->params);
+	s_shape_params_with_comma(s, shape->dto->type, &shape->dto->params);
 	s_transform_obj(s, &shape->dto->transform, shape->dto->type);
 	s_comma(s);
 	s_material_obj(s, &shape->dto->material);

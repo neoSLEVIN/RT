@@ -524,7 +524,7 @@ t_scale				gtk_get_float_scale(const char *label, FLT2 range,
 void				gtk_set_main_tab_widgets(t_main_tab *main_tab,
 								DTO_SHAPE *dto);
 void				gtk_set_transform_tab_widgets(t_transform_tab *tab,
-								TRANSFORM *shape_transform, FLT3 *dots);
+								TRANSFORM *shape_transform);
 void				gtk_set_material_tab_widgets(t_material_tab *material_tab,
 								MATERIAL *shape_material);
 void				gtk_set_color_tab_widgets(t_color_tab *color_tab,
@@ -780,8 +780,8 @@ void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 /*
 ** ======================== Change the shape parameters ========================
 */
-_Bool				do_change_shape_param(FLT3 *params, SHAPE_TYPE type,
-								int diff);
+_Bool				do_change_shape_param(FLT3 *params, FLT3 *dots,
+								SHAPE_TYPE type, int diff);
 void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================

@@ -29,12 +29,9 @@ static void	update_positions(DTO_SHAPE *dto, FLT3 new_position)
 	i = -1;
 	diff = v3_sub(new_position, dto->transform.position);
 	dto->transform.position = new_position;
-	if (dto->type == TRIANGLE)
-	{
-		dto->params[0] = v3_add(dto->params[0], diff);
-		dto->params[1] = v3_add(dto->params[1], diff);
-		dto->params[2] = v3_add(dto->params[2], diff);
-	}
+	dto->transform.dots[0] = v3_add(dto->transform.dots[0], diff);
+	dto->transform.dots[1] = v3_add(dto->transform.dots[1], diff);
+	dto->transform.dots[2] = v3_add(dto->transform.dots[2], diff);
 	while (++i < SECTION_CNT)
 		dto->sections[i].position = v3_add(dto->sections[i].position, diff);
 }

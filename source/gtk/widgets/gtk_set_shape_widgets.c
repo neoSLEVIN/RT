@@ -29,7 +29,7 @@ static void	gtk_set_shape_tabs_widgets(t_gtk_shape *gtk_shape, SCENE *scene,
 {
 	gtk_set_main_tab_widgets(&gtk_shape->main, scene_shape->dto);
 	gtk_set_transform_tab_widgets(&gtk_shape->transform,
-		&scene_shape->dto->transform, scene_shape->dto->params);
+		&scene_shape->dto->transform);
 	gtk_set_material_tab_widgets(&gtk_shape->material,
 		&scene_shape->dto->material);
 	gtk_set_color_tab_widgets(&gtk_shape->color,

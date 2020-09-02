@@ -26,7 +26,7 @@ static void	gtk_set_dots_widgets(t_transform_tab *tab, FLT3 *dots)
 }
 
 void		gtk_set_transform_tab_widgets(t_transform_tab *tab,
-						TRANSFORM *shape_transform, FLT3 *dots)
+						TRANSFORM *shape_transform)
 {
 	tab->label = gtk_label_new("Transform");
 	tab->v_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -40,5 +40,5 @@ void		gtk_set_transform_tab_widgets(t_transform_tab *tab,
 	gtk_set_spin_button_for_float(&tab->y.spin, shape_transform->position.y);
 	tab->z.label = gtk_label_new("Z:");
 	gtk_set_spin_button_for_float(&tab->z.spin, shape_transform->position.z);
-	gtk_set_dots_widgets(tab, dots);
+	gtk_set_dots_widgets(tab, shape_transform->dots);
 }

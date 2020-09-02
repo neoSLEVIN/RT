@@ -58,7 +58,7 @@ static void		rotate_dots(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
 	cl_float	len;
 
 	i = -1;
-	dots = dto->params;
+	dots = dto->transform.dots;
 	while (++i < 3)
 	{
 		dot_target = v3_sub(dots[i], dto->transform.position);

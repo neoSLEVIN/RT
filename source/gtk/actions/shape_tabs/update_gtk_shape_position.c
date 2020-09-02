@@ -5,7 +5,7 @@ void	update_gtk_shape_position(t_transform_tab tab, DTO_SHAPE *dto)
 	FLT3	*dots;
 	FLT3	*pos;
 
-	dots = dto->params;
+	dots = dto->transform.dots;
 	pos = &dto->transform.position;
 	gtk_widget_set_visible(tab.dots_expander, dto->type == TRIANGLE);
 	if (dto->type == TRIANGLE &&

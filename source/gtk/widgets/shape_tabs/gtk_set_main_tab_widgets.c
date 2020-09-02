@@ -43,23 +43,23 @@ static void	gtk_set_main_tab_params_widgets(t_main_tab *main_tab,
 	main_tab->radius.label = gtk_label_new("Radius:");
 	gtk_widget_set_margin_start(main_tab->radius.label, 5);
 	gtk_widget_set_margin_end(main_tab->radius.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->radius.spin, dto->params[0].x);
+	gtk_set_spin_button_for_radius(&main_tab->radius.spin, dto->params.x);
 	main_tab->h_width = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	main_tab->width.label = gtk_label_new("Width:");
 	gtk_widget_set_margin_start(main_tab->width.label, 5);
 	gtk_widget_set_margin_end(main_tab->width.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->width.spin, dto->params[0].x);
+	gtk_set_spin_button_for_radius(&main_tab->width.spin, dto->params.x);
 	main_tab->h_height = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	main_tab->height.label = gtk_label_new("Height:");
 	gtk_widget_set_margin_start(main_tab->height.label, 5);
 	gtk_widget_set_margin_end(main_tab->height.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->height.spin, dto->params[0].y);
+	gtk_set_spin_button_for_radius(&main_tab->height.spin, dto->params.y);
 	main_tab->h_angle = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	main_tab->angle.label = gtk_label_new("Angle:");
 	gtk_widget_set_margin_start(main_tab->angle.label, 5);
 	gtk_widget_set_margin_end(main_tab->angle.label, 5);
 	gtk_set_spin_button_for_angle(&main_tab->angle.spin,
-								rad_to_deg(dto->params[0].x));
+								rad_to_deg(dto->params.x));
 }
 
 void		gtk_set_main_tab_widgets(t_main_tab *main_tab, DTO_SHAPE *dto)

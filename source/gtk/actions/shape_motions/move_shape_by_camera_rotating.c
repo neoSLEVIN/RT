@@ -28,7 +28,7 @@ static _Bool	change_vec_by_camera_rotating(FLT3 *vec, DTO_CAM *cam,
 	return (TRUE);
 }
 
-static void		change_triangle_dots_by_camera_rotating(FLT3 *dots, FLT3 diff)
+static void		change_triangle_dots_by_camera_rotating(FLT3 diff, FLT3 *dots)
 {
 	int	i;
 
@@ -52,9 +52,8 @@ void			move_shape_by_camera_rotating(t_rt *rt, guint key)
 	if (!change_vec_by_camera_rotating(&v_shape, cam, key, angle))
 		return ;
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);
-	if (rt->info->s_marker->dto->type == TRIANGLE)
-		change_triangle_dots_by_camera_rotating(rt->info->s_marker->dto->params,
-												v3_sub(v_shape, v_shape_old));
+	change_triangle_dots_by_camera_rotating(v3_sub(v_shape, v_shape_old),
+									rt->info->s_marker->dto->transform.dots);
 	move_sections_by_mouse(v3_sub(v_shape, v_shape_old),
 						rt->info->s_marker->dto->sections);
 	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);

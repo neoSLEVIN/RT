@@ -58,7 +58,8 @@ static _Bool	do_change_triangle_dots(FLT3 *dots, cl_float coefficient)
 	return (do_change);
 }
 
-_Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
+_Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
+									int diff)
 {
 	cl_float	coefficient;
 	_Bool		do_change;
@@ -68,19 +69,19 @@ _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 	if (type == PLANE)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
-		return (do_change_shape_radius(&params[0].x, coefficient));
+		return (do_change_shape_radius(&params->x, coefficient));
 	else if (type == CONE)
-		return (do_change_shape_angle(&params[0].x, diff));
+		return (do_change_shape_angle(&params->x, diff));
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE)
 	{
-		if (do_change_shape_radius(&params[0].x, coefficient))
+		if (do_change_shape_radius(&params->x, coefficient))
 			do_change = TRUE;
-		if (do_change_shape_radius(&params[0].y, coefficient))
+		if (do_change_shape_radius(&params->y, coefficient))
 			do_change = TRUE;
 		return (do_change);
 	}
 	else if (type == TRIANGLE)
-		return (do_change_triangle_dots(params, coefficient));
+		return (do_change_triangle_dots(dots, coefficient));
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);
@@ -95,7 +96,8 @@ void			change_shape_param(t_rt *rt)
 	}
 	if (!rt->info->scroll_cnt)
 		return ;
-	if (do_change_shape_param(rt->info->s_marker->dto->params,
+	if (do_change_shape_param(&rt->info->s_marker->dto->params,
+			rt->info->s_marker->dto->transform.dots,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 	{
 		update_flags(&rt->info->update_shapes, &rt->info->update_s_param);
