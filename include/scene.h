@@ -120,6 +120,7 @@ struct			s_transform
 	FLT3		position;
 	FLT3		direction;
 	FLT3		rotation;
+	cl_float	angle;
 };
 /*
 ** ============================== Properties info ==============================

@@ -106,20 +106,6 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			normal = sphere_normal(ray->hitPoint, hit_obj->transform.position);
 			break;
 		case CAPPEDPLANE:
-			
-			
-			cappedplane_instersect(ray, hit_obj);
-			
-			if (hit_obj->params[0].z == 3) {
-				tmp = hit_obj->transform.rotation;
-			} else if (hit_obj->params[0].z == 4) {
-				tmp = cross(hit_obj->transform.direction, hit_obj->transform.rotation);
-			} else if (hit_obj->params[0].z == 2) {
-				tmp = hit_obj->transform.direction;
-			}
-		    normal = plane_normal(tmp, ray->dir);
-			 
-            break;
 		case CIRCLE:
 		case PLANE:
 			normal = plane_normal(hit_obj->transform.direction, ray->dir);

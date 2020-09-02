@@ -154,27 +154,8 @@ float	circle_intersect(t_ray *ray, t_object *circle)
 	return t;
 }
 
-/*странно крутится*/
-float cappedplane_instersect1(t_ray *ray, t_object *plane)
-{
-	float	t;
-	float2 	coord;
-
-	t = plane_intersect(ray, plane);
-	ray->hitPoint = ray->origin + t * ray->dir;
-	coord = translate_plane_coord(plane->transform.direction, ray);
-	float left = plane->transform.position.x - plane->params[0].x / 2.0f;
-	float right = plane->transform.position.x +  plane->params[0].x / 2.0f;
-	float up = plane->transform.position.y + plane->params[0].y / 2.0f;
-	float down = plane->transform.position.y - plane->params[0].y / 2.0f;
-	if (coord.x <= left || coord.x >= right)
-		return -1.0f;
-	if (coord.y <= down || coord.y >= up)
-		return -1.0f;
-	return t;
-}
-
-float cappedplane_instersect2(t_ray *ray, t_object *plane)
+/*У нас два базиса UV, на них проецируем hitpoint и сравниваем с длинной и шириной*/
+float cappedplane_intersect(t_ray *ray, t_object *plane)
 {
     float    t;
     float3   hitPoint;
@@ -186,16 +167,14 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
 		return -1.0f;
 	}
     hitPoint = ray->origin + t * ray->dir;
-    
 	
 	u = plane->transform.rotation;
 	v = cross(plane->transform.direction, u);
 
-	 
-    float3 fromOrigToHit = plane->transform.position - hitPoint;
     float3 w_vec = plane->params[0].x * u;
-    float3 h_vec = plane->params[0].y * v;
-    
+	float3 h_vec = plane->params[0].y * v;
+	float3 fromOrigToHit = plane->transform.position + w_vec / 2 + h_vec / 2 - hitPoint;
+
     float w_projection = dot(fromOrigToHit, w_vec) / plane->params[0].x;
     float h_projection = dot(fromOrigToHit, h_vec) / plane->params[0].y;
     if (w_projection < 0 || w_projection > plane->params[0].x) {
@@ -206,39 +185,36 @@ float cappedplane_instersect2(t_ray *ray, t_object *plane)
     return t;
 }
 
-int is_equal(float a, float b) {
-	if (fabs(a - b) < 0.001f)
-		return 1;
-	return 0;
-}
-
-float cappedplane_instersect(t_ray *ray, t_object *plane)
+float cube_intersect(t_ray *ray, t_object *plane)
 {
-    float    t;
-    float    t1;
-	float	 t2;
-	float	 t3;
-	float	 t4;
+	float	t;
+	float	t1;
+	float	t2;
+	float	t3;
+	float	t4;
+	float	t5;
 	
 	float3 u = plane->transform.rotation;
 	float3 norm = plane->transform.direction;
     float3 v = cross(norm, u);
 	
-    t = cappedplane_instersect2(ray, plane);
+    t = cappedplane_intersect2(ray, plane);
     plane->transform.position = plane->transform.position + plane->transform.direction * 3;
-    t1 = cappedplane_instersect2(ray, plane);
+    t1 = cappedplane_intersect2(ray, plane);
 	
 	plane->transform.direction = u;
 	plane->transform.rotation = v;
-	t2 = cappedplane_instersect2(ray, plane);
+	t2 = cappedplane_intersect2(ray, plane);
 	
 	plane->transform.position = plane->transform.position - plane->transform.direction * 3;
-	t3 = cappedplane_instersect2(ray, plane);
+	t3 = cappedplane_intersect2(ray, plane);
 	
 	plane->transform.direction = v;
 	plane->transform.rotation = -u;
-	t4 = cappedplane_instersect2(ray, plane);
-	
+	t4 = cappedplane_intersect2(ray, plane);
+
+	plane->transform.position = plane->transform.position - plane->transform.direction * 3;
+	t5 = cappedplane_intersect(ray, plane);
 	
 	plane->transform.direction = norm;
 	plane->transform.rotation = u;
@@ -247,18 +223,19 @@ float cappedplane_instersect(t_ray *ray, t_object *plane)
 	float r1 = minT(r,t3);
 	float r2 = minT(r1,t4);
 	float r3 = minT(t, r2);
-	
-	if (r3 == t || r3 == t1) {
+	float r4 = minT(t5, r3);
+
+	if (r4 == t || r4 == t1) {
 		plane->params[0].z = 2;
-	} else if (r3 == t2 || r3 == t3) {
+	} else if (r4 == t2 || r4 == t3) {
 		plane->params[0].z = 3;
-	} else if (r3 == t4) {
+	} else if (r4 == t4 || r4 == t5) {
 		plane->params[0].z = 4;
 	} else {
 		plane->params[0].z = 1;
 	}
-	
-    return r3;
+
+    return r4;
 }
 
 
@@ -282,11 +259,11 @@ float triangle_intersect(t_ray *ray, t_object *triangle)
 		return (-1.0f);
 	//находим точку пересечения
 	t = -dot(x, normal) / d;
-	ray->hitPoint = ray->origin + t * ray->dir;
+	float3 hitPoint = ray->origin + t * ray->dir;
 	//находим вектора от каждой точки треугольника до точки пересечения AP BP CP
-	c[0] = ray->hitPoint - triangle->params[0];
-	c[1] = ray->hitPoint - triangle->params[1];
-	c[2] = ray->hitPoint - triangle->params[2];
+	c[0] = hitPoint - triangle->params[0];
+	c[1] = hitPoint - triangle->params[1];
+	c[2] = hitPoint - triangle->params[2];
 	//проверяем что площади получившихся параллелограммов AB AP + BC BP + CA CP < AB BC + eps
 	//eps нужна для того, если точка лежит на границе треугольника
 	if (length(cross(v[0], c[0])) + length(cross(v[1], c[1])) + length(cross(v[2], c[2])) < length(cross(v[1], v[2])) + 0.001f)
@@ -350,7 +327,7 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 		else if (selected_obj.type == CIRCLE)
 			t = circle_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDPLANE)
-			t = cappedplane_instersect(ray, &selected_obj);
+			t = cappedplane_intersect(ray, &selected_obj);
 		else if (selected_obj.type == TRIANGLE)
 			t = triangle_intersect(ray, &selected_obj);
 		if (t > MY_EPSILON && t < ray->t) {

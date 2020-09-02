@@ -15,8 +15,9 @@ void		init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
 	dto->transform.position =
 		v3_add(v3_add(cam->origin, v3_scale(cam->forward, 10)),
 				v3_scale(cam->upguide, -0.01f));
-	dto->transform.direction = cam->upguide;
-	dto->transform.rotation = (FLT3){0.0f, 0.0f, 0.0f};
+	dto->transform.direction = v3_rot_v(cam->upguide, cam->right, RAD);
+	dto->transform.rotation = cam->right;
+	dto->transform.angle = 0;
 	dto->material.transparency = 0.0f;
 	dto->material.specular = 0.05f;
 	dto->material.reflective = 0.235f;

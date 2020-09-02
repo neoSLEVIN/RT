@@ -19,8 +19,8 @@ static void	s_triangle_dots_with_comma(t_serializer *s, FLT3 *dots)
 	s_comma(s);
 	s_name(s, "c");
 	s_float3(s, dots[2]);
-	s_comma(s);
 	s_close_obj(s);
+	s_comma(s);
 }
 
 static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,

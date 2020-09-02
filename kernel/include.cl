@@ -34,6 +34,7 @@ typedef struct			s_transform
 	float3				position;
 	float3				direction;
 	float3				rotation;
+	float				angle;
 }						t_transform;
 
 /*Ray cam*/
@@ -149,7 +150,7 @@ typedef struct				s_scene
 	__global t_ppm_image	*normal_maps;
 }							t_scene;
 
-float cappedplane_instersect(t_ray *ray, t_object *plane);
+float cappedplane_intersect(t_ray *ray, t_object *plane);
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);

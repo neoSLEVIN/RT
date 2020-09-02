@@ -42,15 +42,20 @@ static _Bool	do_change_triangle_dots(FLT3 *dots, cl_float coefficient)
 	FLT3	new_distance;
 	FLT3	center;
 	int		i;
+	_Bool	do_change;
 
+	do_change = FALSE;
 	center = v3_scale(v3_add(v3_add(dots[0], dots[1]), dots[2]), 1.0f / 3.0f);
 	i = -1;
 	while (++i < 3)
 	{
 		new_distance = v3_scale(v3_sub(dots[i], center), coefficient);
+		if (v3_length(new_distance) < 0.1f && coefficient < 1.0f)
+			continue ;
+		do_change = TRUE;
 		dots[i] = v3_add(center, new_distance);
 	}
-	return (TRUE);
+	return (do_change);
 }
 
 _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
@@ -70,7 +75,7 @@ _Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
 	{
 		if (do_change_shape_radius(&params[0].x, coefficient))
 			do_change = TRUE;
-		if (do_change_shape_radius(&params[0].x, coefficient))
+		if (do_change_shape_radius(&params[0].y, coefficient))
 			do_change = TRUE;
 		return (do_change);
 	}

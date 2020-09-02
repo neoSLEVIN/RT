@@ -40,7 +40,7 @@ _Bool		get_new_file_name(char **filename, char **folder,
 	dialog = gtk_file_chooser_dialog_new("Save File", (GtkWindow*)window,
 								GTK_FILE_CHOOSER_ACTION_SAVE,
 								"_Cancel", GTK_RESPONSE_CANCEL,
-								"_Open", GTK_RESPONSE_ACCEPT,
+								"_Save", GTK_RESPONSE_ACCEPT,
 								NULL);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog),
 													TRUE);
