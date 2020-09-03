@@ -1,0 +1,68 @@
+{
+  "settings": {
+    "fps": 30.0
+  },
+  "scene": {
+    "camera": {"position": [0,0,-35],"direction":[0,0,10]},
+    "lights": [
+      {"type": "AMBIENT", "intensity": 0.1},
+      {"type": "POINT", "intensity": 0.5, "position": [-4,5,-13]}
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "floor",
+        "transform": {"position": [0,0,0], "direction": [0,1,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0,
+          "color": "da8"
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "floor",
+        "transform": {"position": [0,0,0], "direction": [-1,0,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0,
+          "color": "da8"
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6,
+        "height": 3,
+        "transform": {"position": [0,0,0], "direction": [0,0,10],"rotation": [1,0,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0, "color": "f00"}
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6,
+        "height": 3,
+        "transform": {"position": [0,0,0], "direction": [0,0,10],"rotation": [0,1,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0, "color": "0f0"}
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6,
+        "height": 3,
+        "transform": {"position": [0,0,0], "direction": [0,0,10],"rotation": [-1,0,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0, "color": "00f"}
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6,
+        "height": 3,
+        "transform": {"position": [0,0,0], "direction": [0,0,10],"rotation": [0,-1,0]},
+        "material": {
+          "specular": 0, "reflective": 0, "transparency": 0, "color": "ff0"}
+      }
+    ]
+  }
+}

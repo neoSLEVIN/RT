@@ -29,12 +29,12 @@ static void	gtk_set_shape_trans_mat_color_signals(t_transform_tab *transform,
 		G_CALLBACK(spin_button_shape_position_changer), rt);
 	g_signal_connect(G_OBJECT(transform->z.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_position_changer), rt);
-	g_signal_connect(G_OBJECT(material->transparency.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
-	g_signal_connect(G_OBJECT(material->reflective.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
-	g_signal_connect(G_OBJECT(material->specular.spin), "value-changed",
-		G_CALLBACK(spin_button_shape_material_changer), rt);
+	g_signal_connect(G_OBJECT(material->transparency.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
+	g_signal_connect(G_OBJECT(material->reflective.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
+	g_signal_connect(G_OBJECT(material->specular.scale), "value-changed",
+		G_CALLBACK(shape_material_scale_moved), rt);
 	g_signal_connect(G_OBJECT(color->color), "notify",
 		G_CALLBACK(color_activated_changer), rt);
 }
@@ -80,8 +80,12 @@ static void	gtk_set_shape_texture_main_signals(t_texture_tab *texture,
 		G_CALLBACK(press_key_on_shape_name), rt);
 	g_signal_connect(G_OBJECT(main_tab->radius.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_radius_changer), rt);
+	g_signal_connect(G_OBJECT(main_tab->width.spin), "value-changed",
+		G_CALLBACK(spin_button_shape_width_changer), rt);
 	g_signal_connect(G_OBJECT(main_tab->height.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_height_changer), rt);
+	g_signal_connect(G_OBJECT(main_tab->depth.spin), "value-changed",
+		G_CALLBACK(spin_button_shape_depth_changer), rt);
 	g_signal_connect(G_OBJECT(main_tab->angle.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_angle_changer), rt);
 }
@@ -94,6 +98,7 @@ void		gtk_set_shape_signals(t_rt *rt)
 	gtk_set_shape_base_signals(shape, rt);
 	gtk_set_shape_trans_mat_color_signals(&shape->transform, &shape->material,
 		&shape->color, rt);
+	gtk_set_triangle_dots_signals(&shape->transform, rt);
 	gtk_set_shape_sections_signals(&shape->section, rt);
 	gtk_set_shape_texture_main_signals(&shape->texture, &shape->main, rt);
 	g_signal_connect(G_OBJECT(shape->section.combo_renderer), "editing-started",

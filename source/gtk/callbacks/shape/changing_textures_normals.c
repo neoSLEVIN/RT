@@ -3,11 +3,13 @@
 void	changing_texture_type(GtkComboBox *texture_combo, gpointer data)
 {
 	t_rt	*rt;
+	gint	index;
 
 	rt = (t_rt*)data;
 	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
-	rt->gtk->ui.shape->shape->dto->texture.id =
-			gtk_combo_box_get_active(texture_combo) - 5;
+	if ((index = gtk_combo_box_get_active(texture_combo)) == -1)
+		return ;
+	rt->gtk->ui.shape->shape->dto->texture.id = index - 5;
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
@@ -17,11 +19,13 @@ void	changing_texture_type(GtkComboBox *texture_combo, gpointer data)
 void	changing_normals_type(GtkComboBox *normals_combo, gpointer data)
 {
 	t_rt	*rt;
+	gint	index;
 
 	rt = (t_rt*)data;
 	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
-	rt->gtk->ui.shape->shape->dto->normal_map.id =
-			gtk_combo_box_get_active(normals_combo) - 1;
+	if ((index = gtk_combo_box_get_active(normals_combo)) == -1)
+		return ;
+	rt->gtk->ui.shape->shape->dto->normal_map.id = index - 1;
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);

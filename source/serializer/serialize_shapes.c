@@ -1,30 +1,29 @@
 #include "serializer.h"
 
+static void	s_name_float_value_comma(t_serializer *s, const char *name,
+									cl_float value)
+{
+	s_name(s, name);
+	s_float(s, value);
+	s_comma(s);
+}
+
 static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 									FLT3 *params)
 {
-	if (type == PLANE)
+	if (type == PLANE || type == TRIANGLE)
 		(void)type;
-	else if (type == SPHERE || type == CYLINDER)
-	{
-		s_name(s, "radius");
-		s_float(s, params->x);
-		s_comma(s);
-	}
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
+		s_name_float_value_comma(s, "radius", params->x);
 	else if (type == CONE)
+		s_name_float_value_comma(s, "angle", rad_to_deg(params->x));
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
 	{
-		s_name(s, "angle");
-		s_float(s, rad_to_deg(params->x));
-		s_comma(s);
-	}
-	else if (type == CAPPEDCYLINDER)
-	{
-		s_name(s, "radius");
-		s_float(s, params->x);
-		s_comma(s);
-		s_name(s, "height");
-		s_float(s, params->y);
-		s_comma(s);
+		s_name_float_value_comma(s,
+			(type == CAPPEDCYLINDER) ? "radius" : "width", params->x);
+		s_name_float_value_comma(s, "height", params->y);
+		if (type == BOX)
+			s_name_float_value_comma(s, "depth", params->z);
 	}
 	else
 		ft_error("Unknown action (s_shape_params_with_comma)");

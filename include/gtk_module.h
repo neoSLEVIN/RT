@@ -22,20 +22,12 @@
 # include "ocl.h"
 
 # define STEP 0.5
-# define UI_WIDTH 430
+# define UI_WIDTH 475
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
 # define ASSERT_SHAPE(shape) if (!shape || !shape->dto) {return (FALSE);}
 # define ASSERT_LIGHT(light) if (!light || !light->dto) {return (FALSE);}
-
-# if __APPLE__
-# ifndef PROJ_DIR
-# define PROJ_DIR "path to proj dir"
-# endif
-# else
-# define PROJ_DIR ""
-# endif
 
 /*
 ** =================== Entity for spin button and his label ====================
@@ -84,6 +76,8 @@ typedef struct		s_gtk_buttons
 	GtkWidget		*save_image_as;
 	GtkWidget		*save_scene;
 	GtkWidget		*save_scene_as;
+	GtkWidget		*add_texture;
+	GtkWidget		*add_normal_map;
 }					t_gtk_buttons;
 
 /*
@@ -120,8 +114,7 @@ typedef enum		e_shape_tabs
 	MAIN_TAB,
 	TRANSFORM_TAB,
 	MATERIAL_TAB,
-	COLOR_TAB,
-	TEXTURE_TAB,
+	TEXTURE_COLOR_TAB,
 	SECTION_TAB
 }					t_tabs;
 
@@ -142,8 +135,12 @@ typedef struct		s_main_tab
 	GtkWidget		*v_params;
 	GtkWidget		*h_radius;
 	t_spinner		radius;
+	GtkWidget		*h_width;
+	t_spinner		width;
 	GtkWidget		*h_height;
 	t_spinner		height;
+	GtkWidget		*h_depth;
+	t_spinner		depth;
 	GtkWidget		*h_angle;
 	t_spinner		angle;
 }					t_main_tab;
@@ -156,11 +153,17 @@ typedef struct		s_main_tab
 typedef struct		s_transform_tab
 {
 	GtkWidget		*label;
-	GtkWidget		*grid;
 	GtkWidget		*label_pos;
+	GtkWidget		*v_box;
+	GtkWidget		*pos_grid;
 	t_spinner		x;
 	t_spinner		y;
 	t_spinner		z;
+	GtkWidget		*dots_expander;
+	GtkWidget		*dots_grid;
+	t_spinner		a[3];
+	t_spinner		b[3];
+	t_spinner		c[3];
 }					t_transform_tab;
 
 /*
@@ -172,9 +175,9 @@ typedef struct		s_material_tab
 {
 	GtkWidget		*label;
 	GtkWidget		*grid;
-	t_spinner		specular;
-	t_spinner		reflective;
-	t_spinner		transparency;
+	t_scale			specular;
+	t_scale			reflective;
+	t_scale			transparency;
 }					t_material_tab;
 
 /*
@@ -201,6 +204,7 @@ typedef struct		s_color_tab
 {
 	GtkWidget		*label;
 	GtkWidget		*scrolled_window;
+	GtkWidget		*v_box;
 	GtkWidget		*color;
 }					t_color_tab;
 
@@ -212,7 +216,6 @@ typedef struct		s_color_tab
 typedef struct		s_section_tab
 {
 	GtkWidget		*label;
-	GtkWidget		*scrolled_window;
 	GtkWidget		*grid;
 	GtkWidget		*style_frame;
 	GtkWidget		*style_grid;
@@ -296,10 +299,10 @@ typedef struct		s_gtk_shapes
 */
 typedef enum		e_shapes_column
 {
-	S_MARKER_COL,
+	S_DELETE_COL,
 	S_NAME_COL,
 	S_TYPE_COL,
-	S_DELETE_COL,
+	S_MARKER_COL,
 	S_POINTER_COL,
 	S_COL_CNT
 }					t_shapes_column;
@@ -375,9 +378,23 @@ typedef struct		s_gtk_textures
 	GtkWidget		*scrolled_window;
 	GtkWidget		*tree;
 	GtkTreeStore	*store;
+	GtkTreeModel	*model;
 	GtkTreeIter		iter;
 	GtkCellRenderer	*renderer;
+	GtkCellRenderer	*pixbuf_renderer;
+	GtkTreePath		*path;
 }					t_gtk_textures;
+/*
+** ========================= Enum for textures columns =========================
+*/
+typedef enum		e_ppm_column
+{
+	PPM_DELETE_COL,
+	PPM_NAME_COL,
+	PPM_PATH_COL,
+	PPM_POINTER_COL,
+	PPM_COL_CNT
+}					t_ppm_column;
 
 /*
 ** =============================================================================
@@ -501,6 +518,8 @@ void				gtk_set_setting_filter_widgets(t_gtk_settings *settings,
 								t_rt *rt);
 void				gtk_set_scale(t_scale *scale, INT2 range, int value,
 								const char *label);
+t_scale				gtk_get_float_scale(const char *label, FLT2 range,
+								cl_float value, cl_float step);
 /*
 ** ============================= Shape tab widgets =============================
 */
@@ -523,8 +542,6 @@ void				gtk_set_sections_tab_tree_widgets(t_section_tab *tab,
 */
 void				gtk_set_spin_button_for_float(GtkWidget **spin,
 								cl_float value);
-void				gtk_set_spin_button_for_one(GtkWidget **spin,
-								cl_float value);
 void				gtk_set_spin_button_for_radius(GtkWidget **spin,
 								cl_float value);
 void				gtk_set_spin_button_for_angle(GtkWidget **spin,
@@ -532,6 +549,8 @@ void				gtk_set_spin_button_for_angle(GtkWidget **spin,
 void				gtk_set_spin_button_for_intensity(GtkWidget **spin,
 								cl_float value);
 void				gtk_set_float_spinner(t_spinner *spinner, const char *name,
+								cl_float value);
+void				gtk_set_radius_spinner(t_spinner *spinner, const char *name,
 								cl_float value);
 
 /*
@@ -554,7 +573,8 @@ void				gtk_set_shape_main_positions(t_main_tab *main_tab);
 void				gtk_set_shape_transform_positions(t_transform_tab *tab);
 void				gtk_set_shape_material_positions(t_material_tab *material);
 void				gtk_set_shape_texture_positions(t_texture_tab *texture);
-void				gtk_set_shape_color_positions(t_color_tab *color);
+void				gtk_set_shape_color_positions(t_color_tab *color,
+								t_texture_tab *texture);
 void				gtk_set_shape_section_positions(t_section_tab *section);
 
 /*
@@ -565,11 +585,14 @@ void				gtk_set_shape_section_positions(t_section_tab *section);
 void				gtk_set_buttons_signals(t_rt *rt);
 void				gtk_set_motions_signals(GtkWidget *window,
 								GtkWidget *image_event_box, t_rt *rt);
-void				gtk_set_shape_signals(t_rt *rt);
 void				gtk_set_camera_signals(t_rt *rt);
+void				gtk_set_shape_signals(t_rt *rt);
+void				gtk_set_triangle_dots_signals(t_transform_tab *tab,
+								t_rt *rt);
 void				gtk_set_shapes_signals(t_rt *rt);
 void				gtk_set_light_signals(t_rt *rt);
 void				gtk_set_lights_signals(t_rt *rt);
+void				gtk_set_textures_signals(t_rt *rt);
 void				gtk_set_ui_settings_signals(t_gtk_settings *settings,
 								t_rt *rt);
 
@@ -604,6 +627,10 @@ void				shapes_tree_double_click(GtkTreeView *tree,
 								gpointer data);
 gboolean			lights_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
+gboolean			texture_tree_single_click(GtkTreeView *tree,
+								GdkEventButton *event, gpointer data);
+gboolean			normal_map_tree_single_click(GtkTreeView *tree,
+								GdkEventButton *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
@@ -620,6 +647,8 @@ void				spin_button_camera_position_changer(GtkSpinButton *button,
 								gpointer data);
 void				new_shape(GtkButton *button, gpointer data);
 void				new_light(GtkButton *button, gpointer data);
+void				new_texture(GtkButton *button, gpointer data);
+void				new_normal_map(GtkButton *button, gpointer data);
 void				save_image(GtkButton *button, gpointer data);
 void				save_image_as(GtkButton *button, gpointer data);
 void				save_scene(GtkButton *button, gpointer data);
@@ -636,14 +665,23 @@ gboolean			press_key_on_shape_name(GtkWidget *entry_name,
 void				changing_shape_type(GtkComboBox *type_combo, gpointer data);
 void				spin_button_shape_radius_changer(GtkSpinButton *button,
 								gpointer data);
+void				spin_button_shape_width_changer(GtkSpinButton *button,
+								gpointer data);
 void				spin_button_shape_height_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_depth_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_angle_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_position_changer(GtkSpinButton *button,
 								gpointer data);
-void				spin_button_shape_material_changer(GtkSpinButton *button,
+void				spin_button_shape_dot_a_changer(GtkSpinButton *button,
 								gpointer data);
+void				spin_button_shape_dot_b_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_dot_c_changer(GtkSpinButton *button,
+								gpointer data);
+void				shape_material_scale_moved(GtkRange *range, gpointer data);
 void				color_activated_changer(GtkColorChooser *chooser,
 								GParamSpec *param_spec, gpointer data);
 void				changing_texture_type(GtkComboBox *texture_combo,
@@ -748,8 +786,8 @@ void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 /*
 ** ======================== Change the shape parameters ========================
 */
-_Bool				do_change_shape_param(FLT3 *params, SHAPE_TYPE type,
-								int diff);
+_Bool				do_change_shape_param(FLT3 *params, FLT3 *dots,
+								SHAPE_TYPE type, int diff);
 void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================
@@ -762,7 +800,7 @@ gboolean			update_shape_widget(gpointer data);
 */
 void				update_gtk_shape_main(t_main_tab tab, SHAPE *shape);
 void				update_gtk_shape_position(t_transform_tab tab,
-								FLT3 shape_pos);
+								DTO_SHAPE *dto);
 void				update_gtk_shape_material(t_material_tab tab,
 								MATERIAL shape_mat);
 void				update_gtk_shape_color(t_color_tab tab, FLT3 color);
@@ -782,8 +820,13 @@ cl_uint3			get_average_from_sum(cl_uint3 *average_sum,
 void				put_average_to_pixel(cl_uchar4 *pixel, cl_uint3 *average);
 cl_uchar4			calc_matrix_values(const int matrix[9], int i, t_rt *rt);
 /*
-** ============== Updating everything after creating a new object ==============
+** ============ Init/Update everything after creating a new object =============
 */
+PPM_IMG				*new_ppm_img_init(t_rt *rt, char *filename,
+								PPM_IMG **ppm_list, _Bool is_normal_map);
+void				new_ppm_img_update_everything(t_rt *rt,
+								t_gtk_textures *gtk_ppm, PPM_IMG *new_texture,
+								_Bool is_normal_map);
 void				new_shape_update_everything(t_rt *rt,
 								t_gtk_shapes *gtk_shapes, SHAPE *shape);
 /*
@@ -796,10 +839,21 @@ void				paste_shape(t_rt *rt);
 */
 _Bool				get_new_file_name(char **filename, char **folder,
 									char *default_name);
+char				*get_ppm_filename(void);
 /*
 ** ============================== Call serializer ==============================
 */
 gboolean			serialize_scene_to_json(gpointer data);
+/*
+** ============================ Call message dialog ============================
+*/
+void				error_message_dialog(t_rt *rt, const char *filename,
+									char **err);
+/*
+** ============================== Delete PPM IMG ===============================
+*/
+void				delete_texture(t_rt *rt);
+void				delete_normal_map(t_rt *rt);
 
 /*
 ** =============================================================================
@@ -821,5 +875,7 @@ void				clear_shapes(SHAPE **shape);
 SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
 void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
 FLT2				get_angle_by_diff(INT2 diff, INT2 axis, INT2 screen_size);
+void				compute_triangle_position(t_transform_tab *tab,
+									FLT3 *pos, FLT3 *dots);
 
 #endif

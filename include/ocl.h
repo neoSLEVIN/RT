@@ -35,8 +35,12 @@
 */
 // TODO fix that when delete CMake
 # if __APPLE__
+#  ifndef PROJ_DIR
+#   define PROJ_DIR "path to proj dir"
+#  endif
 #  define ABSOLUTE_PATH PROJ_DIR"/kernel/"
 # else
+#  define PROJ_DIR ""
 #  define ABSOLUTE_PATH "kernel/"
 # endif
 
@@ -161,6 +165,8 @@ void					realloc_shapes_dto(DTO_SHAPE **dto, SHAPE *shape,
 								int cnt);
 void					realloc_lights_dto(DTO_LIGHT **dto, LIGHT *light,
 								int cnt);
+void					realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img,
+								int cnt);
 /*
 ** ====================== Update arguments for the kernel ======================
 */
@@ -171,6 +177,8 @@ void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
 void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_lights);
+void					update_textures_arg(t_ocl *ocl, int cnt);
+void					update_normal_maps_arg(t_ocl *ocl, int cnt);
 /*
 ** =============================================================================
 ** =================================== Utils ===================================
@@ -181,7 +189,9 @@ void					init_dto_cam(DTO_CAM *cam, cl_float fov, INT2 screen);
 void					check_error_cl(const int num, const char *message,
 								char *path);
 DTO_PPM_IMG				*read_ppm(const char *filename);
-void					read_ppm_to_texture(const char *filename,
-								DTO_PPM_IMG *dto);
+_Bool					read_ppm_safe(const char *filename, DTO_PPM_IMG **dto,
+								char **err);
+_Bool					ppm_error_safe(char **err, const char *text,
+								DTO_PPM_IMG **dto);
 
 #endif

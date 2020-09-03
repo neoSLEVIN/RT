@@ -6,7 +6,9 @@
       <w>buttonhold</w>
       <w>bzero</w>
       <w>cappedcylinder</w>
+      <w>cappedplane</w>
       <w>cene</w>
+      <w>coeff</w>
       <w>cschoen</w>
       <w>ctxt</w>
       <w>dflt</w>
@@ -86,6 +88,7 @@
       <w>summand</w>
       <w>svga</w>
       <w>sxga</w>
+      <w>twith</w>
       <w>upguide</w>
       <w>wordcnt</w>
       <w>worksize</w>

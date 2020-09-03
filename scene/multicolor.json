@@ -1,0 +1,302 @@
+{
+  "settings": {
+    "filter": "EMBOSS"
+  },
+  "scene": {
+    "camera": {
+      "position": [-0.388, 6.800, -29.599],
+      "direction": [0.029, -0.041, 0.999],
+      "rotation": -0.353,
+      "display": [1440, 960],
+      "fov": 25,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "AMBIENT",
+        "intensity": 0.140
+      },
+      {
+        "name": "Unnamed_2",
+        "type": "POINT",
+        "intensity": 1.000,
+        "position": [-4.000, 5.000, -13.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "floor",
+        "transform": {
+          "position": [-0.453, -3.286, -0.299],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "492D1A",
+          "specular": 0.000,
+          "reflective": 0.158,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-0.453, -3.286, -0.299],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "floor",
+        "transform": {
+          "position": [6.714, 2.196, -0.631],
+          "direction": [-1.000, 0.000, 0.000]
+        },
+        "material": {
+          "color": "AE581F",
+          "specular": 0.057,
+          "reflective": 0.316,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [6.714, 2.196, -0.631],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6.000,
+        "height": 3.000,
+        "transform": {
+          "position": [-2.661, 3.417, 35.962],
+          "direction": [0.000, 0.000, 1.000]
+        },
+        "material": {
+          "color": "FF0000",
+          "specular": 0.037,
+          "reflective": 0.236,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-2.661, 3.417, 35.962],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6.000,
+        "height": 3.000,
+        "transform": {
+          "position": [-3.597, 0.755, 32.381],
+          "direction": [-0.012, -0.070, 0.997],
+          "rotate angle": 90
+        },
+        "material": {
+          "color": "00FF00",
+          "specular": 0.057,
+          "reflective": 0.256,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-3.597, 0.755, 32.381],
+              "direction": [-1.000, 0.002, -0.012]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6.000,
+        "height": 3.000,
+        "transform": {
+          "position": [-1.186, -0.060, 24.302],
+          "direction": [0.000, 0.000, 1.000]
+        },
+        "material": {
+          "color": "0000FF",
+          "specular": 0.055,
+          "reflective": 0.227,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.186, -0.060, 24.302],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Dan",
+        "width": 6.000,
+        "height": 3.000,
+        "transform": {
+          "position": [0.804, 1.133, 30.866],
+          "direction": [0.025, -0.066, 0.998],
+          "rotate angle": 45
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 0.057,
+          "reflective": 0.241,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.804, 1.133, 30.866],
+              "direction": [-0.766, 0.643, 0.008]
+            }
+          ]
+        }
+      },
+      {
+        "type": "TRIANGLE",
+        "name": "Shape_7",
+        "dots": {
+          "a": [-4.068, 3.104, 58.229],
+          "b": [-9.238, 6.366, 58.229],
+          "c": [-4.538, 2.634, -12.274]
+        },
+        "transform": {
+          "position": [-5.948, 4.035, 34.728],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-5.948, 4.035, 34.728],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Shape_8",
+        "radius": 139.108,
+        "transform": {
+          "position": [-87.725, 69.881, 600.410],
+          "direction": [-0.005, 1.000, 0.024]
+        },
+        "material": {
+          "color": "D73C3C",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Wood"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-87.725, 69.881, 600.410],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+    ],
+    "normal maps": [
+      {
+        "name": "w",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\wow.ppm"
+      }
+    ]
+  }
+}

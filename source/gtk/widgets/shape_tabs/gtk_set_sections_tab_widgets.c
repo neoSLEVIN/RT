@@ -4,14 +4,6 @@ static void	gtk_set_sections_tab_base_widgets(t_section_tab *section_tab)
 {
 	section_tab->label = gtk_label_new("Sections");
 	section_tab->grid = gtk_grid_new();
-	section_tab->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_min_content_height(
-		GTK_SCROLLED_WINDOW(section_tab->scrolled_window), 200);
-	gtk_scrolled_window_set_min_content_width(
-		GTK_SCROLLED_WINDOW(section_tab->scrolled_window), 370);
-	gtk_scrolled_window_set_policy(
-		GTK_SCROLLED_WINDOW(section_tab->scrolled_window),
-		GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 }
 
 static void	gtk_set_sections_tab_buttons_widgets(t_section_tab *section_tab,

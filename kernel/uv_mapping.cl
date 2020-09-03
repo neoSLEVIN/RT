@@ -20,9 +20,26 @@ float2 sphere_map(t_object *obj, t_ray *ray) {
 	return uv;
 }
 
+float2 translate_plane_coord_with_static(float3 plane_norm, t_ray *ray, float3 plane_pos) {
+	float3 u_basis;
+	float3 v_basis;
+	float2 coord;
+
+	set_uv_basis(plane_norm, &u_basis, &v_basis);
+	coord.x = dot(u_basis, ray->hitPoint - plane_pos);
+	coord.y = dot(v_basis, ray->hitPoint - plane_pos);
+	return coord;
+}
+
 float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;
-	float2 coord = translate_plane_coord(obj->transform.direction, ray);
+	float2 coord;
+	if (obj->type == TRIANGLE) {
+		coord = translate_plane_coord_with_static(triangle_normal(obj), ray, obj->transform.position);
+	} else {
+		coord = translate_plane_coord_with_static(obj->transform.direction, ray, obj->transform.position);
+	}
+
 	/*Плодадь ничем не ограничена, поэтому все разделено на области со сторонами size*/
 	uv.x = fmod(coord.x, size) / (float)(size);
 	uv.y = fmod(coord.y, size) / (float)(size);
@@ -32,6 +49,31 @@ float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	if (uv.y < 0)
 		uv.y = 1 + uv.y;
 	return uv;
+}
+
+float2 box_map(t_object *obj, t_ray *ray, int size) {
+	t_object plane = *obj;
+
+	if (ray->index < 2) {
+		plane.transform.position += (ray->index == 1 ? 1 : -1) *
+									plane.transform.direction * plane.params.z / 2;
+	} else if (ray->index < 4) {
+		plane.transform.direction =
+			normalize(cross(plane.transform.direction, plane.transform.rotation));
+
+		plane.transform.position += (ray->index == 3 ? 1 : -1) *
+									plane.transform.direction * plane.params.y / 2;
+		plane.params.y = plane.params.z;
+	} else {
+		float3 forward = plane.transform.direction;
+		plane.transform.direction = plane.transform.rotation;
+		plane.transform.rotation = forward;
+
+		plane.transform.position += (ray->index == 5 ? 1 : -1) *
+									plane.transform.direction * plane.params.x / 2;
+		plane.params.x = plane.params.z;
+	}
+	return plane_map(&plane, ray, size);
 }
 
 /*Подходит и для конуса*/
@@ -71,14 +113,22 @@ float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 
 /*Нужно чтобы uv координаты не отличались при повороте фигуры*/
 void set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis) {
+	
+	float3 default_u = (float3)(1, 0, 0);
+	float3 backup = (float3)(0, 1, 0);
+	
 	if (normal.x != 0 && normal.y != 0) {
 		float3 tmp;
 		tmp.s0 = normal.y;
 		tmp.s1 = -normal.x;
 		tmp.s2 = 0.f;
 		*u_basis = normalize(tmp);
-	} else {
+	} else if (normal.x == 0){
 		*u_basis = (float3)(1, 0, 0);
+	} else if (normal.y == 0) {
+		*u_basis = (float3)(0, 1, 0);
+	} else {
+		*u_basis = (float3)(0, 0, 1);
 	}
 	*v_basis =  cross(normal, *u_basis);
 }

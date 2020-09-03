@@ -1,0 +1,343 @@
+{
+  "settings": {
+    "filter": "NOISE",
+    "noise": 12
+  },
+  "scene": {
+    "camera": {
+      "position": [103.281, 168.009, -533.062],
+      "direction": [-0.099, -0.270, 0.958],
+      "rotation": -0.137,
+      "display": [1440, 960],
+      "fov": 25,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_2",
+        "type": "AMBIENT",
+        "intensity": 0.380
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 1.000,
+        "position": [0.000, 5.000, 10.000]
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 0.345,
+        "position": [-10.000, 5.000, -4.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "SPHERE",
+        "name": "Mars",
+        "radius": 6.087,
+        "transform": {
+          "position": [126.392, 76.360, -222.583],
+          "direction": [0.000, 1.000, -0.000]
+        },
+        "material": {
+          "color": "C4663C",
+          "specular": 0.000,
+          "reflective": 0.325,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [126.392, 76.360, -222.582],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Chess",
+        "radius": 2.716,
+        "transform": {
+          "position": [-197.541, -17.518, 56.174],
+          "direction": [0.059, 0.997, 0.043]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 0.325,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-197.541, -17.518, 56.174],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Venus",
+        "radius": 2.675,
+        "transform": {
+          "position": [54.947, -13.396, 109.727],
+          "direction": [-0.036, 0.986, 0.161]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [54.947, -13.396, 109.727],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Sun",
+        "radius": 21.768,
+        "transform": {
+          "position": [-46.314, -16.133, 195.330],
+          "direction": [-0.036, 0.986, 0.161]
+        },
+        "material": {
+          "color": "FFC807",
+          "specular": 1.000,
+          "reflective": 0.382,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-46.314, -16.133, 195.330],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Mercury",
+        "radius": 1.250,
+        "transform": {
+          "position": [24.968, 28.346, -34.854],
+          "direction": [0.000, 1.000, -0.000]
+        },
+        "material": {
+          "color": "F24D19",
+          "specular": 0.000,
+          "reflective": 0.325,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [24.968, 28.347, -34.854],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Earth",
+        "radius": 4.069,
+        "transform": {
+          "position": [-1.421, 58.549, -178.809],
+          "direction": [-0.036, 0.986, 0.161]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Earth"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.421, 58.549, -178.809],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Floor",
+        "transform": {
+          "position": [42.968, 24.003, -306.245],
+          "direction": [-0.014, 0.990, 0.141]
+        },
+        "material": {
+          "color": "02262E",
+          "specular": 0.000,
+          "reflective": 0.149,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "space"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [42.968, 24.003, -306.245],
+              "direction": [-0.013, 1.000, -0.006]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Shape_8",
+        "transform": {
+          "position": [42.348, -30.566, 1103.685],
+          "direction": [-0.022, 0.981, -0.191]
+        },
+        "material": {
+          "color": "0B3943",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.253
+        },
+        "texture": {
+          "name": "space"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [42.348, -30.566, 1103.686],
+              "direction": [0.206, 0.941, -0.268]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Shape_9",
+        "radius": 31.050,
+        "transform": {
+          "position": [147.541, 148.985, -346.430],
+          "direction": [0.060, -0.980, -0.189]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "nova"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [147.541, 148.985, -346.430],
+              "direction": [0.095, -0.888, -0.450]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "Earth",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\earth.ppm"
+      },
+      {
+        "name": "space",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\space.ppm"
+      },
+      {
+        "name": "nova",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "Н О В \n",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+      }
+    ]
+  }
+}

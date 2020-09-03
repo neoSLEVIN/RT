@@ -29,6 +29,9 @@ static void	update_positions(DTO_SHAPE *dto, FLT3 new_position)
 	i = -1;
 	diff = v3_sub(new_position, dto->transform.position);
 	dto->transform.position = new_position;
+	dto->transform.dots[0] = v3_add(dto->transform.dots[0], diff);
+	dto->transform.dots[1] = v3_add(dto->transform.dots[1], diff);
+	dto->transform.dots[2] = v3_add(dto->transform.dots[2], diff);
 	while (++i < SECTION_CNT)
 		dto->sections[i].position = v3_add(dto->sections[i].position, diff);
 }
@@ -38,14 +41,15 @@ void		paste_shape(t_rt *rt)
 	SHAPE	*shape;
 	SHAPE	*temp;
 
-	if (!rt->info->s_copy)
+	if (!rt->info->s_copy || rt->scene->s_cnt >= MAX_SHAPES_COUNT)
 		return ;
 	if (!(shape = (SHAPE*)malloc(sizeof(SHAPE))))
 		ft_error("Can't allocate memory");
 	get_default_shape(shape, rt->info->s_copy->dto);
 	update_positions(shape->dto,
-					v3_add(rt->ocl->dto.cam.origin,
-						v3_scale(rt->ocl->dto.cam.forward, 50)));
+					v3_add(v3_add(rt->ocl->dto.cam.origin,
+						v3_scale(rt->ocl->dto.cam.forward, 50)),
+						v3_scale(rt->ocl->dto.cam.upguide, -1)));
 	if (!(shape->name = ft_strdup(rt->info->s_copy->name)))
 		ft_error("Can't allocate memory");
 	if (rt->scene->shapes == NULL)

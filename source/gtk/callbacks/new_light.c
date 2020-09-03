@@ -29,8 +29,7 @@ static LIGHT	*new_light_init(t_rt *rt)
 		ft_error("Can't allocate memory");
 	get_default_light(light, &rt->info->default_light_dto);
 	init_default_light_dto(&rt->ocl->dto.cam, light->dto);
-	if (!(light->name = ft_strdup("Light")))
-		ft_error("Can't allocate memory");
+	light->name = unnamed_obj(rt->scene->l_cnt + 1, "Light");
 	if (rt->scene->lights == NULL)
 	{
 		rt->scene->lights = light;
@@ -60,6 +59,8 @@ static void		new_light_update_everything(t_rt *rt, t_gtk_lights *gtk_lights,
 	if (!(path = gtk_tree_model_get_path(gtk_lights->model, light->tree_iter)))
 		ft_error("Can't allocate memory");
 	gtk_tree_selection_select_path(gtk_lights->select, path);
+	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(gtk_lights->tree),
+		path, NULL, FALSE, 0,0);
 	gtk_tree_path_free(path);
 	realloc_lights_dto(&rt->ocl->dto.lights, rt->scene->lights,
 					++rt->scene->l_cnt);
@@ -79,6 +80,9 @@ void			new_light(GtkButton *button, gpointer data)
 
 	(void)button;
 	rt = (t_rt*)data;
-	light = new_light_init(rt);
-	new_light_update_everything(rt, &rt->gtk->ui.lights, light);
+	if (rt->scene->l_cnt < MAX_LIGHTS_COUNT)
+	{
+		light = new_light_init(rt);
+		new_light_update_everything(rt, &rt->gtk->ui.lights, light);
+	}
 }

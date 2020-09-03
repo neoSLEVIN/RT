@@ -34,6 +34,8 @@ typedef struct			s_transform
 	float3				position;
 	float3				direction;
 	float3				rotation;
+	float				angle;
+	float3				dots[3];
 }						t_transform;
 
 /*Ray cam*/
@@ -63,7 +65,10 @@ typedef enum			e_shape_type
 						CONE,
 						CYLINDER,
 						CAPPEDCYLINDER,
-						CNT_OF_TYPES
+						CIRCLE,
+						CAPPEDPLANE,
+						BOX,
+						TRIANGLE,
 }						t_shape_type;
 
 typedef struct			s_material
@@ -108,7 +113,7 @@ typedef struct			s_object
 
 typedef struct			s_dto_ppm_img
 {
-	uchar 				data[640*640*3];
+	uchar 				data[1440*1440*3];
 	int 				width;
 	int 				height;
 	int 				max_color;
@@ -130,6 +135,7 @@ typedef struct			s_ray
 	float3				hitPoint;
 	float3				hitNormal;
 	int					hit_id;
+	int					index;
 	t_shape_type		hit_type;
 }						t_ray;
 
@@ -147,10 +153,11 @@ typedef struct				s_scene
 	__global t_ppm_image	*normal_maps;
 }							t_scene;
 
-
+float cappedplane_intersect(t_ray *ray, t_object *plane);
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
+float2 box_map(t_object *obj, t_ray *ray, int size);
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
 float2 translate_plane_coord(float3 plane_norm, t_ray *ray);
 void 	set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
@@ -172,6 +179,7 @@ float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
+float3	triangle_normal(t_object *hit_obj);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
 
 float	compute_sections(t_ray *ray, t_section *sections, int is_complex, float t1, float t2);
@@ -181,9 +189,9 @@ float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
+float	triangle_intersect(t_ray *ray, t_object *triangle);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
-float	nothingOrMaxT(float a, float b);
 float	module(float a);
 
 float 	get_light_intensity(t_ray *ray, t_scene *scene);

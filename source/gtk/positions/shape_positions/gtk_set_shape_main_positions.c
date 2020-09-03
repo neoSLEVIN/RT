@@ -20,7 +20,11 @@ static void	gtk_set_shape_main_params_boxes_positions(t_main_tab *main_tab)
 		main_tab->v_params);
 	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_radius,
 		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_width,
+		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_height,
+		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_depth,
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_angle,
 		FALSE, FALSE, 0);
@@ -33,9 +37,17 @@ static void	gtk_set_shape_main_params_positions(t_main_tab *main_tab)
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->h_radius), main_tab->radius.spin,
 		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->h_width), main_tab->width.label,
+		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->h_width), main_tab->width.spin,
+		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->h_height), main_tab->height.label,
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->h_height), main_tab->height.spin,
+		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->h_depth), main_tab->depth.label,
+		FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(main_tab->h_depth), main_tab->depth.spin,
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->h_angle), main_tab->angle.label,
 		FALSE, FALSE, 0);

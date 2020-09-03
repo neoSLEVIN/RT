@@ -6,14 +6,13 @@ set(CMAKE_C_STANDARD 99)
 #магия эпл. Почему надо вызвать FIND_PACKAGE два раза мне не понятно
 #особенность которую я откапал на stackoverflow - link_directories надо вызвать перед add_executable
 if (APPLE)
-FIND_PACKAGE(PkgConfig REQUIRED)
-PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
-INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
-LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
-#в PROJ_DIR будет храниться путь до проекта
-add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
+    FIND_PACKAGE(PkgConfig REQUIRED)
+    PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
+    INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
+    LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
+    #в PROJ_DIR будет храниться путь до проекта
+    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
 endif()
-
 
 # ==============================================================================
 # ================================= Libraries ==================================
@@ -272,7 +271,10 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/set_kernel_args.c
         source/opencl/settings/realloc_data.c
         source/opencl/settings/update_args.c
-        source/opencl/settings/image_import.c)
+        source/opencl/settings/image_import.c
+        source/opencl/settings/safe_image_import.c
+        source/opencl/utils/ppm_error_safe.c
+        source/opencl/settings/update_ppm_img_args.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -290,7 +292,8 @@ set(SRCNAME_PARSER
         source/parser/parse_light.c
         source/parser/parse_settings.c
         source/parser/parse_textures.c
-        source/parser/parse_sections.c source/parser/check_reserved_names.c)
+        source/parser/parse_sections.c
+        source/parser/parser_utils.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -330,7 +333,7 @@ set(SRCNAME_GTK
         source/gtk/actions/get_shape_id.c
         source/gtk/actions/camera_with_shape.c
         source/gtk/actions/camera_motion.c
-        source/gtk/actions/shape_motion.c
+        source/gtk/actions/shape_motions/rotate_shape.c
         source/gtk/actions/change_shape_param.c
         source/gtk/signals/gtk_set_motions_signals.c
         source/gtk/signals/gtk_set_ui_settings_signals.c
@@ -360,7 +363,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/light/light_expander_callback.c
         source/gtk/callbacks/shape/shape_expander_callback.c
         source/gtk/callbacks/shape/switch_page_shape_notebook.c
-        source/gtk/callbacks/shape/spin_button_shape_material_changer.c
+        source/gtk/callbacks/shape/shape_material_scale_moved.c
         source/gtk/callbacks/shape/cell_editable_holders.c
         source/gtk/callbacks/shape/section_callbacks.c
         source/gtk/callbacks/shape/color_activated_changer.c
@@ -412,13 +415,65 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
         source/gtk/actions/get_new_file_name.c
-        source/gtk/callbacks/save_image.c source/gtk/utils/show_widgets.c source/gtk/callbacks/spin_button_filter_changer.c source/gtk/widgets/gtk_set_setting_filter_widgets.c source/gtk/callbacks/fov_scale_moved.c source/gtk/utils/get_angle_by_diff.c source/gtk/widgets/gtk_set_camera_widgets.c source/gtk/positions/gtk_set_camera_positions.c source/gtk/signals/gtk_set_camera_signals.c source/gtk/callbacks/display_scale_moved.c source/gtk/callbacks/spin_button_camera_position_changer.c source/gtk/actions/update_camera_widget.c source/gtk/callbacks/camera_expander_callback.c source/gtk/widgets/gtk_set_scale.c)
+        source/gtk/callbacks/save_image.c
+        source/gtk/utils/show_widgets.c
+        source/gtk/callbacks/spin_button_filter_changer.c
+        source/gtk/widgets/gtk_set_setting_filter_widgets.c
+        source/gtk/callbacks/fov_scale_moved.c
+        source/gtk/utils/get_angle_by_diff.c
+        source/gtk/widgets/gtk_set_camera_widgets.c
+        source/gtk/positions/gtk_set_camera_positions.c
+        source/gtk/signals/gtk_set_camera_signals.c
+        source/gtk/callbacks/display_scale_moved.c
+        source/gtk/callbacks/spin_button_camera_position_changer.c
+        source/gtk/actions/update_camera_widget.c
+        source/gtk/callbacks/camera_expander_callback.c
+        source/gtk/widgets/gtk_set_scale_widgets.c
+        source/gtk/callbacks/new_ppm_img.c
+        source/gtk/actions/error_message_dialog.c
+        source/gtk/actions/new_ppm_img_init.c
+        source/gtk/actions/new_ppm_img_update_everything.c
+        source/gtk/signals/gtk_set_textures_signals.c
+        source/gtk/callbacks/ppm_img_tree_single_click.c
+        source/gtk/actions/delete_ppm_img.c
+        source/gtk/actions/shape_motions/move_shape_by_camera_movement.c
+        source/gtk/actions/shape_motions/move_shape_by_camera_rotating.c
+        source/gtk/actions/shape_motions/move_shape_by_mouse.c
+        source/gtk/callbacks/shape/spin_button_shape_width_changer.c
+        source/gtk/signals/gtk_set_triangle_dots_signals.c
+        source/gtk/callbacks/shape/spin_button_shape_dot_a_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_depth_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
 
 set(SRCNAME_SERIALIZER
-        source/gtk/actions/serialize_scene_to_json.c source/serializer/api/serialize_str.c source/serializer/api/serialize_value.c source/serializer/serialize_settings.c source/serializer/serialize_start.c source/gtk/callbacks/save_scene.c source/serializer/serialize_scene.c source/serializer/api/serialize_name.c source/serializer/api/serialize_indent.c source/serializer/api/serialize_open.c source/serializer/api/serialize_close.c source/serializer/api/serialize_base.c source/serializer/api/serialize_comma.c source/serializer/serialize_camera.c source/serializer/serialize_float3.c source/serializer/serialize_lights.c source/serializer/serialize_ppm_img.c source/serializer/serialize_shapes.c source/serializer/serialize_transform.c source/serializer/serialize_material.c source/serializer/serialize_sections.c source/serializer/serialize_reserved_ppm_names.c source/serializer/serialize_int2.c)
+        source/gtk/actions/serialize_scene_to_json.c
+        source/serializer/api/serialize_str.c
+        source/serializer/api/serialize_value.c
+        source/serializer/serialize_settings.c
+        source/serializer/serialize_start.c
+        source/gtk/callbacks/save_scene.c
+        source/serializer/serialize_scene.c
+        source/serializer/api/serialize_name.c
+        source/serializer/api/serialize_indent.c
+        source/serializer/api/serialize_open.c
+        source/serializer/api/serialize_close.c
+        source/serializer/api/serialize_base.c
+        source/serializer/api/serialize_comma.c
+        source/serializer/serialize_camera.c
+        source/serializer/serialize_float3.c
+        source/serializer/serialize_lights.c
+        source/serializer/serialize_ppm_img.c
+        source/serializer/serialize_shapes.c
+        source/serializer/serialize_transform.c
+        source/serializer/serialize_material.c
+        source/serializer/serialize_sections.c
+        source/serializer/serialize_reserved_ppm_names.c
+        source/serializer/serialize_int2.c)
+
 
 
 add_executable(RT

@@ -37,27 +37,51 @@ static _Bool	do_change_shape_angle(cl_float *angle, cl_float diff)
 	return (TRUE);
 }
 
-_Bool			do_change_shape_param(FLT3 *params, SHAPE_TYPE type, int diff)
+static _Bool	do_change_triangle_dots(FLT3 *dots, cl_float coefficient)
 {
-	cl_float	coefficient;
+	FLT3	new_distance;
+	FLT3	center;
+	int		i;
+	_Bool	do_change;
+
+	do_change = FALSE;
+	center = v3_scale(v3_add(v3_add(dots[0], dots[1]), dots[2]), 1.0f / 3.0f);
+	i = -1;
+	while (++i < 3)
+	{
+		new_distance = v3_scale(v3_sub(dots[i], center), coefficient);
+		if (v3_length(new_distance) < 0.1f && coefficient < 1.0f)
+			continue ;
+		do_change = TRUE;
+		dots[i] = v3_add(center, new_distance);
+	}
+	return (do_change);
+}
+
+_Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
+									int diff)
+{
+	cl_float	coeff;
 	_Bool		do_change;
 
 	do_change = FALSE;
-	coefficient = (cl_float)diff * ((cl_float)diff + 0.15f);
+	coeff = (cl_float)diff * ((cl_float)diff + 0.15f);
 	if (type == PLANE)
 		return (FALSE);
-	else if (type == SPHERE || type == CYLINDER)
-		return (do_change_shape_radius(&params->x, coefficient));
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
+		return (do_change_shape_radius(&params->x, coeff));
 	else if (type == CONE)
 		return (do_change_shape_angle(&params->x, diff));
-	else if (type == CAPPEDCYLINDER)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
 	{
-		if (do_change_shape_radius(&params->x, coefficient))
-			do_change = TRUE;
-		if (do_change_shape_radius(&params->y, coefficient))
-			do_change = TRUE;
+		(do_change_shape_radius(&params->x, coeff)) ? do_change = TRUE : 0;
+		(do_change_shape_radius(&params->y, coeff)) ? do_change = TRUE : 0;
+		if (type == BOX)
+			(do_change_shape_radius(&params->z, coeff)) ? do_change = TRUE : 0;
 		return (do_change);
 	}
+	else if (type == TRIANGLE)
+		return (do_change_triangle_dots(dots, coeff));
 	else
 		ft_error("Unknown type (change_shape_param)");
 	return (TRUE);
@@ -73,10 +97,14 @@ void			change_shape_param(t_rt *rt)
 	if (!rt->info->scroll_cnt)
 		return ;
 	if (do_change_shape_param(&rt->info->s_marker->dto->params,
+			rt->info->s_marker->dto->transform.dots,
 			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
 	{
 		update_flags(&rt->info->update_shapes, &rt->info->update_s_param);
-		rt->info->update_s_main = TRUE;
+		if (rt->info->s_marker->dto->type == TRIANGLE)
+			rt->info->update_s_pos = TRUE;
+		else
+			rt->info->update_s_main = TRUE;
 	}
 	rt->info->scroll_cnt = 0;
 }

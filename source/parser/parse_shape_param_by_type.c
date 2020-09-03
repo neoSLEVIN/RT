@@ -18,24 +18,25 @@ static void	parse_shape_angle(const JC_FIELD shape_field, cl_float *angle)
 	*angle = deg_to_rad(*angle);
 }
 
-FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
-													SHAPE_TYPE type)
+void		parse_shape_param_by_type(const JC_FIELD shape_field,
+									SHAPE_TYPE type, FLT3 *params)
 {
-	FLT3	params;
 
-	params = (FLT3){0.0f, 0.0f, 0.0f};
-	if (type == PLANE)
+	*params = (FLT3){0.5f, 0.5f, 0.5f};
+	if (type == PLANE || type == TRIANGLE)
 		(void)type;
-	else if (type == SPHERE || type == CYLINDER)
-		parse_shape_param_0_1(shape_field, &params.x, "radius");
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
+		parse_shape_param_0_1(shape_field, &params->x, "radius");
 	else if (type == CONE)
-		parse_shape_angle(shape_field, &params.x);
-	else if (type == CAPPEDCYLINDER)
+		parse_shape_angle(shape_field, &params->x);
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
 	{
-		parse_shape_param_0_1(shape_field, &params.x, "radius");
-		parse_shape_param_0_1(shape_field, &params.y, "height");
+		parse_shape_param_0_1(shape_field, &params->x,
+			(type == CAPPEDCYLINDER) ? "radius" : "width");
+		parse_shape_param_0_1(shape_field, &params->y, "height");
+		if (type == BOX)
+			parse_shape_param_0_1(shape_field, &params->z, "depth");
 	}
 	else
 		ft_error("Unknown action (parse_shape_param_by_type)");
-	return (params);
 }

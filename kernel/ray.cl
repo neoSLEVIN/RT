@@ -33,4 +33,5 @@ void init_ray(t_ray *ray, CAMERA *cam, int work_id, float rand)
 	ray->dir += cam->forward;
 	ray->dir = normalize(ray->dir);
 	ray->hit_id = -1;
+	ray->index = -1;
 }

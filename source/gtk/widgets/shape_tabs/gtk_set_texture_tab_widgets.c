@@ -33,15 +33,20 @@ void		gtk_set_texture_tab_widgets(t_texture_tab *texture_tab,
 	texture_tab->grid = gtk_grid_new();
 	texture_tab->texture_label = gtk_label_new("Texture:");
 	texture_tab->normals_label = gtk_label_new("Normal map:");
-	gtk_widget_set_margin_start(texture_tab->texture_label, 5);
-	gtk_widget_set_margin_end(texture_tab->normals_label, 5);
 	texture_tab->texture_combo = gtk_combo_box_text_new();
 	texture_tab->normals_combo = gtk_combo_box_text_new();
+	gtk_widget_set_margin_start(texture_tab->texture_label, 5);
+	gtk_widget_set_margin_start(texture_tab->normals_label, 5);
+	gtk_widget_set_margin_top(texture_tab->texture_label, 5);
+	gtk_widget_set_margin_top(texture_tab->texture_combo, 5);
+	gtk_widget_set_margin_top(texture_tab->normals_label, 5);
+	gtk_widget_set_margin_top(texture_tab->normals_combo, 5);
+	gtk_widget_set_margin_end(texture_tab->normals_label, 5);
+	gtk_widget_set_margin_end(texture_tab->texture_label, 5);
 	gtk_set_texture_list(GTK_COMBO_BOX_TEXT(texture_tab->texture_combo),
 						textures);
 	gtk_set_normals_list(GTK_COMBO_BOX_TEXT(texture_tab->normals_combo),
 						normals);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(texture_tab->texture_combo), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(texture_tab->normals_combo), 0);
-	gtk_widget_set_margin_top(texture_tab->texture_combo, 5);
 }

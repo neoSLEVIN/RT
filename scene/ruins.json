@@ -1,0 +1,147 @@
+{
+  "settings": {
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [-0.520, 8.357, -51.322],
+      "direction": [0.010, -0.161, 0.987],
+      "rotation": -2.156,
+      "display": [1440, 960],
+      "fov": 25,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "DIRECTION",
+        "intensity": 1.000,
+        "direction": [0.000, -1186.000, 0.000]
+      },
+      {
+        "name": "Unnamed_2",
+        "type": "AMBIENT",
+        "intensity": 0.010
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 1.000,
+        "position": [0.000, 5.000, 10.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "SPHERE",
+        "name": "Shape_1",
+        "radius": 1.686,
+        "transform": {
+          "position": [-0.050, 0.179, 10.003],
+          "direction": [0.000, 1.000, -0.000]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 0.325,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-0.050, 0.179, 10.003],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Shape_2",
+        "transform": {
+          "position": [-1.293, -4.337, 10.605],
+          "direction": [0.000, 1.000, -0.000]
+        },
+        "material": {
+          "color": "08191D",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Noise"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.293, -4.337, 10.605],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CYLINDER",
+        "name": "Shape_1",
+        "radius": 1.553,
+        "transform": {
+          "position": [3.981, 1.113, -2.054],
+          "direction": [0.059, 0.997, 0.043]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 0.325,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "Н О В \n"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [3.981, 1.113, -2.054],
+              "direction": [0.059, 0.997, 0.043]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "Нова",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+      },
+      {
+        "name": "earth",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\earth.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "Н О В \n",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+      }
+    ]
+  }
+}

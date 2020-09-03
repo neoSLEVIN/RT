@@ -9,8 +9,7 @@ static SHAPE	*new_shape_init(t_rt *rt)
 		ft_error("Can't allocate memory");
 	get_default_shape(shape, &rt->info->default_shape_dto);
 	init_default_shape_dto(&rt->ocl->dto.cam, shape->dto);
-	if (!(shape->name = ft_strdup("Shape")))
-		ft_error("Can't allocate memory");
+	shape->name = unnamed_obj(rt->scene->s_cnt + 1, "Shape");
 	if (rt->scene->shapes == NULL)
 	{
 		rt->scene->shapes = shape;
@@ -38,5 +37,6 @@ static gboolean	new_shape_safe(gpointer data)
 void			new_shape(GtkButton *button, gpointer data)
 {
 	(void)button;
-	g_idle_add(new_shape_safe, data);
+	if (((t_rt*)data)->scene->s_cnt < MAX_SHAPES_COUNT)
+		g_idle_add(new_shape_safe, data);
 }

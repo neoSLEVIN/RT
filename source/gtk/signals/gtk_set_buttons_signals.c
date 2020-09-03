@@ -6,6 +6,10 @@ void	gtk_set_buttons_signals(t_rt *rt)
 		"clicked", G_CALLBACK(new_shape), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.add_light),
 		"clicked", G_CALLBACK(new_light), rt);
+	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.add_texture),
+		"clicked", G_CALLBACK(new_texture), rt);
+	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.add_normal_map),
+		"clicked", G_CALLBACK(new_normal_map), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_image),
 		"clicked", G_CALLBACK(save_image), rt);
 	g_signal_connect(G_OBJECT(rt->gtk->ui.buttons.save_image_as),

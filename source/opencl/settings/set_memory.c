@@ -35,7 +35,7 @@ void		set_memory_input_seeds(t_ocl *ocl)
 	check_error_cl(err,"clCreateBuffer", "input_seeds");
 	err = clEnqueueWriteBuffer(ocl->queue, ocl->dto.input_seeds, CL_TRUE, 0,
 		sizeof(unsigned int) * ocl->work_size, seeds, 0, NULL, NULL);
-	check_error_cl(err,"clEnqueueWriteBuffer", NULL);
+	check_error_cl(err,"clEnqueueWriteBuffer", "input_seeds");
 }
 
 static void	set_memory_input_textures_normals(t_ocl *ocl, SCENE *scene)

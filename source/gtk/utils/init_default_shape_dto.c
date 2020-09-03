@@ -1,12 +1,22 @@
 #include "gtk_module.h"
 
-void	init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
+static void	init_default_dots(FLT3 *pos, FLT3 *dots, DTO_CAM *cam)
+{
+	dots[0] = v3_add(*pos, cam->right);
+	dots[1] = v3_add(*pos, cam->upguide);
+	dots[2] = v3_sub(v3_sub(v3_scale(*pos, 3.0f), dots[0]), dots[1]);
+}
+
+void		init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
 {
 	dto->type = SPHERE;
 	dto->transform.position =
-		v3_add(cam->origin, v3_scale(cam->forward, 10));
-	dto->transform.direction = cam->upguide;
-	dto->transform.rotation = (FLT3){0.0f, 0.0f, 0.0f};
+		v3_add(v3_add(cam->origin, v3_scale(cam->forward, 10)),
+				v3_scale(cam->upguide, -0.01f));
+	dto->transform.direction = v3_rot_v(cam->upguide, cam->right, RAD);
+	dto->transform.rotation = cam->right;
+	dto->transform.angle = 0;
+	init_default_dots(&dto->transform.position, dto->transform.dots, cam);
 	dto->material.transparency = 0.0f;
 	dto->material.specular = 0.05f;
 	dto->material.reflective = 0.235f;
@@ -17,7 +27,7 @@ void	init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
 	dto->normal_map.id = -1;
 	dto->normal_map.rotation = 0.0f;
 	dto->normal_map.direction = dto->transform.direction;
-	dto->params = (FLT3){0.5f, 0.5f, 0.0f};
+	dto->params = (FLT3){0.5f, 0.5f, 0.5f};
 	dto->marker = FALSE;
 	init_default_shape_sections(dto);
 }

@@ -11,12 +11,12 @@ void	gtk_set_shape_material_positions(t_material_tab *material)
 		material->specular.label, material->reflective.label,
 		GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(material->grid),
-		material->transparency.spin, material->transparency.label,
-		GTK_POS_RIGHT, 1, 1);
+		material->transparency.scale, material->transparency.label,
+		GTK_POS_RIGHT, 5, 1);
 	gtk_grid_attach_next_to(GTK_GRID(material->grid),
-		material->reflective.spin, material->reflective.label,
-		GTK_POS_RIGHT, 1, 1);
+		material->reflective.scale, material->reflective.label,
+		GTK_POS_RIGHT, 5, 1);
 	gtk_grid_attach_next_to(GTK_GRID(material->grid),
-		material->specular.spin, material->specular.label,
-		GTK_POS_RIGHT, 1, 1);
+		material->specular.scale, material->specular.label,
+		GTK_POS_RIGHT, 5, 1);
 }

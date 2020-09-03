@@ -107,7 +107,10 @@ enum			e_shape_type
 	CONE,
 	CYLINDER,
 	CAPPEDCYLINDER,
-	CNT_OF_TYPES
+	CIRCLE,
+	CAPPEDPLANE,
+	BOX,
+	TRIANGLE
 };
 /*
 ** =============================== Location info ===============================
@@ -118,6 +121,8 @@ struct			s_transform
 	FLT3		position;
 	FLT3		direction;
 	FLT3		rotation;
+	cl_float	angle;
+	FLT3		dots[3];
 };
 /*
 ** ============================== Properties info ==============================
@@ -232,9 +237,9 @@ struct			s_camera
 ** ================================== PPM_IMG ==================================
 ** =============================================================================
 */
-# define MAX_DIMENSION 640
+# define MAX_DIMENSION 1440
 # define MIN_DIMENSION 100
-# define MAX_PPM_IMG_SIZE 640 * 640 * 3
+# define MAX_PPM_IMG_SIZE 1440 * 1440 * 3
 /*
 ** === PPM image Data Transfer Object (Set as an element of kernel argument) ===
 */

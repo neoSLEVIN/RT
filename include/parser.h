@@ -17,6 +17,9 @@
 # include "scene.h"
 
 # define PARSE_TEXT_SIZE 1200000
+# define MAX_SHAPES_COUNT 1000
+# define MAX_LIGHTS_COUNT 100
+# define MAX_PPM_IMG_COUNT 20
 /*
 ** ========================== Parse main Scene entity ==========================
 */
@@ -49,12 +52,12 @@ int			check_for_texture_name(PPM_IMG *texture, const char *name,
 ** =============================== Parse shapes ================================
 */
 SHAPE		*parse_shapes(const JC_FIELD parent, const char *child_name,
-						PPM_IMG *textures, PPM_IMG *normal_maps);
+						SCENE *scene);
 SHAPE		*parse_shape_idx(const JC_FIELD parent, const size_t index,
-						PPM_IMG *textures, PPM_IMG *normal_maps);
+						SCENE *scene);
 SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name);
-FLT3		parse_shape_param_by_type(const JC_FIELD shape_field,
-						SHAPE_TYPE type);
+void		parse_shape_param_by_type(const JC_FIELD shape_field,
+						SHAPE_TYPE type, FLT3 *params);
 /*
 ** =============================== Parse lights ================================
 */
@@ -74,7 +77,8 @@ FLT3		parse_cl_float3_or_default(const JC_FIELD parent,
 FLT3		parse_color(const JC_FIELD parent, const char *child_name);
 FLT3		parse_color_or_default(const JC_FIELD parent,
 						const char *child_name, char *default_color);
-TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name);
+TRANSFORM	parse_transform(const JC_FIELD parent, const char *child_name,
+						SHAPE_TYPE type);
 MATERIAL	parse_material(const JC_FIELD parent, const char *child_name);
 /*
 ** ================================ Send error =================================
@@ -84,7 +88,7 @@ void		parse_error(const char *parent_name, const char *child_name,
 /*
 ** =================================== Utils ===================================
 */
-char		*unnamed_obj(size_t index);
+char		*unnamed_obj(size_t index, char *prefix);
 void		check_reserved_names(const JC_FIELD texture_field,
 								const char *name, _Bool is_normal_maps);
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);

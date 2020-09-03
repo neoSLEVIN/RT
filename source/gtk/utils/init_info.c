@@ -55,7 +55,6 @@ void	shape_to_true(t_info *info)
 	info->update_s_name = TRUE;
 	info->update_s_main = TRUE;
 	info->update_s_pos = TRUE;
-	info->update_s_rot = TRUE;
 	info->update_s_mat = TRUE;
 	info->update_s_col = TRUE;
 	info->update_s_tex = TRUE;
@@ -68,7 +67,6 @@ void	shape_to_false(t_info *info)
 	info->update_s_name = FALSE;
 	info->update_s_main = FALSE;
 	info->update_s_pos = FALSE;
-	info->update_s_rot = FALSE;
 	info->update_s_mat = FALSE;
 	info->update_s_col = FALSE;
 	info->update_s_tex = FALSE;
