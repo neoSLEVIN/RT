@@ -4,8 +4,9 @@ static void	do_invisible_params(t_main_tab *tab)
 {
 	gtk_widget_set_visible(tab->params_frame, FALSE);
 	gtk_widget_set_visible(tab->h_radius, FALSE);
-	gtk_widget_set_visible(tab->h_height, FALSE);
 	gtk_widget_set_visible(tab->h_width, FALSE);
+	gtk_widget_set_visible(tab->h_height, FALSE);
+	gtk_widget_set_visible(tab->h_depth, FALSE);
 	gtk_widget_set_visible(tab->h_angle, FALSE);
 	//TODO new param for new shapes
 }
@@ -29,12 +30,16 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 	{
 		gtk_widget_set_visible(tab->h_width, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
-//TODO BOX
-		/*		if (type == BOX)
-			gtk_widget_set_visible(tab->h_depth, TRUE);*/
+		if (type == BOX)
+			gtk_widget_set_visible(tab->h_depth, TRUE);
 	}
 	else
 		ft_error("Unknown shape type (do_visible_params)");
+}
+
+static void	gtk_set_value_to_spin(t_spinner *spinner, cl_float value)
+{
+	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner->spin), value);
 }
 
 static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
@@ -43,28 +48,20 @@ static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
 		(void)dto;
 	else if (dto->type == SPHERE || dto->type == CYLINDER ||
 			dto->type == CIRCLE)
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
-			dto->params.x);
+		gtk_set_value_to_spin(&tab->radius, dto->params.x);
 	else if (dto->type == CONE)
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->angle.spin),
-			rad_to_deg(dto->params.x));
+		gtk_set_value_to_spin(&tab->angle, rad_to_deg(dto->params.x));
 	else if (dto->type == CAPPEDCYLINDER)
 	{
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->radius.spin),
-			dto->params.x);
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
-			dto->params.y);
+		gtk_set_value_to_spin(&tab->radius, dto->params.x);
+		gtk_set_value_to_spin(&tab->height, dto->params.y);
 	}
 	else if (dto->type == CAPPEDPLANE || dto->type == BOX)
 	{
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->width.spin),
-			dto->params.x);
-		gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->height.spin),
-			dto->params.y);
-//TODO box
-		/*		if (dto->type == BOX)
-			gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->depth.spin),
-				dto->params.z);*/
+		gtk_set_value_to_spin(&tab->width, dto->params.x);
+		gtk_set_value_to_spin(&tab->height, dto->params.y);
+		if (dto->type == BOX)
+			gtk_set_value_to_spin(&tab->depth, dto->params.z);
 	}
 	else
 		ft_error("Unknown shape type (update_gtk_shape_main_params)");

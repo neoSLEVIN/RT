@@ -35,26 +35,28 @@ static void	gtk_set_main_tab_name_type_widgets(t_main_tab *main_tab)
 	gtk_combo_box_set_active(GTK_COMBO_BOX(main_tab->type_combo), 0);
 }
 
+void		gtk_set_radius_spinner(t_spinner *spinner, const char *name,
+									cl_float value)
+{
+	spinner->label = gtk_label_new(name);
+	gtk_widget_set_margin_start(spinner->label, 5);
+	gtk_widget_set_margin_end(spinner->label, 5);
+	gtk_set_spin_button_for_radius(&spinner->spin, value);
+}
+
 static void	gtk_set_main_tab_params_widgets(t_main_tab *main_tab,
 											DTO_SHAPE *dto)
 {
 	main_tab->params_frame = gtk_frame_new("Params");
 	main_tab->v_params = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	main_tab->h_radius = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	main_tab->radius.label = gtk_label_new("Radius:");
-	gtk_widget_set_margin_start(main_tab->radius.label, 5);
-	gtk_widget_set_margin_end(main_tab->radius.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->radius.spin, dto->params.x);
+	gtk_set_radius_spinner(&main_tab->radius, "Radius:", dto->params.x);
 	main_tab->h_width = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	main_tab->width.label = gtk_label_new("Width:");
-	gtk_widget_set_margin_start(main_tab->width.label, 5);
-	gtk_widget_set_margin_end(main_tab->width.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->width.spin, dto->params.x);
+	gtk_set_radius_spinner(&main_tab->width, "Width:", dto->params.x);
 	main_tab->h_height = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-	main_tab->height.label = gtk_label_new("Height:");
-	gtk_widget_set_margin_start(main_tab->height.label, 5);
-	gtk_widget_set_margin_end(main_tab->height.label, 5);
-	gtk_set_spin_button_for_radius(&main_tab->height.spin, dto->params.y);
+	gtk_set_radius_spinner(&main_tab->height, "Height:", dto->params.y);
+	main_tab->h_depth = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	gtk_set_radius_spinner(&main_tab->depth, "Depth:", dto->params.z);
 	main_tab->h_angle = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 	main_tab->angle.label = gtk_label_new("Angle:");
 	gtk_widget_set_margin_start(main_tab->angle.label, 5);

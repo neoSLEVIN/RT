@@ -84,6 +84,8 @@ static void	gtk_set_shape_texture_main_signals(t_texture_tab *texture,
 		G_CALLBACK(spin_button_shape_width_changer), rt);
 	g_signal_connect(G_OBJECT(main_tab->height.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_height_changer), rt);
+	g_signal_connect(G_OBJECT(main_tab->depth.spin), "value-changed",
+		G_CALLBACK(spin_button_shape_depth_changer), rt);
 	g_signal_connect(G_OBJECT(main_tab->angle.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_angle_changer), rt);
 }
