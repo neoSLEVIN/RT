@@ -17,6 +17,12 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 		s_name_float_value_comma(s, "radius", params->x);
 	else if (type == CONE)
 		s_name_float_value_comma(s, "angle", rad_to_deg(params->x));
+	else if (type == CAPPEDCONE)
+	{
+		s_name_float_value_comma(s, "angle", rad_to_deg(params->x));
+		s_name_float_value_comma(s, "height", params->y);
+		s_name_float_value_comma(s, "shift", params->z);
+	}
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
 			 type == CAPSULE)
 	{

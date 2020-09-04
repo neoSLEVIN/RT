@@ -73,12 +73,18 @@ _Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
 	else if (type == CONE)
 		return (do_change_shape_angle(&params->x, diff));
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
-			 type == CAPSULE)
+			type == CAPSULE)
 	{
 		(do_change_shape_radius(&params->x, coeff)) ? do_change = TRUE : 0;
 		(do_change_shape_radius(&params->y, coeff)) ? do_change = TRUE : 0;
 		if (type == BOX)
 			(do_change_shape_radius(&params->z, coeff)) ? do_change = TRUE : 0;
+		return (do_change);
+	}
+	else if (type == CAPPEDCONE)
+	{
+		(do_change_shape_angle(&params->x, coeff)) ? do_change = TRUE : 0;
+		(do_change_shape_radius(&params->y, coeff)) ? do_change = TRUE : 0;
 		return (do_change);
 	}
 	else if (type == TRIANGLE)

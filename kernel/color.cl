@@ -38,10 +38,10 @@ float2 get_uv(t_object *obj, t_ray *ray, int splits) {
 		return box_map(obj, ray, splits);
 	} else if (obj->type == SPHERE) {
 		return sphere_map(obj, ray);
-	} else if (obj->type == CONE) {
+	} else if (obj->type == CONE || obj->type == CYLINDER || obj->type == CAPSULE) {
 		return cylindrical_map(obj, ray, splits);
-	} else if (obj->type == CYLINDER || obj->type == CAPPEDCYLINDER || obj->type == CAPSULE) {
-		return cylindrical_map(obj, ray, splits);
+	} else if (obj->type == CAPPEDCYLINDER || obj->type == CAPPEDCONE) {
+		return capped_cylindrical_map(obj, ray, splits);
 	}
 	/*по дефолту*/
 	return sphere_map(obj, ray);

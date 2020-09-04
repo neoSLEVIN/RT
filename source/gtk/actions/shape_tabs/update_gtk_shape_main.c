@@ -8,6 +8,7 @@ static void	do_invisible_params(t_main_tab *tab)
 	gtk_widget_set_visible(tab->h_height, FALSE);
 	gtk_widget_set_visible(tab->h_depth, FALSE);
 	gtk_widget_set_visible(tab->h_angle, FALSE);
+	gtk_widget_set_visible(tab->h_shift, FALSE);
 	//TODO new param for new shapes
 }
 
@@ -19,8 +20,12 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 		(void)type;
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 		gtk_widget_set_visible(tab->h_radius, TRUE);
-	else if (type == CONE)
+	else if (type == CONE || type == CAPPEDCONE)
+	{
 		gtk_widget_set_visible(tab->h_angle, TRUE);
+		(type == CAPPEDCONE) ? gtk_widget_set_visible(tab->h_height, TRUE) : 0;
+		(type == CAPPEDCONE) ? gtk_widget_set_visible(tab->h_shift, TRUE) : 0;
+	}
 	else if (type == CAPPEDCYLINDER || type == CAPSULE)
 	{
 		gtk_widget_set_visible(tab->h_radius, TRUE);
@@ -30,8 +35,7 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 	{
 		gtk_widget_set_visible(tab->h_width, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
-		if (type == BOX)
-			gtk_widget_set_visible(tab->h_depth, TRUE);
+		(type == BOX) ? gtk_widget_set_visible(tab->h_depth, TRUE) : 0;
 	}
 	else
 		ft_error("Unknown shape type (do_visible_params)");
@@ -42,26 +46,29 @@ static void	gtk_set_value_to_spin(t_spinner *spinner, cl_float value)
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(spinner->spin), value);
 }
 
-static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
+static void	update_gtk_shape_main_params(t_main_tab *tab, FLT3 params,
+										SHAPE_TYPE type)
 {
-	if (dto->type == PLANE || dto->type == TRIANGLE)
-		(void)dto;
-	else if (dto->type == SPHERE || dto->type == CYLINDER ||
-			dto->type == CIRCLE)
-		gtk_set_value_to_spin(&tab->radius, dto->params.x);
-	else if (dto->type == CONE)
-		gtk_set_value_to_spin(&tab->angle, rad_to_deg(dto->params.x));
-	else if (dto->type == CAPPEDCYLINDER || dto->type == CAPSULE)
+	if (type == PLANE || type == TRIANGLE)
+		(void)params;
+	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
+		gtk_set_value_to_spin(&tab->radius, params.x);
+	else if (type == CONE || type == CAPPEDCONE)
 	{
-		gtk_set_value_to_spin(&tab->radius, dto->params.x);
-		gtk_set_value_to_spin(&tab->height, dto->params.y);
+		gtk_set_value_to_spin(&tab->angle, rad_to_deg(params.x));
+		(type != CONE) ? gtk_set_value_to_spin(&tab->height, params.y) : 0;
+		(type != CONE) ? gtk_set_value_to_spin(&tab->shift, params.z) : 0;
 	}
-	else if (dto->type == CAPPEDPLANE || dto->type == BOX)
+	else if (type == CAPPEDCYLINDER || type == CAPSULE)
 	{
-		gtk_set_value_to_spin(&tab->width, dto->params.x);
-		gtk_set_value_to_spin(&tab->height, dto->params.y);
-		if (dto->type == BOX)
-			gtk_set_value_to_spin(&tab->depth, dto->params.z);
+		gtk_set_value_to_spin(&tab->radius, params.x);
+		gtk_set_value_to_spin(&tab->height, params.y);
+	}
+	else if (type == CAPPEDPLANE || type == BOX)
+	{
+		gtk_set_value_to_spin(&tab->width, params.x);
+		gtk_set_value_to_spin(&tab->height, params.y);
+		(type == BOX) ? gtk_set_value_to_spin(&tab->depth, params.z) : 0;
 	}
 	else
 		ft_error("Unknown shape type (update_gtk_shape_main_params)");
@@ -76,5 +83,5 @@ void		update_gtk_shape_main(t_main_tab tab, SHAPE *shape)
 	gtk_widget_grab_focus(tab.type_combo);
 	do_invisible_params(&tab);
 	do_visible_params(&tab, shape->dto->type);
-	update_gtk_shape_main_params(&tab, shape->dto);
+	update_gtk_shape_main_params(&tab, shape->dto->params, shape->dto->type);
 }

@@ -2,6 +2,19 @@
 
 /*Intersection*/
 
+float minTwithIndexes(float a, float b, int index_a, int index_b, int *result_index) {
+	if (a > 0 && b > 0) {
+		*result_index = (a < b) ? index_a : index_b;
+		return a < b ? a : b;
+	}
+	if (a > 0 && b < 0) {
+		*result_index = index_a;
+		return a;
+	}
+	*result_index = index_b;
+	return b;
+}
+
 float		sphere_intersect(t_ray *ray, t_object *sphere)
 {
 	float3		new_origin;
@@ -26,37 +39,6 @@ float		sphere_intersect(t_ray *ray, t_object *sphere)
 	return min_t;
 }
 
-float		semi_sphere_intersect(t_ray *ray, t_object *sphere, float3 cut_normal)
-{
-	float3		new_origin;
-	float		coef[3];
-	float		discriminant;
-	float2		t;
-
-	new_origin = ray->origin - sphere->transform.position;
-	coef[0] = dot(ray->dir, ray->dir);
-	coef[1] = 2.0 * dot(ray->dir, new_origin);
-	coef[2] = dot(new_origin, new_origin) - sphere->params.x * sphere->params.x;
-	discriminant = coef[1] * coef[1] - 4.0 * coef[0] * coef[2];
-	if (discriminant < 0.0f)
-		return (-1.0f);
-
-	t.x = (-coef[1] - sqrt(discriminant)) / (2.0 * coef[0]);
-	t.y = (-coef[1] + sqrt(discriminant)) / (2.0 * coef[0]);
-
-	float3	t_point[2];
-
-	t_point[0] = ray->origin + t.x * ray->dir;
-	t_point[1] = ray->origin + t.y * ray->dir;
-
-	t = cut_by_plane_section(t_point, sphere->transform.position, cut_normal, t);
-
-	float min_t = minT(t.x, t.y);
-	if (sphere->working_sections && min_t > MY_EPSILON && min_t < ray->t)
-		return compute_sections(ray, sphere->section, sphere->is_complex_section, t.x, t.y);
-	return min_t;
-}
-
 float	plane_intersect(t_ray *ray, t_object *plane)
 {
 	float3	temp;
@@ -70,6 +52,19 @@ float	plane_intersect(t_ray *ray, t_object *plane)
 
 	if (plane->working_sections && t > MY_EPSILON && t < ray->t)
 		return compute_sections(ray, plane->section, plane->is_complex_section, -1.0f, t);
+	return t;
+}
+
+float	circle_intersect(t_ray *ray, t_object *circle)
+{
+	float	t;
+	float3 hitPoint;
+
+	t = plane_intersect(ray, circle);
+	hitPoint = ray->origin + t * ray->dir;
+	if (length(circle->transform.position - hitPoint) > circle->params.x) {
+		return -1.0f;
+	}
 	return t;
 }
 
@@ -92,36 +87,6 @@ float		cylinder_intersect(t_ray *ray, t_object *cylinder)
 	float min_t = minT(t[0], t[1]);
 	if (cylinder->working_sections && min_t > MY_EPSILON && min_t < ray->t)
 		return compute_sections(ray, cylinder->section, cylinder->is_complex_section, t[0], t[1]);
-	return min_t;
-}
-
-float		semi_cylinder_intersect(t_ray *ray, t_object *cylinder, float length)
-{
-	float		abcd[4];
-	float2		t;
-	float3		x;
-
-	x = ray->origin - cylinder->transform.position;
-	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, cylinder->transform.direction), 2);
-	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, cylinder->transform.direction) * dot(x, cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, cylinder->transform.direction), 2) - cylinder->params.x * cylinder->params.x;
-	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
-	if (abcd[3] < 0)
-		return 0;
-	t.x = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
-	t.y = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-
-	float3	t_point[2];
-
-	t_point[0] = ray->origin + t.x * ray->dir;
-	t_point[1] = ray->origin + t.y * ray->dir;
-
-	t = cut_by_plane_section(t_point, cylinder->transform.position + cylinder->transform.direction * length / 2, cylinder->transform.direction, t);
-	t = cut_by_plane_section(t_point, cylinder->transform.position - cylinder->transform.direction * length / 2, -cylinder->transform.direction, t);
-
-	float min_t = minT(t.x, t.y);
-	if (cylinder->working_sections && min_t > MY_EPSILON && min_t < ray->t)
-		return compute_sections(ray, cylinder->section, cylinder->is_complex_section, t.x, t.y);
 	return min_t;
 }
 
@@ -202,19 +167,6 @@ float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
 	return min_t;
 }
 
-float minTwithIndexes(float a, float b, int index_a, int index_b, int *result_index) {
-	if (a > 0 && b > 0) {
-		*result_index = (a < b) ? index_a : index_b;
-		return a < b ? a : b;
-	}
-	if (a > 0 && b < 0) {
-		*result_index = index_a;
-		return a;
-	}
-	*result_index = index_b;
-	return b;
-}
-
 float capsule_intersect(t_ray *ray, t_object *capsule, int *index)
 {
 	t_object	obj = *capsule;
@@ -234,17 +186,26 @@ float capsule_intersect(t_ray *ray, t_object *capsule, int *index)
 	return res_t;
 }
 
-float	circle_intersect(t_ray *ray, t_object *circle)
+float capped_cone_intersect(t_ray *ray, t_object *capped_cone, int *index)
 {
-	float	t;
-	float3 hitPoint;
-	
-	t = plane_intersect(ray, circle);
-	hitPoint = ray->origin + t * ray->dir;
-	if (length(circle->transform.position - hitPoint) > circle->params.x) {
-		return -1.0f;
-	}
-	return t;
+	t_object	obj = *capped_cone;
+	float		t[3];
+
+	t[0] = semi_cone_intersect(ray, &obj, obj.params.y, obj.params.z);
+
+	obj.transform.position += obj.transform.direction * obj.params.y / 2;
+	obj.params.x = fabs(obj.params.z - obj.params.y / 2) * tan(capped_cone->params.x);
+	t[1] = circle_intersect(ray, &obj);
+
+	obj.transform.position -= obj.transform.direction * obj.params.y;
+	obj.params.x = fabs(obj.params.z + obj.params.y / 2) * tan(capped_cone->params.x);
+	obj.transform.direction = -obj.transform.direction;
+	t[2] = circle_intersect(ray, &obj);
+
+	float res_t = t[0];
+	res_t = minTwithIndexes(res_t, t[1], 0, 1, index);
+	res_t = minTwithIndexes(res_t, t[2], *index, 2, index);
+	return res_t;
 }
 
 /*У нас два базиса UV, на них проецируем hitpoint и сравниваем с длинной и шириной*/

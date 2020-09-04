@@ -100,6 +100,21 @@ float2 cylindrical_map(t_object *obj, t_ray *ray, int size) {
 	return uv;
 }
 
+float2 capped_cylindrical_map(t_object *obj, t_ray *ray, int size) {
+	if (ray->index == 0)
+		return cylindrical_map(obj, ray, size);
+
+	t_object plane = *obj;
+
+	if (ray->index == 1) {
+		plane.transform.position += plane.transform.direction * plane.params.y / 2;
+	} else {
+		plane.transform.position -= plane.transform.direction * plane.params.y / 2;
+		plane.transform.direction = -plane.transform.direction;
+	}
+	return plane_map(&plane, ray, size);
+}
+
 float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 	float3 u_basis;
 	float3 v_basis;

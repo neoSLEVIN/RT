@@ -444,7 +444,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_a_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_depth_changer.c)
+        source/gtk/callbacks/shape/spin_button_shape_depth_changer.c source/gtk/callbacks/shape/spin_button_shape_shift_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
@@ -499,6 +499,7 @@ foreach (CLKernelName
         "include"
         "normals"
         "sections"
+        "semi_intersections"
         "intersections"
         "intersections2"
         "light"

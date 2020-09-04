@@ -68,6 +68,17 @@ float3 cone_normal(t_object *hit_obj, t_ray *ray) {
 	return normal;
 }
 
+float3 capped_cone_normal(t_object *hit_obj, t_ray *ray) {
+	float3	plane_dir;
+	if (ray->index == 0)
+		return cone_normal(hit_obj, ray);
+	else if (ray->index == 1)
+		plane_dir = hit_obj->transform.direction;
+	else
+		plane_dir = -hit_obj->transform.direction;
+	return plane_normal(plane_dir, ray->dir);
+}
+
 int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float value)
 {
 	return (pow(length(capped_cylinder->transform.position - (ray->origin + value * ray->dir)), 2) > (pow((capped_cylinder->params.y / 2.0f), 2) + pow(capped_cylinder->params.x, 2)));
@@ -134,6 +145,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			break;
 		case CONE:
 			normal = cone_normal(hit_obj, ray);
+			break;
+		case CAPPEDCONE:
+			normal = capped_cone_normal(hit_obj, ray);
 			break;
 		case CAPSULE:
 			normal = capsule_normal(hit_obj, ray);

@@ -52,6 +52,8 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 		res = ft_strdup("CYLINDER");
 	else if (type == CONE)
 		res = ft_strdup("CONE");
+	else if (type == CAPPEDCONE)
+		res = ft_strdup("CAPPED CONE");
 	else if (type == CAPSULE)
 		res = ft_strdup("CAPSULE");
 	else if (type == CAPPEDCYLINDER)

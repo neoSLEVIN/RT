@@ -143,6 +143,8 @@ typedef struct		s_main_tab
 	t_spinner		depth;
 	GtkWidget		*h_angle;
 	t_spinner		angle;
+	GtkWidget		*h_shift;
+	t_spinner		shift;
 }					t_main_tab;
 
 /*
@@ -672,6 +674,8 @@ void				spin_button_shape_height_changer(GtkSpinButton *button,
 void				spin_button_shape_depth_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_angle_changer(GtkSpinButton *button,
+								gpointer data);
+void				spin_button_shape_shift_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_position_changer(GtkSpinButton *button,
 								gpointer data);
