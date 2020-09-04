@@ -29,10 +29,17 @@ void		parse_shape_param_by_type(const JC_FIELD shape_field,
 		parse_shape_param_0_1(shape_field, &params->x, "radius");
 	else if (type == CONE)
 		parse_shape_angle(shape_field, &params->x);
-	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
+	else if (type == CAPPEDCONE)
+	{
+		parse_shape_angle(shape_field, &params->x);
+		parse_shape_param_0_1(shape_field, &params->y, "height");
+		params->z = jc_get_float(shape_field, "shift");
+	}
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
+			 type == CAPSULE)
 	{
 		parse_shape_param_0_1(shape_field, &params->x,
-			(type == CAPPEDCYLINDER) ? "radius" : "width");
+			(type == CAPPEDCYLINDER || type == CAPSULE) ? "radius" : "width");
 		parse_shape_param_0_1(shape_field, &params->y, "height");
 		if (type == BOX)
 			parse_shape_param_0_1(shape_field, &params->z, "depth");

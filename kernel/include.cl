@@ -63,7 +63,9 @@ typedef enum			e_shape_type
 						PLANE,
 						SPHERE,
 						CONE,
+						CAPPEDCONE,
 						CYLINDER,
+						CAPSULE,
 						CAPPEDCYLINDER,
 						CIRCLE,
 						CAPPEDPLANE,
@@ -159,6 +161,8 @@ float2 sphere_map(t_object *obj, t_ray *ray);
 float2 plane_map(t_object *obj, t_ray *ray, int size);
 float2 box_map(t_object *obj, t_ray *ray, int size);
 float2 cylindrical_map(t_object *obj, t_ray *ray, int size);
+float2 capped_cylindrical_map(t_object *obj, t_ray *ray, int size);
+float2 capped_cone_map(t_object *obj, t_ray *ray, int size);
 float2 translate_plane_coord(float3 plane_norm, t_ray *ray);
 void 	set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis);
 /*main*/
@@ -177,7 +181,9 @@ float3 wood(t_object *obj, float2 uv, int size);
 float3 	sphere_normal(float3 hitpoint, float3 position);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
+float3 	capsule_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
+float3 	capped_cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
 float3	triangle_normal(t_object *hit_obj);
 float3	get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene);
