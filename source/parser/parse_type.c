@@ -46,6 +46,8 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CONE;
 	else if (ft_strequ(str_type, "CYLINDER"))
 		type = CYLINDER;
+	else if (ft_strequ(str_type, "CAPSULE"))
+		type = CAPSULE;
 	else if (ft_strequ(str_type, "CAPPED CYLINDER"))
 		type = CAPPEDCYLINDER;
 	else if (ft_strequ(str_type, "CIRCLE"))
@@ -59,8 +61,8 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"
-			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPPED CYLINDER, "
-			"CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
+			"Allowed types: [PLANE, SPHERE, CONE, CYLINDER, CAPSULE, "
+			"CAPPED CYLINDER, CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
 	ft_strdel(&str_type);
 	return (type);
 }

@@ -21,7 +21,7 @@ static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 	else if (type == CONE)
 		gtk_widget_set_visible(tab->h_angle, TRUE);
-	else if (type == CAPPEDCYLINDER)
+	else if (type == CAPPEDCYLINDER || type == CAPSULE)
 	{
 		gtk_widget_set_visible(tab->h_radius, TRUE);
 		gtk_widget_set_visible(tab->h_height, TRUE);
@@ -51,7 +51,7 @@ static void	update_gtk_shape_main_params(t_main_tab *tab, DTO_SHAPE *dto)
 		gtk_set_value_to_spin(&tab->radius, dto->params.x);
 	else if (dto->type == CONE)
 		gtk_set_value_to_spin(&tab->angle, rad_to_deg(dto->params.x));
-	else if (dto->type == CAPPEDCYLINDER)
+	else if (dto->type == CAPPEDCYLINDER || dto->type == CAPSULE)
 	{
 		gtk_set_value_to_spin(&tab->radius, dto->params.x);
 		gtk_set_value_to_spin(&tab->height, dto->params.y);

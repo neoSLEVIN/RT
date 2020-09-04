@@ -72,7 +72,8 @@ _Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
 		return (do_change_shape_radius(&params->x, coeff));
 	else if (type == CONE)
 		return (do_change_shape_angle(&params->x, diff));
-	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX)
+	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
+			 type == CAPSULE)
 	{
 		(do_change_shape_radius(&params->x, coeff)) ? do_change = TRUE : 0;
 		(do_change_shape_radius(&params->y, coeff)) ? do_change = TRUE : 0;

@@ -25,6 +25,14 @@ float3 box_normal(t_object *hit_obj, t_ray *ray) {
 	return plane_normal(plane_dir, ray->dir);
 }
 
+float3 capsule_normal(t_object *hit_obj, t_ray *ray) {
+	if (ray->index == 0)
+		return cyl_normal(hit_obj, ray);
+	else if (ray->index == 1)
+		return sphere_normal(ray->hitPoint, hit_obj->transform.position + hit_obj->transform.direction * hit_obj->params.y / 2);
+	return sphere_normal(ray->hitPoint, hit_obj->transform.position - hit_obj->transform.direction * hit_obj->params.y / 2);
+}
+
 float3 cyl_normal(t_object *hit_obj, t_ray *ray) {
 	float	m;
 	float3	x;
@@ -126,6 +134,9 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			break;
 		case CONE:
 			normal = cone_normal(hit_obj, ray);
+			break;
+		case CAPSULE:
+			normal = capsule_normal(hit_obj, ray);
 			break;
 		case CAPPEDCYLINDER:
 			normal = capped_cylinder_normal(hit_obj, ray);

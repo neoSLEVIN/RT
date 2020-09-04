@@ -6,6 +6,7 @@ static void	gtk_set_type_list(GtkComboBoxText *type_combo)
 	gtk_combo_box_text_append_text(type_combo, "SPHERE");
 	gtk_combo_box_text_append_text(type_combo, "CONE");
 	gtk_combo_box_text_append_text(type_combo, "CYLINDER");
+	gtk_combo_box_text_append_text(type_combo, "CAPSULE");
 	gtk_combo_box_text_append_text(type_combo, "CAPPED CYLINDER");
 	gtk_combo_box_text_append_text(type_combo, "CIRCLE");
 	gtk_combo_box_text_append_text(type_combo, "CAPPED PLANE");

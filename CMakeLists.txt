@@ -500,6 +500,7 @@ foreach (CLKernelName
         "normals"
         "sections"
         "intersections"
+        "intersections2"
         "light"
         "random"
         "reflect"

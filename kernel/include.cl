@@ -64,6 +64,7 @@ typedef enum			e_shape_type
 						SPHERE,
 						CONE,
 						CYLINDER,
+						CAPSULE,
 						CAPPEDCYLINDER,
 						CIRCLE,
 						CAPPEDPLANE,
@@ -177,6 +178,7 @@ float3 wood(t_object *obj, float2 uv, int size);
 float3 	sphere_normal(float3 hitpoint, float3 position);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
 float3 	cyl_normal(t_object *hit_obj, t_ray *ray);
+float3 	capsule_normal(t_object *hit_obj, t_ray *ray);
 float3 	cone_normal(t_object *hit_obj, t_ray *ray);
 float3	capped_cylinder_normal(t_object *hit_obj, t_ray *ray);
 float3	triangle_normal(t_object *hit_obj);
