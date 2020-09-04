@@ -86,15 +86,14 @@ int	is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float valu
 
 float3 capped_cylinder_normal(t_object *capped_cylinder, t_ray *ray)
 {
-	/*Скалярное произведение вектора (из двух точек на крышке и в центре крышки) и dir равно 0. Однако с флотами есть погрешность*/
-	float3 centerTop = capped_cylinder->transform.position + capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
-	float3 centerBottom = capped_cylinder->transform.position - capped_cylinder->transform.direction * (capped_cylinder->params.y / 2.0f);
-	if (fabs(dot(centerTop - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
-		return plane_normal(capped_cylinder->transform.direction, ray->dir);
-	} else if (fabs(dot(centerBottom - ray->hitPoint, capped_cylinder->transform.direction)) < 0.01f) {
-		return plane_normal(capped_cylinder->transform.direction, ray->dir);
-	}
-	return cyl_normal(capped_cylinder, ray);
+	float3	plane_dir;
+	if (ray->index == 0)
+		return cyl_normal(capped_cylinder, ray);
+	else if (ray->index == 1)
+		plane_dir = capped_cylinder->transform.direction;
+	else
+		plane_dir = -capped_cylinder->transform.direction;
+	return plane_normal(plane_dir, ray->dir);
 }
 
 float3 triangle_normal(t_object *hit_obj)

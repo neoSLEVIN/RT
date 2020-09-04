@@ -114,57 +114,24 @@ float	cone_intersect(t_ray *ray, t_object *cone)
 	return min_t;
 }
 
-float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder)
+float capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder, int *index)
 {
-	float		abcd[4];
-	float		t[4] = {-1.0f, -1.0f, -1.0f, -1.0f};
-	float3		x;
-	float		d_dot_n;
+	t_object	obj = *capped_cylinder;
+	float		t[3];
 
-	x = ray->origin - capped_cylinder->transform.position;
-	abcd[0] = dot(ray->dir, ray->dir) - pow(dot(ray->dir, capped_cylinder->transform.direction), 2);
-	abcd[1] = 2 * (dot(ray->dir, x) - (dot(ray->dir, capped_cylinder->transform.direction) * dot(x, capped_cylinder->transform.direction)));
-	abcd[2] = dot(x, x) - pow(dot(x, capped_cylinder->transform.direction), 2) - capped_cylinder->params.x * capped_cylinder->params.x;
-	abcd[3] = pow(abcd[1], 2) - 4 * abcd[0] * abcd[2];
-	if (abcd[3] >= 0) {
-		t[0] = (-abcd[1] + sqrt(abcd[3])) / (2 * abcd[0]);
-		t[1] = (-abcd[1] - sqrt(abcd[3])) / (2 * abcd[0]);
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[0]))
-			t[0] = -1.0f;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[1]))
-			t[1] = -1.0f;
-	}
+	t[0] = semi_cylinder_intersect(ray, &obj, obj.params.y);
 
-	x = capped_cylinder->transform.position + capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, capped_cylinder->transform.direction)) != 0.0f) {
-		t[2] = dot(x, capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[2]))
-			t[2] = -1.0f;
-	}
+	obj.transform.position += obj.transform.direction * obj.params.y / 2;
+	t[1] = circle_intersect(ray, &obj);
 
-	x = capped_cylinder->transform.position - capped_cylinder->transform.direction * capped_cylinder->params.y / 2.0f - ray->origin;
-	if ((d_dot_n = dot(ray->dir, -capped_cylinder->transform.direction)) != 0.0f) {
-		t[3] = dot(x, -capped_cylinder->transform.direction) / d_dot_n;
-		if (is_outside_capped_cylinder(ray, capped_cylinder, t[3]))
-			t[3] = -1.0f;
-	}
+	obj.transform.position -= obj.transform.direction * obj.params.y;
+	obj.transform.direction = -obj.transform.direction;
+	t[2] = circle_intersect(ray, &obj);
 
-	float min_t;
-	if (minT(t[0], t[1]) <= 0.0f)
-		min_t = minT(t[2], t[3]);
-	else
-		min_t = minT(minT(t[0], t[1]), minT(t[2], t[3]));
-	if (capped_cylinder->working_sections && min_t > MY_EPSILON && min_t < ray->t)
-	{
-		if (minT(t[0], t[1]) <= 0.0f) {
-			return compute_sections(ray, capped_cylinder->section, capped_cylinder->is_complex_section, t[2], t[3]);
-		} else if (minT(t[2], t[3]) <= 0.0f) {
-			return compute_sections(ray, capped_cylinder->section, capped_cylinder->is_complex_section, t[0], t[1]);
-		} else {
-			return compute_sections(ray, capped_cylinder->section, capped_cylinder->is_complex_section, minT(t[0], t[1]), minT(t[2], t[3]));
-		}
-	}
-	return min_t;
+	float res_t = t[0];
+	res_t = minTwithIndexes(res_t, t[1], 0, 1, index);
+	res_t = minTwithIndexes(res_t, t[2], *index, 2, index);
+	return res_t;
 }
 
 float capsule_intersect(t_ray *ray, t_object *capsule, int *index)

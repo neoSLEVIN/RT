@@ -91,7 +91,7 @@ bool is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skiped)
 		else if (selected_obj.type == CAPPEDCONE)
 			t = capped_cone_intersect(ray, &selected_obj, &part_index);
 		else if (selected_obj.type == CAPPEDCYLINDER)
-			t = capped_cylinder_intersect(ray, &selected_obj);
+			t = capped_cylinder_intersect(ray, &selected_obj, &part_index);
 		else if (selected_obj.type == CIRCLE)
 			t = circle_intersect(ray, &selected_obj);
 		else if (selected_obj.type == CAPPEDPLANE)

@@ -193,7 +193,7 @@ float	sphere_intersect(t_ray *ray, t_object *sphere);
 float	plane_intersect(t_ray *ray, t_object *plane);
 float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
-float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
+float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder, int *index);
 float	triangle_intersect(t_ray *ray, t_object *triangle);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
