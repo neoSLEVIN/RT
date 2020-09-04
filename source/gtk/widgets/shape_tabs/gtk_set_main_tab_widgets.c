@@ -5,7 +5,9 @@ static void	gtk_set_type_list(GtkComboBoxText *type_combo)
 	gtk_combo_box_text_append_text(type_combo, "PLANE");
 	gtk_combo_box_text_append_text(type_combo, "SPHERE");
 	gtk_combo_box_text_append_text(type_combo, "CONE");
+	gtk_combo_box_text_append_text(type_combo, "CAPPED CONE");
 	gtk_combo_box_text_append_text(type_combo, "CYLINDER");
+	gtk_combo_box_text_append_text(type_combo, "CAPSULE");
 	gtk_combo_box_text_append_text(type_combo, "CAPPED CYLINDER");
 	gtk_combo_box_text_append_text(type_combo, "CIRCLE");
 	gtk_combo_box_text_append_text(type_combo, "CAPPED PLANE");
@@ -63,6 +65,11 @@ static void	gtk_set_main_tab_params_widgets(t_main_tab *main_tab,
 	gtk_widget_set_margin_end(main_tab->angle.label, 5);
 	gtk_set_spin_button_for_angle(&main_tab->angle.spin,
 								rad_to_deg(dto->params.x));
+	main_tab->h_shift = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	main_tab->shift.label = gtk_label_new("Shift:");
+	gtk_widget_set_margin_start(main_tab->shift.label, 5);
+	gtk_widget_set_margin_end(main_tab->shift.label, 5);
+	gtk_set_spin_button_for_float(&main_tab->shift.spin, dto->params.z);
 }
 
 void		gtk_set_main_tab_widgets(t_main_tab *main_tab, DTO_SHAPE *dto)

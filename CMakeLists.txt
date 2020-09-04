@@ -3,8 +3,9 @@ project(RT C)
 
 set(CMAKE_C_STANDARD 99)
 
-#магия эпл. Почему надо вызвать FIND_PACKAGE два раза мне не понятно
-#особенность которую я откапал на stackoverflow - link_directories надо вызвать перед add_executable
+# магия эпл. Почему надо вызвать FIND_PACKAGE два раза мне не понятно
+# особенность которую я откапал на stackoverflow:
+#     link_directories надо вызвать перед add_executable
 if (APPLE)
     FIND_PACKAGE(PkgConfig REQUIRED)
     PKG_CHECK_MODULES(GTK3 REQUIRED gtk+-3.0)
@@ -444,7 +445,8 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_a_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_depth_changer.c)
+        source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
@@ -499,7 +501,9 @@ foreach (CLKernelName
         "include"
         "normals"
         "sections"
+        "semi_intersections"
         "intersections"
+        "intersections2"
         "light"
         "random"
         "reflect"

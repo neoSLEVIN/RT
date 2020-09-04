@@ -100,6 +100,38 @@ float2 cylindrical_map(t_object *obj, t_ray *ray, int size) {
 	return uv;
 }
 
+float2 capped_cone_map(t_object *obj, t_ray *ray, int size) {
+	if (ray->index == 0)
+		return cylindrical_map(obj, ray, size);
+
+	t_object plane = *obj;
+
+	if (ray->index == 1) {
+		plane.transform.position += plane.transform.direction * plane.params.y / 2;
+	} else {
+		plane.transform.position -= plane.transform.direction * plane.params.y / 2;
+		plane.transform.direction = -plane.transform.direction;
+	}
+	return plane_map(&plane, ray, size);
+}
+
+float2 capped_cylindrical_map(t_object *obj, t_ray *ray, int size) {
+	t_object plane = *obj;
+
+	/*Скалярное произведение вектора (из двух точек на крышке и в центре крышки) и dir равно 0. Однако с флотами есть погрешность*/
+	float3 centerTop = obj->transform.position + obj->transform.direction * (obj->params.y / 2.0f);
+	float3 centerBottom = obj->transform.position - obj->transform.direction * (obj->params.y / 2.0f);
+	if (fabs(dot(centerTop - ray->hitPoint, obj->transform.direction)) < 0.01f) {
+		plane.transform.position += plane.transform.direction * plane.params.y / 2;
+		return plane_map(&plane, ray, size);
+	} else if (fabs(dot(centerBottom - ray->hitPoint, obj->transform.direction)) < 0.01f) {
+		plane.transform.position -= plane.transform.direction * plane.params.y / 2;
+		plane.transform.direction = -plane.transform.direction;
+		return plane_map(&plane, ray, size);
+	}
+	return cylindrical_map(obj, ray, size);
+}
+
 float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 	float3 u_basis;
 	float3 v_basis;

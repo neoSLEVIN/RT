@@ -52,9 +52,9 @@ float2	cut_by_plane_section(float3 *t_point,
 	    то точка фигуры, в которую направлен вектор section_to_t[i],
 	    отсекается данным сечением, поэтому этой точке ставим значение t = -1,
 	    что равноценно тому, что мы её не видим */
-	if (dot(section_to_t[0], section_dir) >= 0.01)
+	if (dot(section_to_t[0], section_dir) >= 0.01f)
 		new_t.x = -1.0f;
-	if (dot(section_to_t[1], section_dir) >= 0.01)
+	if (dot(section_to_t[1], section_dir) >= 0.01f)
 		new_t.y = -1.0f;
 	return new_t;
 }
