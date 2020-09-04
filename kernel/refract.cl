@@ -5,9 +5,7 @@ float3 go_refract(t_ray ray, t_scene *scene) {
 	float3 finalColor = 0;
 	
 	finalColor = continue_refract_ray(&ray, scene);
-	if (ray.hit_id < 0)
-	{
-/*		printf("%d ", ray.hit_id);*/
+	if (ray.hit_id < 0) {
 		return finalColor;
 	}
 	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {

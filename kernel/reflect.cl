@@ -34,12 +34,27 @@ float3 go_reflect(t_ray ray, t_scene *scene) {
 	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {
 		return finalColor;
 	}
-	 
-	/*объект отражает*/
-	float ref = scene->objects[ray.hit_id].material.reflective;
-	if (ref > 0) {
-		finalColor = finalColor * (1.0f - ref) + reflect_ray(ray, scene) * ref;
+
+	int i = -1;
+	t_ray temp = ray;
+	while (++i < 5 && temp.hit_id >= 0)
+	{
+		t_ray temp2 = temp;
+		/*объект отражает*/
+		float ref = scene->objects[temp.hit_id].material.reflective;
+		float trans = scene->objects[temp.hit_id].material.transparency;
+		if (ref > 0) {
+			finalColor = finalColor * (1.0f - ref) + continue_reflect_ray(&temp, scene) * ref;
+			if (trans > 0) {
+				finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&temp2, scene) * trans;
+			}
+		} else if (trans > 0) {
+			finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&temp2, scene) * trans;
+		} else {
+			break ;
+		}
 	}
+
 	 
 	/*объект обладает прозрачностью*/
 	float trans = scene->objects[ray.hit_id].material.transparency;

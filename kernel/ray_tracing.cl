@@ -9,11 +9,19 @@ float3 compute_color(t_scene *scene, t_ray *ray) {
 		trans = scene->objects[ray->hit_id].material.transparency;
 
 		if (ref == 0 && trans == 0)
-			return tmpColor;;
-		if (ref > 0)
+			return tmpColor;
+/*		if (ref > 0)
 			finalColor = tmpColor * (1.0f - ref) + go_reflect(*ray, scene) * ref;
 		if (trans > 0)
-			finalColor = tmpColor * (1.0f - trans) + go_refract(*ray, scene) * trans;
+			finalColor = tmpColor * (1.0f - trans) + go_refract(*ray, scene) * trans;*/
+		float3 reflect_color = 0;
+		float3 refract_color = 0;
+		if (ref > 0)
+			reflect_color = go_reflect(*ray, scene);
+		if (trans > 0)
+			refract_color = go_refract(*ray, scene);
+		finalColor = tmpColor * (1.0f - ref) + reflect_color * ref;
+		finalColor = finalColor * (1.0f - trans) + refract_color * trans;
 	}
 	return finalColor;
 }
