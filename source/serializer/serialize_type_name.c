@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_shape_type_name.c                              :+:      :+:    :+:   */
+/*   serialize_type_name.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 05:56:55 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/29 05:56:55 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/09/05 22:32:34 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "gtk_module.h"
 
-char	*get_filter_type_name(FILTER filter)
+char		*get_filter_type_name(FILTER filter)
 {
 	char	*name;
 
@@ -40,7 +40,23 @@ char	*get_filter_type_name(FILTER filter)
 	return (name);
 }
 
-char	*get_shape_type_name(SHAPE_TYPE type)
+static char	*get_shape_type_name_norminette(SHAPE_TYPE type)
+{
+	char	*res;
+
+	res = NULL;
+	if (type == CAPPEDPLANE)
+		res = ft_strdup("CAPPED PLANE");
+	else if (type == BOX)
+		res = ft_strdup("BOX");
+	else if (type == TRIANGLE)
+		res = ft_strdup("TRIANGLE");
+	else
+		ft_error("Unknown shape type (get_shape_type_name)");
+	return (res);
+}
+
+char		*get_shape_type_name(SHAPE_TYPE type)
 {
 	char	*res;
 
@@ -60,23 +76,18 @@ char	*get_shape_type_name(SHAPE_TYPE type)
 		res = ft_strdup("CAPPED CYLINDER");
 	else if (type == CIRCLE)
 		res = ft_strdup("CIRCLE");
-	else if (type == CAPPEDPLANE)
-		res = ft_strdup("CAPPED PLANE");
-	else if (type == BOX)
-		res = ft_strdup("BOX");
-	else if (type == TRIANGLE)
-		res = ft_strdup("TRIANGLE");
 	else
-		ft_error("Unknown shape type (get_shape_type_name)");
+		res = get_shape_type_name_norminette(type);
 	if (res == NULL)
 		ft_error("Can't allocate memory");
 	return (res);
 }
 
-char	*get_light_type_name(LIGHT_TYPE type)
+char		*get_light_type_name(LIGHT_TYPE type)
 {
 	char	*res;
 
+	res = NULL;
 	if (type == AMBIENT)
 		res = ft_strdup("AMBIENT");
 	else if (type == POINT)

@@ -6,7 +6,7 @@
     "camera": {
       "position": [-18.387, 10.298, -9.966],
       "direction": [0.639, -0.351, 0.684],
-      "rotation": -0.952,
+      "rotation": -0.834,
       "display": [1440, 960],
       "fov": 25,
       "fps": 25
@@ -80,13 +80,13 @@
           "direction": [0.293, 0.918, 0.267]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "B5F484",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
         },
         "texture": {
-          "name": "NO TEXTURES"
+          "name": "marble"
         },
         "normal map": {
           "name": "NO NORMALS"
@@ -98,7 +98,7 @@
               "on": false,
               "type": "PLANE",
               "position": [-1.271, -4.710, 6.770],
-              "direction": [0.280, 0.960, 0.010]
+              "direction": [0.000, 1.000, 0.000]
             }
           ]
         }
@@ -137,7 +137,7 @@
       },
       {
         "type": "SPHERE",
-        "name": "Shape_3",
+        "name": "Unnamed_4",
         "radius": 1.405,
         "transform": {
           "position": [-3.126, -2.992, 13.005],
@@ -203,7 +203,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/marble.ppm"
       }
     ],
     "normal maps": [

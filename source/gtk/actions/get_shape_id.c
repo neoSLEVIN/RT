@@ -6,7 +6,7 @@
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/16 07:46:49 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/24 14:57:23 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/09/05 23:22:01 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	get_shape_id(t_rt *rt)
 {
-	int		i;
-	SHAPE	*temp;
+	struct s_shape	*temp;
+	int				i;
 
 	if (rt->info->shape_id == -1)
 		return (clear_shape_marker(rt));

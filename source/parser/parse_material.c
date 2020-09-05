@@ -12,14 +12,14 @@
 
 #include "parser.h"
 
-_Bool from_zero_till_one(float value)
+static _Bool	from_zero_till_one(float value)
 {
 	if (value >= 0 && value <= 1)
 		return (TRUE);
 	return (FALSE);
 }
 
-void validate_material(MATERIAL	material, JC_FIELD	material_field)
+static void		validate_material(MATERIAL material, JC_FIELD material_field)
 {
 	if (!(from_zero_till_one(material.specular)))
 	{
@@ -38,7 +38,7 @@ void validate_material(MATERIAL	material, JC_FIELD	material_field)
 	}
 }
 
-MATERIAL	parse_material(const JC_FIELD parent, const char *child_name)
+MATERIAL		parse_material(const JC_FIELD parent, const char *child_name)
 {
 	JC_FIELD	material_field;
 	MATERIAL	material;
@@ -59,6 +59,6 @@ MATERIAL	parse_material(const JC_FIELD parent, const char *child_name)
 		jc_get_float_or_default(material_field, "reflective", 0.0f);
 	material.transparency =
 		jc_get_float_or_default(material_field, "transparency", 0.0f);
-	validate_material(material,material_field);
+	validate_material(material, material_field);
 	return (material);
 }

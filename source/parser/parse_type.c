@@ -12,7 +12,8 @@
 
 #include "parser.h"
 
-LIGHT_TYPE	parse_light_type(const JC_FIELD parent, const char *child_name)
+LIGHT_TYPE			parse_light_type(const JC_FIELD parent,
+									const char *child_name)
 {
 	char		*str_type;
 	LIGHT_TYPE	type;
@@ -32,7 +33,31 @@ LIGHT_TYPE	parse_light_type(const JC_FIELD parent, const char *child_name)
 	return (type);
 }
 
-SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
+static SHAPE_TYPE	parse_shape_type_norminette(const JC_FIELD parent,
+								const char *child_name, const char *str_type)
+{
+	SHAPE_TYPE	type;
+
+	if (ft_strequ(str_type, "CAPPED CYLINDER"))
+		type = CAPPEDCYLINDER;
+	else if (ft_strequ(str_type, "CIRCLE"))
+		type = CIRCLE;
+	else if (ft_strequ(str_type, "CAPPED PLANE"))
+		type = CAPPEDPLANE;
+	else if (ft_strequ(str_type, "BOX"))
+		type = BOX;
+	else if (ft_strequ(str_type, "TRIANGLE"))
+		type = TRIANGLE;
+	else
+		parse_error(jc_full_name(parent), child_name,
+			"Incorrect type of shape.\n\t"
+			"Allowed types: [PLANE, SPHERE, CONE, CAPPED CONE, CYLINDER, "
+			"CAPSULE, CAPPED CYLINDER, CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
+	return (type);
+}
+
+SHAPE_TYPE			parse_shape_type(const JC_FIELD parent,
+									const char *child_name)
 {
 	char		*str_type;
 	SHAPE_TYPE	type;
@@ -50,26 +75,14 @@ SHAPE_TYPE	parse_shape_type(const JC_FIELD parent, const char *child_name)
 		type = CYLINDER;
 	else if (ft_strequ(str_type, "CAPSULE"))
 		type = CAPSULE;
-	else if (ft_strequ(str_type, "CAPPED CYLINDER"))
-		type = CAPPEDCYLINDER;
-	else if (ft_strequ(str_type, "CIRCLE"))
-		type = CIRCLE;
-	else if (ft_strequ(str_type, "CAPPED PLANE"))
-		type = CAPPEDPLANE;
-	else if (ft_strequ(str_type, "BOX"))
-		type = BOX;
-	else if (ft_strequ(str_type, "TRIANGLE"))
-		type = TRIANGLE;
 	else
-		parse_error(jc_full_name(parent), child_name,
-			"Incorrect type of shape.\n\t"
-			"Allowed types: [PLANE, SPHERE, CONE, CAPPED CONE, CYLINDER, "
-			"CAPSULE, CAPPED CYLINDER, CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
+		type = parse_shape_type_norminette(parent, child_name, str_type);
 	ft_strdel(&str_type);
 	return (type);
 }
 
-SHAPE_TYPE	parse_section_type(const JC_FIELD parent, const char *child_name)
+SHAPE_TYPE			parse_section_type(const JC_FIELD parent,
+									const char *child_name)
 {
 	char		*str_type;
 	SHAPE_TYPE	type;

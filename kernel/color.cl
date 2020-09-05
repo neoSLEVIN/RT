@@ -56,7 +56,6 @@ float2 get_uv(t_object *obj, t_ray *ray, int splits) {
  по идее это должно задаваться для каждого объекта
  */
 float3 get_obj_color(t_object *obj, t_ray *ray, t_scene *scene) {
-	float3 color;
 
 	if (obj->texture.id == -1) {
 		

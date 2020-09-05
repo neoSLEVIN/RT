@@ -20,7 +20,7 @@ static void	set_focus_on_marked_shape(t_gtk_shapes *shapes,
 	if (!(path = gtk_tree_model_get_path(shapes->model, shape_iter)))
 		ft_error("Can't allocate memory");
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(shapes->tree),
-			path, NULL, FALSE, 0,0);
+			path, NULL, FALSE, 0, 0);
 	gtk_tree_path_free(path);
 }
 
