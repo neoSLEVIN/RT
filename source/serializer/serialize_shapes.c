@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   serialize_shapes.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:32:25 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:32:25 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "serializer.h"
 
 static void	s_name_float_value_comma(t_serializer *s, const char *name,
@@ -24,7 +36,7 @@ static void	s_shape_params_with_comma(t_serializer *s, SHAPE_TYPE type,
 		s_name_float_value_comma(s, "shift", params->z);
 	}
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
-			 type == CAPSULE)
+			type == CAPSULE)
 	{
 		s_name_float_value_comma(s,
 			(type == CAPPEDCYLINDER || type == CAPSULE) ? "radius" : "width",

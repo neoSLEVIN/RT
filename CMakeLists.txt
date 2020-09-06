@@ -12,7 +12,7 @@ if (APPLE)
     INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
     LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
     #в PROJ_DIR будет храниться путь до проекта
-    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
+    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)/")
 endif()
 
 # ==============================================================================
@@ -446,7 +446,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
         source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c)
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

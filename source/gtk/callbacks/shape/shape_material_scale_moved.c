@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shape_material_scale_moved.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:23:56 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:23:56 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 void	shape_material_scale_moved(GtkRange *range, gpointer data)
 {
-	t_rt			*rt;
-	MATERIAL		*material;
-	t_material_tab	*material_tab;
+	t_rt				*rt;
+	struct s_material	*material;
+	t_material_tab		*material_tab;
 
 	(void)range;
 	rt = (t_rt*)data;

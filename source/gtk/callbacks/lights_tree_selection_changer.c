@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lights_tree_selection_changer.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:25:38 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:25:38 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 void	lights_tree_selection_changer(GtkTreeSelection *selection,
 										gpointer data)
 {
-	t_rt		*rt;
-	GtkTreeIter	iter;
-	LIGHT		*light;
+	t_rt			*rt;
+	GtkTreeIter		iter;
+	struct s_light	*light;
 
 	rt = (t_rt*)data;
 	if (gtk_tree_selection_get_selected(selection, &rt->gtk->ui.lights.model,

@@ -21,11 +21,6 @@
 #  include <stdint.h>
 # endif
 
-# if defined (__linux__) || defined (__linux) || defined (linux)
-#  define intmax_t __intmax_t
-#  define uintmax_t __uintmax_t
-# endif
-
 # define FT_NUM_LENGTH 15000
 
 # define FT_EOC 0

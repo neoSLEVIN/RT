@@ -16,6 +16,8 @@ float get_light_intensity(t_ray *ray, t_scene *scene) {
 			case DIRECTION:
 				totalLight += get_dir_light(&light, ray, scene);
 				break;
+			case CNT_OF_TYPES_L:
+				break;
 		}
 	}
 	if (totalLight >= 1.0f)

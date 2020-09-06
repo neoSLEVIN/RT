@@ -104,7 +104,7 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 	return (texture);
 }
 
-PPM_IMG	*parse_textures(const JC_FIELD parent, const char *child_name)
+PPM_IMG		*parse_textures(const JC_FIELD parent, const char *child_name)
 {
 	JC_FIELD	textures_field;
 	PPM_IMG		*textures;

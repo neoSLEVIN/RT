@@ -15,10 +15,10 @@
 void	shapes_tree_selection_changer(GtkTreeSelection *selection,
 									gpointer data)
 {
-	t_rt		*rt;
-	GtkTreeIter	iter;
-	gboolean	marker;
-	SHAPE		*shape;
+	t_rt			*rt;
+	GtkTreeIter		iter;
+	gboolean		marker;
+	struct s_shape	*shape;
 
 	rt = (t_rt*)data;
 	if (gtk_tree_selection_get_selected(selection, &rt->gtk->ui.shapes.model,

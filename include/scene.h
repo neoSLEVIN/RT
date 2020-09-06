@@ -17,6 +17,7 @@
 
 # define MIN_WIDTH 100
 # define MIN_HEIGHT 100
+
 /*
 ** =============================================================================
 ** ============================= IMAGE resolution ==============================
@@ -58,6 +59,7 @@
 ** ================================ Light types ================================
 */
 # define LIGHT_TYPE enum e_light_type
+
 enum			e_light_type
 {
 	AMBIENT,
@@ -65,10 +67,12 @@ enum			e_light_type
 	DIRECTION,
 	CNT_OF_TYPES_L
 };
+
 /*
 ** ===== Light Data Transfer Object (Set as an element of kernel argument) =====
 */
 # define DTO_LIGHT struct s_dto_light
+
 struct			s_dto_light
 {
 	LIGHT_TYPE	type;
@@ -76,10 +80,12 @@ struct			s_dto_light
 	FLT3		position;
 	FLT3		direction;
 };
+
 /*
 ** === Light Node (Contains DTO, references to next/prev nodes and widgets) ====
 */
 # define LIGHT struct s_light
+
 struct			s_light
 {
 	DTO_LIGHT	*dto;
@@ -99,6 +105,7 @@ struct			s_light
 ** ================================ Shape types ================================
 */
 # define SHAPE_TYPE enum e_shape_type
+
 enum			e_shape_type
 {
 	NONE,
@@ -114,10 +121,12 @@ enum			e_shape_type
 	BOX,
 	TRIANGLE
 };
+
 /*
 ** =============================== Location info ===============================
 */
 # define TRANSFORM struct s_transform
+
 struct			s_transform
 {
 	FLT3		position;
@@ -126,10 +135,12 @@ struct			s_transform
 	cl_float	angle;
 	FLT3		dots[3];
 };
+
 /*
 ** ============================== Properties info ==============================
 */
 # define MATERIAL struct s_material
+
 struct			s_material
 {
 	FLT3		color;
@@ -138,20 +149,24 @@ struct			s_material
 	cl_float	reflective;
 	cl_float	transparency;
 };
+
 /*
 ** =============================== Texture info ================================
 */
 # define TEXTURE struct s_texture
+
 struct			s_texture
 {
 	int			id;
 	FLT3		direction;
 	cl_float	rotation;
 };
+
 /*
 ** ============================= Cut section info ==============================
 */
 # define SECTION struct s_section
+
 struct			s_section
 {
 	_Bool		on;
@@ -166,6 +181,7 @@ struct			s_section
 ** ===== Shape Data Transfer Object (Set as an element of kernel argument) =====
 */
 # define DTO_SHAPE struct s_dto_shape
+
 struct			s_dto_shape
 {
 	SHAPE_TYPE	type;
@@ -179,10 +195,12 @@ struct			s_dto_shape
 	FLT3		params;
 	_Bool		marker;
 };
+
 /*
 ** ==== Shape Node (Contains DTO, references to next/prev nodes and widget) ====
 */
 # define SHAPE struct s_shape
+
 struct			s_shape
 {
 	DTO_SHAPE	*dto;
@@ -204,6 +222,7 @@ struct			s_shape
 ** ========== Camera Data Transfer Object (Set as a kernel argument) ===========
 */
 # define DTO_CAM struct s_dto_cam
+
 struct			s_dto_cam
 {
 	int			screen_w;
@@ -219,10 +238,12 @@ struct			s_dto_cam
 	FLT3		right;
 	FLT3		upguide;
 };
+
 /*
 ** =================== Info about parsed camera data and DTO ===================
 */
 # define CAMERA struct s_camera
+
 struct			s_camera
 {
 	DTO_CAM		*dto;
@@ -242,10 +263,12 @@ struct			s_camera
 # define MAX_DIMENSION 1440
 # define MIN_DIMENSION 100
 # define MAX_PPM_IMG_SIZE 1440 * 1440 * 3
+
 /*
 ** === PPM image Data Transfer Object (Set as an element of kernel argument) ===
 */
 # define DTO_PPM_IMG struct s_dto_ppm_img
+
 struct			s_dto_ppm_img
 {
 	char		data[MAX_PPM_IMG_SIZE];
@@ -254,10 +277,12 @@ struct			s_dto_ppm_img
 	int			max_color;
 	int			start_image;
 };
+
 /*
 ** == PPM image Node (Contains DTO, name, path, references to next/prev nodes) =
 */
 # define PPM_IMG struct s_ppm_img
+
 struct			s_ppm_img
 {
 	DTO_PPM_IMG	*dto;
@@ -273,6 +298,7 @@ struct			s_ppm_img
 ** =============================================================================
 */
 # define FILTER enum e_filters
+
 enum			e_filters
 {
 	NO_FILTER,
@@ -292,6 +318,7 @@ enum			e_filters
 ** =============================================================================
 */
 # define SCENE struct s_scene
+
 struct			s_scene
 {
 	CAMERA		cam;

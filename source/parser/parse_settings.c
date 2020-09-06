@@ -57,7 +57,7 @@ static void	default_settings(SCENE *scene)
 	scene->filter_params = (FLT3){5.0f, 30.0f, 50.0f};
 }
 
-void 		parse_settings(JC_FIELD json_field, SCENE *scene)
+void		parse_settings(JC_FIELD json_field, SCENE *scene)
 {
 	JC_FIELD	settings_field;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gtk_set_light_widgets.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:29:32 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:29:32 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static void	gtk_set_light_type_list(GtkComboBoxText *type_combo)
@@ -61,7 +73,7 @@ static void	gtk_set_light_params_widgets(t_gtk_light *gtk_light, DTO_LIGHT *dto)
 
 void		gtk_set_light_widgets(t_gtk_light **gtk_light, SCENE *scene)
 {
-	LIGHT	*scene_light;
+	struct s_light	*scene_light;
 
 	scene_light = scene->lights;
 	if ((*gtk_light = (t_gtk_light*)malloc(sizeof(t_gtk_light))) == NULL)

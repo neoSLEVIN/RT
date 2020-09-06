@@ -22,7 +22,11 @@
 # include "ocl.h"
 
 # define STEP 0.5
-# define UI_WIDTH 475
+# ifdef __APPLE__
+#  define UI_WIDTH 600
+# else
+#  define UI_WIDTH 475
+# endif
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}

@@ -23,14 +23,14 @@ static void	get_platform_info(cl_platform_id *platforms, int cnt,
 	{
 		err = clGetPlatformInfo(platforms[cnt], CL_PLATFORM_NAME,
 								sizeof(str), str, NULL);
-		check_error_cl(err ,"Can't get platform name", NULL);
+		check_error_cl(err, "Can't get platform name", NULL);
 		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform name:", str);
 		if (ft_strnequ(str, "NVIDIA", 6))
 			*checked_platform = platforms[cnt];
 		ft_strclr(str);
 		err = clGetPlatformInfo(platforms[cnt], CL_PLATFORM_VENDOR,
 								sizeof(str), str, NULL);
-		check_error_cl(err ,"Can't get platform vendor", NULL);
+		check_error_cl(err, "Can't get platform vendor", NULL);
 		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Platform vendor:", str);
 		ft_strclr(str);
 	}
@@ -53,7 +53,7 @@ static void	get_device_info(cl_device_id *device, int cnt)
 		if (!(str = (char*)malloc(size_str)))
 			ft_error("Can't allocate memory");
 		err = clGetDeviceInfo(device[cnt], CL_DEVICE_NAME, size_str, str, NULL);
-		check_error_cl(err ,"Can't get device name", NULL);
+		check_error_cl(err, "Can't get device name", NULL);
 		ft_printf("\t%{}-17s%s\n", FT_CYAN, "Device name:", str);
 		ft_strdel(&str);
 	}
@@ -67,12 +67,12 @@ static void	get_platform(t_ocl *ocl)
 
 	cnt = 0;
 	err = clGetPlatformIDs(1, &ocl->platform, &cnt);
-	check_error_cl(err ,"clGetPlatformIDs", NULL);
+	check_error_cl(err, "clGetPlatformIDs", NULL);
 	platforms = (cl_platform_id*)malloc(sizeof(cl_platform_id) * cnt);
 	if (!platforms)
 		ft_error("Can't allocate memory");
 	err = clGetPlatformIDs(cnt, platforms, NULL);
-	check_error_cl(err ,"clGetPlatformIDs", NULL);
+	check_error_cl(err, "clGetPlatformIDs", NULL);
 	get_platform_info(platforms, cnt, &ocl->platform);
 	ft_memdel((void**)&platforms);
 }
@@ -105,6 +105,7 @@ void		create_cl(t_ocl *ocl)
 	get_device(ocl);
 	ocl->context = clCreateContext(NULL, 1, &ocl->device, NULL, NULL, &err);
 	check_error_cl(err, "clCreateContext", NULL);
-	ocl->queue = CREATE_QUEUE(ocl->context,ocl->device, NULL, &err);
-	check_error_cl(err, "clCreateCommandQueueWithProperties", NULL);
+	ocl->queue =
+		CREATE_QUEUE_FUNC(ocl->context, ocl->device, CREATE_QUEUE_PARAM, &err);
+	check_error_cl(err, "CREATE_QUEUE_FUNC", NULL);
 }

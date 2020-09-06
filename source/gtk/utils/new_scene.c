@@ -23,11 +23,12 @@ static gchar	*get_file_name_of_scene(void)
 		GTK_FILE_CHOOSER_ACTION_OPEN,
 		"_Cancel", GTK_RESPONSE_CANCEL,
 		"_Open", GTK_RESPONSE_ACCEPT, NULL);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 	else
 	{
-		ft_printf("Close \"Open File\" tab");
+		ft_printf("Close \"Open File\" tab\n");
 		exit(0);
 	}
 	gtk_widget_destroy(dialog);

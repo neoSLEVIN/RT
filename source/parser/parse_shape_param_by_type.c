@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_shape_param_by_type.c                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:31:09 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:31:09 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 static void	parse_shape_param_0_1(const JC_FIELD shape_field, cl_float *param,
@@ -21,7 +33,6 @@ static void	parse_shape_angle(const JC_FIELD shape_field, cl_float *angle)
 void		parse_shape_param_by_type(const JC_FIELD shape_field,
 									SHAPE_TYPE type, FLT3 *params)
 {
-
 	*params = (FLT3){0.5f, 0.5f, 0.5f};
 	if (type == PLANE || type == TRIANGLE)
 		(void)type;
@@ -36,7 +47,7 @@ void		parse_shape_param_by_type(const JC_FIELD shape_field,
 		params->z = jc_get_float(shape_field, "shift");
 	}
 	else if (type == CAPPEDCYLINDER || type == CAPPEDPLANE || type == BOX ||
-			 type == CAPSULE)
+			type == CAPSULE)
 	{
 		parse_shape_param_0_1(shape_field, &params->x,
 			(type == CAPPEDCYLINDER || type == CAPSULE) ? "radius" : "width");

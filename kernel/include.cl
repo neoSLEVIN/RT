@@ -155,6 +155,22 @@ typedef struct				s_scene
 	__global t_ppm_image	*normal_maps;
 }							t_scene;
 
+
+
+
+
+void init_scene(t_scene *scene,
+				__global t_object *objects,
+				int num_obj,
+				__global t_light *lights,
+				int num_light,
+				CAMERA cam,
+				uint seed,
+				__global t_ppm_image *textures,
+				__global t_ppm_image *normal_maps);
+
+float3 compute_color(t_scene *scene, t_ray *ray);
+
 float cappedplane_intersect(t_ray *ray, t_object *plane);
 /*Mapping*/
 float2 sphere_map(t_object *obj, t_ray *ray);
@@ -177,6 +193,10 @@ float3 plane_lines_cross(t_object *obj, t_ray *ray);
 float3 uv_patter_plane_lines_cross(float2 uv);
 float3 typical_noise(t_object *obj, float2 uv, int size);
 float3 wood(t_object *obj, float2 uv, int size);
+float noise(float x, float y);
+float surflet( float x, float y, float grad_x, float grad_y );
+float f( float t );
+float2 translate_plane_coord_with_static(float3 plane_norm, t_ray *ray, float3 plane_pos);
 
 float3 	sphere_normal(float3 hitpoint, float3 position);
 float3 	plane_normal(float3 planeDir, float3 rayDir);
@@ -231,3 +251,30 @@ void	filter_negative(float3 *color);
 void	filter_noise(float3 *color, float noise);
 void	filter_shades_of_gray(float3 *color);
 void	apply_filter(float3 *color, FILTER filter, float3 filter_params);
+
+float3 refract1(t_ray *ray);
+float3 refract_v1(t_ray *ray);
+uint xorshift32(uint *state);
+void set_t(t_ray *ray, t_object *selected_obj, t_transparent_obj *skiped, float t, int i, int part_index);
+void make_ray_empty(t_ray *ray);
+float box_intersect(t_ray *ray, t_object *cube, int *index);
+float capped_cone_intersect(t_ray *ray, t_object *capped_cone, int *index);
+float capsule_intersect(t_ray *ray, t_object *capsule, int *index);
+float circle_intersect(t_ray *ray, t_object *circle);
+float minTwithIndexes(float a, float b, int index_a, int index_b, int *result_index);
+float semi_cone_intersect(t_ray *ray, t_object *cone, float len, float shift);
+float semi_cylinder_intersect(t_ray *ray, t_object *cylinder, float len);
+float semi_sphere_intersect(t_ray *ray, t_object *sphere, float3 cut_normal);
+float	compute_simple_sections(t_ray *ray, t_section *sections, float3 *t_point, float2 new_t);
+float	compute_complex_sections(t_ray *ray, t_section *sections, float3 *t_point, float2 old_t);
+float2	cut_by_plane_section(float3 *t_point,
+							float3 section_pos, float3 section_dir,
+							float2 new_t);
+float2	cut_by_sphere_section(t_ray *ray,
+							float3 section_pos, float section_radius,
+							float2 new_t);
+float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *scene, int id);
+int is_outside_capped_cylinder(t_ray *ray, t_object *capped_cylinder, float value);
+float3 box_normal(t_object *hit_obj, t_ray *ray);
+
+
