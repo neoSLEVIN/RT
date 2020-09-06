@@ -19,7 +19,7 @@ static gchar	*get_file_name_of_scene(void)
 	gchar		*filename;
 
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	dialog = gtk_file_chooser_dialog_new("Open File", (GtkWindow*)window,
+	dialog = gtk_file_chooser_dialog_new("Open File", GTK_WINDOW(window),
 		GTK_FILE_CHOOSER_ACTION_OPEN,
 		"_Cancel", GTK_RESPONSE_CANCEL,
 		"_Open", GTK_RESPONSE_ACCEPT, NULL);

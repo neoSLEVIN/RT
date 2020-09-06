@@ -32,17 +32,21 @@ static void	gtk_insert_columns_in_shape_tree(t_gtk_shapes *shapes)
 
 static void	gtk_insert_rows_in_shape_tree(SHAPE *shape, t_gtk_shapes *shapes)
 {
+	char	*type_name;
+
 	while (shape)
 	{
 		gtk_tree_store_append(shapes->store, &shapes->iter, NULL);
 		if (!(shape->tree_iter = (void*)gtk_tree_iter_copy(&shapes->iter)))
 			ft_error("Can't allocate memory");
+		type_name = get_shape_type_name(shape->dto->type);
 		gtk_tree_store_set(shapes->store, &shapes->iter,
 			S_NAME_COL, shape->name,
-			S_TYPE_COL, get_shape_type_name(shape->dto->type),
+			S_TYPE_COL, type_name,
 			S_MARKER_COL, shape->dto->marker,
 			S_POINTER_COL, shape,
 			-1);
+		ft_strdel(&type_name);
 		shape = shape->next;
 	}
 }
