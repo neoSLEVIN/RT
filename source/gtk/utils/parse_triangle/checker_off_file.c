@@ -11,23 +11,23 @@
 int common_check_off(int fd, char **err) {
     
     int last_line_count;
-    int vertices_faces[2];
+    int vertices_faces[3];
     char *line;
     
     if (check_format(fd, err))
         return (1);
-//    if (check_params(fd, vertices_faces, err))
-//        return (1);
-//    if (check_vertices(fd, vertices_faces, err))
-//        return (1);
-//    if (check_faces(fd, vertices_faces, err))
-//        return (1);
-//    last_line_count = get_next_line(fd, &line);
-//    if (last_line_count != 0) {
-//        error_safe(err, "last element not empty\n");
-//        return (1);
-//    }
-    //free(line);
+    if (check_params(fd, vertices_faces, err))
+        return (1);
+    if (check_vertices(fd, vertices_faces, err))
+        return (1);
+    if (check_faces(fd, vertices_faces, err))
+        return (1);
+    last_line_count = get_next_line(fd, &line);
+    if (last_line_count != 0) {
+        free(line);
+        error_safe(err, "last element not empty\n");
+        return (1);
+    }
     return (0);
 }
 

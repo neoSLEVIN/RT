@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "gtk_module.h"
 
 static void		init_default_shape_params(SHAPE *shape)
 {
@@ -85,5 +86,9 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
 		temp_shape->next->prev = temp_shape;
 		temp_shape = temp_shape->next;
 	}
+    int cnt;
+    char *err;
+    temp_shape->next = parse_triangle("/Users/balvyn-s/Desktop/PS2/data/torus_simple.off", &cnt, &scene->cam, &err);
+    scene->s_cnt += cnt;
 	return (shapes);
 }

@@ -59,4 +59,27 @@ int **get_faces(int faces_cnt, int fd, char **err) {
     
 }
 
+FLT3 get_point(float **points, int position) {
+    float one;
+    float two;
+    float three;
+    
+    one = points[position][0];
+    two = points[position][1];
+    three = points[position][2];
+    return (FLT3){one, two, three};
+}
+
+void set_triangle_points(DTO_SHAPE *dto, float **points, int **faces, int i) {
+    int first_point_position = faces[i][1];
+    int second_point_position = faces[i][2];
+    int third_point_position = faces[i][3];
+    dto->transform.dots[0] = get_point(points, first_point_position);
+    dto->transform.dots[1] = get_point(points, second_point_position);
+    dto->transform.dots[2] = get_point(points, third_point_position);
+    dto->transform.position =
+    v3_scale(v3_add(v3_add(dto->transform.dots[0], dto->transform.dots[1]), dto->transform.dots[2]),
+            1.0f / 3.0f);
+}
+
 
