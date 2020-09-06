@@ -14,10 +14,10 @@
 
 static gboolean	spin_button_section_position_changer_safe(gpointer data)
 {
-	t_rt			*rt;
-	t_section_tab	*section_tab;
-	SECTION			*section;
-	GtkTreeIter		iter;
+	t_rt				*rt;
+	t_section_tab		*section_tab;
+	struct s_section	*section;
+	GtkTreeIter			iter;
 
 	rt = (t_rt*)data;
 	if (!gtk_tree_selection_get_selected(rt->gtk->ui.shape->section.select,

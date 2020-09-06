@@ -72,7 +72,7 @@ static void		new_light_update_everything(t_rt *rt, t_gtk_lights *gtk_lights,
 		ft_error("Can't allocate memory");
 	gtk_tree_selection_select_path(gtk_lights->select, path);
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(gtk_lights->tree),
-		path, NULL, FALSE, 0,0);
+		path, NULL, FALSE, 0, 0);
 	gtk_tree_path_free(path);
 	realloc_lights_dto(&rt->ocl->dto.lights, rt->scene->lights,
 					++rt->scene->l_cnt);

@@ -24,14 +24,17 @@ void	changing_filter_type(GtkComboBox *filter_combo, gpointer data)
 	if (filter == BLUR || filter == SEPIA || filter == NOISE)
 	{
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, TRUE);
-		gtk_widget_set_visible(rt->gtk->ui.settings.grid_blur, filter == BLUR);
-		gtk_widget_set_visible(rt->gtk->ui.settings.grid_sepia, filter == SEPIA);
-		gtk_widget_set_visible(rt->gtk->ui.settings.grid_noise, filter == NOISE);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_blur,
+								filter == BLUR);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_sepia,
+								filter == SEPIA);
+		gtk_widget_set_visible(rt->gtk->ui.settings.grid_noise,
+								filter == NOISE);
 	}
 	else
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, FALSE);
 	err = clSetKernelArg(rt->ocl->kernel, 10, sizeof(FILTER),
 						rt->ocl->dto.filter);
-	check_error_cl(err,"clSetKernelArg", "filter");
+	check_error_cl(err, "clSetKernelArg", "filter");
 	draw_image(rt);
 }

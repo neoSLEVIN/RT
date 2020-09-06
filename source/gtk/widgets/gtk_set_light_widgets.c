@@ -73,7 +73,7 @@ static void	gtk_set_light_params_widgets(t_gtk_light *gtk_light, DTO_LIGHT *dto)
 
 void		gtk_set_light_widgets(t_gtk_light **gtk_light, SCENE *scene)
 {
-	LIGHT	*scene_light;
+	struct s_light	*scene_light;
 
 	scene_light = scene->lights;
 	if ((*gtk_light = (t_gtk_light*)malloc(sizeof(t_gtk_light))) == NULL)

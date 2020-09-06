@@ -65,8 +65,7 @@ void		gtk_set_shape_transform_positions(t_transform_tab *tab)
 					tab->dots_grid);
 	gtk_set_shape_transform_dots_positions(tab);
 	gtk_box_pack_start(GTK_BOX(tab->v_box), tab->pos_grid,
-					   FALSE, FALSE, 0);
+					FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(tab->v_box), tab->dots_expander,
-					   FALSE, FALSE, 0);
-
+					FALSE, FALSE, 0);
 }

@@ -75,5 +75,4 @@ void		gtk_set_camera_positions(t_gtk_camera *camera)
 		camera->separator, GTK_POS_RIGHT, 2, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->grid), camera->display_frame,
 		camera->y_axis, GTK_POS_BOTTOM, 6, 1);
-
 }

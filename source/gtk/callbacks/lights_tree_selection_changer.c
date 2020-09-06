@@ -15,9 +15,9 @@
 void	lights_tree_selection_changer(GtkTreeSelection *selection,
 										gpointer data)
 {
-	t_rt		*rt;
-	GtkTreeIter	iter;
-	LIGHT		*light;
+	t_rt			*rt;
+	GtkTreeIter		iter;
+	struct s_light	*light;
 
 	rt = (t_rt*)data;
 	if (gtk_tree_selection_get_selected(selection, &rt->gtk->ui.lights.model,

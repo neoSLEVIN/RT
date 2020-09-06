@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-void	section_type_edited(GtkCellRendererCombo *combo, gchar *path_string,
+void		section_type_edited(GtkCellRendererCombo *combo, gchar *path_string,
 							GtkTreeIter *new_iter, gpointer data)
 {
 	t_rt	*rt;
@@ -39,7 +39,7 @@ void	section_type_edited(GtkCellRendererCombo *combo, gchar *path_string,
 	draw_image(rt);
 }
 
-void	section_on_edited(GtkCellRendererToggle *toggle, gchar *path_string,
+void		section_on_edited(GtkCellRendererToggle *toggle, gchar *path_string,
 						gpointer data)
 {
 	t_rt		*rt;
@@ -64,7 +64,7 @@ void	section_on_edited(GtkCellRendererToggle *toggle, gchar *path_string,
 	draw_image(rt);
 }
 
-void	sections_tree_row_select(GtkTreeSelection *selection, gpointer data)
+void		sections_tree_row_select(GtkTreeSelection *selection, gpointer data)
 {
 	t_rt	*rt;
 
@@ -74,7 +74,7 @@ void	sections_tree_row_select(GtkTreeSelection *selection, gpointer data)
 	g_idle_add(update_shape_widget, rt);
 }
 
-void	sections_style_toggle_button(GtkWidget *button, gpointer data)
+void		sections_style_toggle_button(GtkWidget *button, gpointer data)
 {
 	t_rt	*rt;
 
@@ -91,10 +91,10 @@ void	sections_style_toggle_button(GtkWidget *button, gpointer data)
 gboolean	centralize_section_position(GtkWidget *event_box,
 										GdkEventButton *event, gpointer data)
 {
-	t_rt			*rt;
-	GtkTreeIter		iter;
-	SECTION			*section;
-	t_section_tab	*tab;
+	t_rt				*rt;
+	GtkTreeIter			iter;
+	t_section_tab		*tab;
+	struct s_section	*section;
 
 	(void)event_box;
 	rt = (t_rt*)data;

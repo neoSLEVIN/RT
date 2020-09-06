@@ -31,8 +31,9 @@ static void	gtk_set_shape_section_style_positions(t_section_tab *section)
 	gtk_container_add(GTK_CONTAINER(section->style_frame), section->style_grid);
 	gtk_grid_attach(GTK_GRID(section->style_grid), section->style_simple,
 		0, 0, 1, 1);
-	gtk_grid_attach_next_to(GTK_GRID(section->style_grid), section->style_complex,
-		section->style_simple, GTK_POS_RIGHT, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(section->style_grid),
+		section->style_complex, section->style_simple,
+		GTK_POS_RIGHT, 1, 1);
 }
 
 static void	gtk_set_shape_section_position_positions(t_section_tab *section)
@@ -72,7 +73,6 @@ static void	gtk_set_shape_section_addition_positions(t_section_tab *section)
 	gtk_grid_attach_next_to(GTK_GRID(section->sphere_grid),
 		section->radius.spin, section->radius.label,
 		GTK_POS_BOTTOM, 1, 1);
-
 }
 
 void		gtk_set_shape_section_positions(t_section_tab *section)

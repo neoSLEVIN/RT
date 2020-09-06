@@ -26,6 +26,10 @@ static void	gtk_set_shape_main_base_positions(t_main_tab *main_tab)
 		main_tab->name_changer, GTK_POS_RIGHT, 1, 10);
 }
 
+/*
+** TODO add boxes
+*/
+
 static void	gtk_set_shape_main_params_boxes_positions(t_main_tab *main_tab)
 {
 	gtk_container_add(GTK_CONTAINER(main_tab->params_frame),
@@ -42,8 +46,11 @@ static void	gtk_set_shape_main_params_boxes_positions(t_main_tab *main_tab)
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->v_params), main_tab->h_shift,
 		FALSE, FALSE, 0);
-	//TODO add boxes
 }
+
+/*
+** TODO add params
+*/
 
 static void	gtk_set_shape_main_params_positions(t_main_tab *main_tab)
 {
@@ -71,7 +78,6 @@ static void	gtk_set_shape_main_params_positions(t_main_tab *main_tab)
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(main_tab->h_shift), main_tab->shift.spin,
 		FALSE, FALSE, 0);
-	//TODO add params
 }
 
 void		gtk_set_shape_main_positions(t_main_tab *main_tab)

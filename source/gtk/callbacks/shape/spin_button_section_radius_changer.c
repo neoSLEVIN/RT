@@ -14,9 +14,9 @@
 
 static gboolean	spin_button_section_radius_changer_safe(gpointer data)
 {
-	t_rt			*rt;
-	SECTION			*section;
-	GtkTreeIter		iter;
+	t_rt				*rt;
+	GtkTreeIter			iter;
+	struct s_section	*section;
 
 	rt = (t_rt*)data;
 	if (!gtk_tree_selection_get_selected(rt->gtk->ui.shape->section.select,

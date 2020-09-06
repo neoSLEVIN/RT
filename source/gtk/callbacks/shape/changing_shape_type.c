@@ -34,8 +34,7 @@ static gboolean	changing_shape_type_safe(gpointer data)
 	return (FALSE);
 }
 
-
-void		changing_shape_type(GtkComboBox *type_combo, gpointer data)
+void			changing_shape_type(GtkComboBox *type_combo, gpointer data)
 {
 	t_rt	*rt;
 
