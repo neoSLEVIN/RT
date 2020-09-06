@@ -29,16 +29,20 @@ static void	gtk_insert_columns_in_light_tree(t_gtk_lights *lights)
 
 static void	gtk_insert_rows_in_light_tree(LIGHT *light, t_gtk_lights *lights)
 {
+	char	*type_name;
+
 	while (light)
 	{
 		gtk_tree_store_append(lights->store, &lights->iter, NULL);
 		if (!(light->tree_iter = (void*)gtk_tree_iter_copy(&lights->iter)))
 			ft_error("Can't allocate memory");
+		type_name = get_light_type_name(light->dto->type);
 		gtk_tree_store_set(lights->store, &lights->iter,
 			LIGHT_NAME_COL, light->name,
-			LIGHT_TYPE_COL, get_light_type_name(light->dto->type),
+			LIGHT_TYPE_COL, type_name,
 			LIGHT_POINTER_COL, light,
 			-1);
+		ft_strdel(&type_name);
 		light = light->next;
 	}
 }

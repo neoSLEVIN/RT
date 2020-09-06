@@ -86,7 +86,7 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 
 	texture_field = jc_get_field_idx(parent, index, JC_OBJ);
 	texture = (PPM_IMG*)malloc(sizeof(PPM_IMG));
-	if (!texture || !(texture->dto = (DTO_PPM_IMG*)malloc(sizeof(DTO_PPM_IMG))))
+	if (texture == NULL)
 		ft_error("Can't allocate memory");
 	texture->prev = NULL;
 	texture->next = NULL;
