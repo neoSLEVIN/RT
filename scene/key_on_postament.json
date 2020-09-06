@@ -1,0 +1,509 @@
+{
+  "settings": {
+    "filter": "NOISE"
+  },
+  "scene": {
+    "camera": {
+      "position": [1.816, 8.729, -18.647],
+      "direction": [0.000, -0.5, 1.000],
+      "rotation": 20,
+      "display": [1326, 640],
+      "fov": 62,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "AMBIENT",
+        "intensity": 0.175
+      },
+      {
+        "name": "Light_2",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [5.000, 11.000, 0.000]
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [-5.000, 11.000, 0.000]
+      },
+      {
+        "name": "Light_4",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [0.000, 11.000, 5.000]
+      },
+      {
+        "name": "Light_5",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [0.000, 11.000, -6.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "Floor",
+        "transform": {
+          "position": [0.000, -4.000, 0.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.232,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "marble"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CYLINDER",
+        "name": "Post",
+        "radius": 2.500,
+        "height": 5.000,
+        "transform": {
+          "position": [0.000, 2.500, 0.200],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "D60CF2",
+          "specular": 0.3,
+          "reflective": 0.4,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [4.091, -0.375, 8.512],
+              "direction": [0.946, 0.030, 0.324]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "House_floor",
+        "width": 10,
+        "height": 10,
+        "depth": 4,
+        "transform": {
+          "position": [0, -2, 0],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "House_stairs_1",
+        "width": 5,
+        "height": 5,
+        "depth": 2,
+        "transform": {
+          "position": [0, -4, -5.5],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "House_stairs_2",
+        "width": 5,
+        "height": 3,
+        "depth": 2,
+        "transform": {
+          "position": [0, -3, -5.5],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "House_stairs_3",
+        "width": 5,
+        "height": 1,
+        "depth": 2,
+        "transform": {
+          "position": [0, -2, -5.5],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_1",
+        "width": 0.5,
+        "height": 0.2,
+        "depth": 0.2,
+        "transform": {
+          "position": [0.500, 6, 0],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_2",
+        "width": 0.5,
+        "height": 0.2,
+        "depth": 0.2,
+        "transform": {
+          "position": [0.500, 7, 0],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_3",
+        "width": 0.2,
+        "height": 1,
+        "depth": 0.2,
+        "transform": {
+          "position": [0.750, 6.5, 0],
+          "direction": [0.000,0.000,1],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_4",
+        "width": 0.2,
+        "height": 1,
+        "depth": 0.2,
+        "transform": {
+          "position": [0.250, 6.5, 0],
+          "direction": [0.000,0.000,1],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_5",
+        "width": 1.25,
+        "height": 0.2,
+        "depth": 0.2,
+        "transform": {
+          "position": [-0.375, 6.5, 0],
+          "direction": [0.000,1,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_6",
+        "width": 0.2,
+        "height": 0.3,
+        "depth": 0.2,
+        "transform": {
+          "position": [-0.5, 6.25, 0],
+          "direction": [0.000,0,1],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Key_7",
+        "width": 0.2,
+        "height": 0.3,
+        "depth": 0.2,
+        "transform": {
+          "position": [-0.9, 6.25, 0],
+          "direction": [0.000,0,1],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "FFFF00",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "marble",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\marble.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "Sofa",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\normalmaps\sofa.ppm"
+      }
+    ]
+  }
+}
