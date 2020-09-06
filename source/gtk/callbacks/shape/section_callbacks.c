@@ -33,6 +33,7 @@ void		section_type_edited(GtkCellRendererCombo *combo, gchar *path_string,
 					ft_strequ(type, "PLANE"));
 	gtk_widget_set_visible(rt->gtk->ui.shape->section.sphere_grid,
 					ft_strequ(type, "SPHERE"));
+	g_free(type);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
