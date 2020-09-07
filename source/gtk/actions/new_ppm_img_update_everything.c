@@ -16,12 +16,13 @@ void		new_ppm_img_update_everything(t_rt *rt, t_gtk_textures *gtk_ppm,
 										PPM_IMG *new_texture,
 										_Bool is_normal_map)
 {
+	DTO_PPM_IMG	*dto;
+
+	dto = new_texture->dto;
 	gtk_tree_store_append(gtk_ppm->store, &gtk_ppm->iter, NULL);
 	gtk_tree_store_set(gtk_ppm->store, &gtk_ppm->iter,
-					PPM_NAME_COL, new_texture->name,
-					PPM_PATH_COL, new_texture->path,
-					PPM_POINTER_COL, new_texture,
-					-1);
+		PPM_NAME_COL, new_texture->name, PPM_PATH_COL, new_texture->path,
+		PPM_POINTER_COL, new_texture, -1);
 	if (is_normal_map)
 	{
 		realloc_ppm_img_dto(&rt->ocl->dto.normal_maps, rt->scene->normal_maps,
@@ -38,4 +39,5 @@ void		new_ppm_img_update_everything(t_rt *rt, t_gtk_textures *gtk_ppm,
 		gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(
 			rt->gtk->ui.shape->texture.texture_combo), new_texture->name);
 	}
+	ft_memdel((void**)&dto);
 }

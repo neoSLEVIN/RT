@@ -15,13 +15,16 @@
 static gboolean	changing_shape_type_safe(gpointer data)
 {
 	t_rt	*rt;
+	char	*type_name;
 
 	rt = (t_rt*)data;
 	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
+	type_name = get_shape_type_name(rt->gtk->ui.shape->shape->dto->type);
 	gtk_tree_store_set(rt->gtk->ui.shapes.store,
 		(GtkTreeIter*)rt->gtk->ui.shape->shape->tree_iter,
-		S_TYPE_COL, get_shape_type_name(rt->gtk->ui.shape->shape->dto->type),
+		S_TYPE_COL, type_name,
 		-1);
+	ft_strdel(&type_name);
 	if (rt->gtk->ui.shape->shape->dto->type != TRIANGLE)
 		do_change_shape_param(&rt->gtk->ui.shape->shape->dto->params,
 							rt->gtk->ui.shape->shape->dto->transform.dots,
