@@ -55,6 +55,7 @@ static void	default_settings(SCENE *scene)
 {
 	scene->filter = NO_FILTER;
 	scene->filter_params = (FLT3){5.0f, 30.0f, 50.0f};
+	scene->anti_aliasing = FALSE;
 }
 
 void		parse_settings(JC_FIELD json_field, SCENE *scene)
@@ -80,4 +81,6 @@ void		parse_settings(JC_FIELD json_field, SCENE *scene)
 	if (scene->filter_params.z < 1.0f || scene->filter_params.z > 255.0f)
 		parse_error(jc_full_name(settings_field), "noise",
 					"Value must be in range [1; 255].");
+	scene->anti_aliasing =
+		(int)jc_get_bool_or_default(settings_field, "anti-aliasing", FALSE);
 }

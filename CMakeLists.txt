@@ -275,7 +275,7 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/image_import.c
         source/opencl/settings/safe_image_import.c
         source/opencl/utils/ppm_error_safe.c
-        source/opencl/settings/update_ppm_img_args.c)
+        source/opencl/settings/update_ppm_img_args.c source/opencl/settings/update_args2.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -446,7 +446,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
         source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c)
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c source/gtk/callbacks/change_anti_aliasing.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

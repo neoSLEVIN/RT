@@ -20,6 +20,8 @@ static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err, "clSetKernelArg", "output_id");
 	err = clSetKernelArg(kernel, 12, sizeof(FLT3), dto->filter_params);
 	check_error_cl(err, "clSetKernelArg", "filter_params");
+	err = clSetKernelArg(kernel, 13, sizeof(int), dto->anti_aliasing);
+	check_error_cl(err, "clSetKernelArg", "anti_aliasing");
 }
 
 void		set_kernel_args(cl_kernel kernel, t_dto *dto)

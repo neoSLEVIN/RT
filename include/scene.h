@@ -332,6 +332,7 @@ struct			s_scene
 	int			n_cnt;
 	FILTER		filter;
 	FLT3		filter_params;
+	int			anti_aliasing;
 	char		*filename;
 };
 

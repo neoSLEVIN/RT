@@ -14,6 +14,8 @@
 
 void	gtk_set_ui_settings_signals(t_gtk_settings *settings, t_rt *rt)
 {
+	g_signal_connect(GTK_TOGGLE_BUTTON(settings->anti_aliasing), "toggled",
+		G_CALLBACK(change_anti_aliasing), rt);
 	g_signal_connect(G_OBJECT(settings->filter_combo), "changed",
 		G_CALLBACK(changing_filter_type), rt);
 	g_signal_connect(G_OBJECT(settings->blur.scale), "value-changed",

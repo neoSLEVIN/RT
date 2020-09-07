@@ -412,6 +412,7 @@ typedef struct		s_gtk_settings
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
 	GtkWidget		*grid;
+	GtkWidget		*anti_aliasing;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
@@ -639,6 +640,8 @@ gboolean			normal_map_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
+void				change_anti_aliasing(GtkToggleButton *toggle_button,
+								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
 void				blur_scale_moved(GtkRange *range, gpointer data);
@@ -847,7 +850,7 @@ void				paste_shape(t_rt *rt);
 */
 _Bool				get_new_file_name(char **filename, char **folder,
 									char *default_name);
-char				*get_ppm_filename(void);
+char				*get_ppm_filename(const char *folder);
 /*
 ** ============================== Call serializer ==============================
 */

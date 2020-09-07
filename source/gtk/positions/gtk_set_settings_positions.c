@@ -44,8 +44,10 @@ void		gtk_set_settings_positions(t_gtk_settings *settings)
 		FALSE, FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(settings->v_box), settings->v_filter_params,
 		FALSE, FALSE, 0);
-	gtk_grid_attach(GTK_GRID(settings->grid), settings->filter_label,
-		0, 0, 1, 1);
+	gtk_grid_attach(GTK_GRID(settings->grid), settings->anti_aliasing,
+		0, 0, 2, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_label,
+		settings->anti_aliasing, GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid), settings->filter_combo,
 		settings->filter_label, GTK_POS_RIGHT, 1, 1);
 	gtk_set_filter_params_positions(settings);

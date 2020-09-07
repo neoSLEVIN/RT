@@ -27,6 +27,7 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.n_cnt = &scene->n_cnt;
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
+	ocl->dto.anti_aliasing = &scene->anti_aliasing;
 	ocl->dto.filter = &scene->filter;
 	ocl->dto.filter_params = &scene->filter_params;
 	set_memory_output(ocl);
