@@ -101,7 +101,7 @@ _Bool			read_ppm_safe(const char *filename, DTO_PPM_IMG **dto,
 		return (FALSE);
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		return (ppm_error_safe(err, "Can't open the file", dto));
-	read(fd, NULL, (*dto)->start_image);
+	read(fd, buff, (*dto)->start_image);
 	read(fd, (*dto)->data, (*dto)->width * (*dto)->height * 3);
 	close(fd);
 	return (TRUE);
