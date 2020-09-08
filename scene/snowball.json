@@ -1,0 +1,910 @@
+{
+  "settings": {
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [33.026, 22.730, 69.938],
+      "direction": [-0.577, -0.119, -0.808],
+      "rotation": -0.571,
+      "display": [1440, 960],
+      "fov": 66,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "main_light",
+        "type": "AMBIENT",
+        "intensity": 0.200
+      },
+      {
+        "name": "lamp_1",
+        "type": "POINT",
+        "intensity": 0.400,
+        "position": [50.000, 50.000, 50.000]
+      },
+      {
+        "name": "lamp_2",
+        "type": "POINT",
+        "intensity": 0.200,
+        "position": [-50.000, 10.000, 50.000]
+      },
+      {
+        "name": "Sluchainii_svet",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [23.896, 27.250, 57.854]
+      },
+      {
+        "name": "Light_5",
+        "type": "POINT",
+        "intensity": 0.100,
+        "position": [-20.000, 48.000, 30.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "Ground",
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.200,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "Snow_1"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, 0.000, 0.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "1_block",
+        "radius": 8.237,
+        "transform": {
+          "position": [20.000, 6.000, 20.000],
+          "direction": [-0.360, 0.847, -0.392]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [20.000, 6.000, 20.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "2_block",
+        "radius": 6.500,
+        "transform": {
+          "position": [20.000, 17.000, 20.000],
+          "direction": [-0.383, 0.828, -0.411]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [20.000, 17.000, 20.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "3_block",
+        "radius": 4.000,
+        "transform": {
+          "position": [20.000, 26.000, 20.000],
+          "direction": [-0.188, 0.937, -0.294]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [20.000, 26.000, 20.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPSULE",
+        "name": "Metla",
+        "radius": 0.300,
+        "height": 30.000,
+        "transform": {
+          "position": [12.000, 17.000, 23.000],
+          "direction": [-0.056, -0.995, -0.078]
+        },
+        "material": {
+          "color": "C89126",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [12.000, 17.000, 23.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Fon",
+        "transform": {
+          "position": [0.000, 0.000, -100.000],
+          "direction": [0.570, 0.414, 0.710]
+        },
+        "material": {
+          "color": "82E8FF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "space"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, 0.000, -100.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Ruka_l",
+        "radius": 2.000,
+        "transform": {
+          "position": [12.700, 17.567, 23.000],
+          "direction": [-0.022, 0.974, -0.227]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [12.700, 17.567, 23.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "pug_1",
+        "radius": 0.500,
+        "transform": {
+          "position": [22.000, 17.000, 26.000],
+          "direction": [0.070, 0.970, -0.234]
+        },
+        "material": {
+          "color": "000405",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [22.000, 17.000, 26.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "pug_2",
+        "radius": 0.500,
+        "transform": {
+          "position": [22.000, 20.000, 25.000],
+          "direction": [-0.008, 0.981, -0.195]
+        },
+        "material": {
+          "color": "000405",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [22.000, 20.000, 25.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Glaz_l",
+        "radius": 0.500,
+        "transform": {
+          "position": [20.070, 26.159, 23.761],
+          "direction": [0.040, 0.994, -0.103]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [20.070, 26.159, 23.761],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Glaz_r",
+        "radius": 0.500,
+        "transform": {
+          "position": [22.570, 26.159, 22.761],
+          "direction": [0.040, 0.994, -0.103]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [22.570, 26.159, 22.761],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPSULE",
+        "name": "Nos",
+        "radius": 0.508,
+        "height": 0.900,
+        "transform": {
+          "position": [21.984, 24.706, 24.225],
+          "direction": [-0.439, 0.135, -0.888]
+        },
+        "material": {
+          "color": "FE7F10",
+          "specular": 0.022,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [21.984, 24.706, 24.225],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Ruka_r",
+        "radius": 2.000,
+        "transform": {
+          "position": [27.284, 17.567, 17.825],
+          "direction": [0.056, 0.996, -0.072]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [27.284, 17.567, 17.825],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Metla_1",
+        "radius": 1.000,
+        "transform": {
+          "position": [12.800, 32.222, 24.300],
+          "direction": [0.057, 0.996, -0.073]
+        },
+        "material": {
+          "color": "C99126",
+          "specular": 0.032,
+          "reflective": 0.047,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [12.800, 32.222, 24.300],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Metla_p1",
+        "angle": 28.648,
+        "height": 6.000,
+        "shift": -4.500,
+        "transform": {
+          "position": [13.345, 35.217, 25.001],
+          "direction": [0.177, 0.943, 0.283]
+        },
+        "material": {
+          "color": "C99126",
+          "specular": 0.050,
+          "reflective": 0.069,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [13.345, 35.217, 25.001],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Elka_1",
+        "angle": 50.000,
+        "height": 20.000,
+        "shift": 10.000,
+        "transform": {
+          "position": [-20.000, 12.000, 30.000],
+          "direction": [0.060, 0.992, 0.108]
+        },
+        "material": {
+          "color": "04720A",
+          "specular": 0.290,
+          "reflective": 0.258,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-20.000, 12.000, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Elka_2",
+        "angle": 45.000,
+        "height": 21.000,
+        "shift": 10.000,
+        "transform": {
+          "position": [-20.000, 23.000, 30.000],
+          "direction": [0.044, 0.996, 0.077]
+        },
+        "material": {
+          "color": "05730A",
+          "specular": 0.310,
+          "reflective": 0.284,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-20.000, 23.000, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Elka_3",
+        "angle": 35.000,
+        "height": 21.000,
+        "shift": 10.500,
+        "transform": {
+          "position": [-20.000, 33.000, 30.000],
+          "direction": [0.020, 0.999, 0.031]
+        },
+        "material": {
+          "color": "05730A",
+          "specular": 0.342,
+          "reflective": 0.394,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-20.000, 33.000, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Podarok",
+        "width": 5.000,
+        "height": 7.000,
+        "depth": 4.500,
+        "transform": {
+          "position": [5.708, 1.000, 30.000],
+          "direction": [0.020, 0.999, 0.031],
+          "rotate angle": -180.000
+        },
+        "material": {
+          "color": "CC280F",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [5.708, 1.000, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_1",
+        "radius": 2.500,
+        "transform": {
+          "position": [-1.000, 7.889, 30.000],
+          "direction": [-0.020, 0.999, -0.047]
+        },
+        "material": {
+          "color": "48BFDA",
+          "specular": 0.288,
+          "reflective": 0.447,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.000, 7.889, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_2",
+        "radius": 2.000,
+        "transform": {
+          "position": [-10.000, 7.000, 46.000],
+          "direction": [-0.019, 0.999, -0.047]
+        },
+        "material": {
+          "color": "E43D22",
+          "specular": 0.108,
+          "reflective": 0.290,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-10.000, 7.000, 46.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_3",
+        "radius": 1.500,
+        "transform": {
+          "position": [-7.000, 19.240, 36.000],
+          "direction": [-0.002, 1.000, -0.017]
+        },
+        "material": {
+          "color": "E43D22",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-7.000, 19.240, 36.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_4",
+        "radius": 2.200,
+        "transform": {
+          "position": [-16.000, 19.240, 46.000],
+          "direction": [-0.002, 1.000, -0.017]
+        },
+        "material": {
+          "color": "26E422",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-16.000, 19.240, 46.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_5",
+        "radius": 2.500,
+        "transform": {
+          "position": [-20.000, 45.000, 30.000],
+          "direction": [-0.001, 1.000, -0.017]
+        },
+        "material": {
+          "color": "E42222",
+          "specular": 0.120,
+          "reflective": 0.437,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-20.000, 45.000, 30.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Igrushka_6",
+        "radius": 1.000,
+        "transform": {
+          "position": [-11.000, 28.000, 36.000],
+          "direction": [-0.001, 1.000, -0.017]
+        },
+        "material": {
+          "color": "FAE71D",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-11.000, 28.000, 36.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Shape_26",
+        "width": 200.000,
+        "height": 1.000,
+        "depth": 100.000,
+        "transform": {
+          "position": [-80.000, 20.000, -11.000],
+          "direction": [-0.051, 0.995, -0.089],
+          "rotate angle": -0.571
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 1.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-80.000, 20.000, -11.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "Snow_1",
+        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/snow_1.ppm"
+      },
+      {
+        "name": "nebo",
+        "path": "/Users/kokeefe/Downloads/nebo.ppm"
+      },
+      {
+        "name": "space",
+        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/space.ppm"
+      }
+    ],
+    "normal maps": [
+    ]
+  }
+}

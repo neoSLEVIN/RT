@@ -4,37 +4,25 @@
   },
   "scene": {
     "camera": {
-      "position": [-18.387, 10.298, -9.966],
+      "position": [0, 0, 0],
       "direction": [0.639, -0.351, 0.684],
       "rotation": -0.834,
-      "display": [500, 500],
+      "display": [300, 300],
       "fov": 25,
       "fps": 25
     },
     "lights": [
       {
-        "name": "Unnamed_1",
+        "name": "main",
         "type": "AMBIENT",
         "intensity": 0.175
       },
       {
-        "name": "Light_2",
+        "name": "lamp",
         "type": "POINT",
-        "intensity": 0.310,
+        "intensity": 0.510,
         "position": [0.000, 11.000, 6.000]
       },
-      {
-        "name": "Light_3",
-        "type": "POINT",
-        "intensity": 0.300,
-        "position": [5.122, 2.682, 15.318]
-      },
-      {
-        "name": "Light_4",
-        "type": "POINT",
-        "intensity": 0.300,
-        "position": [-10.860, 11.465, -1.782]
-      }
     ],
     "shapes": [
       {

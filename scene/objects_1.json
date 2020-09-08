@@ -1,0 +1,262 @@
+{
+  "settings": {
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [99.987, 92.853, 102.232],
+      "direction": [-0.574, -0.603, -0.554],
+      "rotation": -0.590,
+      "display": [1440, 960],
+      "fov": 25,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "main_light",
+        "type": "AMBIENT",
+        "intensity": 0.200
+      },
+      {
+        "name": "xy",
+        "type": "POINT",
+        "intensity": 0.250,
+        "position": [30.000, 30.000, 0.000]
+      },
+      {
+        "name": "xz",
+        "type": "POINT",
+        "intensity": 0.250,
+        "position": [30.000, 3.000, 30.000]
+      },
+      {
+        "name": "zy",
+        "type": "POINT",
+        "intensity": 0.250,
+        "position": [3.000, 30.000, 30.000]
+      },
+      {
+        "name": "-xyz",
+        "type": "POINT",
+        "intensity": 0.500,
+        "position": [-30.000, -30.000, -30.000]
+      },
+      {
+        "name": "Light_6",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [92.123, 90.811, 94.552]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "SPHERE",
+        "name": "Sfera",
+        "radius": 20.000,
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [-0.368, 0.847, -0.384]
+        },
+        "material": {
+          "color": "7639D7",
+          "specular": 0.009,
+          "reflective": 0.218,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "PLANE",
+              "position": [0.000, 4.000, 0.000],
+              "direction": [0.894, 0.447, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Conus",
+        "angle": 28.648,
+        "height": 16.100,
+        "shift": 0.500,
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [-0.368, 0.847, -0.384]
+        },
+        "material": {
+          "color": "D4346E",
+          "specular": 0.086,
+          "reflective": 0.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, 0.000, 0.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "zerk_sfera",
+        "radius": 5.000,
+        "transform": {
+          "position": [-10.000, 0.000, 0.000],
+          "direction": [-0.368, 0.847, -0.384]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.037,
+          "reflective": 1.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-10.000, 0.000, 0.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Box",
+        "width": 40.000,
+        "height": 40.000,
+        "depth": 40.000,
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [-0.427, 0.787, -0.445],
+          "rotate angle": 0.062
+        },
+        "material": {
+          "color": "F33A11",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.439
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "PLANE",
+              "position": [0.000, 0.000, 0.000],
+              "direction": [0.999, 0.036, -0.032]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPSULE",
+        "name": "Shape_12",
+        "radius": 4.000,
+        "height": 10.000,
+        "transform": {
+          "position": [20.000, 0.000, 0.000],
+          "direction": [-0.368, 0.847, -0.384]
+        },
+        "material": {
+          "color": "34D469",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [20.000, 0.000, 0.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Shape_6",
+        "width": 100.000,
+        "height": 100.000,
+        "transform": {
+          "position": [0.000, -30.000, 0.000],
+          "direction": [-0.186, 0.961, -0.206],
+          "rotate angle": -0.071
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.073,
+          "reflective": 1.000,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, -30.000, 0.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "marble",
+        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/marble.ppm"
+      }
+    ],
+    "normal maps": [
+    ]
+  }
+}
