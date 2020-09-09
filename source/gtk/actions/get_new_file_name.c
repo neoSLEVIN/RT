@@ -71,7 +71,7 @@ _Bool		get_new_file_name(char **filename, char **folder,
 	return (FALSE);
 }
 
-char		*get_ppm_filename(void)
+char		*get_ppm_filename(const char *folder)
 {
 	GtkWidget	*window;
 	GtkWidget	*dialog;
@@ -86,6 +86,8 @@ char		*get_ppm_filename(void)
 					"_Choose", GTK_RESPONSE_ACCEPT,
 					NULL);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	if (folder)
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), folder);
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 		gtk_filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));

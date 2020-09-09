@@ -37,6 +37,15 @@ static void	s_filter_param(t_serializer *s, FLT3 params, FILTER filter)
 void		s_settings_obj(t_serializer *s, SCENE *scene)
 {
 	s_open_obj_with_name(s, "settings");
+	s_name(s, "step");
+	s_float(s, scene->step);
+	s_comma(s);
+	s_name(s, "angle");
+	s_float(s, rad_to_deg(scene->angle));
+	s_comma(s);
+	s_name(s, "anti-aliasing");
+	s_bool(s, (_Bool)scene->anti_aliasing);
+	s_comma(s);
 	s_name(s, "filter");
 	s_str_in_quotes_free(s, get_filter_type_name(scene->filter));
 	s_filter_param(s, scene->filter_params, scene->filter);

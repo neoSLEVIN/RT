@@ -80,6 +80,7 @@ typedef struct			s_material
 	float3				emission;
 	float				reflective;
 	float				transparency;
+	float				degree_of_refraction;
 }						t_material;
 
 typedef struct			s_texture
@@ -238,7 +239,7 @@ float3 	reflect(float3 rayDir, float3 targetNormal);
 
 float3 	go_refract(t_ray ray, t_scene *scene);
 float3	continue_refract_ray(t_ray *ray, t_scene *scene);
-float3	refract(t_ray *ray);
+float3	refract(t_ray *ray, float degree);
 
 float3	get_obj_color(t_object *obj, t_ray *ray, t_scene *scene);
 char	convertColorFromFloat(float f);

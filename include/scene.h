@@ -148,6 +148,7 @@ struct			s_material
 	FLT3		emission;
 	cl_float	reflective;
 	cl_float	transparency;
+	cl_float	refraction;
 };
 
 /*
@@ -332,6 +333,9 @@ struct			s_scene
 	int			n_cnt;
 	FILTER		filter;
 	FLT3		filter_params;
+	int			anti_aliasing;
+	cl_float	step;
+	cl_float	angle;
 	char		*filename;
 };
 

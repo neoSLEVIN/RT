@@ -26,7 +26,9 @@ static void	calculate_v_shape(t_rt *rt, INT2 diff, DTO_CAM *cam, FLT3 *v_shape)
 		*v_shape = v3_rot_v(*v_shape, cam->right, angle.y);
 	if (rt->info->scroll_cnt)
 		*v_shape =
-			v3_add(*v_shape, v3_scale(cam->forward, rt->info->scroll_cnt * 4));
+			v3_add(*v_shape,
+				v3_scale(cam->forward,
+							rt->info->scroll_cnt * 8 * rt->scene->step));
 }
 
 static void	change_triangle_dots_by_mouse(FLT3 *dots, FLT3 diff)
