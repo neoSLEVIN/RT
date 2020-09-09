@@ -3,28 +3,27 @@
 float3 go_refract(t_ray ray, t_scene *scene) {
 	
 	float3 finalColor = 0;
-	
+
 	finalColor = continue_refract_ray(&ray, scene);
-	if (ray.hit_id < 0)
-	{
-/*		printf("%d ", ray.hit_id);*/
+	if (ray.hit_id < 0) {
 		return finalColor;
 	}
-	if (scene->objects[ray.hit_id].material.transparency == 0 && scene->objects[ray.hit_id].material.reflective == 0) {
+	if (scene->objects[ray.hit_id].material.transparency == 0 &&
+		scene->objects[ray.hit_id].material.reflective == 0) {
 		return finalColor;
 	}
-	
+
 	float ref = scene->objects[ray.hit_id].material.reflective;
 	if (ref > 0) {
 		finalColor = finalColor * (1.0f - ref) + go_reflect(ray, scene) * ref;
 	}
-	
+
 	/*объект обладает прозрачностью*/
 	float trans = scene->objects[ray.hit_id].material.transparency;
 	if (trans > 0) {
 		finalColor = finalColor * (1.0f - trans) + continue_refract_ray(&ray, scene) * trans;
 	}
-	
+
 	return finalColor;
 }
 
@@ -34,14 +33,14 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	int oldHit_id = ray->hit_id;
 
 	while (oldHit_id == ray->hit_id && maxBounds != 0) {
-		ray->origin = ray->hitPoint + ray->dir * 0.1f;
+		ray->origin = ray->hitPoint + ray->dir * 0.002f;
 		float degree;
 		if (ray->hit_id < 0)
 			degree = 0.0f;
 		else
 			degree = scene->objects[ray->hit_id].material.degree_of_refraction;
 		ray->dir = refract(ray, degree);
-		 
+
 		if (!is_intersect(ray, scene, 0)) {
 			break;
 		}

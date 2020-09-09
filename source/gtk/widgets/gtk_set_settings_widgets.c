@@ -23,5 +23,7 @@ void	gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 		rad_to_deg(rt->scene->angle), 0.05f);
 	settings->grid = gtk_grid_new();
 	settings->anti_aliasing = gtk_check_button_new_with_label("Anti-aliasing");
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(settings->anti_aliasing),
+								(_Bool)rt->scene->anti_aliasing);
 	gtk_set_setting_filter_widgets(settings, rt);
 }
