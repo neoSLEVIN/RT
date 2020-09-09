@@ -50,5 +50,8 @@ void		s_material_obj(t_serializer *s, MATERIAL *material)
 	s_comma(s);
 	s_name(s, "transparency");
 	s_float(s, material->transparency);
+	s_comma(s);
+	s_name(s, "refraction");
+	s_float(s, material->refraction);
 	s_close_obj(s);
 }

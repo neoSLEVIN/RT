@@ -1,0 +1,230 @@
+{
+  "settings": {
+    "step": 0.500,
+    "angle": 1.000,
+    "anti-aliasing": false,
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [-30.152, 24.118, -2.354],
+      "direction": [0.819, -0.517, 0.250],
+      "rotation": -15.355,
+      "display": [1416, 951],
+      "fov": 25,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "AMBIENT",
+        "intensity": 0.175
+      },
+      {
+        "name": "Light_2",
+        "type": "POINT",
+        "intensity": 0.310,
+        "position": [0.000, 11.000, 6.000]
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [5.122, 2.682, 15.318]
+      },
+      {
+        "name": "Light_4",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [-10.860, 11.465, -1.782]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "BOX",
+        "name": "Shape_1",
+        "width": 9.194,
+        "height": 9.194,
+        "depth": 9.194,
+        "transform": {
+          "position": [0.000, -0.010, 10.000],
+          "direction": [0.000, 1.000, -0.017],
+          "rotate angle": -0.000
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.652,
+          "reflective": 0.282,
+          "transparency": 0.000,
+          "refraction": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": true,
+              "type": "PLANE",
+              "position": [0.000, -0.010, 10.000],
+              "direction": [-0.577, 0.577, -0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Shape_2",
+        "transform": {
+          "position": [-1.271, -4.710, 6.770],
+          "direction": [0.293, 0.918, 0.267]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 0.000,
+          "refraction": 1.000
+        },
+        "texture": {
+          "name": "marble"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Blue",
+        "width": 13.493,
+        "height": 4.802,
+        "depth": 4.802,
+        "transform": {
+          "position": [-0.342, 4.539, 9.004],
+          "direction": [0.216, 0.942, 0.257],
+          "rotate angle": 180.000
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 1.000,
+          "refraction": 1.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-0.342, 4.539, 9.004],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CONE",
+        "name": "Green",
+        "angle": 8.000,
+        "height": 19.657,
+        "shift": 1.157,
+        "transform": {
+          "position": [1.669, 1.186, 10.383],
+          "direction": [0.790, -0.139, 0.598]
+        },
+        "material": {
+          "color": "93F484",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 1.000,
+          "refraction": 1.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [1.669, 1.186, 10.383],
+              "direction": [0.831, 0.191, 0.522]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPSULE",
+        "name": "Red",
+        "radius": 0.516,
+        "height": 4.658,
+        "transform": {
+          "position": [-11.707, 12.909, 2.938],
+          "direction": [0.274, 0.938, 0.210]
+        },
+        "material": {
+          "color": "F48484",
+          "specular": 0.050,
+          "reflective": 0.235,
+          "transparency": 1.000,
+          "refraction": 1.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-11.707, 12.909, 2.938],
+              "direction": [0.118, 0.989, -0.088]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "marble",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "sofa",
+        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\sofa.ppm"
+      }
+    ]
+  }
+}

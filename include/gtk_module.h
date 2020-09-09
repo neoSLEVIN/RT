@@ -183,6 +183,7 @@ typedef struct		s_material_tab
 	t_scale			specular;
 	t_scale			reflective;
 	t_scale			transparency;
+	t_scale			refraction;
 }					t_material_tab;
 
 /*

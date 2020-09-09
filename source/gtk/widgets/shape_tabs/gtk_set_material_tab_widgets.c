@@ -20,6 +20,9 @@ void	gtk_set_material_tab_widgets(t_material_tab *material_tab,
 	material_tab->transparency =
 		gtk_get_float_scale("Transparency:", (FLT2){0, 1},
 			shape_material->transparency, 0.005);
+	material_tab->refraction =
+			gtk_get_float_scale("Refraction:", (FLT2){0, 1},
+								shape_material->transparency, 0.005);
 	material_tab->reflective =
 			gtk_get_float_scale("Reflective:", (FLT2){0, 1},
 				shape_material->reflective, 0.005);

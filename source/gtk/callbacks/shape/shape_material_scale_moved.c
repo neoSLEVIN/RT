@@ -25,6 +25,8 @@ void	shape_material_scale_moved(GtkRange *range, gpointer data)
 	material_tab = &rt->gtk->ui.shape->material;
 	material->transparency =
 		gtk_range_get_value(GTK_RANGE(material_tab->transparency.scale));
+	material->refraction =
+		gtk_range_get_value(GTK_RANGE(material_tab->refraction.scale));
 	material->reflective =
 		gtk_range_get_value(GTK_RANGE(material_tab->reflective.scale));
 	material->specular =
