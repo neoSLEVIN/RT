@@ -24,11 +24,13 @@
 # define FLT3 cl_float3
 # define FLT2 cl_float2
 # define INT2 cl_int2
+
 /*
 ** ============================== Math constants ===============================
 */
 # define PI 3.14159265359f
 # define RAD 0.01745329251994f
+
 /*
 ** =============================== cl_int2 math ================================
 */

@@ -18,12 +18,12 @@
 
 # ifdef __APPLE__
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
-#  define CREATE_QUEUE(ctxt, dev, prop, err) \
-	clCreateCommandQueue(ctxt, dev, prop, err)
+#  define CREATE_QUEUE_FUNC clCreateCommandQueue
+#  define CREATE_QUEUE_PARAM 0
 # else
 #  define BUILD_OPTIONS_CL NULL
-#  define CREATE_QUEUE(ctxt, dev, prop, err) \
-	clCreateCommandQueueWithProperties(ctxt, dev, prop, err)
+#  define CREATE_QUEUE_FUNC clCreateCommandQueueWithProperties
+#  define CREATE_QUEUE_PARAM NULL
 # endif
 
 # define GROUP_SIZE 64
@@ -33,7 +33,9 @@
 ** =================== Adding absolute path for xcode users ====================
 ** =============================================================================
 */
-// TODO fix that when delete CMake
+/*
+** TODO fix that when delete CMake
+*/
 # if __APPLE__
 #  ifndef PROJ_DIR
 #   define PROJ_DIR "path to proj dir"
@@ -51,24 +53,25 @@
 */
 # define KERNEL_FILE_SIZE 13000
 # define KERNEL_FILE_CNT 17
-static char	*g_kernel_file_arr[KERNEL_FILE_CNT] = {
-		ABSOLUTE_PATH"include.cl",
-		ABSOLUTE_PATH"normals.cl",
-		ABSOLUTE_PATH"sections.cl",
-		ABSOLUTE_PATH"semi_intersections.cl",
-		ABSOLUTE_PATH"intersections.cl",
-		ABSOLUTE_PATH"intersections2.cl",
-		ABSOLUTE_PATH"light.cl",
-		ABSOLUTE_PATH"random.cl",
-		ABSOLUTE_PATH"reflect.cl",
-		ABSOLUTE_PATH"refract.cl",
-		ABSOLUTE_PATH"color.cl",
-		ABSOLUTE_PATH"ray.cl",
-		ABSOLUTE_PATH"ray_tracing.cl",
-		ABSOLUTE_PATH"uv_mapping.cl",
-		ABSOLUTE_PATH"uv_patterns.cl",
-		ABSOLUTE_PATH"perlin_noise.cl",
-		ABSOLUTE_PATH"filters.cl"
+
+static char				*g_kernel_file_arr[KERNEL_FILE_CNT] = {
+	ABSOLUTE_PATH"include.cl",
+	ABSOLUTE_PATH"normals.cl",
+	ABSOLUTE_PATH"sections.cl",
+	ABSOLUTE_PATH"semi_intersections.cl",
+	ABSOLUTE_PATH"intersections.cl",
+	ABSOLUTE_PATH"intersections2.cl",
+	ABSOLUTE_PATH"light.cl",
+	ABSOLUTE_PATH"random.cl",
+	ABSOLUTE_PATH"reflect.cl",
+	ABSOLUTE_PATH"refract.cl",
+	ABSOLUTE_PATH"color.cl",
+	ABSOLUTE_PATH"ray.cl",
+	ABSOLUTE_PATH"ray_tracing.cl",
+	ABSOLUTE_PATH"uv_mapping.cl",
+	ABSOLUTE_PATH"uv_patterns.cl",
+	ABSOLUTE_PATH"perlin_noise.cl",
+	ABSOLUTE_PATH"filters.cl"
 };
 
 /*
@@ -99,6 +102,7 @@ typedef struct			s_dto
 	cl_mem				output_id;
 	cl_uchar4			*buffer;
 	int					*shape_id;
+	int					*anti_aliasing;
 	FILTER				*filter;
 	cl_uchar4			*filter_buff;
 }						t_dto;
@@ -174,6 +178,7 @@ void					realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img,
 */
 void					update_cursor_arg(t_ocl *ocl);
 void					update_filter_params(t_ocl *ocl);
+void					update_anti_aliasing_arg(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);

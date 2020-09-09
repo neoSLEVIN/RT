@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sections_motion.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:22:30 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:22:30 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
-void		move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
-										guint key)
+void	move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
+										guint key, cl_float step)
 {
 	int		i;
 	FLT3	*section_pos;
@@ -11,19 +23,19 @@ void		move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
 	{
 		section_pos = &dto->sections[i].position;
 		if (key == GDK_KEY_space)
-			*section_pos = v3_add(*section_pos, v3_scale(cam->upguide, STEP));
+			*section_pos = v3_add(*section_pos, v3_scale(cam->upguide, step));
 		else if (key == GDK_KEY_c)
-			*section_pos = v3_sub(*section_pos, v3_scale(cam->upguide, STEP));
+			*section_pos = v3_sub(*section_pos, v3_scale(cam->upguide, step));
 		else if (key == GDK_KEY_w)
 			*section_pos = v3_add(*section_pos,
-				v3_scale(cam->forward, STEP * 2));
+				v3_scale(cam->forward, step * 2));
 		else if (key == GDK_KEY_s)
 			*section_pos = v3_sub(*section_pos,
-				v3_scale(cam->forward, STEP * 2));
+				v3_scale(cam->forward, step * 2));
 		else if (key == GDK_KEY_d)
-			*section_pos = v3_add(*section_pos, v3_scale(cam->right, STEP));
+			*section_pos = v3_add(*section_pos, v3_scale(cam->right, step));
 		else if (key == GDK_KEY_a)
-			*section_pos = v3_sub(*section_pos, v3_scale(cam->right, STEP));
+			*section_pos = v3_sub(*section_pos, v3_scale(cam->right, step));
 	}
 }
 

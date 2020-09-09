@@ -18,7 +18,7 @@ void	check_error_cl(const int num, const char *message, char *path)
 	{
 		ft_printf("Number:\t%d\nError:\t%s\n", num, message);
 		if (path)
-+			ft_printf("Path:\t%s\n", path);
+			ft_printf("Path:\t%s\n", path);
 		exit(1);
 	}
 }

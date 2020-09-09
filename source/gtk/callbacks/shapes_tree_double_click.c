@@ -15,10 +15,10 @@
 void	shapes_tree_double_click(GtkTreeView *tree, GtkTreePath *path,
 								GtkTreeViewColumn *col, gpointer data)
 {
-	t_rt		*rt;
-	GtkTreeIter	iter;
-	gboolean	marker;
-	SHAPE		*shape;
+	t_rt			*rt;
+	GtkTreeIter		iter;
+	gboolean		marker;
+	struct s_shape	*shape;
 
 	(void)tree;
 	(void)col;

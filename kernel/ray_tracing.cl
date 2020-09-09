@@ -58,7 +58,8 @@ __kernel void render_kernel(__global t_object *objects,
 							__global t_ppm_image *normal_maps,
 							FILTER filter,
 							__global int *output_id,
-							float3 filter_params)
+							float3 filter_params,
+							int anti_aliasing)
 {
 	const int work_item_id = get_global_id(0);
 	uint seed = seedsInput[work_item_id];
@@ -81,7 +82,7 @@ __kernel void render_kernel(__global t_object *objects,
 		/*Набор случайных чисел*/
 		init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures, normal_maps);
 
-		int xQuality = 1;
+		int xQuality = anti_aliasing ? 4 : 1;
 		/*Сглаживание*/
 		for (int i = 0; i < xQuality; i++) {
 			/* разброс [-0.5,0.5] а стреляем из центра пикселя*/

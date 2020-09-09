@@ -12,7 +12,7 @@
 
 #include "gtk_module.h"
 
-void increase_holders_cnt(int *count, _Bool *button, t_rt *rt)
+void	increase_holders_cnt(int *count, _Bool *button, t_rt *rt)
 {
 	if (*button == FALSE)
 	{

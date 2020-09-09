@@ -21,8 +21,11 @@
 # include "serializer.h"
 # include "ocl.h"
 
-# define STEP 0.5
-# define UI_WIDTH 475
+# ifdef __APPLE__
+#  define UI_WIDTH 600
+# else
+#  define UI_WIDTH 475
+# endif
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
@@ -180,6 +183,7 @@ typedef struct		s_material_tab
 	t_scale			specular;
 	t_scale			reflective;
 	t_scale			transparency;
+	t_scale			refraction;
 }					t_material_tab;
 
 /*
@@ -407,7 +411,11 @@ typedef struct		s_gtk_settings
 {
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
+	GtkWidget		*grid_scale_params;
+	t_scale			step;
+	t_scale			angle;
 	GtkWidget		*grid;
+	GtkWidget		*anti_aliasing;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
@@ -635,8 +643,12 @@ gboolean			normal_map_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 void				fps_scale_moved(GtkRange *range, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
+void				change_anti_aliasing(GtkToggleButton *toggle_button,
+								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
+void				step_scale_moved(GtkRange *range, gpointer data);
+void				angle_scale_moved(GtkRange *range, gpointer data);
 void				blur_scale_moved(GtkRange *range, gpointer data);
 void				sepia_scale_moved(GtkRange *range, gpointer data);
 void				noise_scale_moved(GtkRange *range, gpointer data);
@@ -782,7 +794,7 @@ void				rotate_shape(t_rt *rt, guint key);
 ** ============================== Sections motion ==============================
 */
 void				move_sections_by_camera_movement(DTO_SHAPE *dto,
-								DTO_CAM *cam, guint key);
+								DTO_CAM *cam, guint key, cl_float step);
 void				move_sections_by_mouse(FLT3 diff, SECTION *sections);
 void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 								cl_float angle, guint key);
@@ -843,7 +855,7 @@ void				paste_shape(t_rt *rt);
 */
 _Bool				get_new_file_name(char **filename, char **folder,
 									char *default_name);
-char				*get_ppm_filename(void);
+char				*get_ppm_filename(const char *folder);
 /*
 ** ============================== Call serializer ==============================
 */

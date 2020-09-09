@@ -26,5 +26,5 @@ void	run_cl(t_ocl *ocl)
 		sizeof(int), ocl->dto.shape_id, 0, NULL, NULL);
 	check_error_cl(err, "clEnqueueReadBuffer", NULL);
 	err = clFinish(ocl->queue);
-	check_error_cl(err ,"clFinish", NULL);
+	check_error_cl(err, "clFinish", NULL);
 }

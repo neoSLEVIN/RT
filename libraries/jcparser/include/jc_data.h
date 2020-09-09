@@ -18,6 +18,7 @@
 */
 # define MAX_FLOAT 1.0e+9
 # define MIN_FLOAT 1.0e-9
+
 /*
 ** =============================== Object types ================================
 */
@@ -31,6 +32,7 @@
 # define JC_INT (1 << 5)
 # define JC_DBL (1 << 6)
 # define JC_STR (1 << 7)
+
 /*
 ** ============================ Private structures =============================
 */
@@ -52,10 +54,11 @@ typedef struct	s_jcp_value
 /*
 ** =============================================================================
 ** ========================== Main JC private entity ===========================
- * == Contains all information about object like name, value, children, etc. ===
+** == Contains all information about object like name, value, children, etc. ===
 ** =============================================================================
 */
 # define JCP_OBJ struct s_jcp_object
+
 struct			s_jcp_object
 {
 	t_jcp_name	name;

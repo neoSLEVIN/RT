@@ -145,10 +145,7 @@ float2 translate_plane_coord(float3 plane_norm, t_ray *ray) {
 
 /*Нужно чтобы uv координаты не отличались при повороте фигуры*/
 void set_uv_basis(float3 normal, float3 *u_basis, float3 *v_basis) {
-	
-	float3 default_u = (float3)(1, 0, 0);
-	float3 backup = (float3)(0, 1, 0);
-	
+
 	if (normal.x != 0 && normal.y != 0) {
 		float3 tmp;
 		tmp.s0 = normal.y;

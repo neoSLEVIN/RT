@@ -12,7 +12,7 @@ if (APPLE)
     INCLUDE_DIRECTORIES(${GTK3_INCLUDE_DIRS})
     LINK_DIRECTORIES(${GTK3_LIBRARY_DIRS})
     #в PROJ_DIR будет храниться путь до проекта
-    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)")
+    add_definitions(-DPROJ_DIR="$(CMAKE_SOURCE_DIR)/")
 endif()
 
 # ==============================================================================
@@ -275,7 +275,7 @@ set(SRCNAME_OPEN_CL
         source/opencl/settings/image_import.c
         source/opencl/settings/safe_image_import.c
         source/opencl/utils/ppm_error_safe.c
-        source/opencl/settings/update_ppm_img_args.c)
+        source/opencl/settings/update_ppm_img_args.c source/opencl/settings/update_args2.c)
 
 set(PARSER_SRC ${RT_SRC}/parser)
 include_directories(${PARSER_SRC})
@@ -418,7 +418,7 @@ set(SRCNAME_GTK
         source/gtk/actions/get_new_file_name.c
         source/gtk/callbacks/save_image.c
         source/gtk/utils/show_widgets.c
-        source/gtk/callbacks/spin_button_filter_changer.c
+        source/gtk/callbacks/scale_button_filter_changer.c
         source/gtk/widgets/gtk_set_setting_filter_widgets.c
         source/gtk/callbacks/fov_scale_moved.c
         source/gtk/utils/get_angle_by_diff.c
@@ -446,7 +446,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
         source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c)
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c source/gtk/callbacks/change_anti_aliasing.c source/gtk/callbacks/scale_button_settings_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

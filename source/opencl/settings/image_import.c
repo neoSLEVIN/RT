@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   image_import.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:30:19 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:30:20 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ocl.h"
 
 static void	ppm_error(const char *error, const char *filename)
@@ -82,7 +94,7 @@ DTO_PPM_IMG	*read_ppm(const char *filename)
 	get_ppm_info(buff, dto, filename);
 	if ((fd = open(filename, O_RDONLY)) < 0)
 		ppm_error("Can't open the file", filename);
-	read(fd, NULL, dto->start_image);
+	read(fd, buff, dto->start_image);
 	read(fd, dto->data, dto->width * dto->height * 3);
 	close(fd);
 	return (dto);

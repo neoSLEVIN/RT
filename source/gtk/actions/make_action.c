@@ -44,7 +44,7 @@ static void	make_rotate_shape(t_rt *rt)
 	(rt->info->o_key) ? rotate_shape(rt, GDK_KEY_o) : 0;
 }
 
-static void	make_mouse_action_on_camera_and_shape(t_rt * rt)
+static void	make_mouse_action_on_camera_and_shape(t_rt *rt)
 {
 	if (rt->info->right_mc)
 		rotate_camera_by_mouse_with_shape(rt);

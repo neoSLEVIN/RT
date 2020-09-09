@@ -95,6 +95,8 @@ void	init_info(t_info **info)
 	(*info)->s_copy = NULL;
 	(*info)->image_filename = NULL;
 	(*info)->scene_filename = NULL;
-	(*info)->image_file_folder = NULL;
-	(*info)->scene_file_folder = NULL;
+	(*info)->image_file_folder = ft_strdup(PROJ_DIR"extras/images");
+	(*info)->scene_file_folder = ft_strdup(PROJ_DIR"scene");
+	if (!(*info)->image_file_folder || !(*info)->scene_file_folder)
+		ft_error("Can't allocate memory");
 }

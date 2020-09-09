@@ -27,7 +27,7 @@ static void		jcp_init_t_jcp_value(t_jcp_value *value)
 	value->empty = '\0';
 }
 
-JCP_OBJ	*jcp_create_t_jcp_object(void)
+JCP_OBJ			*jcp_create_t_jcp_object(void)
 {
 	JCP_OBJ	*obj;
 

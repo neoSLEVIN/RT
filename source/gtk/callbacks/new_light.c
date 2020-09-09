@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_light.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:25:46 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:25:47 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static LIGHT	*get_default_light(LIGHT *light, DTO_LIGHT *dto)
@@ -47,20 +59,20 @@ static void		new_light_update_everything(t_rt *rt, t_gtk_lights *gtk_lights,
 											LIGHT *light)
 {
 	GtkTreePath	*path;
+	char		*type;
 
 	gtk_tree_store_append(gtk_lights->store, &gtk_lights->iter, NULL);
 	if (!(light->tree_iter = (void*)gtk_tree_iter_copy(&gtk_lights->iter)))
 		ft_error("Can't allocate memory");
-	gtk_tree_store_set(gtk_lights->store, &gtk_lights->iter,
-					LIGHT_NAME_COL, light->name,
-					LIGHT_TYPE_COL, get_light_type_name(light->dto->type),
-					LIGHT_POINTER_COL, light,
-					-1);
+	type = get_light_type_name(light->dto->type);
+	gtk_tree_store_set(gtk_lights->store, &gtk_lights->iter, LIGHT_NAME_COL,
+		light->name, LIGHT_TYPE_COL, type, LIGHT_POINTER_COL, light, -1);
+	ft_strdel(&type);
 	if (!(path = gtk_tree_model_get_path(gtk_lights->model, light->tree_iter)))
 		ft_error("Can't allocate memory");
 	gtk_tree_selection_select_path(gtk_lights->select, path);
 	gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(gtk_lights->tree),
-		path, NULL, FALSE, 0,0);
+		path, NULL, FALSE, 0, 0);
 	gtk_tree_path_free(path);
 	realloc_lights_dto(&rt->ocl->dto.lights, rt->scene->lights,
 					++rt->scene->l_cnt);

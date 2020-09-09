@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   serialize_camera.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:31:53 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:31:54 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "serializer.h"
 
 static cl_float	get_cam_rotation(DTO_CAM *cam)
@@ -12,7 +24,7 @@ static cl_float	get_cam_rotation(DTO_CAM *cam)
 	return (angle);
 }
 
-void		s_camera_obj(t_serializer *s, DTO_CAM *dto, CAMERA *cam)
+void			s_camera_obj(t_serializer *s, DTO_CAM *dto, CAMERA *cam)
 {
 	s_open_obj_with_name(s, "camera");
 	s_name(s, "position");

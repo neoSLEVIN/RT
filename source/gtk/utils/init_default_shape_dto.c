@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_default_shape_dto.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:28:30 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:28:31 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static void	init_default_dots(FLT3 *pos, FLT3 *dots, DTO_CAM *cam)
@@ -18,6 +30,7 @@ void		init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
 	dto->transform.angle = 0;
 	init_default_dots(&dto->transform.position, dto->transform.dots, cam);
 	dto->material.transparency = 0.0f;
+	dto->material.refraction = 0.0f;
 	dto->material.specular = 0.05f;
 	dto->material.reflective = 0.235f;
 	dto->material.color = (FLT3){0.52f, 0.88f, 0.96f};
