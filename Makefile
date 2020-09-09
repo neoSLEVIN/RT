@@ -1,3 +1,5 @@
+OS = $(shell uname)
+
 DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)\"
 
 NAME = RT
@@ -238,16 +240,30 @@ OCLMATH_DIR = libraries/oclmath/
 
 OPENCL_LIB = -framework OpenCL
 
+
 all : dependency $(NAME)
 
+build:
+	@cmake --build ./cmake-build-debug --target RT -- -j 4
+
+run:
+	@./cmake-build-debug/RT.exe
+ifeq ($(OS),Darwin)
 dependency:
 	@$(MAKE) -C $(JCPARSER_DIR)
 	@$(MAKE) -C $(LIBFT_DIR)
 	@$(MAKE) -C $(LIBFTPRINTF_DIR)
 	@$(MAKE) -C $(OCLMATH_DIR)
+else
+dependency: build
+endif
 
+ifeq ($(OS),Darwin)
 $(NAME): $(OBJ_DIR) $(OBJ_FILES)
 	$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
+else
+$(NAME): run
+endif
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
