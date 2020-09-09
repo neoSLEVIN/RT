@@ -12,15 +12,15 @@
 
 #include "libft.h"
 
-char	*ft_get_text_file(const char *filename, size_t max_size)
+char	*ft_get_text_file(const char *filename, ssize_t max_size)
 {
 	char	*file_text;
 	int		fd;
-	int		cnt;
+	ssize_t	cnt;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		ft_error("Can't open the file (ft_get_text_file)");
+		ft_error((char *)filename);
 	if (!(file_text = ft_strnew(max_size)))
 		ft_error("Can't allocate memory (ft_get_text_file)");
 	cnt = read(fd, file_text, max_size + 1);

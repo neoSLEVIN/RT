@@ -128,7 +128,7 @@ int					get_next_line(const int fd, char **line);
 char				*ft_itoa_base(uintmax_t num, uintmax_t base, char c);
 int					ft_printf(const char *format, ...);
 void				ft_del(void *content, size_t content_size);
-char				*ft_get_text_file(const char *filename, size_t max_size);
+char				*ft_get_text_file(const char *filename, ssize_t max_size);
 void				ft_error(char *message);
 size_t				ft_strlen_rus(const char *s);
 
