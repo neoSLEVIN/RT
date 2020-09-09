@@ -14,6 +14,10 @@
 
 void	gtk_set_ui_settings_signals(t_gtk_settings *settings, t_rt *rt)
 {
+	g_signal_connect(G_OBJECT(settings->step.scale), "value-changed",
+		G_CALLBACK(step_scale_moved), rt);
+	g_signal_connect(G_OBJECT(settings->angle.scale), "value-changed",
+		G_CALLBACK(angle_scale_moved), rt);
 	g_signal_connect(GTK_TOGGLE_BUTTON(settings->anti_aliasing), "toggled",
 		G_CALLBACK(change_anti_aliasing), rt);
 	g_signal_connect(G_OBJECT(settings->filter_combo), "changed",

@@ -21,7 +21,6 @@
 # include "serializer.h"
 # include "ocl.h"
 
-# define STEP 0.5
 # ifdef __APPLE__
 #  define UI_WIDTH 600
 # else
@@ -411,6 +410,9 @@ typedef struct		s_gtk_settings
 {
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
+	GtkWidget		*grid_scale_params;
+	t_scale			step;
+	t_scale			angle;
 	GtkWidget		*grid;
 	GtkWidget		*anti_aliasing;
 	GtkWidget		*filter_label;
@@ -644,6 +646,8 @@ void				change_anti_aliasing(GtkToggleButton *toggle_button,
 								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
+void				step_scale_moved(GtkRange *range, gpointer data);
+void				angle_scale_moved(GtkRange *range, gpointer data);
 void				blur_scale_moved(GtkRange *range, gpointer data);
 void				sepia_scale_moved(GtkRange *range, gpointer data);
 void				noise_scale_moved(GtkRange *range, gpointer data);
@@ -789,7 +793,7 @@ void				rotate_shape(t_rt *rt, guint key);
 ** ============================== Sections motion ==============================
 */
 void				move_sections_by_camera_movement(DTO_SHAPE *dto,
-								DTO_CAM *cam, guint key);
+								DTO_CAM *cam, guint key, cl_float step);
 void				move_sections_by_mouse(FLT3 diff, SECTION *sections);
 void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 								cl_float angle, guint key);

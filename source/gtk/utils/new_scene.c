@@ -24,6 +24,8 @@ static gchar	*get_file_name_of_scene(void)
 		"_Cancel", GTK_RESPONSE_CANCEL,
 		"_Open", GTK_RESPONSE_ACCEPT, NULL);
 	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog),
+										PROJ_DIR"scene");
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 	else

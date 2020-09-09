@@ -60,7 +60,7 @@ void			move_shape_by_camera_rotating(t_rt *rt, guint key)
 	ASSERT_SHAPE_VOID(rt->info->s_marker);
 	v_shape = v3_sub(rt->info->s_marker->dto->transform.position, cam->origin);
 	v_shape_old = v_shape;
-	angle = get_angle_to_move_shape(RAD, key, rt->info->axis);
+	angle = get_angle_to_move_shape(rt->scene->angle, key, rt->info->axis);
 	if (!change_vec_by_camera_rotating(&v_shape, cam, key, angle))
 		return ;
 	rt->info->s_marker->dto->transform.position = v3_add(cam->origin, v_shape);

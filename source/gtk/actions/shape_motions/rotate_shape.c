@@ -16,7 +16,7 @@ static cl_float	get_angle_for_rotate_shape(t_rt *rt, guint key)
 {
 	cl_float	angle;
 
-	angle = RAD * 2;
+	angle = rt->scene->angle * 2;
 	if (key == GDK_KEY_k || key == GDK_KEY_l || key == GDK_KEY_u)
 		angle *= -1.0f;
 	if (key == GDK_KEY_k || key == GDK_KEY_i)

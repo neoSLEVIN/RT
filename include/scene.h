@@ -333,6 +333,8 @@ struct			s_scene
 	FILTER		filter;
 	FLT3		filter_params;
 	int			anti_aliasing;
+	cl_float	step;
+	cl_float	angle;
 	char		*filename;
 };
 

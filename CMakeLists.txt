@@ -418,7 +418,7 @@ set(SRCNAME_GTK
         source/gtk/actions/get_new_file_name.c
         source/gtk/callbacks/save_image.c
         source/gtk/utils/show_widgets.c
-        source/gtk/callbacks/spin_button_filter_changer.c
+        source/gtk/callbacks/scale_button_filter_changer.c
         source/gtk/widgets/gtk_set_setting_filter_widgets.c
         source/gtk/callbacks/fov_scale_moved.c
         source/gtk/utils/get_angle_by_diff.c
@@ -446,7 +446,7 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
         source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c source/gtk/callbacks/change_anti_aliasing.c)
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c source/gtk/callbacks/change_anti_aliasing.c source/gtk/callbacks/scale_button_settings_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})
