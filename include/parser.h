@@ -20,6 +20,8 @@
 # define MAX_SHAPES_COUNT 1000
 # define MAX_LIGHTS_COUNT 100
 # define MAX_PPM_IMG_COUNT 20
+# define MAX_OFF_FACES 4000
+# define MAX_OFF_POINTS 4000
 
 /*
 ** ========================== Parse main Scene entity ==========================
@@ -95,40 +97,23 @@ void		check_reserved_names(const JC_FIELD texture_field,
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);
 
 /*
+** =============================================================================
 ** ============================== Parse OFF files ==============================
+** =============================================================================
 */
-SHAPE		*parse_triangle(const char *filename, int *cnt, DTO_CAM *cam,
-						char **err);
-SHAPE		*get_triangles(const char *filename, int *cnt, DTO_CAM *cam,
-						char **err);
-SHAPE		*build_triangles(float **points, int **faces, int triangle_cnt,
-						DTO_CAM *cam);
-SHAPE		*create_triangle(float **points, int **faces, DTO_CAM *cam,
-						int position);
-
-int			parse_params(int fd, int *vertices_faces, char **err);
-float		**get_points(int points_cnt, int fd, char **err);
-int			**get_faces(int faces_cnt, int fd, char **err);
-FLT3		get_point(float **points, int position);
-void		set_triangle_points(DTO_SHAPE *dto, float **points, int **faces,
-						int i);
-
-int			set_params_from_line(char *line, int *vertices_faces, char **err);
-float		*get_points_from_line(char *line);
-int			*get_faces_from_line(char *line);
-void		clear_points(float **points, int points_cnt);
-void		clear_faces(int **points, int points_cnt);
-
-int			common_check_off(int fd, char **err);
-int			check_format(int fd, char **err);
-int			check_params(int fd, int *params, char **err);
-int			check_vertices(int fd, int *params, char **err);
-int			check_faces(int fd, int *params, char **err);
-
-int			check_file_off(const char *filename, char **err);
-int			check_element_count(char *line, int count, int max, char **err);
-int			check_params_count(char **splits, int count, int max, char **err);
-void		free_splits(char **splits, int count);
-int			error_safe(char **err, const char *text);
+_Bool		off_parse_file(t_off *off, char *filename);
+/*
+** ============================== Parse OFF Utils ==============================
+*/
+_Bool		off_init(t_off *off, char *filename);
+_Bool		off_deinit(t_off *off, _Bool clean_all, const char *err_msg);
+cl_float	off_atof(char *num);
+/*
+** ============================= Parse OFF checker =============================
+*/
+_Bool		off_check_format(t_off *off);
+_Bool		off_check_params(t_off *off);
+_Bool		off_check_vertices(t_off *off);
+_Bool		off_check_faces(t_off *off);
 
 #endif

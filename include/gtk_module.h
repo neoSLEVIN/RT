@@ -804,6 +804,7 @@ void				rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam,
 */
 _Bool				do_change_shape_param(FLT3 *params, FLT3 *dots,
 								SHAPE_TYPE type, int diff);
+_Bool				do_change_off_dots(FLT3 *dots, int cnt, int diff);
 void				change_shape_param(t_rt *rt);
 /*
 ** ============================== Update widgets ===============================

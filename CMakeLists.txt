@@ -295,11 +295,9 @@ set(SRCNAME_PARSER
         source/parser/parse_textures.c
         source/parser/parse_sections.c
         source/parser/parser_utils.c
-        source/parser/parse_off/checker_off_helper.c
-        source/parser/parse_off/checker_off_file.c
-        source/parser/parse_off/parse_off_main_helper.c
-        source/parser/parse_off/parse_off_file.c
-        source/parser/parse_off/parse_off_helper.c)
+        source/parser/parse_off/off_parse_file.c
+        source/parser/parse_off/off_parse_utils.c
+        source/parser/parse_off/off_parse_checker.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -451,7 +449,11 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/spin_button_shape_dot_b_changer.c
         source/gtk/callbacks/shape/spin_button_shape_dot_c_changer.c
         source/gtk/callbacks/shape/spin_button_shape_depth_changer.c
-        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c source/gtk/actions/do_change_shape_param.c source/gtk/callbacks/change_anti_aliasing.c source/gtk/callbacks/scale_button_settings_changer.c)
+        source/gtk/callbacks/shape/spin_button_shape_shift_changer.c
+        source/gtk/actions/do_change_shape_param.c
+        source/gtk/callbacks/change_anti_aliasing.c
+        source/gtk/callbacks/scale_button_settings_changer.c
+        source/gtk/actions/do_change_off_dots.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

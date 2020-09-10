@@ -26,7 +26,12 @@ void init_scene(t_scene *scene,
 				CAMERA cam,
 				uint seed,
 				__global t_ppm_image *textures,
-				__global t_ppm_image *normal_maps)
+				__global t_ppm_image *normal_maps,
+				__global float3 *points,
+				__global int3 *faces,
+				__global float3 *colors,
+				int point_cnt,
+				int faces_cnt)
 {
 	scene->objects = objects;
 	scene->num_obj = num_obj;
@@ -36,6 +41,11 @@ void init_scene(t_scene *scene,
 	scene->seed = seed;
 	scene->textures = textures;
 	scene->normal_maps = normal_maps;
+	scene->points = points;
+	scene->faces = faces;
+	scene->colors = colors;
+	scene->point_cnt = point_cnt;
+	scene->faces_cnt = faces_cnt;
 }
 
 __kernel void render_kernel(__global t_object *objects,
@@ -51,7 +61,12 @@ __kernel void render_kernel(__global t_object *objects,
 							FILTER filter,
 							__global int *output_id,
 							float3 filter_params,
-							int anti_aliasing)
+							int anti_aliasing,
+							__global float3 *points,
+							__global int3 *faces,
+							__global float3 *colors,
+							int point_cnt,
+							int faces_cnt)
 {
 	const int work_item_id = get_global_id(0);
 	uint seed = seedsInput[work_item_id];
@@ -72,7 +87,8 @@ __kernel void render_kernel(__global t_object *objects,
 		t_scene scene;
 
 		/*Набор случайных чисел*/
-		init_scene(&scene, objects, num_obj, lights, num_light, cam, seed, textures, normal_maps);
+		init_scene(&scene, objects, num_obj, lights, num_light, cam, seed,
+					textures, normal_maps, points, faces, colors, point_cnt, faces_cnt);
 
 		int xQuality = anti_aliasing ? 4 : 1;
 		/*Сглаживание*/

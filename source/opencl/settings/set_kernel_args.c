@@ -22,6 +22,16 @@ static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err, "clSetKernelArg", "filter_params");
 	err = clSetKernelArg(kernel, 13, sizeof(int), dto->anti_aliasing);
 	check_error_cl(err, "clSetKernelArg", "anti_aliasing");
+	err = clSetKernelArg(kernel, 14, sizeof(cl_mem), &dto->input_points);
+	check_error_cl(err, "clSetKernelArg", "input_points");
+	err = clSetKernelArg(kernel, 15, sizeof(cl_mem), &dto->input_faces);
+	check_error_cl(err, "clSetKernelArg", "input_faces");
+	err = clSetKernelArg(kernel, 16, sizeof(cl_mem), &dto->input_colors);
+	check_error_cl(err, "clSetKernelArg", "input_colors");
+	err = clSetKernelArg(kernel, 17, sizeof(int), dto->p_cnt);
+	check_error_cl(err, "clSetKernelArg", "p_cnt");
+	err = clSetKernelArg(kernel, 18, sizeof(int), dto->f_cnt);
+	check_error_cl(err, "clSetKernelArg", "f_cnt");
 }
 
 void		set_kernel_args(cl_kernel kernel, t_dto *dto)

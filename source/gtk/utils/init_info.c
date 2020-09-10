@@ -86,6 +86,7 @@ void	init_info(t_info **info)
 	(*info)->update_l_cnt = FALSE;
 	(*info)->update_l_name = FALSE;
 	(*info)->update_l_params = FALSE;
+	(*info)->update_off_points = FALSE;
 	shape_to_false(*info);
 	keys_to_false(*info);
 	mouse_to_false(*info);

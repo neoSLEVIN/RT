@@ -1,3 +1,5 @@
+
+
 float3 send_ray(t_ray *ray, t_scene *scene) {
 
 	float3 backColor = 0;
@@ -9,6 +11,10 @@ float3 send_ray(t_ray *ray, t_scene *scene) {
 /*	if (ray->hit_id < 0)
 		printf("%d ", ray->hit_id);*/
 	t_object hit_obj = scene->objects[ray->hit_id];
+	if (hit_obj.type == OFF)
+	{
+		reinit_off_obj(&hit_obj, scene, ray);
+	}
 	intensity = get_light_intensity(ray, scene);
 	resColor = get_obj_color(&hit_obj, ray, scene);
 	resColor =  resColor * intensity;

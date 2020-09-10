@@ -34,6 +34,18 @@ static void		parse_shape_name(const JC_FIELD shape_field,
 					"The field length must be in the range (0; 20].");
 }
 
+static void		parse_off(const JC_FIELD shape_field, SHAPE_TYPE type,
+						t_off *off)
+{
+	char	*filename;
+
+	if (type != OFF)
+		return ;
+	filename = jc_get_string(shape_field, "path", FALSE);
+	if (!off_parse_file(off, filename))
+		parse_error(jc_full_name(shape_field), "path", off->err);
+}
+
 SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 								SCENE *scene)
 {
@@ -47,6 +59,10 @@ SHAPE			*parse_shape_idx(const JC_FIELD parent, const size_t index,
 	init_default_shape_params(shape);
 	parse_shape_name(shape_field, index, shape);
 	shape->dto->type = parse_shape_type(shape_field, "type");
+	if (shape->dto->type == OFF && scene->off.filename)
+		parse_error(jc_full_name(shape_field), "type",
+				"Maximum one OFF shape in scene");
+	parse_off(shape_field, shape->dto->type, &scene->off);
 	parse_shape_param_by_type(shape_field, shape->dto->type,
 							&shape->dto->params);
 	shape->dto->transform =
