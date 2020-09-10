@@ -8,3 +8,12 @@ void	update_anti_aliasing_arg(t_ocl *ocl)
 						ocl->dto.anti_aliasing);
 	check_error_cl(err, "clSetKernelArg", "anti_aliasing");
 }
+
+void	update_mirror_arg(t_ocl *ocl)
+{
+	int	err;
+
+	err = clSetKernelArg(ocl->kernel, 14, sizeof(int),
+						ocl->dto.mirror);
+	check_error_cl(err, "clSetKernelArg", "mirror");
+}

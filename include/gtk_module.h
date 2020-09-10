@@ -412,6 +412,7 @@ typedef struct		s_gtk_settings
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
 	GtkWidget		*grid_scale_params;
+	t_scale			mirror;
 	t_scale			step;
 	t_scale			angle;
 	GtkWidget		*grid;
@@ -647,6 +648,7 @@ void				change_anti_aliasing(GtkToggleButton *toggle_button,
 								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
+void				mirror_scale_moved(GtkRange *range, gpointer data);
 void				step_scale_moved(GtkRange *range, gpointer data);
 void				angle_scale_moved(GtkRange *range, gpointer data);
 void				blur_scale_moved(GtkRange *range, gpointer data);

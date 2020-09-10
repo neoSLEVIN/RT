@@ -37,7 +37,7 @@ float3 go_reflect(t_ray ray, t_scene *scene) {
 
 	int i = -1;
 	t_ray temp = ray;
-	while (++i < 5 && temp.hit_id >= 0)
+	while (++i < scene->mirror && temp.hit_id >= 0)
 	{
 		t_ray temp2 = temp;
 		/*объект отражает*/

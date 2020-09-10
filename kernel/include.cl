@@ -154,6 +154,7 @@ typedef struct				s_scene
 	int2 					cursor;
 	__global t_ppm_image	*textures;
 	__global t_ppm_image	*normal_maps;
+	int						mirror;
 }							t_scene;
 
 
@@ -168,7 +169,8 @@ void init_scene(t_scene *scene,
 				CAMERA cam,
 				uint seed,
 				__global t_ppm_image *textures,
-				__global t_ppm_image *normal_maps);
+				__global t_ppm_image *normal_maps,
+				int mirror);
 
 float3 compute_color(t_scene *scene, t_ray *ray);
 

@@ -22,6 +22,8 @@ static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
 	check_error_cl(err, "clSetKernelArg", "filter_params");
 	err = clSetKernelArg(kernel, 13, sizeof(int), dto->anti_aliasing);
 	check_error_cl(err, "clSetKernelArg", "anti_aliasing");
+	err = clSetKernelArg(kernel, 14, sizeof(int), dto->mirror);
+	check_error_cl(err, "clSetKernelArg", "mirror");
 }
 
 void		set_kernel_args(cl_kernel kernel, t_dto *dto)
