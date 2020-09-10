@@ -264,7 +264,8 @@ endif
 
 ifeq ($(OS),Darwin)
 $(NAME): $(OBJ_DIR) $(OBJ_FILES)
-	$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
+	@$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
+	@printf "$(PURPLE)RT \t$(GREEN)%-90s$(GREEN)[done]$(NONE)\n" FINAL_COMPILE
 else
 $(NAME): run
 endif
@@ -274,12 +275,27 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)%.o : %.c
 	@mkdir -p $(@D)
-	$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
+	@$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
+	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 clean:
-	rm -f $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" RT_OBJECT_FILES
+	@$(MAKE) -C $(JCPARSER_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(JCPARSER_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(LIBFTPRINTF_DIR)
+	@$(MAKE) -C $(OCLMATH_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(OCLMATH_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@printf "$(PURPLE)RT fclean\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" delete_executable
+	@$(MAKE) -C $(JCPARSER_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) fclean
+	@$(MAKE) -C $(OCLMATH_DIR) fclean
 
 re: fclean all

@@ -42,7 +42,7 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ_OCLMATH_MODULE)
 	@ar rc $(NAME) $(OBJ_OCLMATH_MODULE)
 	@ranlib $(NAME)
-	@printf "$(GREEN)RT:\t$(YELLOW)%-25s$(GREEN)[done]$(NONE)\n" $@
+	@printf "$(GREEN)RT:\t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -52,9 +52,9 @@ $(OBJ_DIR)%.o : %.c $(OCLMATH_HEADER)
 	@$(CC) $(FLAGS) -c $(OCLMATH_INC) $< -o $@
 
 clean:
-	/bin/rm -f $(OBJ_OCLMATH_MODULE)
+	@/bin/rm -f $(OBJ_OCLMATH_MODULE)
 
 fclean : clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
