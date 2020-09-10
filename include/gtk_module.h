@@ -457,6 +457,7 @@ typedef struct		s_ui
 typedef struct		s_gtk_data
 {
 	GtkWidget		*window;
+	char			*titles[2];
 	GtkWidget		*window_h_box;
 	t_gtk_image		img;
 	t_ui			ui;
