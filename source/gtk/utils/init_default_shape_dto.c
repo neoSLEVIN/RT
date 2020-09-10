@@ -19,7 +19,7 @@ void		init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto)
 	init_default_dots(&dto->transform.position, dto->transform.dots, cam);
 	dto->material.transparency = 0.0f;
 	dto->material.specular = 0.05f;
-	dto->material.reflective = 0.0f;
+	dto->material.reflective = 0.235f;
 	dto->material.color = (FLT3){0.52f, 0.88f, 0.96f};
 	dto->texture.id = -1;
 	dto->texture.rotation = 0.0f;

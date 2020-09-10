@@ -294,7 +294,12 @@ set(SRCNAME_PARSER
         source/parser/parse_settings.c
         source/parser/parse_textures.c
         source/parser/parse_sections.c
-        source/parser/parser_utils.c)
+        source/parser/parser_utils.c
+        source/parser/parse_off/checker_off_helper.c
+        source/parser/parse_off/checker_off_file.c
+        source/parser/parse_off/parse_off_main_helper.c
+        source/parser/parse_off/parse_off_file.c
+        source/parser/parse_off/parse_off_helper.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})

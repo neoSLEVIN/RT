@@ -90,7 +90,44 @@ void		parse_error(const char *parent_name, const char *child_name,
 */
 char		*unnamed_obj(size_t index, char *prefix);
 void		check_reserved_names(const JC_FIELD texture_field,
-								const char *name, _Bool is_normal_maps);
+						const char *name, _Bool is_normal_maps);
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);
+
+/*
+** ============================== Parse OFF files ==============================
+*/
+SHAPE		*parse_triangle(const char *filename, int *cnt, DTO_CAM *cam,
+						char **err);
+SHAPE		*get_triangles(const char *filename, int *cnt, DTO_CAM *cam,
+						char **err);
+SHAPE		*build_triangles(float **points, int **faces, int triangle_cnt,
+						DTO_CAM *cam);
+SHAPE		*create_triangle(float **points, int **faces, DTO_CAM *cam,
+						int position);
+
+int			parse_params(int fd, int *vertices_faces, char **err);
+float		**get_points(int points_cnt, int fd, char **err);
+int			**get_faces(int faces_cnt, int fd, char **err);
+FLT3		get_point(float **points, int position);
+void		set_triangle_points(DTO_SHAPE *dto, float **points, int **faces,
+						int i);
+
+int			set_params_from_line(char *line, int *vertices_faces, char **err);
+float		*get_points_from_line(char *line);
+int			*get_faces_from_line(char *line);
+void		clear_points(float **points, int points_cnt);
+void		clear_faces(int **points, int points_cnt);
+
+int			common_check_off(int fd, char **err);
+int			check_format(int fd, char **err);
+int			check_params(int fd, int *params, char **err);
+int			check_vertices(int fd, int *params, char **err);
+int			check_faces(int fd, int *params, char **err);
+
+int			check_file_off(const char *filename, char **err);
+int			check_element_count(char *line, int count, int max, char **err);
+int			check_params_count(char **splits, int count, int max, char **err);
+void		free_splits(char **splits, int count);
+int			error_safe(char **err, const char *text);
 
 #endif
