@@ -1,6 +1,6 @@
 OS = $(shell uname)
 
-DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)\"
+DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)/\"
 
 NAME = RT
 

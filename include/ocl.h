@@ -40,7 +40,7 @@
 #  ifndef PROJ_DIR
 #   define PROJ_DIR "path to proj dir"
 #  endif
-#  define ABSOLUTE_PATH PROJ_DIR"/kernel/"
+#  define ABSOLUTE_PATH PROJ_DIR"kernel/"
 # else
 #  define PROJ_DIR ""
 #  define ABSOLUTE_PATH "kernel/"
