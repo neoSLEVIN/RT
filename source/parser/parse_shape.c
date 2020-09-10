@@ -88,7 +88,8 @@ SHAPE			*parse_shapes(const JC_FIELD parent, const char *child_name,
 	}
     int cnt;
     char *err;
-    temp_shape->next = parse_triangle("/Users/balvyn-s/Desktop/PS2/data/torus_simple.off", &cnt, &scene->cam, &err);
+    DTO_CAM cam1;
+    temp_shape->next = parse_triangle("/Users/balvyn-s/Desktop/PS2/data/bunny_simple.off", &cnt, &cam1, &err);
     scene->s_cnt += cnt;
 	return (shapes);
 }
