@@ -1,0 +1,1210 @@
+{
+  "settings": {
+    "filter": "NO FILTERS"
+  },
+  "scene": {
+    "camera": {
+      "position": [13, 26, 0.85],
+      "direction": [-0.5, -0.75, 0.5],
+      "rotation": 20,
+      "display": [1326, 640],
+      "fov": 62,
+      "fps": 25
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "AMBIENT",
+        "intensity": 0.4
+      },
+      {
+        "name": "Light_2",
+        "type": "POINT",
+        "intensity": 0.500,
+        "position": [0.000, 15.000, 10.000]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "PLANE",
+        "name": "Floor",
+        "transform": {
+          "position": [0.000, 0.000, 0.000],
+          "direction": [0.000, 1.000, 0.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "wood_floor"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "wall_1",
+        "transform": {
+          "position": [0, 0, -50.000],
+          "direction": [0.000, 0.000, 1.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "wood_wall"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Wall_2",
+        "transform": {
+          "position": [0.000, 0.000, 30.000],
+          "direction": [0.000, 0.000, 1.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 1.0,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "wood_wall"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Wall_3",
+        "transform": {
+          "position": [20.000, 0.000, 0.000],
+          "direction": [1.000, 0.000, 0.000]
+        },
+        "material": {
+          "color": "FFFFFF",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "wood_wall"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Wall_4",
+        "transform": {
+          "position": [-20.000, 0.000, 0.000],
+          "direction": [1.000, 0.000, 0.000]
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "wood_wall"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_1",
+        "width":0.4,
+        "height": 0.4,
+        "depth": 10,
+        "transform": {
+          "position": [9, 5, 10],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_2",
+        "width":0.4,
+        "height": 0.4,
+        "depth": 10,
+        "transform": {
+          "position": [9, 5, 15],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_3",
+        "width":0.4,
+        "height": 0.4,
+        "depth": 5,
+        "transform": {
+          "position": [5, 2.5, 14.75],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_4",
+        "width":0.4,
+        "height": 0.4,
+        "depth": 5,
+        "transform": {
+          "position": [5, 2.5, 10.25],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0.0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_5",
+        "width": 5.25,
+        "height": 5.25,
+        "depth": 0.5,
+        "transform": {
+          "position": [6.5, 5.25, 12.5],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Chair_6",
+        "width": 5,
+        "height": 2,
+        "depth": 0.3,
+        "transform": {
+          "position": [9, 9, 12.5],
+          "direction": [1.000,0.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_1",
+        "width": 0.5,
+        "height": 0.5,
+        "depth": 8,
+        "transform": {
+          "position": [2, 4, 8],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_2",
+        "width": 0.5,
+        "height": 0.5,
+        "depth": 8,
+        "transform": {
+          "position": [2, 4, 16],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_3",
+        "width": 0.5,
+        "height": 0.5,
+        "depth": 8,
+        "transform": {
+          "position": [-6, 4, 16],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_4",
+        "width": 0.5,
+        "height": 0.5,
+        "depth": 8,
+        "transform": {
+          "position": [-6, 4, 8],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_5",
+        "width": 9,
+        "height": 9,
+        "depth": 0.8,
+        "transform": {
+          "position": [-2, 8.4, 12],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_6",
+        "width": 8,
+        "height": 0.2,
+        "depth": 2,
+        "transform": {
+          "position": [-2, 7, 8],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_6",
+        "width": 8,
+        "height": 0.2,
+        "depth": 2,
+        "transform": {
+          "position": [-2, 7, 16],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_7",
+        "width": 0.2,
+        "height": 8,
+        "depth": 2,
+        "transform": {
+          "position": [2, 7, 12],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Table_8",
+        "width": 0.2,
+        "height": 8,
+        "depth": 2,
+        "transform": {
+          "position": [-6, 7, 12],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "Mirror_1",
+        "width": 0.4,
+        "height": 8,
+        "depth": 12,
+        "transform": {
+          "position": [-20, 13, 11],
+          "direction": [0.000,1.000,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "808080",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "probka"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED PLANE",
+        "name": "Mirror_2",
+        "width": 7,
+        "height": 11,
+        "transform": {
+          "position": [-19.75, 13, 11],
+          "direction": [1, 0, 0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0,
+          "reflective": 1,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "SPHERE",
+              "position": [-6.000, 6.000, -8.000],
+              "radius": 1.700
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "HENRY_head",
+        "radius": 2,
+        "transform": {
+          "position": [5, 15, 13],
+          "direction": [0, 0, 1]
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [1.468, -1.748, 11.057],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_body",
+        "width": 0.5,
+        "height": 8,
+        "depth": 0.5,
+        "transform": {
+          "position": [6, 10, 13],
+          "direction": [0.000,0.000,1],
+          "rotate angle": -10
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_hand1_1",
+        "width": 0.5,
+        "height": 4,
+        "depth": 0.5,
+        "transform": {
+          "position": [5.098, 10.243, 14.349],
+          "direction": [0.000,0.5,0.5],
+          "rotate angle": 40
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_hand1_2",
+        "width": 4,
+        "height": 0.5,
+        "depth": 0.5,
+        "transform": {
+          "position": [1.985, 9.153, 15.474],
+          "direction": [0,1,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_hand2_1",
+        "width": 0.5,
+        "height": 4,
+        "depth": 0.5,
+        "transform": {
+          "position": [5.098, 10.243, 12],
+          "direction": [0.000,-0.5, 0.5],
+          "rotate angle": 40
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_hand2_2",
+        "width": 4,
+        "height": 0.5,
+        "depth": 0.5,
+        "transform": {
+          "position": [1.985, 9.153, 11],
+          "direction": [0,1,0],
+          "rotate angle": 0
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_leg1_1",
+        "width": 4,
+        "height": 0.5,
+        "depth": 0.5,
+        "transform": {
+          "position": [5.291, 5.790, 11.553],
+          "direction": [0,1,0],
+          "rotate angle": 40
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_leg1_2",
+        "width": 0.5,
+        "height": 6,
+        "depth": 0.5,
+        "transform": {
+          "position": [3.153, 2.676, 10.4],
+          "direction": [0.000,0, 1],
+          "rotate angle": 10
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_leg2_1",
+        "width": 4,
+        "height": 0.5,
+        "depth": 0.5,
+        "transform": {
+          "position": [5.173, 5.833, 13.823],
+          "direction": [0,1,0],
+          "rotate angle": -30
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "BOX",
+        "name": "HENRY_leg2_2",
+        "width": 0.5,
+        "height": 6,
+        "depth": 0.5,
+        "transform": {
+          "position": [2.843, 2.870, 14.656],
+          "direction": [0.000,0, 1],
+          "rotate angle": 10
+        },
+        "material": {
+          "color": "000000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000,-0.010,10.000],
+              "direction": [-0.577,0.577,-0.577]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Sphere_1",
+        "radius": 0.4,
+        "transform": {
+          "position": [-2.652, 9.250, 13.879],
+          "direction": [0, 0, 1]
+        },
+        "material": {
+          "color": "FA0000",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [1.468, -1.748, 11.057],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Sphere_2",
+        "radius": 0.4,
+        "transform": {
+          "position": [-2.652, 9.250, 11.879],
+          "direction": [0, 0, 1]
+        },
+        "material": {
+          "color": "0000FA",
+          "specular": 1,
+          "reflective": 0,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [1.468, -1.748, 11.057],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "wood_floor",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\laminate.ppm"
+      },
+      {
+        "name": "wood_wall",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\wallpaper.ppm"
+      },
+      {
+        "name": "probka",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\Probka.ppm"
+      }
+    ],
+    "normal maps": [
+      {
+        "name": "Sofa",
+        "path": "C:\Users\Tariv_000\Desktop\RT\extras\normalmaps\sofa.ppm"
+      }
+    ]
+  }
+}

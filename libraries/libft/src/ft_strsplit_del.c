@@ -18,7 +18,7 @@ void	ft_strsplit_del(char **split)
 
 	i = -1;
 	if (!split)
-		return;
+		return ;
 	while (split[++i])
 		ft_strdel(&split[i]);
 	free(split);

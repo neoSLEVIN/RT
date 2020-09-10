@@ -128,8 +128,6 @@ float3 apply_normal_map(t_object *hit_obj, t_ray *ray, float3 normal, t_scene *s
 float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 	float3 normal = 0;
 
-	float3 tmp = 0;
-	
 	switch (hit_obj->type)
 	{
 		case SPHERE:
@@ -160,6 +158,8 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			break;
 		case TRIANGLE:
 			normal = triangle_normal(hit_obj);
+			break;
+		case NONE:
 			break;
 	}
 	if (hit_obj->normal_map.id >= 0) {

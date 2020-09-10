@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   serialize_base.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:31:26 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:31:26 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "serializer.h"
 
 static int	open_fd(const char *filename)
@@ -18,13 +30,13 @@ static int	open_fd(const char *filename)
 	return (fd);
 }
 
-void	s_open_serializer(t_serializer *s, const char *filename)
+void		s_open_serializer(t_serializer *s, const char *filename)
 {
 	s->indents = 0;
 	s->fd = open_fd(filename);
 }
 
-void	s_close_serializer(t_serializer *s)
+void		s_close_serializer(t_serializer *s)
 {
 	close(s->fd);
 }

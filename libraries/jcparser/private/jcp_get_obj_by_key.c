@@ -23,7 +23,7 @@ static JCP_OBJ	*jcp_put_to_parent_trash(JCP_OBJ *obj, JCP_OBJ *parent)
 	return (obj);
 }
 
-JCP_OBJ	*jcp_get_obj_by_key(const char *key, JCP_OBJ *parent)
+JCP_OBJ			*jcp_get_obj_by_key(const char *key, JCP_OBJ *parent)
 {
 	JCP_OBJ	*obj;
 

@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="slevi">
     <words>
+      <w>addprefix</w>
       <w>adlst</w>
       <w>alst</w>
       <w>buttonhold</w>
@@ -8,6 +9,7 @@
       <w>cappedcylinder</w>
       <w>cappedplane</w>
       <w>cene</w>
+      <w>coef</w>
       <w>coeff</w>
       <w>cschoen</w>
       <w>ctxt</w>
@@ -19,17 +21,28 @@
       <w>dlstlen</w>
       <w>dlstnew</w>
       <w>dlstsplit</w>
+      <w>dproj</w>
       <w>elif</w>
       <w>ettings</w>
+      <w>fclean</w>
       <w>ffff</w>
       <w>ftlib</w>
       <w>ftprintf</w>
+      <w>gtkcflags</w>
+      <w>gtklibs</w>
+      <w>ifeq</w>
       <w>ights</w>
+      <w>iinclude</w>
+      <w>ilibraries</w>
       <w>incname</w>
       <w>itoa</w>
       <w>jcparser</w>
       <w>keyhold</w>
+      <w>lftprintf</w>
       <w>libft</w>
+      <w>libftprintf</w>
+      <w>ljcparser</w>
+      <w>loclmath</w>
       <w>lstabi</w>
       <w>lstadd</w>
       <w>lstdel</w>
@@ -90,6 +103,7 @@
       <w>sxga</w>
       <w>twith</w>
       <w>upguide</w>
+      <w>wextra</w>
       <w>wordcnt</w>
       <w>worksize</w>
     </words>

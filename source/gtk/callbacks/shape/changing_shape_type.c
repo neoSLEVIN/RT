@@ -1,15 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   changing_shape_type.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:23:33 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:23:33 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static gboolean	changing_shape_type_safe(gpointer data)
 {
 	t_rt	*rt;
+	char	*type_name;
 
 	rt = (t_rt*)data;
 	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
+	type_name = get_shape_type_name(rt->gtk->ui.shape->shape->dto->type);
 	gtk_tree_store_set(rt->gtk->ui.shapes.store,
 		(GtkTreeIter*)rt->gtk->ui.shape->shape->tree_iter,
-		S_TYPE_COL, get_shape_type_name(rt->gtk->ui.shape->shape->dto->type),
+		S_TYPE_COL, type_name,
 		-1);
+	ft_strdel(&type_name);
 	if (rt->gtk->ui.shape->shape->dto->type != TRIANGLE)
 		do_change_shape_param(&rt->gtk->ui.shape->shape->dto->params,
 							rt->gtk->ui.shape->shape->dto->transform.dots,
@@ -22,8 +37,7 @@ static gboolean	changing_shape_type_safe(gpointer data)
 	return (FALSE);
 }
 
-
-void		changing_shape_type(GtkComboBox *type_combo, gpointer data)
+void			changing_shape_type(GtkComboBox *type_combo, gpointer data)
 {
 	t_rt	*rt;
 

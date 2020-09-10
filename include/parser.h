@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef PARSER_H
+# define PARSER_H
 
 # include "jc_parser.h"
 # include "scene.h"
@@ -20,6 +20,7 @@
 # define MAX_SHAPES_COUNT 1000
 # define MAX_LIGHTS_COUNT 100
 # define MAX_PPM_IMG_COUNT 20
+
 /*
 ** ========================== Parse main Scene entity ==========================
 */

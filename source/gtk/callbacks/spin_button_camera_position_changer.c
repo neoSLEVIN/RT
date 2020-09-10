@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   spin_button_camera_position_changer.c              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:26:36 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:26:37 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static gboolean	spin_button_camera_position_changer_safe(gpointer data)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_new_file_name.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:22:03 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:22:04 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static void	change_filename(char **filename, GtkWidget *dialog)
@@ -42,6 +54,7 @@ _Bool		get_new_file_name(char **filename, char **folder,
 								"_Cancel", GTK_RESPONSE_CANCEL,
 								"_Save", GTK_RESPONSE_ACCEPT,
 								NULL);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
 	gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER(dialog),
 													TRUE);
 	if (*folder)
@@ -58,7 +71,7 @@ _Bool		get_new_file_name(char **filename, char **folder,
 	return (FALSE);
 }
 
-char		*get_ppm_filename(void)
+char		*get_ppm_filename(const char *folder)
 {
 	GtkWidget	*window;
 	GtkWidget	*dialog;
@@ -72,6 +85,9 @@ char		*get_ppm_filename(void)
 					"_Cancel", GTK_RESPONSE_CANCEL,
 					"_Choose", GTK_RESPONSE_ACCEPT,
 					NULL);
+	gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER);
+	if (folder)
+		gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog), folder);
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 	{
 		gtk_filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));

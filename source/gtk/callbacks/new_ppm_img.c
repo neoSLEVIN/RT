@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_ppm_img.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:25:51 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:25:51 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 void	new_texture(GtkButton *button, gpointer data)
@@ -10,7 +22,7 @@ void	new_texture(GtkButton *button, gpointer data)
 	rt = (t_rt*)data;
 	if (rt->scene->t_cnt >= MAX_PPM_IMG_COUNT)
 		return ;
-	if ((filename = get_ppm_filename()) != NULL)
+	if ((filename = get_ppm_filename(PROJ_DIR"extras/textures")) != NULL)
 	{
 		texture = new_ppm_img_init(rt, filename, &rt->scene->textures, FALSE);
 		if (!texture)
@@ -29,7 +41,7 @@ void	new_normal_map(GtkButton *button, gpointer data)
 	rt = (t_rt*)data;
 	if (rt->scene->n_cnt >= MAX_PPM_IMG_COUNT)
 		return ;
-	if ((filename = get_ppm_filename()) != NULL)
+	if ((filename = get_ppm_filename(PROJ_DIR"extras/normalmaps")) != NULL)
 	{
 		normal_map =
 			new_ppm_img_init(rt, filename, &rt->scene->normal_maps, TRUE);

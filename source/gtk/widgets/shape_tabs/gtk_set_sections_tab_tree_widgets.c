@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gtk_set_sections_tab_tree_widgets.c                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:29:08 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:29:08 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static void	gtk_tree_view_insert_section_type_column(t_section_tab *section)

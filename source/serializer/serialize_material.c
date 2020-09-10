@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   serialize_material.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:32:07 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:32:08 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "serializer.h"
 
 static char	get_hex_num(int num)
@@ -38,5 +50,8 @@ void		s_material_obj(t_serializer *s, MATERIAL *material)
 	s_comma(s);
 	s_name(s, "transparency");
 	s_float(s, material->transparency);
+	s_comma(s);
+	s_name(s, "refraction");
+	s_float(s, material->refraction);
 	s_close_obj(s);
 }

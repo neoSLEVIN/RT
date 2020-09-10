@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shape_motion.c                                     :+:      :+:    :+:   */
+/*   rotate_shape.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/17 04:52:40 by cschoen           #+#    #+#             */
-/*   Updated: 2020/05/27 05:18:18 by cschoen          ###   ########.fr       */
+/*   Updated: 2020/09/05 22:21:00 by cschoen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static cl_float	get_angle_for_rotate_shape(t_rt *rt, guint key)
 {
 	cl_float	angle;
 
-	angle = RAD * 2;
+	angle = rt->scene->angle * 2;
 	if (key == GDK_KEY_k || key == GDK_KEY_l || key == GDK_KEY_u)
 		angle *= -1.0f;
 	if (key == GDK_KEY_k || key == GDK_KEY_i)

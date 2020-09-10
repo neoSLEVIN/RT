@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_gtk_shape_main.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cschoen <cschoen@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/05 22:21:10 by cschoen           #+#    #+#             */
+/*   Updated: 2020/09/05 22:21:10 by cschoen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "gtk_module.h"
 
 static void	do_invisible_params(t_main_tab *tab)
@@ -9,7 +21,6 @@ static void	do_invisible_params(t_main_tab *tab)
 	gtk_widget_set_visible(tab->h_depth, FALSE);
 	gtk_widget_set_visible(tab->h_angle, FALSE);
 	gtk_widget_set_visible(tab->h_shift, FALSE);
-	//TODO new param for new shapes
 }
 
 static void	do_visible_params(t_main_tab *tab, SHAPE_TYPE type)
