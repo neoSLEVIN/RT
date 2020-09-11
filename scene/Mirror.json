@@ -209,7 +209,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [

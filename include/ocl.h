@@ -43,10 +43,6 @@
 #   define PROJ_DIR "path to proj dir"
 #  endif
 #  define KERNEL_PATH PROJ_DIR"kernel/"
-#  define OFF_PATH PROJ_DIR"extras/off/"
-#  define IMG_PATH PROJ_DIR"extras/images/"
-#  define NORM_PATH PROJ_DIR"extras/normalmaps/"
-#  define TEXTURE_PATH PROJ_DIR"extras/textures/"
 # else
 #  define PROJ_DIR ""
 #  define KERNEL_PATH "kernel/"
