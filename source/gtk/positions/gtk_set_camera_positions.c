@@ -19,26 +19,26 @@ static void	gtk_set_camera_display_positions(t_gtk_camera *camera)
 	gtk_grid_attach(GTK_GRID(camera->display_grid),
 		camera->display_width.label, 0, 0, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
-		camera->display_width.scale, camera->display_width.label,
-		GTK_POS_RIGHT, 5, 1);
+		camera->display_width.spin, camera->display_width.label,
+		GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
 		camera->display_height.label, camera->display_width.label,
 		GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
-		camera->display_height.scale, camera->display_height.label,
-		GTK_POS_RIGHT, 5, 1);
+		camera->display_height.spin, camera->display_height.label,
+		GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
 		camera->fov.label, camera->display_height.label,
 		GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
-		camera->fov.scale, camera->fov.label,
-		GTK_POS_RIGHT, 5, 1);
+		camera->fov.spin, camera->fov.label,
+		GTK_POS_RIGHT, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
 		camera->fps.label, camera->fov.label,
 		GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(camera->display_grid),
-		camera->fps.scale, camera->fps.label,
-		GTK_POS_RIGHT, 5, 1);
+		camera->fps.spin, camera->fps.label,
+		GTK_POS_RIGHT, 1, 1);
 }
 
 static void	gtk_set_camera_position_positions(t_gtk_camera *camera)

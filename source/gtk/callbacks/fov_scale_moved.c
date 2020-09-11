@@ -12,14 +12,22 @@
 
 #include "gtk_module.h"
 
-void	fov_scale_moved(GtkRange *range, gpointer data)
+static gboolean	fov_scale_moved_safe(gpointer data)
 {
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	rt->scene->cam.fov = gtk_range_get_value(range);
+	rt->scene->cam.fov =
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(rt->gtk->ui.camera.fov.spin));
 	init_dto_cam(rt->scene->cam.dto, rt->scene->cam.fov,
 				rt->scene->cam.display);
 	rt->info->update_cam = TRUE;
 	rt->info->update = TRUE;
+	return (FALSE);
+}
+
+void			fov_scale_moved(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(fov_scale_moved_safe, data);
 }

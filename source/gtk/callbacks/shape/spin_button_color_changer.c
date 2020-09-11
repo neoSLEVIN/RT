@@ -2,7 +2,6 @@
 
 static gboolean	spin_button_color_changer_safe(gpointer data)
 {
-	int				i;
 	t_rt			*rt;
 	FLT3			*color;
 	t_color_tab		*tab;
@@ -16,7 +15,7 @@ static gboolean	spin_button_color_changer_safe(gpointer data)
 	color->z = gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->blue.spin));
 	update_flags(&rt->info->update_shapes, &rt->info->update);
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
-					  &rt->info->update_shapes);
+					&rt->info->update_shapes);
 	return (FALSE);
 }
 

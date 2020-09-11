@@ -114,10 +114,10 @@ typedef struct		s_gtk_camera
 	GtkWidget		*x_axis;
 	GtkWidget		*display_frame;
 	GtkWidget		*display_grid;
-	t_scale			display_width;
-	t_scale			display_height;
-	t_scale			fov;
-	t_scale			fps;
+	t_spinner		display_width;
+	t_spinner		display_height;
+	t_spinner		fov;
+	t_spinner		fps;
 	GtkWidget		*pos_expander;
 	GtkWidget		*pos_grid;
 	t_spinner		pos[3];
@@ -549,6 +549,8 @@ void				gtk_set_scale(t_scale *scale, INT2 range, int value,
 								const char *label);
 t_scale				gtk_get_float_scale(const char *label, FLT2 range,
 								cl_float value, cl_float step);
+void				gtk_set_spinner(t_spinner *spinner, INT2 range, int value,
+								const char *label);
 t_spinner			gtk_set_spinner_float(const char *label, FLT2 range,
 								cl_float value, cl_float step);
 /*
@@ -662,7 +664,7 @@ gboolean			texture_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 gboolean			normal_map_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
-void				fps_scale_moved(GtkRange *range, gpointer data);
+void				fps_scale_moved(GtkSpinButton *button, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 void				change_anti_aliasing(GtkToggleButton *toggle_button,
 								gpointer data);
@@ -673,9 +675,11 @@ void				angle_scale_moved(GtkRange *range, gpointer data);
 void				blur_scale_moved(GtkRange *range, gpointer data);
 void				sepia_scale_moved(GtkRange *range, gpointer data);
 void				noise_scale_moved(GtkRange *range, gpointer data);
-void				display_width_scale_moved(GtkRange *range, gpointer data);
-void				display_height_scale_moved(GtkRange *range, gpointer data);
-void				fov_scale_moved(GtkRange *range, gpointer data);
+void				display_width_scale_moved(GtkSpinButton *button,
+								gpointer data);
+void				display_height_scale_moved(GtkSpinButton *button,
+								gpointer data);
+void				fov_scale_moved(GtkSpinButton *button, gpointer data);
 void				camera_expander_callback(GObject *object,
 								GParamSpec *param_spec, gpointer data);
 void				spin_button_camera_position_changer(GtkSpinButton *button,
