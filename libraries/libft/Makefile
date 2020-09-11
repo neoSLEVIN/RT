@@ -101,9 +101,6 @@ LIBFT_MODULE = src/ft_strlen.c \
 OBJ_DIR = ./obj/
 OBJ_LIBFT_MODULE = $(addprefix $(OBJ_DIR), $(LIBFT_MODULE:.c=.o))
 
-norm:
-	@norminette $(LIBFT_HEADERS) $(LIBFT_MODULE)
-
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ_LIBFT_MODULE)
@@ -117,6 +114,9 @@ $(OBJ_DIR):
 $(OBJ_DIR)%.o : %.c $(LIBFT_HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(LIBFT_INC) $< -o $@
+
+norm:
+	@norminette $(LIBFT_HEADERS) $(LIBFT_MODULE)
 
 clean:
 	@/bin/rm -rf $(OBJ_DIR)

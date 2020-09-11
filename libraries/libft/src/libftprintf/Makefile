@@ -43,9 +43,6 @@ LIBFTPRINTF_MODULE = pft_validator.c \
 OBJ_DIR = ./obj/
 OBJ_LIBFTPRINTF_MODULE = $(addprefix $(OBJ_DIR), $(LIBFTPRINTF_MODULE:.c=.o))
 
-norm:
-	@norminette $(LIBFTPRINTF_HEADER) $(LIBFTPRINTF_MODULE)
-
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ_LIBFTPRINTF_MODULE)
@@ -59,6 +56,9 @@ $(OBJ_DIR):
 $(OBJ_DIR)%.o : %.c $(LIBFTPRINTF_HEADER)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(LIBFTPRINTF_INC) $< -o $@
+
+norm:
+	@norminette $(LIBFTPRINTF_HEADER) $(LIBFTPRINTF_MODULE)
 
 clean:
 	@/bin/rm -rf $(OBJ_DIR)

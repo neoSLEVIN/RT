@@ -248,13 +248,6 @@ OCLMATH_DIR = libraries/oclmath/
 
 OPENCL_LIB = -framework OpenCL
 
-norm:
-	@$(MAKE) -C $(LIBFT_DIR) norm
-	@$(MAKE) -C $(LIBFTPRINTF_DIR) norm
-	@$(MAKE) -C $(OCLMATH_DIR) norm
-	@$(MAKE) -C $(JCPARSER_DIR) norm
-	@norminette include $(ALL_MODULES)
-
 all: $(NAME)
 
 build:
@@ -288,6 +281,13 @@ $(OBJ_DIR)%.o : %.c $(HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
 	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
+
+norm:
+	@$(MAKE) -C $(LIBFT_DIR) norm
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) norm
+	@$(MAKE) -C $(OCLMATH_DIR) norm
+	@$(MAKE) -C $(JCPARSER_DIR) norm
+	@norminette include $(ALL_MODULES)
 
 clean:
 	@rm -rf $(OBJ_DIR)
