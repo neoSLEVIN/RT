@@ -52,7 +52,6 @@ _Bool		save_file_name(GtkWindow *window, char **filename,
 			temp = gtk_entry_get_text(GTK_ENTRY(chooser.entry));
 			if (!temp || ft_strlen_rus((const char *)temp) == 0)
 				return (deinit_chooser(&chooser, FALSE));
-			//TODO проверить со слэшем
 			if (!(*filename = ft_strjoin(dir_path, temp)))
 				ft_error("Can't allocate memory");
 			return (deinit_chooser(&chooser, TRUE));

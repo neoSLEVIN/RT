@@ -37,12 +37,18 @@ static void		parse_shape_name(const JC_FIELD shape_field,
 static void		parse_off(const JC_FIELD shape_field, SHAPE_TYPE type,
 						t_off *off)
 {
-	char	*filename;
+	char	*path;
+	char	*dir;
+	char	*file;
 
 	if (type != OFF)
 		return ;
-	filename = jc_get_string(shape_field, "path", FALSE);
-	if (!off_parse_file(off, filename))
+	dir = OFF_PATH;
+	file = jc_get_string(shape_field, "path", FALSE);
+	if (!(path = ft_strjoin(dir, file)))
+		ft_error("Can't allocate memory");
+	ft_strdel(&file);
+	if (!off_parse_file(off, path))
 		parse_error(jc_full_name(shape_field), "path", off->err);
 }
 
