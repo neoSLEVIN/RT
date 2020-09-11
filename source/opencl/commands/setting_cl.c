@@ -25,6 +25,9 @@ void	setting_cl(t_ocl *ocl, SCENE *scene, t_info *info)
 	ocl->dto.t_cnt = &scene->t_cnt;
 	translate_textures(&ocl->dto.normal_maps, scene->normal_maps, scene->n_cnt);
 	ocl->dto.n_cnt = &scene->n_cnt;
+	ocl->dto.p_cnt = &scene->off.p_cnt;
+	ocl->dto.f_cnt = &scene->off.f_cnt;
+	translate_off(&ocl->dto, &scene->off);
 	ocl->dto.cursor = &info->lmc_current_pos;
 	ocl->dto.shape_id = &info->shape_id;
 	ocl->dto.anti_aliasing = &scene->anti_aliasing;

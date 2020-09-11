@@ -44,6 +44,21 @@ static void	init_size_of_arrays(JC_FIELD scene_field, SCENE *scene)
 			MAX_PPM_IMG_COUNT);
 }
 
+static void	init_default_off(t_off *off)
+{
+	off->filename = NULL;
+	off->points = NULL;
+	off->faces = NULL;
+	off->colors = NULL;
+	off->p_cnt = 0;
+	off->f_cnt = 0;
+	off->err = NULL;
+	off->line = NULL;
+	off->list = NULL;
+	off->open_fd = FALSE;
+	off->fd = -1;
+}
+
 SCENE		*parse_scene(const char *file_name)
 {
 	JC_FIELD	json_field;
@@ -55,6 +70,7 @@ SCENE		*parse_scene(const char *file_name)
 	json_field = jc_get_json_field(file_name, PARSE_TEXT_SIZE);
 	scene_field = jc_get_field(json_field, "scene", JC_OBJ);
 	init_size_of_arrays(scene_field, scene);
+	init_default_off(&scene->off);
 	scene->cam = parse_camera(scene_field, "camera");
 	scene->textures = parse_textures(scene_field, "textures");
 	scene->normal_maps = parse_textures(scene_field, "normal maps");

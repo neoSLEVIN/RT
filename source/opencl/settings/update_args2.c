@@ -19,3 +19,20 @@ void	update_mirror_arg(t_ocl *ocl)
 						&mirror);
 	check_error_cl(err, "clSetKernelArg", "mirror");
 }
+
+void	update_off_points_arg(t_ocl *ocl, _Bool *update_points)
+{
+	int	err;
+	int	alloc_size;
+
+	clReleaseMemObject(ocl->dto.input_points);
+	alloc_size = (*ocl->dto.p_cnt == 0) ? 1 : *ocl->dto.p_cnt;
+	ocl->dto.input_points = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(FLT3) * alloc_size, ocl->dto.points, &err);
+	check_error_cl(err, "clCreateBuffer", "input_points");
+	err = clSetKernelArg(ocl->kernel, 15, sizeof(cl_mem),
+						&(ocl->dto.input_points));
+	check_error_cl(err, "clSetKernelArg", "input_points");
+	*update_points = FALSE;
+}

@@ -106,7 +106,7 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ_LIBFT_MODULE)
 	@ar rc $(NAME) $(OBJ_LIBFT_MODULE)
 	@ranlib $(NAME)
-	@printf "$(GREEN)RT:\t$(YELLOW)%-25s$(GREEN)[done]$(NONE)\n" $@
+	@printf "$(GREEN)RT:\t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -116,9 +116,9 @@ $(OBJ_DIR)%.o : %.c $(LIBFT_HEADERS)
 	@$(CC) $(FLAGS) -c $(LIBFT_INC) $< -o $@
 
 clean:
-	/bin/rm -f $(OBJ_LIBFT_MODULE)
+	@/bin/rm -f $(OBJ_LIBFT_MODULE)
 
 fclean : clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all

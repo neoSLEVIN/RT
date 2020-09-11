@@ -25,7 +25,8 @@ static gboolean	changing_shape_type_safe(gpointer data)
 		S_TYPE_COL, type_name,
 		-1);
 	ft_strdel(&type_name);
-	if (rt->gtk->ui.shape->shape->dto->type != TRIANGLE)
+	if (rt->gtk->ui.shape->shape->dto->type != TRIANGLE &&
+			rt->gtk->ui.shape->shape->dto->type != OFF)
 		do_change_shape_param(&rt->gtk->ui.shape->shape->dto->params,
 							rt->gtk->ui.shape->shape->dto->transform.dots,
 							rt->gtk->ui.shape->shape->dto->type, 0);

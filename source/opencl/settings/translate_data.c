@@ -12,6 +12,28 @@
 
 #include "ocl.h"
 
+void	translate_off(t_dto *dto, t_off *off)
+{
+	if (!off->points)
+	{
+		if (!(off->points = (FLT3*)malloc(sizeof(FLT3))))
+			ft_error("Can't allocate memory");
+	}
+	dto->points = off->points;
+	if (!off->colors)
+	{
+		if (!(off->colors = (FLT3*)malloc(sizeof(FLT3))))
+			ft_error("Can't allocate memory");
+	}
+	dto->colors = off->colors;
+	if (!off->faces)
+	{
+		if (!(off->faces = (cl_int3*)malloc(sizeof(cl_int3))))
+			ft_error("Can't allocate memory");
+	}
+	dto->faces = off->faces;
+}
+
 void	translate_cam(DTO_CAM *dto, CAMERA *cam)
 {
 	cl_float	rot_y;
