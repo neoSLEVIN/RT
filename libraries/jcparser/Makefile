@@ -49,6 +49,9 @@ JCPARSER_MODULE = private/jcp_create_t_jcp_object.c \
 OBJ_DIR = ./obj/
 OBJ_JCPARSER_MODULE = $(addprefix $(OBJ_DIR), $(JCPARSER_MODULE:.c=.o))
 
+norm:
+	@norminette $(JCPARSER_HEADERS) $(JCPARSER_MODULE)
+
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ_JCPARSER_MODULE)

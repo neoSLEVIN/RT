@@ -37,6 +37,9 @@ OCLMATH_MODULE = source/rad_to_deg.c \
 OBJ_DIR = ./obj/
 OBJ_OCLMATH_MODULE = $(addprefix $(OBJ_DIR), $(OCLMATH_MODULE:.c=.o))
 
+norm:
+	@norminette $(OCLMATH_HEADER) $(OCLMATH_MODULE)
+
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ_OCLMATH_MODULE)

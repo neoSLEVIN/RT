@@ -43,6 +43,9 @@ LIBFTPRINTF_MODULE = pft_validator.c \
 OBJ_DIR = ./obj/
 OBJ_LIBFTPRINTF_MODULE = $(addprefix $(OBJ_DIR), $(LIBFTPRINTF_MODULE:.c=.o))
 
+norm:
+	@norminette $(LIBFTPRINTF_HEADER) $(LIBFTPRINTF_MODULE)
+
 all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJ_LIBFTPRINTF_MODULE)
