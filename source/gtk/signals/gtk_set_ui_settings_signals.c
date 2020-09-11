@@ -14,6 +14,8 @@
 
 void	gtk_set_ui_settings_signals(t_gtk_settings *settings, t_rt *rt)
 {
+	g_signal_connect(G_OBJECT(settings->mirror.scale), "value-changed",
+		G_CALLBACK(mirror_scale_moved), rt);
 	g_signal_connect(G_OBJECT(settings->step.scale), "value-changed",
 		G_CALLBACK(step_scale_moved), rt);
 	g_signal_connect(G_OBJECT(settings->angle.scale), "value-changed",

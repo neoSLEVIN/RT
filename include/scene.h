@@ -356,6 +356,7 @@ struct			s_scene
 	int			anti_aliasing;
 	cl_float	step;
 	cl_float	angle;
+	int			mirror;
 	char		*filename;
 };
 

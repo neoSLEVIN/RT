@@ -1,3 +1,5 @@
+
+
 float3 compute_color(t_scene *scene, t_ray *ray) {
 	float3 finalColor = 0;
 	
@@ -9,11 +11,19 @@ float3 compute_color(t_scene *scene, t_ray *ray) {
 		trans = scene->objects[ray->hit_id].material.transparency;
 
 		if (ref == 0 && trans == 0)
-			return tmpColor;;
-		if (ref > 0)
+			return tmpColor;
+/*		if (ref > 0)
 			finalColor = tmpColor * (1.0f - ref) + go_reflect(*ray, scene) * ref;
 		if (trans > 0)
-			finalColor = tmpColor * (1.0f - trans) + go_refract(*ray, scene) * trans;
+			finalColor = tmpColor * (1.0f - trans) + go_refract(*ray, scene) * trans;*/
+		float3 reflect_color = 0;
+		float3 refract_color = 0;
+		if (ref > 0)
+			reflect_color = go_reflect(*ray, scene);
+		if (trans > 0)
+			refract_color = go_refract(*ray, scene);
+		finalColor = tmpColor * (1.0f - ref) + reflect_color * ref;
+		finalColor = finalColor * (1.0f - trans) + refract_color * trans;
 	}
 	return finalColor;
 }
@@ -27,6 +37,7 @@ void init_scene(t_scene *scene,
 				uint seed,
 				__global t_ppm_image *textures,
 				__global t_ppm_image *normal_maps,
+				int mirror,
 				__global float3 *points,
 				__global int3 *faces,
 				__global float3 *colors,
@@ -41,6 +52,7 @@ void init_scene(t_scene *scene,
 	scene->seed = seed;
 	scene->textures = textures;
 	scene->normal_maps = normal_maps;
+	scene->mirror = mirror;
 	scene->points = points;
 	scene->faces = faces;
 	scene->colors = colors;
@@ -62,6 +74,7 @@ __kernel void render_kernel(__global t_object *objects,
 							__global int *output_id,
 							float3 filter_params,
 							int anti_aliasing,
+							int mirror,
 							__global float3 *points,
 							__global int3 *faces,
 							__global float3 *colors,
@@ -88,7 +101,7 @@ __kernel void render_kernel(__global t_object *objects,
 
 		/*Набор случайных чисел*/
 		init_scene(&scene, objects, num_obj, lights, num_light, cam, seed,
-					textures, normal_maps, points, faces, colors, point_cnt, faces_cnt);
+					textures, normal_maps, mirror, points, faces, colors, point_cnt, faces_cnt);
 
 		int xQuality = anti_aliasing ? 4 : 1;
 		/*Сглаживание*/

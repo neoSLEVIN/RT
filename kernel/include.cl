@@ -155,6 +155,7 @@ typedef struct				s_scene
 	int2 					cursor;
 	__global t_ppm_image	*textures;
 	__global t_ppm_image	*normal_maps;
+	int						mirror;
 	__global float3			*points;
 	__global int3			*faces;
 	__global float3			*colors;
@@ -175,6 +176,7 @@ void init_scene(t_scene *scene,
 				uint seed,
 				__global t_ppm_image *textures,
 				__global t_ppm_image *normal_maps,
+				int mirror,
 				__global float3 *points,
 				__global int3 *faces,
 				__global float3 *colors,

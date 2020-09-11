@@ -20,10 +20,12 @@
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
 #  define CREATE_QUEUE_FUNC clCreateCommandQueue
 #  define CREATE_QUEUE_PARAM 0
+#  define IS_APPLE TRUE
 # else
 #  define BUILD_OPTIONS_CL NULL
 #  define CREATE_QUEUE_FUNC clCreateCommandQueueWithProperties
 #  define CREATE_QUEUE_PARAM NULL
+#  define IS_APPLE FALSE
 # endif
 
 # define GROUP_SIZE 64
@@ -111,6 +113,7 @@ typedef struct			s_dto
 	cl_uchar4			*buffer;
 	int					*shape_id;
 	int					*anti_aliasing;
+	int					*mirror;
 	FILTER				*filter;
 	cl_uchar4			*filter_buff;
 }						t_dto;
@@ -188,6 +191,7 @@ void					realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img,
 void					update_cursor_arg(t_ocl *ocl);
 void					update_filter_params(t_ocl *ocl);
 void					update_anti_aliasing_arg(t_ocl *ocl);
+void					update_mirror_arg(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);

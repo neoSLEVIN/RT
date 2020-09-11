@@ -17,6 +17,8 @@ void	gtk_set_settings_widgets(t_gtk_settings *settings, t_rt *rt)
 	settings->expander = gtk_expander_new_with_mnemonic("S_ettings");
 	settings->v_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	settings->grid_scale_params = gtk_grid_new();
+	gtk_set_scale(&settings->mirror, (INT2){1, 5},
+		rt->scene->mirror, "Mirror:");
 	settings->step = gtk_get_float_scale("Step:", (FLT2){0.01f, 1.0f},
 		rt->scene->step, 0.01f);
 	settings->angle = gtk_get_float_scale("Angle:", (FLT2){0.1f, 1.0f},
