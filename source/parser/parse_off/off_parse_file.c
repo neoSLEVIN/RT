@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "ocl.h"
 
 _Bool		off_check_format(t_off *off)
 {
@@ -15,7 +16,10 @@ _Bool		off_check_format(t_off *off)
 
 _Bool		off_parse_file(t_off *off, char *filename)
 {
-	if (!off_init(off, filename))
+	char *fullPath;
+
+	fullPath = ft_strjoin(OFF_PATH, filename);
+	if (!off_init(off, fullPath))
 		return (FALSE);
 	if (!off_check_format(off))
 		return (FALSE);

@@ -42,10 +42,14 @@
 #  ifndef PROJ_DIR
 #   define PROJ_DIR "path to proj dir"
 #  endif
-#  define ABSOLUTE_PATH PROJ_DIR"kernel/"
+#  define KERNEL_PATH PROJ_DIR"kernel/"
+#  define OFF_PATH PROJ_DIR"extras/off/"
+#  define IMG_PATH PROJ_DIR"extras/images/"
+#  define NORM_PATH PROJ_DIR"extras/normalmaps/"
+#  define TEXTURE_PATH PROJ_DIR"extras/textures/"
 # else
 #  define PROJ_DIR ""
-#  define ABSOLUTE_PATH "kernel/"
+#  define KERNEL_PATH "kernel/"
 # endif
 
 /*
@@ -57,23 +61,23 @@
 # define KERNEL_FILE_CNT 17
 
 static char				*g_kernel_file_arr[KERNEL_FILE_CNT] = {
-	ABSOLUTE_PATH"include.cl",
-	ABSOLUTE_PATH"normals.cl",
-	ABSOLUTE_PATH"sections.cl",
-	ABSOLUTE_PATH"semi_intersections.cl",
-	ABSOLUTE_PATH"intersections.cl",
-	ABSOLUTE_PATH"intersections2.cl",
-	ABSOLUTE_PATH"light.cl",
-	ABSOLUTE_PATH"random.cl",
-	ABSOLUTE_PATH"reflect.cl",
-	ABSOLUTE_PATH"refract.cl",
-	ABSOLUTE_PATH"color.cl",
-	ABSOLUTE_PATH"ray.cl",
-	ABSOLUTE_PATH"ray_tracing.cl",
-	ABSOLUTE_PATH"uv_mapping.cl",
-	ABSOLUTE_PATH"uv_patterns.cl",
-	ABSOLUTE_PATH"perlin_noise.cl",
-	ABSOLUTE_PATH"filters.cl"
+	KERNEL_PATH"include.cl",
+	KERNEL_PATH"normals.cl",
+	KERNEL_PATH"sections.cl",
+	KERNEL_PATH"semi_intersections.cl",
+	KERNEL_PATH"intersections.cl",
+	KERNEL_PATH"intersections2.cl",
+	KERNEL_PATH"light.cl",
+	KERNEL_PATH"random.cl",
+	KERNEL_PATH"reflect.cl",
+	KERNEL_PATH"refract.cl",
+	KERNEL_PATH"color.cl",
+	KERNEL_PATH"ray.cl",
+	KERNEL_PATH"ray_tracing.cl",
+	KERNEL_PATH"uv_mapping.cl",
+	KERNEL_PATH"uv_patterns.cl",
+	KERNEL_PATH"perlin_noise.cl",
+	KERNEL_PATH"filters.cl"
 };
 
 /*

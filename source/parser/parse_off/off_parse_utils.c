@@ -18,13 +18,18 @@ _Bool		off_init(t_off *off, char *filename)
 	return (TRUE);
 }
 
+void		clear_main_off_data(t_off *off, _Bool clean_all)
+{
+	(clean_all && off->points) ? ft_memdel((void**)&off->points) : 0;
+	(clean_all && off->faces) ? ft_memdel((void**)&off->faces) : 0;
+	(clean_all && off->colors) ? ft_memdel((void**)&off->colors) : 0;
+}
+
 _Bool		off_deinit(t_off *off, _Bool clean_all, const char *err_msg)
 {
 	size_t	err_len;
 
-	(clean_all && off->points) ? ft_memdel((void**)&off->points) : 0;
-	(clean_all && off->faces) ? ft_memdel((void**)&off->faces) : 0;
-	(clean_all && off->colors) ? ft_memdel((void**)&off->colors) : 0;
+	clear_main_off_data(off, clean_all);
 	(off->list) ? ft_lstdel(&off->list, ft_del) : 0;
 	(off->line) ? ft_strdel(&off->line) : 0;
 	(off->open_fd) ? close(off->fd) : 0;
@@ -41,8 +46,10 @@ _Bool		off_deinit(t_off *off, _Bool clean_all, const char *err_msg)
 		if (off->filename)
 			ft_strcat(ft_strcat(off->err, off->filename), ": ");
 		ft_strcat(ft_strcat(off->err, err_msg), "\n");
+		ft_memdel(&(off->filename));
 		return (FALSE);
 	}
+	ft_memdel(&(off->filename));
 	return (TRUE);
 }
 

@@ -15,6 +15,7 @@ NONE = \033[0m
 
 INCLUDE_DIR = -Iinclude/ -Ilibraries/jcparser/include/ -Ilibraries/libft/inc/ -Ilibraries/oclmath/include/
 LIBRARIES = -ljcparser -L./libraries/jcparser/ -lft -L./libraries/libft/ -lftprintf -L./libraries/libft/src/libftprintf -loclmath -L./libraries/oclmath
+HEADERS = include/gtk_module.h include/info.h include/ocl.h include/parser.h include/scene.h include/serializer.h
 
 OPEN_CL_MODULE = source/opencl/utils/error_cl.c \
 		source/opencl/utils/new_ocl.c \
@@ -283,7 +284,7 @@ endif
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)%.o : %.c
+$(OBJ_DIR)%.o : %.c $(HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
 	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
