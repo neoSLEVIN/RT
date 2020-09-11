@@ -913,33 +913,33 @@
     "textures": [
       {
         "name": "wood_floor",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\Wood_floor.ppm"
+        "path": "Wood_floor.ppm"
       },
       {
         "name": "wood_wall",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\wood_wall.ppm"
+        "path": "wood_wall.ppm"
       },
       {
         "name": "probka",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\Wood.ppm"
+        "path": "Wood.ppm"
       },
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "marble.ppm"
       },
       {
         "name": "normal_maps",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\Normal_maps.ppm"
+        "path": "Normal_maps.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "Sofa",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\normalmaps\sofa.ppm"
+        "path": "sofa.ppm"
       },
       {
         "name": "wow",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\wow.ppm"
+        "path": "wow.ppm"
       }
     ]
   }

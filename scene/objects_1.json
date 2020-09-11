@@ -253,7 +253,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [
