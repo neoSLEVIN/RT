@@ -20,24 +20,22 @@
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
 #  define CREATE_QUEUE_FUNC clCreateCommandQueue
 #  define CREATE_QUEUE_PARAM 0
+#  define IS_APPLE TRUE
 # else
 #  define BUILD_OPTIONS_CL NULL
 #  define CREATE_QUEUE_FUNC clCreateCommandQueueWithProperties
 #  define CREATE_QUEUE_PARAM NULL
+#  define IS_APPLE FALSE
 # endif
 
 # define GROUP_SIZE 64
 
 /*
 ** =============================================================================
-** =================== Adding absolute path for xcode users ====================
+** ======================== Adding absolute kernel path ========================
 ** =============================================================================
 */
-# ifdef __APPLE__
-#  define ABSOLUTE_PATH PROJ_DIR"kernel/"
-# else
-#  define ABSOLUTE_PATH "kernel/"
-# endif
+# define KERNEL_PATH PROJ_DIR"kernel/"
 
 /*
 ** =============================================================================
@@ -48,23 +46,23 @@
 # define KERNEL_FILE_CNT 17
 
 static char				*g_kernel_file_arr[KERNEL_FILE_CNT] = {
-	ABSOLUTE_PATH"include.cl",
-	ABSOLUTE_PATH"normals.cl",
-	ABSOLUTE_PATH"sections.cl",
-	ABSOLUTE_PATH"semi_intersections.cl",
-	ABSOLUTE_PATH"intersections.cl",
-	ABSOLUTE_PATH"intersections2.cl",
-	ABSOLUTE_PATH"light.cl",
-	ABSOLUTE_PATH"random.cl",
-	ABSOLUTE_PATH"reflect.cl",
-	ABSOLUTE_PATH"refract.cl",
-	ABSOLUTE_PATH"color.cl",
-	ABSOLUTE_PATH"ray.cl",
-	ABSOLUTE_PATH"ray_tracing.cl",
-	ABSOLUTE_PATH"uv_mapping.cl",
-	ABSOLUTE_PATH"uv_patterns.cl",
-	ABSOLUTE_PATH"perlin_noise.cl",
-	ABSOLUTE_PATH"filters.cl"
+	KERNEL_PATH"include.cl",
+	KERNEL_PATH"normals.cl",
+	KERNEL_PATH"sections.cl",
+	KERNEL_PATH"semi_intersections.cl",
+	KERNEL_PATH"intersections.cl",
+	KERNEL_PATH"intersections2.cl",
+	KERNEL_PATH"light.cl",
+	KERNEL_PATH"random.cl",
+	KERNEL_PATH"reflect.cl",
+	KERNEL_PATH"refract.cl",
+	KERNEL_PATH"color.cl",
+	KERNEL_PATH"ray.cl",
+	KERNEL_PATH"ray_tracing.cl",
+	KERNEL_PATH"uv_mapping.cl",
+	KERNEL_PATH"uv_patterns.cl",
+	KERNEL_PATH"perlin_noise.cl",
+	KERNEL_PATH"filters.cl"
 };
 
 /*
@@ -80,15 +78,23 @@ typedef struct			s_dto
 	DTO_PPM_IMG			*normal_maps;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
+	FLT3				*points;
+	FLT3				*colors;
+	cl_int3				*faces;
 	int					*s_cnt;
 	int					*l_cnt;
 	int					*t_cnt;
 	int					*n_cnt;
+	int					*p_cnt;
+	int					*f_cnt;
 	INT2				*cursor;
 	FLT3				*filter_params;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
+	cl_mem				input_points;
+	cl_mem				input_faces;
+	cl_mem				input_colors;
 	cl_mem				input_texture;
 	cl_mem				input_normal_maps;
 	cl_mem				output_data;
@@ -96,6 +102,7 @@ typedef struct			s_dto
 	cl_uchar4			*buffer;
 	int					*shape_id;
 	int					*anti_aliasing;
+	int					*mirror;
 	FILTER				*filter;
 	cl_uchar4			*filter_buff;
 }						t_dto;
@@ -140,6 +147,7 @@ void					run_cl(t_ocl *ocl);
 /*
 ** ===================== Translate from parsed data to DTO =====================
 */
+void					translate_off(t_dto *dto, t_off *off);
 void					translate_cam(DTO_CAM *dto, CAMERA *cam);
 void					translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture,
 								int cnt);
@@ -172,11 +180,14 @@ void					realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img,
 void					update_cursor_arg(t_ocl *ocl);
 void					update_filter_params(t_ocl *ocl);
 void					update_anti_aliasing_arg(t_ocl *ocl);
+void					update_mirror_arg(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
 void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_lights);
+void					update_off_points_arg(t_ocl *ocl,
+								_Bool *update_points);
 void					update_textures_arg(t_ocl *ocl, int cnt);
 void					update_normal_maps_arg(t_ocl *ocl, int cnt);
 /*

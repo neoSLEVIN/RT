@@ -543,61 +543,61 @@
     "textures": [
       {
         "name": "norm",
-        "path": "extras\\textures\\Wood.ppm"
+        "path": "Wood.ppm"
       },
       {
         "name": "360",
-        "path": "extras\\textures\\marble.ppm"
+        "path": "marble.ppm"
       },
       {
         "name": "Coffin",
-        "path": "extras\\textures\\4.ppm"
+        "path": "4.ppm"
       },
       {
         "name": "Dan",
-        "path": "extras\\textures\\dan.ppm"
+        "path": "dan.ppm"
       },
       {
         "name": "Earth",
-        "path": "extras\\textures\\earth.ppm"
+        "path": "earth.ppm"
       },
       {
         "name": "5k",
-        "path": "extras\\textures\\5k.ppm"
+        "path": "5k.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "ground",
-        "path": "extras\\normalmaps\\Wood_n.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "Wood",
-        "path": "extras\\textures\\earth.ppm"
+        "path": "earth.ppm"
       },
       {
         "name": "Wood2",
-        "path": "extras\\textures\\dan.ppm"
+        "path": "dan.ppm"
       },
       {
         "name": "Wood3",
-        "path": "extras\\textures\\dan.ppm"
+        "path": "dan.ppm"
       },
       {
         "name": "Wood4",
-        "path": "extras\\textures\\dan.ppm"
+        "path": "dan.ppm"
       },
       {
         "name": "5k",
-        "path": "extras\\textures\\5k.ppm"
+        "path": "5k.ppm"
       },
       {
         "name": "44",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\sofa.ppm"
+        "path": "sofa.ppm"
       },
       {
         "name": "7",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\water.ppm"
+        "path": "water.ppm"
       }
     ]
   }

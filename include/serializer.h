@@ -66,8 +66,7 @@ void				s_json_obj(const char *scene_filename, SCENE *scene);
 void				s_settings_obj(t_serializer *s, SCENE *scene);
 void				s_scene_obj(t_serializer *s, SCENE *scene);
 void				s_camera_obj(t_serializer *s, DTO_CAM *dto, CAMERA *cam);
-void				s_shapes_arr(t_serializer *s, SHAPE *shape,
-								PPM_IMG *textures, PPM_IMG *normal_maps);
+void				s_shapes_arr(t_serializer *s, SHAPE *shape, SCENE *scene);
 void				s_lights_arr(t_serializer *s, LIGHT *light);
 void				s_ppm_img_arr(t_serializer *s, const char *name,
 								PPM_IMG *ppm, const char *dir);

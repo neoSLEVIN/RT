@@ -463,7 +463,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [

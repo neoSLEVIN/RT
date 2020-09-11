@@ -322,21 +322,21 @@
     "textures": [
       {
         "name": "Earth",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\earth.ppm"
+        "path": "earth.ppm"
       },
       {
         "name": "space",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\space.ppm"
+        "path": "space.ppm"
       },
       {
         "name": "nova",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+        "path": "nova3.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "Н О В \n",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+        "path": "nova3.ppm"
       }
     ]
   }

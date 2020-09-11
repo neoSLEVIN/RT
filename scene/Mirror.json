@@ -4,12 +4,12 @@
   },
   "scene": {
     "camera": {
-      "position": [-18.387, 10.298, -9.966],
-      "direction": [0.639, -0.351, 0.684],
-      "rotation": -0.834,
-      "display": [500, 500],
-      "fov": 25,
-      "fps": 25
+      "position": [-2.312, 1.550, 7.060],
+      "direction": [0.640, -0.453, 0.621],
+      "rotation": -1.718,
+      "display": [1440, 960],
+      "fov": 90,
+      "fps": 44
     },
     "lights": [
       {
@@ -34,6 +34,12 @@
         "type": "POINT",
         "intensity": 0.300,
         "position": [-10.860, 11.465, -1.782]
+      },
+      {
+        "name": "Light_5",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [3.844, 3.392, 13.952]
       }
     ],
     "shapes": [
@@ -46,12 +52,12 @@
         "transform": {
           "position": [0.000, -0.010, 10.000],
           "direction": [0.000, 1.000, -0.017],
-          "rotate angle": 180.000
+          "rotate angle": -0.000
         },
         "material": {
           "color": "84E0F4",
-          "specular": 0.050,
-          "reflective": 0.235,
+          "specular": 0.000,
+          "reflective": 1.000,
           "transparency": 0.000
         },
         "texture": {
@@ -64,10 +70,10 @@
           "style": "SIMPLE",
           "elements": [
             {
-              "on": true,
+              "on": false,
               "type": "PLANE",
               "position": [0.000, -0.010, 10.000],
-              "direction": [-0.577, 0.577, -0.577]
+              "direction": [0.000, 1.000, 0.000]
             }
           ]
         }
@@ -80,9 +86,9 @@
           "direction": [0.293, 0.918, 0.267]
         },
         "material": {
-          "color": "B5F484",
-          "specular": 0.050,
-          "reflective": 0.235,
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 0.000,
           "transparency": 0.000
         },
         "texture": {
@@ -113,8 +119,8 @@
         },
         "material": {
           "color": "84E0F4",
-          "specular": 0.050,
-          "reflective": 0.235,
+          "specular": 0.583,
+          "reflective": 1.000,
           "transparency": 0.000
         },
         "texture": {
@@ -137,7 +143,7 @@
       },
       {
         "type": "SPHERE",
-        "name": "Unnamed_4",
+        "name": "Shape_3",
         "radius": 1.405,
         "transform": {
           "position": [-3.126, -2.992, 13.005],
@@ -145,8 +151,8 @@
         },
         "material": {
           "color": "93F484",
-          "specular": 0.050,
-          "reflective": 0.235,
+          "specular": 0.457,
+          "reflective": 1.000,
           "transparency": 0.000
         },
         "texture": {
@@ -177,8 +183,8 @@
         },
         "material": {
           "color": "F48484",
-          "specular": 0.050,
-          "reflective": 0.235,
+          "specular": 0.595,
+          "reflective": 1.000,
           "transparency": 0.000
         },
         "texture": {
@@ -203,7 +209,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [

@@ -130,17 +130,17 @@
     "textures": [
       {
         "name": "Нова",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+        "path": "nova3.ppm"
       },
       {
         "name": "earth",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\earth.ppm"
+        "path": "earth.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "Н О В \n",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\nova3.ppm"
+        "path": "nova3.ppm"
       }
     ]
   }

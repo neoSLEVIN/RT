@@ -15,6 +15,7 @@ NONE = \033[0m
 
 INCLUDE_DIR = -Iinclude/ -Ilibraries/jcparser/include/ -Ilibraries/libft/inc/ -Ilibraries/oclmath/include/
 LIBRARIES = -ljcparser -L./libraries/jcparser/ -lft -L./libraries/libft/ -lftprintf -L./libraries/libft/src/libftprintf -loclmath -L./libraries/oclmath
+HEADERS = include/gtk_module.h include/info.h include/ocl.h include/parser.h include/scene.h include/serializer.h
 
 OPEN_CL_MODULE = source/opencl/utils/error_cl.c \
 		source/opencl/utils/new_ocl.c \
@@ -48,6 +49,9 @@ PARSER_MODULE = source/parser/parse_scene.c \
 		source/parser/parse_textures.c \
 		source/parser/parse_sections.c \
 		source/parser/parser_utils.c \
+		source/parser/parse_off/off_parse_file.c \
+		source/parser/parse_off/off_parse_utils.c \
+		source/parser/parse_off/off_parse_checker.c \
 
 GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/utils/new_scene.c \
@@ -198,6 +202,7 @@ GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/callbacks/scale_button_settings_changer.c \
 		source/gtk/utils/file_chooser_utils.c \
 		source/gtk/utils/file_chooser.c \
+		source/gtk/actions/do_change_off_dots.c \
 
 SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
 		source/serializer/api/serialize_str.c \
@@ -224,8 +229,8 @@ SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
 		source/serializer/serialize_int2.c \
 
 
-FLAGS = -g -Wall -Wextra -Werror
-CC = gcc
+FLAGS = -Wall -Wextra -Werror
+CC = clang
 #headers file should be add at compile time from .c to .o
 GTKCFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 #libs at linking time from .o to exe
@@ -242,8 +247,7 @@ OCLMATH_DIR = libraries/oclmath/
 
 OPENCL_LIB = -framework OpenCL
 
-
-all: dependency $(NAME)
+all: $(NAME)
 
 build:
 	@cmake --build ./cmake-build-debug --target RT -- -j 4
@@ -262,7 +266,7 @@ dependency: build
 endif
 
 ifeq ($(OS),Darwin)
-$(NAME): $(OBJ_DIR) $(OBJ_FILES)
+$(NAME): dependency $(OBJ_DIR) $(OBJ_FILES)
 	@$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
 	@printf "$(PURPLE)RT \t$(GREEN)%-90s$(GREEN)[done]$(NONE)\n" FINAL_COMPILE
 else
@@ -272,13 +276,20 @@ endif
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)%.o : %.c
+$(OBJ_DIR)%.o : %.c $(HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
 	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
+norm:
+	@$(MAKE) -C $(LIBFT_DIR) norm
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) norm
+	@$(MAKE) -C $(OCLMATH_DIR) norm
+	@$(MAKE) -C $(JCPARSER_DIR) norm
+	@norminette include $(ALL_MODULES)
+
 clean:
-	@rm -f $(OBJ_FILES)
+	@rm -rf $(OBJ_DIR)
 	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" RT_OBJECT_FILES
 	@$(MAKE) -C $(JCPARSER_DIR) clean
 	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(JCPARSER_DIR)

@@ -51,6 +51,8 @@ static char	*get_shape_type_name_norminette(SHAPE_TYPE type)
 		res = ft_strdup("BOX");
 	else if (type == TRIANGLE)
 		res = ft_strdup("TRIANGLE");
+	else if (type == OFF)
+		res = ft_strdup("OFF");
 	else
 		ft_error("Unknown shape type (get_shape_type_name)");
 	return (res);

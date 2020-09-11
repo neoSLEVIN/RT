@@ -84,7 +84,7 @@ _Bool			do_change_shape_param(FLT3 *params, FLT3 *dots, SHAPE_TYPE type,
 
 	do_change = FALSE;
 	coeff = (cl_float)diff * ((cl_float)diff + 0.15f);
-	if (type == PLANE)
+	if (type == PLANE || type == OFF)
 		return (FALSE);
 	else if (type == SPHERE || type == CYLINDER || type == CIRCLE)
 		return (do_change_shape_radius(&params->x, coeff));

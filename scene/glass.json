@@ -190,15 +190,15 @@
     "textures": [
       {
         "name": "maps",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\Normal_maps.ppm"
+        "path": "Normal_maps.ppm"
       },
       {
         "name": "wood",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\Wood_floor.ppm"
+        "path": "Wood_floor.ppm"
       },
       {
         "name": "probka",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\Probka.ppm"
+        "path": "Probka.ppm"
       }
     ],
     "normal maps": [

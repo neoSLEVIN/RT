@@ -63,8 +63,11 @@ $(OBJ_DIR)%.o : %.c $(JCPARSER_HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
+norm:
+	@norminette $(JCPARSER_HEADERS) $(JCPARSER_MODULE)
+
 clean:
-	@/bin/rm -f $(OBJ_JCPARSER_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)

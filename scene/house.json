@@ -1189,21 +1189,21 @@
     "textures": [
       {
         "name": "wood_floor",
-        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\laminate.ppm"
+        "path": "laminate.ppm"
       },
       {
         "name": "wood_wall",
-        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\wallpaper.ppm"
+        "path": "wallpaper.ppm"
       },
       {
         "name": "probka",
-        "path": "C:\Users\Tariv_000\Desktop\RT\extras\textures\Probka.ppm"
+        "path": "Probka.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "Sofa",
-        "path": "C:\Users\Tariv_000\Desktop\RT\extras\normalmaps\sofa.ppm"
+        "path": "sofa.ppm"
       }
     ]
   }

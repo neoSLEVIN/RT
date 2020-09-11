@@ -68,6 +68,27 @@ static void	set_memory_input_textures_normals(t_ocl *ocl, SCENE *scene)
 	}
 }
 
+static void	set_memory_input_off(t_ocl *ocl, SCENE *scene)
+{
+	cl_int	err;
+	int		alloc_size;
+
+	alloc_size = (scene->off.p_cnt == 0) ? 1 : scene->off.p_cnt;
+	ocl->dto.input_points = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(FLT3) * alloc_size, ocl->dto.points, &err);
+	check_error_cl(err, "clCreateBuffer", "input_points");
+	alloc_size = (scene->off.f_cnt == 0) ? 1 : scene->off.f_cnt;
+	ocl->dto.input_faces = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(cl_int3) * alloc_size, ocl->dto.faces, &err);
+	check_error_cl(err, "clCreateBuffer", "input_faces");
+	ocl->dto.input_colors = clCreateBuffer(ocl->context,
+		CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+		sizeof(FLT3) * alloc_size, ocl->dto.colors, &err);
+	check_error_cl(err, "clCreateBuffer", "input_colors");
+}
+
 void		set_memory_input(t_ocl *ocl, SCENE *scene)
 {
 	cl_int	err;
@@ -83,6 +104,7 @@ void		set_memory_input(t_ocl *ocl, SCENE *scene)
 		sizeof(DTO_LIGHT) * scene->l_cnt, ocl->dto.lights, &err);
 	check_error_cl(err, "clCreateBuffer", "input_lights");
 	set_memory_input_textures_normals(ocl, scene);
+	set_memory_input_off(ocl, scene);
 }
 
 void		set_memory_output(t_ocl *ocl)

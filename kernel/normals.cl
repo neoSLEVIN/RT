@@ -157,6 +157,7 @@ float3 get_normal(t_object *hit_obj, t_ray *ray, t_scene *scene) {
 			normal = box_normal(hit_obj, ray);
 			break;
 		case TRIANGLE:
+		case OFF:
 			normal = triangle_normal(hit_obj);
 			break;
 		case NONE:

@@ -7,7 +7,7 @@
       "position": [-18.387, 10.298, -9.966],
       "direction": [0.639, -0.351, 0.684],
       "rotation": -0.952,
-      "display": [1440, 960],
+      "display": [100, 100],
       "fov": 25,
       "fps": 25
     },
@@ -37,6 +37,15 @@
       }
     ],
     "shapes": [
+      {
+        "type": "OFF",
+        "name": "OFF",
+        "path": "bunny_simple2.off",
+        "transform": {
+          "position": [0.000, 3.400, 8.000],
+          "direction": [0.000, 1.000, 0.000]
+        }
+      },
       {
         "type": "BOX",
         "name": "Shape_1",
@@ -203,7 +212,7 @@
     "textures": [
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [

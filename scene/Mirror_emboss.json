@@ -1,0 +1,227 @@
+{
+  "settings": {
+    "step": 0.292,
+    "angle": 1.000,
+    "mirror": 5,
+    "anti-aliasing": true,
+    "filter": "EMBOSS"
+  },
+  "scene": {
+    "camera": {
+      "position": [-2.952, 2.003, 6.439],
+      "direction": [0.640, -0.453, 0.621],
+      "rotation": -1.532,
+      "display": [1440, 960],
+      "fov": 90,
+      "fps": 44
+    },
+    "lights": [
+      {
+        "name": "Unnamed_1",
+        "type": "AMBIENT",
+        "intensity": 0.175
+      },
+      {
+        "name": "Light_2",
+        "type": "POINT",
+        "intensity": 0.310,
+        "position": [0.000, 11.000, 6.000]
+      },
+      {
+        "name": "Light_3",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [5.122, 2.682, 15.318]
+      },
+      {
+        "name": "Light_4",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [-10.860, 11.465, -1.782]
+      },
+      {
+        "name": "Light_5",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [3.844, 3.392, 13.952]
+      }
+    ],
+    "shapes": [
+      {
+        "type": "BOX",
+        "name": "Shape_1",
+        "width": 9.194,
+        "height": 9.194,
+        "depth": 9.194,
+        "transform": {
+          "position": [0.000, -0.010, 10.000],
+          "direction": [0.000, 1.000, -0.017],
+          "rotate angle": 180.000
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 1.000,
+          "transparency": 0.000,
+          "refraction": 0.000
+        },
+        "texture": {
+          "name": "Checker"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [0.000, -0.010, 10.000],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "PLANE",
+        "name": "Shape_2",
+        "transform": {
+          "position": [-1.271, -4.710, 6.770],
+          "direction": [0.293, 0.918, 0.267]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.000,
+          "reflective": 0.000,
+          "transparency": 0.000,
+          "refraction": 0.000
+        },
+        "texture": {
+          "name": "marble"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-1.271, -4.710, 6.770],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Shape_3",
+        "radius": 1.405,
+        "transform": {
+          "position": [1.468, -1.748, 11.057],
+          "direction": [0.216, 0.942, 0.257]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 1.000,
+          "reflective": 1.000,
+          "transparency": 1.000,
+          "refraction": 1.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [1.468, -1.748, 11.057],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Shape_3",
+        "radius": 1.405,
+        "transform": {
+          "position": [-3.126, -2.992, 13.005],
+          "direction": [0.216, 0.942, 0.257]
+        },
+        "material": {
+          "color": "93F484",
+          "specular": 0.457,
+          "reflective": 1.000,
+          "transparency": 0.000,
+          "refraction": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [-3.126, -2.992, 13.005],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "SPHERE",
+        "name": "Shape_3",
+        "radius": 1.405,
+        "transform": {
+          "position": [2.922, -2.941, 6.919],
+          "direction": [0.216, 0.942, 0.257]
+        },
+        "material": {
+          "color": "F48484",
+          "specular": 0.595,
+          "reflective": 1.000,
+          "transparency": 0.000,
+          "refraction": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [2.922, -2.941, 6.919],
+              "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      }
+    ],
+    "textures": [
+      {
+        "name": "marble",
+        "path": "marble.ppm"
+      }
+    ],
+    "normal maps": [
+    ]
+  }
+}

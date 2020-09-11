@@ -294,7 +294,10 @@ set(SRCNAME_PARSER
         source/parser/parse_settings.c
         source/parser/parse_textures.c
         source/parser/parse_sections.c
-        source/parser/parser_utils.c)
+        source/parser/parser_utils.c
+        source/parser/parse_off/off_parse_file.c
+        source/parser/parse_off/off_parse_utils.c
+        source/parser/parse_off/off_parse_checker.c)
 
 set(GTK_SRC ${RT_SRC}/gtk)
 include_directories(${GTK_SRC})
@@ -448,7 +451,8 @@ set(SRCNAME_GTK
         source/gtk/callbacks/scale_button_settings_changer.c
         source/gtk/utils/file_chooser_utils.c
         source/gtk/utils/file_chooser.c
-        source/gtk/callbacks/shape/spin_button_color_changer.c)
+        source/gtk/callbacks/shape/spin_button_color_changer.c
+        source/gtk/actions/do_change_off_dots.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

@@ -138,7 +138,8 @@ enum			e_shape_type
 	CIRCLE,
 	CAPPEDPLANE,
 	BOX,
-	TRIANGLE
+	TRIANGLE,
+	OFF
 };
 
 /*
@@ -332,6 +333,24 @@ enum			e_filters
 };
 
 /*
+** =============================== OFF file Data ===============================
+*/
+typedef struct	s_off
+{
+	char		*filename;
+	FLT3		*points;
+	cl_int3		*faces;
+	FLT3		*colors;
+	int			p_cnt;
+	int			f_cnt;
+	char		*err;
+	_Bool		open_fd;
+	int			fd;
+	char		*line;
+	t_list		*list;
+}				t_off;
+
+/*
 ** =============================================================================
 ** =========================== Main Entity for Scene ===========================
 ** ==== Contains information about camera, shapes, lights and app settings =====
@@ -344,6 +363,7 @@ struct			s_scene
 	CAMERA		cam;
 	LIGHT		*lights;
 	SHAPE		*shapes;
+	t_off		off;
 	PPM_IMG		*textures;
 	PPM_IMG		*normal_maps;
 	int			l_cnt;
@@ -355,6 +375,7 @@ struct			s_scene
 	int			anti_aliasing;
 	cl_float	step;
 	cl_float	angle;
+	int			mirror;
 	char		*filename;
 };
 

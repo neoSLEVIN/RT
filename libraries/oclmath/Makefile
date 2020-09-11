@@ -51,8 +51,11 @@ $(OBJ_DIR)%.o : %.c $(OCLMATH_HEADER)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(OCLMATH_INC) $< -o $@
 
+norm:
+	@norminette $(OCLMATH_HEADER) $(OCLMATH_MODULE)
+
 clean:
-	@/bin/rm -f $(OBJ_OCLMATH_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)

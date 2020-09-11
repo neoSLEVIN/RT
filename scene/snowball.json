@@ -893,15 +893,15 @@
     "textures": [
       {
         "name": "Snow_1",
-        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/snow_1.ppm"
+        "path": "snow_1.ppm"
       },
       {
         "name": "nebo",
-        "path": "/Users/kokeefe/Downloads/nebo.ppm"
+        "path": "nebo.ppm"
       },
       {
         "name": "space",
-        "path": "/Users/kokeefe/Desktop/Kokeefe/RT/extras/textures/space.ppm"
+        "path": "space.ppm"
       }
     ],
     "normal maps": [

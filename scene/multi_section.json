@@ -317,37 +317,37 @@
     "textures": [
       {
         "name": "norm",
-        "path": "extras\\textures\\Wood.ppm"
+        "path": "Wood.ppm"
       },
       {
         "name": "360",
-        "path": "extras\\textures\\marble.ppm"
+        "path": "marble.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "metal",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\metal.ppm"
+        "path": "metal.ppm"
       },
       {
         "name": "golf",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\golf.ppm"
+        "path": "golf.ppm"
       },
       {
         "name": "metal_plate",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\metal_plate.ppm"
+        "path": "metal_plate.ppm"
       },
       {
         "name": "snake",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\snake.ppm"
+        "path": "snake.ppm"
       },
       {
         "name": "snake2",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\snake2.ppm"
+        "path": "snake2.ppm"
       },
       {
         "name": "wow",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\wow.ppm"
+        "path": "wow.ppm"
       }
     ]
   }

@@ -115,8 +115,11 @@ $(OBJ_DIR)%.o : %.c $(LIBFT_HEADERS)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(LIBFT_INC) $< -o $@
 
+norm:
+	@norminette $(LIBFT_HEADERS) $(LIBFT_MODULE)
+
 clean:
-	@/bin/rm -f $(OBJ_LIBFT_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)

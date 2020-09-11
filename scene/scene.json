@@ -70,11 +70,11 @@
       }
     ],
     "textures": [
-      {"name": "360 absolute", "path": "C:\\Users\\slevi\\CLionProjects\\RT\\textures\\360.ppm"},
-      {"name": "360", "path": "textures\\360.ppm"},
-      {"name": "Coffin", "path": "textures\\4.ppm"},
-      {"name": "Dan", "path": "textures\\dan.ppm"},
-      {"name": "Earth", "path": "textures\\earth.ppm"}
+      {"name": "360 absolute", "path": "360.ppm"},
+      {"name": "360", "path": "360.ppm"},
+      {"name": "Coffin", "path": "4.ppm"},
+      {"name": "Dan", "path": "dan.ppm"},
+      {"name": "Earth", "path": "earth.ppm"}
     ]
   }
 }

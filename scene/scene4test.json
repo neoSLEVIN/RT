@@ -31,6 +31,6 @@
       }
     ],
     "textures": [
-      {"name": "360", "path": "C:\\Users\\slevi\\CLionProjects\\RT\\textures\\360.ppm"}]
+      {"name": "360", "path": "360.ppm"}]
   }
 }

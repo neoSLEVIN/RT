@@ -15,8 +15,14 @@
 static void	gtk_set_scale_params_positions(t_gtk_settings *settings)
 {
 	gtk_grid_attach(GTK_GRID(settings->grid_scale_params),
-		settings->step.label,
+		settings->mirror.label,
 		0, 0, 1, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid_scale_params),
+		settings->mirror.scale, settings->mirror.label,
+		GTK_POS_RIGHT, 5, 1);
+	gtk_grid_attach_next_to(GTK_GRID(settings->grid_scale_params),
+		settings->step.label, settings->mirror.label,
+		GTK_POS_BOTTOM, 1, 1);
 	gtk_grid_attach_next_to(GTK_GRID(settings->grid_scale_params),
 		settings->step.scale, settings->step.label,
 		GTK_POS_RIGHT, 5, 1);

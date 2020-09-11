@@ -57,8 +57,11 @@ $(OBJ_DIR)%.o : %.c $(LIBFTPRINTF_HEADER)
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $(LIBFTPRINTF_INC) $< -o $@
 
+norm:
+	@norminette $(LIBFTPRINTF_HEADER) $(LIBFTPRINTF_MODULE)
+
 clean:
-	@/bin/rm -f $(OBJ_LIBFTPRINTF_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)
