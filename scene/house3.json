@@ -10,7 +10,7 @@
       "position": [-12.488, 20.270, -5.803],
       "direction": [0.467, -0.423, 0.777],
       "rotation": -5.944,
-      "display": [1440, 960],
+      "display": [140, 160],
       "fov": 57,
       "fps": 41
     },
@@ -993,7 +993,7 @@
       {
         "type": "OFF",
         "name": "OFF",
-        "path": "extras\\off\\bunny_simple_2k.off",
+        "path": "/Users/cschoen/CLionProjects/RT/extras/off/bunny_simple_2k.off",
         "transform": {
           "position": [-2.100, 12.933, 13.059],
           "direction": [-0.120, 0.993, 0.023]
@@ -1027,33 +1027,33 @@
     "textures": [
       {
         "name": "wood_floor",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\Wood_floor.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/Wood_floor.ppm"
       },
       {
         "name": "wood_wall",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\wood_wall.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/wood_wall.ppm"
       },
       {
         "name": "probka",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\textures\Wood.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/Wood.ppm"
       },
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/marble.ppm"
       },
       {
         "name": "normal_maps",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\Normal_maps.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/Normal_maps.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "Sofa",
-        "path": "C:\\Users\\slevi\\CLionProjects\\RT\\extras\\normalmaps\sofa.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/normalmaps/sofa.ppm"
       },
       {
         "name": "wow",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\wow.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/normalmaps/wow.ppm"
       }
     ]
   }
