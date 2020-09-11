@@ -12,6 +12,24 @@
 
 #include "gtk_module.h"
 
+t_spinner	gtk_set_spinner_float(const char *label, FLT2 range, cl_float value,
+								cl_float step)
+{
+	t_spinner		spinner;
+	GtkAdjustment	*adj;
+
+	spinner.label = gtk_label_new(label);
+	gtk_widget_set_margin_start(spinner.label, 5);
+	gtk_widget_set_margin_end(spinner.label, 5);
+	gtk_widget_set_margin_top(spinner.label, 5);
+	adj = gtk_adjustment_new(value, range.x, range.y, step, range.y / 10, 0);
+	spinner.spin = gtk_spin_button_new(adj, step, 3);
+	gtk_entry_set_width_chars(GTK_ENTRY(spinner.spin), 6);
+	gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(spinner.spin), TRUE);
+	gtk_widget_set_margin_bottom(spinner.spin, 5);
+	return (spinner);
+}
+
 void	gtk_set_scale(t_scale *scale, INT2 range, int value, const char *label)
 {
 	GtkAdjustment	*adj;

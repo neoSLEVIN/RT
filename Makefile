@@ -114,8 +114,8 @@ GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/callbacks/shape/shape_material_scale_moved.c \
 		source/gtk/callbacks/shape/cell_editable_holders.c \
 		source/gtk/callbacks/shape/section_callbacks.c \
-		source/gtk/callbacks/shape/color_activated_changer.c \
 		source/gtk/callbacks/shape/changing_shape_type.c \
+		source/gtk/callbacks/shape/spin_button_color_changer.c \
 		source/gtk/callbacks/shape/changing_textures_normals.c \
 		source/gtk/callbacks/shape/press_key_on_shape_name.c \
 		source/gtk/callbacks/light/press_key_on_light_name.c \

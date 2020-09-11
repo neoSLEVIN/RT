@@ -365,7 +365,6 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/shape_material_scale_moved.c
         source/gtk/callbacks/shape/cell_editable_holders.c
         source/gtk/callbacks/shape/section_callbacks.c
-        source/gtk/callbacks/shape/color_activated_changer.c
         source/gtk/callbacks/shape/changing_shape_type.c
         source/gtk/callbacks/shape/changing_textures_normals.c
         source/gtk/callbacks/shape/press_key_on_shape_name.c
@@ -448,7 +447,8 @@ set(SRCNAME_GTK
         source/gtk/callbacks/change_anti_aliasing.c
         source/gtk/callbacks/scale_button_settings_changer.c
         source/gtk/utils/file_chooser_utils.c
-        source/gtk/utils/file_chooser.c)
+        source/gtk/utils/file_chooser.c
+        source/gtk/callbacks/shape/spin_button_color_changer.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

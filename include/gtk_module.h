@@ -227,7 +227,10 @@ typedef struct		s_color_tab
 	GtkWidget		*label;
 	GtkWidget		*scrolled_window;
 	GtkWidget		*v_box;
-	GtkWidget		*color;
+	GtkWidget		*grid;
+	t_spinner		red;
+	t_spinner		green;
+	t_spinner		blue;
 }					t_color_tab;
 
 /*
@@ -546,6 +549,8 @@ void				gtk_set_scale(t_scale *scale, INT2 range, int value,
 								const char *label);
 t_scale				gtk_get_float_scale(const char *label, FLT2 range,
 								cl_float value, cl_float step);
+t_spinner			gtk_set_spinner_float(const char *label, FLT2 range,
+								cl_float value, cl_float step);
 /*
 ** ============================= Shape tab widgets =============================
 */
@@ -713,9 +718,9 @@ void				spin_button_shape_dot_b_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_dot_c_changer(GtkSpinButton *button,
 								gpointer data);
+void				spin_button_color_changer(GtkSpinButton *button,
+								gpointer data);
 void				shape_material_scale_moved(GtkRange *range, gpointer data);
-void				color_activated_changer(GtkColorChooser *chooser,
-								GParamSpec *param_spec, gpointer data);
 void				changing_texture_type(GtkComboBox *texture_combo,
 								gpointer data);
 void				changing_normals_type(GtkComboBox *normals_combo,
@@ -835,7 +840,7 @@ void				update_gtk_shape_position(t_transform_tab tab,
 								DTO_SHAPE *dto);
 void				update_gtk_shape_material(t_material_tab tab,
 								MATERIAL shape_mat);
-void				update_gtk_shape_color(t_color_tab tab, FLT3 color);
+void				update_gtk_shape_color(t_color_tab *tab, FLT3 color);
 void				update_gtk_shape_texture(t_texture_tab tab,
 								int texture_id, int normal_map_id);
 void				update_gtk_shape_section(t_section_tab tab,
