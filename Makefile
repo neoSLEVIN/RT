@@ -279,7 +279,7 @@ $(OBJ_DIR)%.o : %.c
 	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 clean:
-	@rm -f $(OBJ_FILES)
+	@rm -rf $(OBJ_DIR)
 	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" RT_OBJECT_FILES
 	@$(MAKE) -C $(JCPARSER_DIR) clean
 	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(JCPARSER_DIR)

@@ -116,7 +116,7 @@ $(OBJ_DIR)%.o : %.c $(LIBFT_HEADERS)
 	@$(CC) $(FLAGS) -c $(LIBFT_INC) $< -o $@
 
 clean:
-	@/bin/rm -f $(OBJ_LIBFT_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)

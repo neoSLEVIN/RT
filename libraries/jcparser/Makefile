@@ -64,7 +64,7 @@ $(OBJ_DIR)%.o : %.c $(JCPARSER_HEADERS)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
 clean:
-	@/bin/rm -f $(OBJ_JCPARSER_MODULE)
+	@/bin/rm -rf $(OBJ_DIR)
 
 fclean : clean
 	@/bin/rm -f $(NAME)
