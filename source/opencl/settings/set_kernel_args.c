@@ -15,14 +15,16 @@
 static void	set_kernel_args2(cl_kernel kernel, t_dto *dto)
 {
 	cl_int	err;
+	int		mirror;
 
+	mirror = (IS_APPLE) ? 1 : *dto->mirror;
 	err = clSetKernelArg(kernel, 11, sizeof(cl_mem), &dto->output_id);
 	check_error_cl(err, "clSetKernelArg", "output_id");
 	err = clSetKernelArg(kernel, 12, sizeof(FLT3), dto->filter_params);
 	check_error_cl(err, "clSetKernelArg", "filter_params");
 	err = clSetKernelArg(kernel, 13, sizeof(int), dto->anti_aliasing);
 	check_error_cl(err, "clSetKernelArg", "anti_aliasing");
-	err = clSetKernelArg(kernel, 14, sizeof(int), dto->mirror);
+	err = clSetKernelArg(kernel, 14, sizeof(int), &mirror);
 	check_error_cl(err, "clSetKernelArg", "mirror");
 }
 

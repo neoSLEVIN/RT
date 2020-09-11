@@ -16,5 +16,5 @@ cl_float	v3_angle_to_xz(FLT3 v)
 {
 	if (v3_length(v) == 0.0f)
 		return (0.0f);
-	return (asinf(v3_dot(v, (FLT3){0.0f, 1.0f, 0.0f}) / (v3_length(v) * 1.0f)));
+	return (asinf(v3_dot(v, (FLT3){{0.0f, 1.0f, 0.0f}}) / (v3_length(v) * 1.0f)));
 }

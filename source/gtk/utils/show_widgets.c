@@ -30,4 +30,9 @@ void	show_widgets(t_rt *rt)
 	}
 	else
 		gtk_widget_set_visible(rt->gtk->ui.settings.v_filter_params, FALSE);
+	if (IS_APPLE)
+	{
+		gtk_widget_set_visible(rt->gtk->ui.settings.mirror.label, FALSE);
+		gtk_widget_set_visible(rt->gtk->ui.settings.mirror.scale, FALSE);
+	}
 }

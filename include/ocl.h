@@ -20,10 +20,12 @@
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
 #  define CREATE_QUEUE_FUNC clCreateCommandQueue
 #  define CREATE_QUEUE_PARAM 0
+#  define IS_APPLE TRUE
 # else
 #  define BUILD_OPTIONS_CL NULL
 #  define CREATE_QUEUE_FUNC clCreateCommandQueueWithProperties
 #  define CREATE_QUEUE_PARAM NULL
+#  define IS_APPLE FALSE
 # endif
 
 # define GROUP_SIZE 64
