@@ -48,7 +48,7 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ_LIBFTPRINTF_MODULE)
 	@ar rc $(NAME) $(OBJ_LIBFTPRINTF_MODULE)
 	@ranlib $(NAME)
-	@printf "$(GREEN)RT:\t$(YELLOW)%-25s$(GREEN)[done]$(NONE)\n" $@
+	@printf "$(GREEN)RT:\t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -58,9 +58,9 @@ $(OBJ_DIR)%.o : %.c $(LIBFTPRINTF_HEADER)
 	@$(CC) $(FLAGS) -c $(LIBFTPRINTF_INC) $< -o $@
 
 clean:
-	/bin/rm -f $(OBJ_LIBFTPRINTF_MODULE)
+	@/bin/rm -f $(OBJ_LIBFTPRINTF_MODULE)
 
 fclean : clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all

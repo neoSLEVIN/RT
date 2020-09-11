@@ -54,7 +54,7 @@ all: $(NAME)
 $(NAME): $(OBJ_DIR) $(OBJ_JCPARSER_MODULE)
 	@ar rc $(NAME) $(OBJ_JCPARSER_MODULE)
 	@ranlib $(NAME)
-	@printf "$(GREEN)RT:\t$(YELLOW)%-25s$(GREEN)[done]$(NONE)\n" $@
+	@printf "$(GREEN)RT:\t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -64,9 +64,9 @@ $(OBJ_DIR)%.o : %.c $(JCPARSER_HEADERS)
 	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
 clean:
-	/bin/rm -f $(OBJ_JCPARSER_MODULE)
+	@/bin/rm -f $(OBJ_JCPARSER_MODULE)
 
 fclean : clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all

@@ -1,6 +1,6 @@
 OS = $(shell uname)
 
-DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)\"
+DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)/\"
 
 NAME = RT
 
@@ -229,8 +229,8 @@ SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
 		source/serializer/serialize_int2.c \
 
 
-FLAGS = -g -Wall -Wextra -Werror
-CC = gcc
+FLAGS = -Wall -Wextra -Werror
+CC = clang
 #headers file should be add at compile time from .c to .o
 GTKCFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 #libs at linking time from .o to exe
@@ -248,7 +248,7 @@ OCLMATH_DIR = libraries/oclmath/
 OPENCL_LIB = -framework OpenCL
 
 
-all: dependency $(NAME)
+all: $(NAME)
 
 build:
 	@cmake --build ./cmake-build-debug --target RT -- -j 4
@@ -267,8 +267,9 @@ dependency: build
 endif
 
 ifeq ($(OS),Darwin)
-$(NAME): $(OBJ_DIR) $(OBJ_FILES)
-	$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
+$(NAME): dependency $(OBJ_DIR) $(OBJ_FILES)
+	@$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
+	@printf "$(PURPLE)RT \t$(GREEN)%-90s$(GREEN)[done]$(NONE)\n" FINAL_COMPILE
 else
 $(NAME): run
 endif
@@ -278,12 +279,27 @@ $(OBJ_DIR):
 
 $(OBJ_DIR)%.o : %.c
 	@mkdir -p $(@D)
-	$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
+	@$(CC) $(DEFINED_VAR) -c $(GTKCFLAGS) $(INCLUDE_DIR) $< -o $@
+	@printf "$(PURPLE)RT \t$(YELLOW)%-90s$(GREEN)[done]$(NONE)\n" $@
 
 clean:
-	rm -f $(OBJ_FILES)
+	@rm -f $(OBJ_FILES)
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" RT_OBJECT_FILES
+	@$(MAKE) -C $(JCPARSER_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(JCPARSER_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(LIBFTPRINTF_DIR)
+	@$(MAKE) -C $(OCLMATH_DIR) clean
+	@printf "$(PURPLE)RT clean:\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" $(OCLMATH_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@printf "$(PURPLE)RT fclean\t$(RED)%-82s$(GREEN)[done]$(NONE)\n" delete_executable
+	@$(MAKE) -C $(JCPARSER_DIR) fclean
+	@$(MAKE) -C $(LIBFT_DIR) fclean
+	@$(MAKE) -C $(LIBFTPRINTF_DIR) fclean
+	@$(MAKE) -C $(OCLMATH_DIR) fclean
 
 re: fclean all

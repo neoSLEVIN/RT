@@ -217,13 +217,13 @@
     "textures": [
       {
         "name": "marble",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\textures\marble.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/textures/marble.ppm"
       }
     ],
     "normal maps": [
       {
         "name": "sofa",
-        "path": "C:\Users\slevi\CLionProjects\RT\extras\normalmaps\sofa.ppm"
+        "path": "/Users/cschoen/CLionProjects/RT/extras/normalmaps/sofa.ppm"
       }
     ]
   }
