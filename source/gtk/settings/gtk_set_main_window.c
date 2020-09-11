@@ -22,7 +22,6 @@ void	gtk_set_main_window(t_gtk *gtk, const char *filename)
 		ft_error("Can't allocate memory");
 	ft_strcpy(full_title, base_title);
 	ft_strcat(full_title, filename);
-	gtk->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(gtk->window), full_title);
 	ft_strdel(&full_title);
 	gtk_window_set_default_size(GTK_WINDOW(gtk->window),

@@ -21,8 +21,8 @@ void	s_scene_obj(t_serializer *s, SCENE *scene)
 	s_comma(s);
 	s_shapes_arr(s, scene->shapes, scene->textures, scene->normal_maps);
 	s_comma(s);
-	s_ppm_img_arr(s, "textures", scene->textures);
+	s_ppm_img_arr(s, "textures", scene->textures, TEXTURE_PATH);
 	s_comma(s);
-	s_ppm_img_arr(s, "normal maps", scene->normal_maps);
+	s_ppm_img_arr(s, "normal maps", scene->normal_maps, NORMAL_MAP_PATH);
 	s_close_obj(s);
 }

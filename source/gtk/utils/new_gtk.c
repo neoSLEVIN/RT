@@ -12,10 +12,11 @@
 
 #include "gtk_module.h"
 
-void	new_gtk(t_rt *rt, const char *filename)
+void	new_gtk(t_rt *rt, const char *filename, GtkWidget **win)
 {
-	if ((rt->gtk = g_slice_new(t_gtk)) == NULL)
+	if (!(rt->gtk = (t_gtk*)malloc(sizeof(t_gtk))))
 		ft_error("Can't allocate memory");
+	rt->gtk->window = *win;
 	gtk_set_main_window(rt->gtk, filename);
 	gtk_set_widgets(rt->gtk, rt);
 	gtk_set_signals(rt);

@@ -18,8 +18,8 @@ void	save_scene_as(GtkButton *button, gpointer data)
 
 	(void)button;
 	rt = (t_rt*)data;
-	if (get_new_file_name(&rt->info->scene_filename,
-						&rt->info->scene_file_folder, "Untitled.json"))
+	if (save_file_name(GTK_WINDOW(rt->gtk->window), &rt->info->scene_filename,
+						SCENE_PATH, "Untitled.json"))
 	{
 		g_idle_add(serialize_scene_to_json, rt);
 		gtk_widget_set_tooltip_text(rt->gtk->ui.buttons.save_scene,

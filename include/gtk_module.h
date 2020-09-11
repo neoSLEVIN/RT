@@ -17,6 +17,7 @@
 # include <glib.h>
 # include <cairo.h>
 # include <gdk-pixbuf/gdk-pixbuf.h>
+# include <dirent.h>
 # include "parser.h"
 # include "serializer.h"
 # include "ocl.h"
@@ -31,6 +32,21 @@
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
 # define ASSERT_SHAPE(shape) if (!shape || !shape->dto) {return (FALSE);}
 # define ASSERT_LIGHT(light) if (!light || !light->dto) {return (FALSE);}
+
+/*
+** ====================== Entity for file chooser window =======================
+*/
+typedef struct		s_chooser
+{
+	GtkWidget		*dialog;
+	GtkWidget		*box;
+	GtkWidget		*grid;
+	GtkWidget		*list;
+	GtkWidget		*entry;
+	char			*files[100];
+	int				cnt;
+	_Bool			with_entry;
+}					t_chooser;
 
 /*
 ** =================== Entity for spin button and his label ====================
@@ -851,12 +867,6 @@ void				new_shape_update_everything(t_rt *rt,
 void				copy_shape(t_rt *rt);
 void				paste_shape(t_rt *rt);
 /*
-** ============================= Get new filename ==============================
-*/
-_Bool				get_new_file_name(char **filename, char **folder,
-									char *default_name);
-char				*get_ppm_filename(const char *folder);
-/*
 ** ============================== Call serializer ==============================
 */
 gboolean			serialize_scene_to_json(gpointer data);
@@ -877,21 +887,36 @@ void				delete_normal_map(t_rt *rt);
 ** =============================================================================
 */
 void				usage(char *app_name);
-void				new_scene(SCENE **scene);
-void				new_gtk(t_rt *rt, const char *filename);
+void				new_scene(SCENE **scene, GtkWidget **win);
+void				new_gtk(t_rt *rt, const char *filename, GtkWidget **win);
 void				init_info(t_info **info);
 void				show_widgets(t_rt *rt);
 void				keys_to_false(t_info *info);
 void				mouse_to_false(t_info *info);
 void				shape_to_false(t_info *info);
 void				shape_to_true(t_info *info);
-void				clear_rt(t_rt *rt);
-void				clear_lights(LIGHT **light);
-void				clear_shapes(SHAPE **shape);
 SHAPE				*get_default_shape(SHAPE *shape, DTO_SHAPE *dto);
 void				init_default_shape_dto(DTO_CAM *cam, DTO_SHAPE *dto);
 FLT2				get_angle_by_diff(INT2 diff, INT2 axis, INT2 screen_size);
 void				compute_triangle_position(t_transform_tab *tab,
 									FLT3 *pos, FLT3 *dots);
+
+/*
+** ============================ File chooser utils =============================
+*/
+void			init_chooser(t_chooser *chooser, const char *dir_path,
+									_Bool with_entry, const char *default_name);
+_Bool			deinit_chooser(t_chooser *chooser, _Bool res);
+void			init_dialog(GtkWindow *window, t_chooser *chooser,
+									const char *msg, const char *title);
+
+/*
+** =============================== File choosers ===============================
+*/
+_Bool			choose_file_name(GtkWindow *window, char **filename,
+									const char *dir_path);
+_Bool			save_file_name(GtkWindow *window, char **filename,
+									const char *dir_path,
+									const char *default_name);
 
 #endif

@@ -33,16 +33,9 @@
 ** =================== Adding absolute path for xcode users ====================
 ** =============================================================================
 */
-/*
-** TODO fix that when delete CMake
-*/
-# if __APPLE__
-#  ifndef PROJ_DIR
-#   define PROJ_DIR "path to proj dir"
-#  endif
+# ifdef __APPLE__
 #  define ABSOLUTE_PATH PROJ_DIR"kernel/"
 # else
-#  define PROJ_DIR ""
 #  define ABSOLUTE_PATH "kernel/"
 # endif
 

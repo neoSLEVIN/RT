@@ -93,5 +93,7 @@ char		*unnamed_obj(size_t index, char *prefix);
 void		check_reserved_names(const JC_FIELD texture_field,
 								const char *name, _Bool is_normal_maps);
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);
+char		*full_texture_path(const JC_FIELD parent,
+								const JC_FIELD texture_field);
 
 #endif

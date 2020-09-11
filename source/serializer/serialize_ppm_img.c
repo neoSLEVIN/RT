@@ -28,23 +28,29 @@ void		s_shape_normal_map_obj(t_serializer *s, int id, PPM_IMG *ppm)
 	s_close_obj(s);
 }
 
-static void	s_ppm_img_obj(t_serializer *s, PPM_IMG *ppm)
+static void	s_ppm_img_obj(t_serializer *s, PPM_IMG *ppm, const char *dir)
 {
+	char	*path;
+
 	s_open_obj(s);
 	s_name(s, "name");
 	s_str_in_quotes(s, ppm->name);
 	s_comma(s);
 	s_name(s, "path");
-	s_str_in_quotes(s, ppm->path);
+	if (!(path = ft_strstr(ppm->path, dir)))
+		ft_error("WTF");
+	path += ft_strlen(dir);
+	s_str_in_quotes(s, path);
 	s_close_obj(s);
 }
 
-void		s_ppm_img_arr(t_serializer *s, const char *name, PPM_IMG *ppm)
+void		s_ppm_img_arr(t_serializer *s, const char *name, PPM_IMG *ppm,
+							const char *dir)
 {
 	s_open_arr_with_name(s, name);
 	while (ppm)
 	{
-		s_ppm_img_obj(s, ppm);
+		s_ppm_img_obj(s, ppm, dir);
 		if (ppm->next)
 			s_comma(s);
 		ppm = ppm->next;

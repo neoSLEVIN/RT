@@ -86,8 +86,7 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 
 	texture_field = jc_get_field_idx(parent, index, JC_OBJ);
 	texture = (PPM_IMG*)malloc(sizeof(PPM_IMG));
-	if (texture == NULL)
-		ft_error("Can't allocate memory");
+	(texture == NULL) ? ft_error("Can't allocate memory") : 0;
 	texture->prev = NULL;
 	texture->next = NULL;
 	texture->dto = NULL;
@@ -100,7 +99,7 @@ PPM_IMG		*parse_texture_idx(const JC_FIELD parent, const size_t index)
 		check_reserved_names(texture_field, texture->name, FALSE);
 	else if (ft_strstr(jc_full_name(parent), "normal maps"))
 		check_reserved_names(texture_field, texture->name, TRUE);
-	texture->path = jc_get_string(texture_field, "path", FALSE);
+	texture->path = full_texture_path(parent, texture_field);
 	return (texture);
 }
 
