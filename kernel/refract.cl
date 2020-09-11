@@ -50,6 +50,10 @@ float3 continue_refract_ray(t_ray *ray, t_scene *scene) {
 	float3 trans_color = 0;
 	if (ray->hit_id >= 0) {
 		t_object obj = scene->objects[ray->hit_id];
+		if (obj.type == OFF)
+		{
+			reinit_off_obj(&obj, scene, ray);
+		}
 		trans_color = get_obj_color(&(obj), ray, scene);
 		trans_color = trans_color * get_light_intensity(ray, scene);
 	}
@@ -72,7 +76,8 @@ float3 refract(t_ray *ray, float degree) {
 	bool inside = dot(ray->dir, hitNormal) > 0;
 	
 	/*Добавлено так как мы проходим через объект два раза. Но не для плоскости*/
-	if (inside && (ray->hit_type != PLANE && ray->hit_type != CAPPEDPLANE && ray->hit_type != CIRCLE && ray->hit_type != TRIANGLE)) {
+	if (inside && (ray->hit_type != PLANE && ray->hit_type != CAPPEDPLANE &&
+			ray->hit_type != CIRCLE && ray->hit_type != TRIANGLE && ray->hit_type != OFF)) {
 		hitNormal = -hitNormal;
 		eta = ior;
 	} else {

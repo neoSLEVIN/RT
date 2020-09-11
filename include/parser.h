@@ -20,6 +20,8 @@
 # define MAX_SHAPES_COUNT 1000
 # define MAX_LIGHTS_COUNT 100
 # define MAX_PPM_IMG_COUNT 20
+# define MAX_OFF_FACES 4000
+# define MAX_OFF_POINTS 4000
 
 /*
 ** ========================== Parse main Scene entity ==========================
@@ -91,7 +93,27 @@ void		parse_error(const char *parent_name, const char *child_name,
 */
 char		*unnamed_obj(size_t index, char *prefix);
 void		check_reserved_names(const JC_FIELD texture_field,
-								const char *name, _Bool is_normal_maps);
+						const char *name, _Bool is_normal_maps);
 int			get_reserved_name_index(const char *name, _Bool is_normal_maps);
+
+/*
+** =============================================================================
+** ============================== Parse OFF files ==============================
+** =============================================================================
+*/
+_Bool		off_parse_file(t_off *off, char *filename);
+/*
+** ============================== Parse OFF Utils ==============================
+*/
+_Bool		off_init(t_off *off, char *filename);
+_Bool		off_deinit(t_off *off, _Bool clean_all, const char *err_msg);
+cl_float	off_atof(char *num);
+/*
+** ============================= Parse OFF checker =============================
+*/
+_Bool		off_check_format(t_off *off);
+_Bool		off_check_params(t_off *off);
+_Bool		off_check_vertices(t_off *off);
+_Bool		off_check_faces(t_off *off);
 
 #endif

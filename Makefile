@@ -48,6 +48,9 @@ PARSER_MODULE = source/parser/parse_scene.c \
 		source/parser/parse_textures.c \
 		source/parser/parse_sections.c \
 		source/parser/parser_utils.c \
+		source/parser/parse_off/off_parse_file.c \
+		source/parser/parse_off/off_parse_utils.c \
+		source/parser/parse_off/off_parse_checker.c \
 
 GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/utils/new_scene.c \
@@ -199,6 +202,7 @@ GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/actions/do_change_shape_param.c \
 		source/gtk/callbacks/change_anti_aliasing.c \
 		source/gtk/callbacks/scale_button_settings_changer.c \
+		source/gtk/actions/do_change_off_dots.c \
 
 SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
 		source/serializer/api/serialize_str.c \

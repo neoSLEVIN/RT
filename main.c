@@ -26,6 +26,6 @@ int	main(int argc, char **argv)
 	draw_image(&rt);
 	show_widgets(&rt);
 	gtk_main();
-//	clear_rt(&rt);
+	exit(0);
 	return (0);
 }

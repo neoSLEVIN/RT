@@ -17,10 +17,12 @@ static gboolean	compute_draw(gpointer data)
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
+	gtk_window_set_title(GTK_WINDOW(rt->gtk->window), rt->gtk->titles[1]);
 	run_cl(rt->ocl);
 	compute_filter(rt);
 	gtk_image_set_from_pixbuf(GTK_IMAGE(rt->gtk->img.image),
 								rt->gtk->img.pixbuf);
+	gtk_window_set_title(GTK_WINDOW(rt->gtk->window), rt->gtk->titles[0]);
 	return (FALSE);
 }
 

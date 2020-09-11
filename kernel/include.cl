@@ -71,6 +71,7 @@ typedef enum			e_shape_type
 						CAPPEDPLANE,
 						BOX,
 						TRIANGLE,
+						OFF
 }						t_shape_type;
 
 typedef struct			s_material
@@ -154,6 +155,11 @@ typedef struct				s_scene
 	int2 					cursor;
 	__global t_ppm_image	*textures;
 	__global t_ppm_image	*normal_maps;
+	__global float3			*points;
+	__global int3			*faces;
+	__global float3			*colors;
+	int						point_cnt;
+	int						faces_cnt;
 }							t_scene;
 
 
@@ -168,9 +174,16 @@ void init_scene(t_scene *scene,
 				CAMERA cam,
 				uint seed,
 				__global t_ppm_image *textures,
-				__global t_ppm_image *normal_maps);
+				__global t_ppm_image *normal_maps,
+				__global float3 *points,
+				__global int3 *faces,
+				__global float3 *colors,
+				int point_cnt,
+				int faces_cnt);
 
 float3 compute_color(t_scene *scene, t_ray *ray);
+
+void	reinit_off_obj(t_object *obj, t_scene *scene, t_ray *ray);
 
 float cappedplane_intersect(t_ray *ray, t_object *plane);
 /*Mapping*/
@@ -217,6 +230,7 @@ float	cylinder_intersect(t_ray *ray, t_object *cylinder);
 float	cone_intersect(t_ray *ray, t_object *cone);
 float	capped_cylinder_intersect(t_ray *ray, t_object *capped_cylinder);
 float	triangle_intersect(t_ray *ray, t_object *triangle);
+float	off_intersect(t_ray *ray, t_object *off, t_scene *scene, int *part_index);
 bool 	is_intersect(t_ray *ray, t_scene *scene, t_transparent_obj *skip_transparent);
 float 	minT(float a, float b);
 float	module(float a);

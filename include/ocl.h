@@ -87,15 +87,23 @@ typedef struct			s_dto
 	DTO_PPM_IMG			*normal_maps;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
+	FLT3				*points;
+	FLT3				*colors;
+	cl_int3				*faces;
 	int					*s_cnt;
 	int					*l_cnt;
 	int					*t_cnt;
 	int					*n_cnt;
+	int					*p_cnt;
+	int					*f_cnt;
 	INT2				*cursor;
 	FLT3				*filter_params;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
+	cl_mem				input_points;
+	cl_mem				input_faces;
+	cl_mem				input_colors;
 	cl_mem				input_texture;
 	cl_mem				input_normal_maps;
 	cl_mem				output_data;
@@ -147,6 +155,7 @@ void					run_cl(t_ocl *ocl);
 /*
 ** ===================== Translate from parsed data to DTO =====================
 */
+void					translate_off(t_dto *dto, t_off *off);
 void					translate_cam(DTO_CAM *dto, CAMERA *cam);
 void					translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture,
 								int cnt);
@@ -184,6 +193,8 @@ void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
 void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_lights);
+void					update_off_points_arg(t_ocl *ocl,
+								_Bool *update_points);
 void					update_textures_arg(t_ocl *ocl, int cnt);
 void					update_normal_maps_arg(t_ocl *ocl, int cnt);
 /*

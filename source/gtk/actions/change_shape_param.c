@@ -23,11 +23,16 @@ void	change_shape_param(t_rt *rt)
 		return ;
 	if (do_change_shape_param(&rt->info->s_marker->dto->params,
 			rt->info->s_marker->dto->transform.dots,
-			rt->info->s_marker->dto->type, rt->info->scroll_cnt))
+			rt->info->s_marker->dto->type, rt->info->scroll_cnt) ||
+			(rt->info->s_marker->dto->type == OFF &&
+				do_change_off_dots(rt->scene->off.points, rt->scene->off.p_cnt,
+									rt->info->scroll_cnt)))
 	{
 		update_flags(&rt->info->update_shapes, &rt->info->update_s_param);
 		if (rt->info->s_marker->dto->type == TRIANGLE)
 			rt->info->update_s_pos = TRUE;
+		else if (rt->info->s_marker->dto->type == OFF)
+			rt->info->update_off_points = TRUE;
 		else
 			rt->info->update_s_main = TRUE;
 	}

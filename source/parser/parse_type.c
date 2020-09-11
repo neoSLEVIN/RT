@@ -48,11 +48,14 @@ static SHAPE_TYPE	parse_shape_type_norminette(const JC_FIELD parent,
 		type = BOX;
 	else if (ft_strequ(str_type, "TRIANGLE"))
 		type = TRIANGLE;
+	else if (ft_strequ(str_type, "OFF"))
+		type = OFF;
 	else
 		parse_error(jc_full_name(parent), child_name,
 			"Incorrect type of shape.\n\t"
 			"Allowed types: [PLANE, SPHERE, CONE, CAPPED CONE, CYLINDER, "
-			"CAPSULE, CAPPED CYLINDER, CIRCLE, CAPPED PLANE, BOX, TRIANGLE]");
+			"CAPSULE, CAPPED CYLINDER, CIRCLE, CAPPED PLANE, BOX, TRIANGLE, "
+			"OFF]");
 	return (type);
 }
 
