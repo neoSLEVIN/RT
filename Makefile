@@ -225,8 +225,8 @@ SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
 		source/serializer/serialize_int2.c \
 
 
-FLAGS = -g -Wall -Wextra -Werror
-CC = gcc
+FLAGS = -Wall -Wextra -Werror
+CC = clang
 #headers file should be add at compile time from .c to .o
 GTKCFLAGS = $(shell pkg-config --cflags gtk+-3.0)
 #libs at linking time from .o to exe
@@ -244,7 +244,7 @@ OCLMATH_DIR = libraries/oclmath/
 OPENCL_LIB = -framework OpenCL
 
 
-all: dependency $(NAME)
+all: $(NAME)
 
 build:
 	@cmake --build ./cmake-build-debug --target RT -- -j 4
@@ -263,7 +263,7 @@ dependency: build
 endif
 
 ifeq ($(OS),Darwin)
-$(NAME): $(OBJ_DIR) $(OBJ_FILES)
+$(NAME): dependency $(OBJ_DIR) $(OBJ_FILES)
 	@$(CC) $(FLAGS) $(INCLUDE_DIR) $(GTKCFLAGS) $(OBJ_FILES) -o RT $(GTKLIBS) $(OPENCL_LIB) $(LIBRARIES)
 	@printf "$(PURPLE)RT \t$(GREEN)%-90s$(GREEN)[done]$(NONE)\n" FINAL_COMPILE
 else
