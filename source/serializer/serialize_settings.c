@@ -43,6 +43,9 @@ void		s_settings_obj(t_serializer *s, SCENE *scene)
 	s_name(s, "angle");
 	s_float(s, rad_to_deg(scene->angle));
 	s_comma(s);
+	s_name(s, "mirror");
+	s_int(s, scene->mirror);
+	s_comma(s);
 	s_name(s, "anti-aliasing");
 	s_bool(s, (_Bool)scene->anti_aliasing);
 	s_comma(s);

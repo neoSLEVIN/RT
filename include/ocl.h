@@ -20,10 +20,12 @@
 #  define BUILD_OPTIONS_CL "-cl-std=CL1.0 -cl-mad-enable"
 #  define CREATE_QUEUE_FUNC clCreateCommandQueue
 #  define CREATE_QUEUE_PARAM 0
+#  define IS_APPLE TRUE
 # else
 #  define BUILD_OPTIONS_CL NULL
 #  define CREATE_QUEUE_FUNC clCreateCommandQueueWithProperties
 #  define CREATE_QUEUE_PARAM NULL
+#  define IS_APPLE FALSE
 # endif
 
 # define GROUP_SIZE 64
@@ -87,15 +89,23 @@ typedef struct			s_dto
 	DTO_PPM_IMG			*normal_maps;
 	DTO_SHAPE			*shapes;
 	DTO_LIGHT			*lights;
+	FLT3				*points;
+	FLT3				*colors;
+	cl_int3				*faces;
 	int					*s_cnt;
 	int					*l_cnt;
 	int					*t_cnt;
 	int					*n_cnt;
+	int					*p_cnt;
+	int					*f_cnt;
 	INT2				*cursor;
 	FLT3				*filter_params;
 	cl_mem				input_shapes;
 	cl_mem				input_lights;
 	cl_mem				input_seeds;
+	cl_mem				input_points;
+	cl_mem				input_faces;
+	cl_mem				input_colors;
 	cl_mem				input_texture;
 	cl_mem				input_normal_maps;
 	cl_mem				output_data;
@@ -103,6 +113,7 @@ typedef struct			s_dto
 	cl_uchar4			*buffer;
 	int					*shape_id;
 	int					*anti_aliasing;
+	int					*mirror;
 	FILTER				*filter;
 	cl_uchar4			*filter_buff;
 }						t_dto;
@@ -147,6 +158,7 @@ void					run_cl(t_ocl *ocl);
 /*
 ** ===================== Translate from parsed data to DTO =====================
 */
+void					translate_off(t_dto *dto, t_off *off);
 void					translate_cam(DTO_CAM *dto, CAMERA *cam);
 void					translate_textures(DTO_PPM_IMG **dto, PPM_IMG *texture,
 								int cnt);
@@ -179,11 +191,14 @@ void					realloc_ppm_img_dto(DTO_PPM_IMG **dto, PPM_IMG *ppm_img,
 void					update_cursor_arg(t_ocl *ocl);
 void					update_filter_params(t_ocl *ocl);
 void					update_anti_aliasing_arg(t_ocl *ocl);
+void					update_mirror_arg(t_ocl *ocl);
 void					update_cam_arg(t_ocl *ocl, _Bool *update_flag);
 void					update_shapes_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_shapes);
 void					update_lights_arg(t_ocl *ocl, _Bool *update_size,
 								_Bool *update_lights);
+void					update_off_points_arg(t_ocl *ocl,
+								_Bool *update_points);
 void					update_textures_arg(t_ocl *ocl, int cnt);
 void					update_normal_maps_arg(t_ocl *ocl, int cnt);
 /*

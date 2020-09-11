@@ -58,6 +58,7 @@ static void	default_settings(SCENE *scene)
 	scene->anti_aliasing = FALSE;
 	scene->step = 0.5f;
 	scene->angle = RAD;
+	scene->mirror = 1;
 }
 
 static void	parse_step_angle(const JC_FIELD settings_field, SCENE *scene)
@@ -71,6 +72,10 @@ static void	parse_step_angle(const JC_FIELD settings_field, SCENE *scene)
 		parse_error(jc_full_name(settings_field), "angle",
 					"Value must be in range [0.1; 1.0].");
 	scene->angle = deg_to_rad(scene->angle);
+	scene->mirror = jc_get_float_or_default(settings_field, "mirror", 1);
+	if (scene->mirror < 1 || scene->mirror > 5)
+		parse_error(jc_full_name(settings_field), "mirror",
+					"Value must be in range [1; 5].");
 }
 
 void		parse_settings(JC_FIELD json_field, SCENE *scene)

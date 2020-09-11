@@ -73,6 +73,30 @@ static void		rotate_dots(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
 	}
 }
 
+static void		rotate_points(t_off *off, DTO_CAM *cam, cl_float angle,
+								guint key)
+{
+	int			i;
+	FLT3		*points;
+	FLT3		dot_target;
+	cl_float	len;
+
+	i = -1;
+	points = off->points;
+	while (++i < off->p_cnt)
+	{
+		dot_target = points[i];
+		len = v3_length(points[i]);
+		if ((key == GDK_KEY_k || key == GDK_KEY_i) && len > 0.001f)
+			dot_target = v3_rot_v(dot_target, cam->right, angle);
+		else if ((key == GDK_KEY_j || key == GDK_KEY_l) && len > 0.001f)
+			dot_target = v3_rot_v(dot_target, cam->upguide, angle);
+		else if ((key == GDK_KEY_u || key == GDK_KEY_o) && len > 0.001f)
+			dot_target = v3_rot_v(dot_target, cam->forward, angle);
+		points[i] = dot_target;
+	}
+}
+
 void			rotate_shape(t_rt *rt, guint key)
 {
 	DTO_CAM		*cam;
@@ -84,6 +108,11 @@ void			rotate_shape(t_rt *rt, guint key)
 	if (!rotate_transform(cam, key, angle, &rt->info->s_marker->dto->transform))
 		return ;
 	rotate_dots(rt->info->s_marker->dto, cam, angle, key);
+	if (rt->info->s_marker->dto->type == OFF)
+	{
+		rotate_points(&rt->scene->off, cam, angle, key);
+		rt->info->update_off_points = TRUE;
+	}
 	rotate_sections(rt->info->s_marker->dto, cam, angle, key);
 	update_flags(&rt->info->update_shapes, &rt->info->update_s_pos);
 	rt->info->update_s_sec = TRUE;

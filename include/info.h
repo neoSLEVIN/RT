@@ -42,6 +42,7 @@ typedef struct	s_info
 	_Bool		update_l_cnt;
 	_Bool		update_l_name;
 	_Bool		update_l_params;
+	_Bool		update_off_points;
 	int			keyhold_cnt;
 	_Bool		space_key;
 	_Bool		c_key;

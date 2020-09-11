@@ -34,7 +34,7 @@ float2 translate_plane_coord_with_static(float3 plane_norm, t_ray *ray, float3 p
 float2 plane_map(t_object *obj, t_ray *ray, int size) {
 	float2 uv;
 	float2 coord;
-	if (obj->type == TRIANGLE) {
+	if (obj->type == TRIANGLE || obj->type == OFF) {
 		coord = translate_plane_coord_with_static(triangle_normal(obj), ray, obj->transform.position);
 	} else {
 		coord = translate_plane_coord_with_static(obj->transform.direction, ray, obj->transform.position);
