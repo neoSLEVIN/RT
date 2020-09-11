@@ -249,11 +249,11 @@ OCLMATH_DIR = libraries/oclmath/
 OPENCL_LIB = -framework OpenCL
 
 norm:
-	@norminette include $(ALL_MODULES)
-	@$(MAKE) -C $(JCPARSER_DIR) norm
 	@$(MAKE) -C $(LIBFT_DIR) norm
 	@$(MAKE) -C $(LIBFTPRINTF_DIR) norm
 	@$(MAKE) -C $(OCLMATH_DIR) norm
+	@$(MAKE) -C $(JCPARSER_DIR) norm
+	@norminette include $(ALL_MODULES)
 
 all: $(NAME)
 

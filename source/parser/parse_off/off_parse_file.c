@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   off_parse_file.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amace-ty <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/09/11 15:01:17 by amace-ty          #+#    #+#             */
+/*   Updated: 2020/09/11 15:01:19 by amace-ty         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
-#include "ocl.h"
 
 _Bool		off_check_format(t_off *off)
 {
@@ -16,10 +27,7 @@ _Bool		off_check_format(t_off *off)
 
 _Bool		off_parse_file(t_off *off, char *filename)
 {
-	char *fullPath;
-
-	fullPath = ft_strjoin(OFF_PATH, filename);
-	if (!off_init(off, fullPath))
+	if (!off_init(off, filename))
 		return (FALSE);
 	if (!off_check_format(off))
 		return (FALSE);

@@ -28,6 +28,7 @@ void		init_dto_cam(DTO_CAM *cam, cl_float fov, INT2 screen)
 
 static void	init_off(t_dto *dto)
 {
+	dto->input_normal_maps = NULL;
 	dto->points = NULL;
 	dto->faces = NULL;
 	dto->colors = NULL;
@@ -53,7 +54,6 @@ static void	init_dto(t_dto *dto, const size_t work_size)
 	dto->input_lights = NULL;
 	dto->input_seeds = NULL;
 	dto->input_texture = NULL;
-	dto->input_normal_maps = NULL;
 	init_off(dto);
 	dto->output_data = NULL;
 	dto->output_id = NULL;

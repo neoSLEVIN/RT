@@ -12,11 +12,11 @@
 
 #include "gtk_module.h"
 
-void	move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
+void			move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
 										guint key, cl_float step)
 {
-	int		i;
-	FLT3	*section_pos;
+	int			i;
+	FLT3		*section_pos;
 
 	i = -1;
 	while (++i < SECTION_CNT)
@@ -39,16 +39,16 @@ void	move_sections_by_camera_movement(DTO_SHAPE *dto, DTO_CAM *cam,
 	}
 }
 
-void		move_sections_by_mouse(FLT3 diff, SECTION *sections)
+void			move_sections_by_mouse(FLT3 diff, SECTION *sections)
 {
-	int	i;
+	int			i;
 
 	i = -1;
 	while (++i < SECTION_CNT)
 		sections[i].position = v3_add(sections[i].position, diff);
 }
 
-static void	change_section_direction(FLT3 *direction, DTO_CAM *cam,
+static void		change_section_direction(FLT3 *direction, DTO_CAM *cam,
 									cl_float angle, guint key)
 {
 	if (key == GDK_KEY_k || key == GDK_KEY_i)
@@ -59,7 +59,7 @@ static void	change_section_direction(FLT3 *direction, DTO_CAM *cam,
 		*direction = v3_rot_v(*direction, cam->forward, angle);
 }
 
-void		rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
+void			rotate_sections(DTO_SHAPE *dto, DTO_CAM *cam, cl_float angle,
 							guint key)
 {
 	int			i;

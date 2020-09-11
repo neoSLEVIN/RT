@@ -16,8 +16,8 @@ void	clear_rt(t_rt *rt)
 {
 	if (!rt)
 		return ;
-	ft_memdel((void*)&rt->info);		//TODO clear_info(t_info **info);
-	ft_memdel((void*)&rt->ocl);			//TODO clear_ocl(t_ocl **ocl);
-	ft_memdel((void*)&rt->scene);		//TODO clear_scene(SCENE **scene);
-	g_slice_free(t_gtk, rt->gtk);	//TODO clear_gtk(t_gtk **gtk);
+	ft_memdel((void*)&rt->info);
+	ft_memdel((void*)&rt->ocl);
+	ft_memdel((void*)&rt->scene);
+	g_slice_free(t_gtk, rt->gtk);
 }
