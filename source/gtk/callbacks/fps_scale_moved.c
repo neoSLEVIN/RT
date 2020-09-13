@@ -30,4 +30,3 @@ void			fps_scale_moved(GtkSpinButton *button, gpointer data)
 	(void)button;
 	g_idle_add(fps_scale_moved_safe, data);
 }
-
