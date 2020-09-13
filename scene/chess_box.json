@@ -38,6 +38,15 @@
     ],
     "shapes": [
       {
+        "type": "OFF",
+        "name": "OFF",
+        "path": "bunny_simple_2k.off",
+        "transform": {
+          "position": [0.000, 3.400, 8.000],
+          "direction": [0.000, 1.000, 0.000]
+        }
+      },
+      {
         "type": "BOX",
         "name": "Shape_1",
         "width": 9.194,

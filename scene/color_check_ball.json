@@ -559,19 +559,19 @@
       },
       {
         "name": "Wood",
-        "path": "earth.ppm"
+        "path": "wow.ppm"
       },
       {
         "name": "Wood2",
-        "path": "dan.ppm"
+        "path": "wow.ppm"
       },
       {
         "name": "Wood3",
-        "path": "dan.ppm"
+        "path": "wow.ppm"
       },
       {
         "name": "Wood4",
-        "path": "dan.ppm"
+        "path": "wow.ppm"
       }
     ]
   }

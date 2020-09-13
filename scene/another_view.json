@@ -5,15 +5,15 @@
   },
   "scene": {
     "camera": {
-      "position": [1.088, 45.293, -155.872],
-      "direction": [-0.999, 0.005, 0.043],
-      "rotation": 12.544
+      "position": [-197.389, 50.072, -163.904],
+      "direction": [0.999, -0.024, 0.042],
+      "rotation": -12.468
     },
     "lights": [
       {
         "name": "Unnamed_0",
         "type": "AMBIENT",
-        "intensity": 0.100
+        "intensity": 0.085
       },
       {
         "name": "Unnamed_1",
@@ -32,6 +32,24 @@
         "type": "POINT",
         "intensity": 0.300,
         "position": [-1.836, 50.190, -154.660]
+      },
+      {
+        "name": "Light",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [-8.830, 50.227, -154.360]
+      },
+      {
+        "name": "Light",
+        "type": "POINT",
+        "intensity": 0.300,
+        "position": [-6.832, 50.217, -154.446]
+      },
+      {
+        "name": "Light",
+        "type": "DIRECTION",
+        "intensity": 0.840,
+        "direction": [-25.015, 9.024, -14.217]
       }
     ],
     "shapes": [
@@ -69,13 +87,13 @@
       },
       {
         "type": "PLANE",
-        "name": "Shape",
+        "name": "Floor",
         "transform": {
           "position": [3.000, 1.601, -95.292],
           "direction": [0.000, 0.994, 0.105]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "F0F484",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
@@ -100,13 +118,13 @@
       },
       {
         "type": "PLANE",
-        "name": "Shape",
+        "name": "Front_wall",
         "transform": {
           "position": [3.000, 10.348, 54.152],
           "direction": [-0.000, 0.500, -0.866]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "7FF29D",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
@@ -355,14 +373,14 @@
       },
       {
         "type": "CONE",
-        "name": "Shape",
+        "name": "Cone",
         "angle": 30.009,
         "transform": {
           "position": [-6.661, 32.043, -112.421],
           "direction": [0.000, 0.951, 0.309]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "84EDF4",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
@@ -387,7 +405,7 @@
       },
       {
         "type": "CONE",
-        "name": "Shape",
+        "name": "Cone",
         "angle": 30.009,
         "transform": {
           "position": [54.643, 34.193, -110.191],
@@ -419,13 +437,13 @@
       },
       {
         "type": "PLANE",
-        "name": "Shape",
+        "name": "Roof",
         "transform": {
           "position": [32.865, 105.796, -363.094],
           "direction": [0.000, 0.994, 0.105]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "F484D5",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
@@ -450,13 +468,13 @@
       },
       {
         "type": "PLANE",
-        "name": "Shape",
+        "name": "Back_wall",
         "transform": {
           "position": [60.550, 72.596, -282.810],
           "direction": [-0.000, 0.500, -0.866]
         },
         "material": {
-          "color": "84E0F4",
+          "color": "AE84F4",
           "specular": 0.050,
           "reflective": 0.235,
           "transparency": 0.000
@@ -484,7 +502,7 @@
         "name": "Shape",
         "radius": 0.500,
         "transform": {
-          "position": [-1.909, 45.309, -155.744],
+          "position": [-1.920, 45.295, -155.482],
           "direction": [0.015, 0.976, 0.217]
         },
         "material": {
@@ -505,8 +523,41 @@
             {
               "on": false,
               "type": "PLANE",
-              "position": [-1.909, 45.309, -155.744],
+              "position": [-1.920, 45.295, -155.482],
               "direction": [0.000, 1.000, 0.000]
+            }
+          ]
+        }
+      },
+      {
+        "type": "CAPPED CYLINDER",
+        "name": "ShapeKing",
+        "radius": 0.900,
+        "height": 0.800,
+        "transform": {
+          "position": [2.056, 45.377, -155.295],
+          "direction": [0.825, 0.066, -0.562]
+        },
+        "material": {
+          "color": "84E0F4",
+          "specular": 0.050,
+          "reflective": 0.420,
+          "transparency": 0.000
+        },
+        "texture": {
+          "name": "NO TEXTURES"
+        },
+        "normal map": {
+          "name": "NO NORMALS"
+        },
+        "sections": {
+          "style": "SIMPLE",
+          "elements": [
+            {
+              "on": false,
+              "type": "PLANE",
+              "position": [2.056, 45.377, -155.295],
+              "direction": [0.685, 0.132, -0.717]
             }
           ]
         }
@@ -541,19 +592,19 @@
       },
       {
         "name": "Wood",
-        "path": "earth.ppm"
+        "path": "nit.ppm"
       },
       {
         "name": "Wood2",
-        "path": "dan.ppm"
+        "path": "nit.ppm"
       },
       {
         "name": "Wood3",
-        "path": "dan.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "Wood4",
-        "path": "dan.ppm"
+        "path": "wow.ppm"
       }
     ]
   }
