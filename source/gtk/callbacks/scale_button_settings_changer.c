@@ -12,28 +12,44 @@
 
 #include "gtk_module.h"
 
-void	mirror_scale_moved(GtkRange *range, gpointer data)
+static gboolean	mirror_scale_moved_safe(gpointer data)
 {
-	t_rt	*rt;
+	t_rt		*rt;
+	t_spinner	*mirror;
 
 	rt = (t_rt*)data;
-	rt->scene->mirror = gtk_range_get_value(range);
+	mirror = &rt->gtk->ui.settings.mirror;
+	rt->scene->mirror =
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(mirror->spin));
 	update_mirror_arg(rt->ocl);
 	rt->info->update = TRUE;
+	return (FALSE);
 }
 
-void	step_scale_moved(GtkRange *range, gpointer data)
+void			mirror_scale_moved(GtkSpinButton *button, gpointer data)
 {
-	t_rt	*rt;
-
-	rt = (t_rt*)data;
-	rt->scene->step = gtk_range_get_value(range);
+	(void)button;
+	g_idle_add(mirror_scale_moved_safe, data);
 }
 
-void	angle_scale_moved(GtkRange *range, gpointer data)
+static gboolean	step_angle_scale_moved_safe(gpointer data)
 {
-	t_rt	*rt;
+	t_rt		*rt;
+	t_spinner	*step;
+	t_spinner	*angle;
 
 	rt = (t_rt*)data;
-	rt->scene->angle = deg_to_rad(gtk_range_get_value(range));
+	step = &rt->gtk->ui.settings.step;
+	angle = &rt->gtk->ui.settings.angle;
+	rt->scene->step =
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(step->spin));
+	rt->scene->angle =
+		deg_to_rad(gtk_spin_button_get_value(GTK_SPIN_BUTTON(angle->spin)));
+	return (FALSE);
+}
+
+void			step_angle_scale_moved(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(step_angle_scale_moved_safe, data);
 }

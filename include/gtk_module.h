@@ -196,10 +196,10 @@ typedef struct		s_material_tab
 {
 	GtkWidget		*label;
 	GtkWidget		*grid;
-	t_scale			specular;
-	t_scale			reflective;
-	t_scale			transparency;
-	t_scale			refraction;
+	t_spinner		specular;
+	t_spinner		reflective;
+	t_spinner		transparency;
+	t_spinner		refraction;
 }					t_material_tab;
 
 /*
@@ -431,20 +431,20 @@ typedef struct		s_gtk_settings
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
 	GtkWidget		*grid_scale_params;
-	t_scale			mirror;
-	t_scale			step;
-	t_scale			angle;
+	t_spinner		mirror;
+	t_spinner		step;
+	t_spinner		angle;
 	GtkWidget		*grid;
 	GtkWidget		*anti_aliasing;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
 	GtkWidget		*grid_blur;
-	t_scale			blur;
+	t_spinner		blur;
 	GtkWidget		*grid_sepia;
-	t_scale			sepia;
+	t_spinner		sepia;
 	GtkWidget		*grid_noise;
-	t_scale			noise;
+	t_spinner		noise;
 }					t_gtk_settings;
 
 /*
@@ -672,12 +672,11 @@ void				change_anti_aliasing(GtkToggleButton *toggle_button,
 								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
-void				mirror_scale_moved(GtkRange *range, gpointer data);
-void				step_scale_moved(GtkRange *range, gpointer data);
-void				angle_scale_moved(GtkRange *range, gpointer data);
-void				blur_scale_moved(GtkRange *range, gpointer data);
-void				sepia_scale_moved(GtkRange *range, gpointer data);
-void				noise_scale_moved(GtkRange *range, gpointer data);
+void				mirror_scale_moved(GtkSpinButton *button, gpointer data);
+void				step_angle_scale_moved(GtkSpinButton *button,
+								gpointer data);
+void				filter_spin_button_changer(GtkSpinButton *button,
+								gpointer data);
 void				display_width_scale_moved(GtkSpinButton *button,
 								gpointer data);
 void				display_height_scale_moved(GtkSpinButton *button,
@@ -727,7 +726,8 @@ void				spin_button_shape_dot_c_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_color_changer(GtkSpinButton *button,
 								gpointer data);
-void				shape_material_scale_moved(GtkRange *range, gpointer data);
+void				shape_material_scale_moved(GtkSpinButton *button,
+								gpointer data);
 void				changing_texture_type(GtkComboBox *texture_combo,
 								gpointer data);
 void				changing_normals_type(GtkComboBox *normals_combo,

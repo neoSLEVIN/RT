@@ -12,27 +12,33 @@
 
 #include "gtk_module.h"
 
-void	shape_material_scale_moved(GtkRange *range, gpointer data)
+static gboolean	shape_material_scale_moved_safe(gpointer data)
 {
 	t_rt				*rt;
 	struct s_material	*material;
-	t_material_tab		*material_tab;
+	t_material_tab		*tab;
 
-	(void)range;
 	rt = (t_rt*)data;
-	ASSERT_SHAPE_VOID(rt->gtk->ui.shape->shape);
+	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	material = &rt->gtk->ui.shape->shape->dto->material;
-	material_tab = &rt->gtk->ui.shape->material;
+	tab = &rt->gtk->ui.shape->material;
 	material->transparency =
-		gtk_range_get_value(GTK_RANGE(material_tab->transparency.scale));
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->transparency.spin));
 	material->refraction =
-		gtk_range_get_value(GTK_RANGE(material_tab->refraction.scale));
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->refraction.spin));
 	material->reflective =
-		gtk_range_get_value(GTK_RANGE(material_tab->reflective.scale));
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->reflective.spin));
 	material->specular =
-		gtk_range_get_value(GTK_RANGE(material_tab->specular.scale));
+		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->specular.spin));
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
-	draw_image(rt);
+	rt->info->update = TRUE;
+	return (FALSE);
+}
+
+void			shape_material_scale_moved(GtkSpinButton *button, gpointer data)
+{
+	(void)button;
+	g_idle_add(shape_material_scale_moved_safe, data);
 }

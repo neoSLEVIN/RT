@@ -2,7 +2,11 @@ OS = $(shell uname)
 
 DEFINED_VAR = -DPROJ_DIR=\"$(shell pwd)/\"
 
+ifeq ($(OS),Darwin)
 NAME = RT
+else
+NAME = dependency
+endif
 
 RED = \033[31m
 GREEN = \033[32m
@@ -250,6 +254,7 @@ OPENCL_LIB = -framework OpenCL
 all: $(NAME)
 
 build:
+	@mkdir -p ./cmake-build-debug
 	@cmake --build ./cmake-build-debug --target RT -- -j 4
 
 run:
