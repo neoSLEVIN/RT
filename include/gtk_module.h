@@ -917,18 +917,18 @@ void				compute_triangle_position(t_transform_tab *tab,
 /*
 ** ============================ File chooser utils =============================
 */
-void			init_chooser(t_chooser *chooser, const char *dir_path,
+void				init_chooser(t_chooser *chooser, const char *dir_path,
 									_Bool with_entry, const char *default_name);
-_Bool			deinit_chooser(t_chooser *chooser, _Bool res);
-void			init_dialog(GtkWindow *window, t_chooser *chooser,
+_Bool				deinit_chooser(t_chooser *chooser, _Bool res);
+void				init_dialog(GtkWindow *window, t_chooser *chooser,
 									const char *msg, const char *title);
 
 /*
 ** =============================== File choosers ===============================
 */
-_Bool			choose_file_name(GtkWindow *window, char **filename,
+_Bool				choose_file_name(GtkWindow *window, char **filename,
 									const char *dir_path);
-_Bool			save_file_name(GtkWindow *window, char **filename,
+_Bool				save_file_name(GtkWindow *window, char **filename,
 									const char *dir_path,
 									const char *default_name);
 

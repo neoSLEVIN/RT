@@ -30,7 +30,7 @@ t_spinner	gtk_set_spinner_float(const char *label, FLT2 range, cl_float value,
 	return (spinner);
 }
 
-void	gtk_set_spinner(t_spinner *spinner, INT2 range, int value,
+void		gtk_set_spinner(t_spinner *spinner, INT2 range, int value,
 						const char *label)
 {
 	GtkAdjustment	*adj;
@@ -46,7 +46,8 @@ void	gtk_set_spinner(t_spinner *spinner, INT2 range, int value,
 	gtk_widget_set_margin_top(spinner->spin, 5);
 }
 
-void	gtk_set_scale(t_scale *scale, INT2 range, int value, const char *label)
+void		gtk_set_scale(t_scale *scale, INT2 range, int value,
+					const char *label)
 {
 	GtkAdjustment	*adj;
 
@@ -58,7 +59,7 @@ void	gtk_set_scale(t_scale *scale, INT2 range, int value, const char *label)
 	gtk_widget_set_hexpand(scale->scale, TRUE);
 }
 
-t_scale	gtk_get_float_scale(const char *label, FLT2 range, cl_float value,
+t_scale		gtk_get_float_scale(const char *label, FLT2 range, cl_float value,
 							cl_float step)
 {
 	t_scale			scale;
