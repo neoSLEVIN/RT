@@ -69,7 +69,7 @@ void				s_camera_obj(t_serializer *s, DTO_CAM *dto, CAMERA *cam);
 void				s_shapes_arr(t_serializer *s, SHAPE *shape, SCENE *scene);
 void				s_lights_arr(t_serializer *s, LIGHT *light);
 void				s_ppm_img_arr(t_serializer *s, const char *name,
-								PPM_IMG *ppm);
+								PPM_IMG *ppm, const char *dir);
 void				s_shape_texture_obj(t_serializer *s, int id, PPM_IMG *ppm);
 void				s_shape_normal_map_obj(t_serializer *s, int id,
 								PPM_IMG *ppm);

@@ -12,32 +12,30 @@
 
 #include "gtk_module.h"
 
-void	blur_scale_moved(GtkRange *range, gpointer data)
+static gboolean	filter_spin_button_changer_safe(gpointer data)
 {
-	t_rt	*rt;
+	t_rt		*rt;
+	t_spinner	*blur;
+	t_spinner	*sepia;
+	t_spinner	*noise;
 
 	rt = (t_rt*)data;
-	rt->scene->filter_params.x = gtk_range_get_value(range);
+	blur = &rt->gtk->ui.settings.blur;
+	sepia = &rt->gtk->ui.settings.sepia;
+	noise = &rt->gtk->ui.settings.noise;
+	rt->scene->filter_params.x =
+			gtk_spin_button_get_value(GTK_SPIN_BUTTON(blur->spin));
+	rt->scene->filter_params.y =
+			gtk_spin_button_get_value(GTK_SPIN_BUTTON(sepia->spin));
+	rt->scene->filter_params.z =
+			gtk_spin_button_get_value(GTK_SPIN_BUTTON(noise->spin));
 	update_filter_params(rt->ocl);
 	rt->info->update = TRUE;
+	return (FALSE);
 }
 
-void	sepia_scale_moved(GtkRange *range, gpointer data)
+void			filter_spin_button_changer(GtkSpinButton *button, gpointer data)
 {
-	t_rt	*rt;
-
-	rt = (t_rt*)data;
-	rt->scene->filter_params.y = gtk_range_get_value(range);
-	update_filter_params(rt->ocl);
-	rt->info->update = TRUE;
-}
-
-void	noise_scale_moved(GtkRange *range, gpointer data)
-{
-	t_rt	*rt;
-
-	rt = (t_rt*)data;
-	rt->scene->filter_params.z = gtk_range_get_value(range);
-	update_filter_params(rt->ocl);
-	rt->info->update = TRUE;
+	(void)button;
+	g_idle_add(filter_spin_button_changer_safe, data);
 }

@@ -61,7 +61,8 @@ static void	s_shape_obj(t_serializer *s, SHAPE *shape, SCENE *scene)
 	if (shape->dto->type == OFF)
 	{
 		s_name(s, "path");
-		s_str_in_quotes(s, scene->off.filename);
+		s_str_in_quotes(s,
+			ft_strstr(scene->off.filename, OFF_PATH) + ft_strlen(OFF_PATH));
 		s_comma(s);
 	}
 	s_shape_params_with_comma(s, shape->dto->type, &shape->dto->params);

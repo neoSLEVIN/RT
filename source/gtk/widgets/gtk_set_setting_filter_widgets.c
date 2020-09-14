@@ -38,10 +38,10 @@ void		gtk_set_setting_filter_widgets(t_gtk_settings *settings, t_rt *rt)
 	settings->grid_blur = gtk_grid_new();
 	settings->grid_sepia = gtk_grid_new();
 	settings->grid_noise = gtk_grid_new();
-	gtk_set_scale(&settings->blur, (INT2){1, 255},
+	gtk_set_spinner(&settings->blur, (INT2){1, 255},
 				rt->scene->filter_params.x, "Blur:");
-	gtk_set_scale(&settings->sepia, (INT2){1, 255},
+	gtk_set_spinner(&settings->sepia, (INT2){1, 255},
 				rt->scene->filter_params.y, "Sepia:");
-	gtk_set_scale(&settings->noise, (INT2){1, 255},
+	gtk_set_spinner(&settings->noise, (INT2){1, 255},
 				rt->scene->filter_params.z, "Noise:");
 }

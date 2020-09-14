@@ -14,15 +14,17 @@
 
 int	main(int argc, char **argv)
 {
-	t_rt	rt;
+	GtkWidget	*win;
+	t_rt		rt;
 
 	(argc != 1) ? usage(argv[0]) : 0;
 	gtk_init(&argc, &argv);
+	win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	init_info(&rt.info);
 	new_ocl(&rt.ocl);
-	new_scene(&rt.scene);
+	new_scene(&rt.scene, &win);
 	setting_cl(rt.ocl, rt.scene, rt.info);
-	new_gtk(&rt, rt.scene->filename);
+	new_gtk(&rt, rt.scene->filename, &win);
 	draw_image(&rt);
 	show_widgets(&rt);
 	gtk_main();

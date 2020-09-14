@@ -18,7 +18,6 @@ void	gtk_set_main_window(t_gtk *gtk, const char *filename)
 		ft_error("Can't allocate memory");
 	if (!(gtk->titles[1] = ft_strjoin(gtk->titles[0], " | Loading...")))
 		ft_error("Can't allocate memory");
-	gtk->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(gtk->window), gtk->titles[0]);
 	gtk_window_set_default_size(GTK_WINDOW(gtk->window),
 		COLS + UI_WIDTH, ROWS);

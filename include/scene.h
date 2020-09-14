@@ -18,6 +18,25 @@
 # define MIN_WIDTH 100
 # define MIN_HEIGHT 100
 
+# ifndef PROJ_DIR
+#  define PROJ_DIR ""
+# endif
+
+# ifdef __APPLE__
+#  define SCENE_PATH PROJ_DIR"scene/"
+#  define NORMAL_MAP_PATH PROJ_DIR"extras/normalmaps/"
+#  define TEXTURE_PATH PROJ_DIR"extras/textures/"
+#  define IMAGES_PATH PROJ_DIR"extras/images/"
+#  define OFF_PATH PROJ_DIR"extras/off/"
+
+# else
+#  define SCENE_PATH PROJ_DIR"scene\\"
+#  define NORMAL_MAP_PATH PROJ_DIR"extras\\normalmaps\\"
+#  define TEXTURE_PATH PROJ_DIR"extras\\textures\\"
+#  define IMAGES_PATH PROJ_DIR"extras\\images\\"
+#  define OFF_PATH PROJ_DIR"extras\\off\\"
+# endif
+
 /*
 ** =============================================================================
 ** ============================= IMAGE resolution ==============================

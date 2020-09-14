@@ -1,6 +1,7 @@
 {
   "settings": {
-    "filter": "NO FILTERS"
+    "filter": "NO FILTERS",
+    "anti-aliasing": true
   },
   "scene": {
     "camera": {

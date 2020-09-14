@@ -15,16 +15,22 @@
 void	save_scene_as(GtkButton *button, gpointer data)
 {
 	t_rt	*rt;
+	char	*filename;
 
 	(void)button;
 	rt = (t_rt*)data;
-	if (get_new_file_name(&rt->info->scene_filename,
-						&rt->info->scene_file_folder, "Untitled.json"))
+	filename = NULL;
+	if (save_file_name(GTK_WINDOW(rt->gtk->window), &filename,
+						SCENE_PATH, "Untitled.json"))
 	{
+		(rt->info->scene_filename) ? ft_strdel(&rt->info->scene_filename) : 0;
+		rt->info->scene_filename = filename;
 		g_idle_add(serialize_scene_to_json, rt);
 		gtk_widget_set_tooltip_text(rt->gtk->ui.buttons.save_scene,
 									rt->info->scene_filename);
 	}
+	else
+		(filename) ? ft_strdel(&filename) : 0;
 }
 
 void	save_scene(GtkButton *button, gpointer data)

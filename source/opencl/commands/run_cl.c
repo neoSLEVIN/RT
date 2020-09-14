@@ -12,7 +12,7 @@
 
 #include "ocl.h"
 
-void	run_cl(t_ocl *ocl)
+void		run_cl(t_ocl *ocl)
 {
 	int	err;
 

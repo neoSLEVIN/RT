@@ -8,7 +8,7 @@
       "direction": [0.302, -0.341, 0.890],
       "rotation": -2.203,
       "display": [1440, 584],
-      "fov": 58,
+      "fov": 28,
       "fps": 49
     },
     "lights": [
@@ -573,23 +573,23 @@
       },
       {
         "name": "Wood",
-        "path": "earth.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "Wood2",
-        "path": "dan.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "Wood3",
-        "path": "dan.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "Wood4",
-        "path": "dan.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "5k",
-        "path": "5k.ppm"
+        "path": "Wood_n.ppm"
       },
       {
         "name": "44",

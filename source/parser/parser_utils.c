@@ -12,6 +12,27 @@
 
 #include "parser.h"
 
+char		*full_texture_path(const JC_FIELD parent,
+							const JC_FIELD texture_field)
+{
+	char	*dir;
+	char	*file;
+	char	*path;
+
+	dir = NULL;
+	if (ft_strstr(jc_full_name(parent), "textures"))
+		dir = TEXTURE_PATH;
+	else if (ft_strstr(jc_full_name(parent), "normal maps"))
+		dir = NORMAL_MAP_PATH;
+	else
+		ft_error("Unknown texture type (full_texture_path)");
+	file = jc_get_string(texture_field, "path", FALSE);
+	if (!(path = ft_strjoin(dir, file)))
+		ft_error("Can't allocate memory");
+	ft_strdel(&file);
+	return (path);
+}
+
 char		*unnamed_obj(size_t index, char *prefix)
 {
 	char	*name;

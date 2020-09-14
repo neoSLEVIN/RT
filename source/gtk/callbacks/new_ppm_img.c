@@ -22,7 +22,8 @@ void	new_texture(GtkButton *button, gpointer data)
 	rt = (t_rt*)data;
 	if (rt->scene->t_cnt >= MAX_PPM_IMG_COUNT)
 		return ;
-	if ((filename = get_ppm_filename(PROJ_DIR"extras/textures")) != NULL)
+	if (choose_file_name(GTK_WINDOW(rt->gtk->window), &filename,
+						TEXTURE_PATH) && filename)
 	{
 		texture = new_ppm_img_init(rt, filename, &rt->scene->textures, FALSE);
 		if (!texture)
@@ -41,7 +42,8 @@ void	new_normal_map(GtkButton *button, gpointer data)
 	rt = (t_rt*)data;
 	if (rt->scene->n_cnt >= MAX_PPM_IMG_COUNT)
 		return ;
-	if ((filename = get_ppm_filename(PROJ_DIR"extras/normalmaps")) != NULL)
+	if (choose_file_name(GTK_WINDOW(rt->gtk->window), &filename,
+						NORMAL_MAP_PATH) && filename)
 	{
 		normal_map =
 			new_ppm_img_init(rt, filename, &rt->scene->normal_maps, TRUE);

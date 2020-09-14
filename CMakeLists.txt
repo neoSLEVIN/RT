@@ -306,8 +306,6 @@ set(SRCNAME_GTK
         source/gtk/utils/init_info.c
         source/gtk/utils/new_scene.c
         source/gtk/utils/new_gtk.c
-        source/gtk/utils/clear_rt.c
-        source/gtk/utils/cleaner.c
         source/serializer/serialize_type_name.c
         source/gtk/settings/gtk_set_main_window.c
         source/gtk/settings/gtk_set_widgets.c
@@ -370,7 +368,6 @@ set(SRCNAME_GTK
         source/gtk/callbacks/shape/shape_material_scale_moved.c
         source/gtk/callbacks/shape/cell_editable_holders.c
         source/gtk/callbacks/shape/section_callbacks.c
-        source/gtk/callbacks/shape/color_activated_changer.c
         source/gtk/callbacks/shape/changing_shape_type.c
         source/gtk/callbacks/shape/changing_textures_normals.c
         source/gtk/callbacks/shape/press_key_on_shape_name.c
@@ -418,7 +415,6 @@ set(SRCNAME_GTK
         source/gtk/actions/shape_tabs/update_gtk_shape_texture.c
         source/gtk/actions/shape_tabs/update_gtk_shape_section.c
         source/parser/parse_shape_param_by_type.c
-        source/gtk/actions/get_new_file_name.c
         source/gtk/callbacks/save_image.c
         source/gtk/utils/show_widgets.c
         source/gtk/callbacks/scale_button_filter_changer.c
@@ -453,6 +449,9 @@ set(SRCNAME_GTK
         source/gtk/actions/do_change_shape_param.c
         source/gtk/callbacks/change_anti_aliasing.c
         source/gtk/callbacks/scale_button_settings_changer.c
+        source/gtk/utils/file_chooser_utils.c
+        source/gtk/utils/file_chooser.c
+        source/gtk/callbacks/shape/spin_button_color_changer.c
         source/gtk/actions/do_change_off_dots.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
