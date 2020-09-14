@@ -452,7 +452,8 @@ set(SRCNAME_GTK
         source/gtk/utils/file_chooser_utils.c
         source/gtk/utils/file_chooser.c
         source/gtk/callbacks/shape/spin_button_color_changer.c
-        source/gtk/actions/do_change_off_dots.c)
+        source/gtk/actions/do_change_off_dots.c
+        source/gtk/widgets/gtk_set_changer_widgets.c)
 
 set(SERIALIZER_SRC ${RT_SRC}/serializer)
 include_directories(${SERIALIZER_SRC})

@@ -22,14 +22,10 @@ static gboolean	shape_material_scale_moved_safe(gpointer data)
 	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	material = &rt->gtk->ui.shape->shape->dto->material;
 	tab = &rt->gtk->ui.shape->material;
-	material->transparency =
-		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->transparency.spin));
-	material->refraction =
-		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->refraction.spin));
-	material->reflective =
-		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->reflective.spin));
-	material->specular =
-		gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->specular.spin));
+	material->transparency = GTK_CHANGER_GET_VALUE(tab->transparency.change);
+	material->refraction = GTK_CHANGER_GET_VALUE(tab->refraction.change);
+	material->reflective = GTK_CHANGER_GET_VALUE(tab->reflective.change);
+	material->specular = GTK_CHANGER_GET_VALUE(tab->specular.change);
 	rt->info->update_shapes = TRUE;
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
@@ -37,7 +33,7 @@ static gboolean	shape_material_scale_moved_safe(gpointer data)
 	return (FALSE);
 }
 
-void			shape_material_scale_moved(GtkSpinButton *button, gpointer data)
+void			shape_material_scale_moved(GtkWidget *button, gpointer data)
 {
 	(void)button;
 	g_idle_add(shape_material_scale_moved_safe, data);

@@ -22,16 +22,16 @@ static gboolean	spin_button_color_changer_safe(gpointer data)
 	ASSERT_SHAPE(rt->gtk->ui.shape->shape);
 	color = &rt->gtk->ui.shape->shape->dto->material.color;
 	tab = &rt->gtk->ui.shape->color;
-	color->x = gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->red.spin));
-	color->y = gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->green.spin));
-	color->z = gtk_spin_button_get_value(GTK_SPIN_BUTTON(tab->blue.spin));
+	color->x = GTK_CHANGER_GET_VALUE(tab->red.change);
+	color->y = GTK_CHANGER_GET_VALUE(tab->green.change);
+	color->z = GTK_CHANGER_GET_VALUE(tab->blue.change);
 	update_flags(&rt->info->update_shapes, &rt->info->update);
 	update_shapes_arg(rt->ocl, &rt->info->update_s_cnt,
 					&rt->info->update_shapes);
 	return (FALSE);
 }
 
-void			spin_button_color_changer(GtkSpinButton *button, gpointer data)
+void			spin_button_color_changer(GtkWidget *button, gpointer data)
 {
 	(void)button;
 	g_idle_add(spin_button_color_changer_safe, data);

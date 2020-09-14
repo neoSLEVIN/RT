@@ -29,19 +29,19 @@ static void	gtk_set_shape_trans_mat_color_signals(t_transform_tab *transform,
 		G_CALLBACK(spin_button_shape_position_changer), rt);
 	g_signal_connect(G_OBJECT(transform->z.spin), "value-changed",
 		G_CALLBACK(spin_button_shape_position_changer), rt);
-	g_signal_connect(G_OBJECT(material->transparency.spin), "value-changed",
+	g_signal_connect(G_OBJECT(material->transparency.change), "value-changed",
 		G_CALLBACK(shape_material_scale_moved), rt);
-	g_signal_connect(G_OBJECT(material->refraction.spin), "value-changed",
+	g_signal_connect(G_OBJECT(material->refraction.change), "value-changed",
 		G_CALLBACK(shape_material_scale_moved), rt);
-	g_signal_connect(G_OBJECT(material->reflective.spin), "value-changed",
+	g_signal_connect(G_OBJECT(material->reflective.change), "value-changed",
 		G_CALLBACK(shape_material_scale_moved), rt);
-	g_signal_connect(G_OBJECT(material->specular.spin), "value-changed",
+	g_signal_connect(G_OBJECT(material->specular.change), "value-changed",
 		G_CALLBACK(shape_material_scale_moved), rt);
-	g_signal_connect(G_OBJECT(color->red.spin), "value-changed",
+	g_signal_connect(G_OBJECT(color->red.change), "value-changed",
 		G_CALLBACK(spin_button_color_changer), rt);
-	g_signal_connect(G_OBJECT(color->green.spin), "value-changed",
+	g_signal_connect(G_OBJECT(color->green.change), "value-changed",
 		G_CALLBACK(spin_button_color_changer), rt);
-	g_signal_connect(G_OBJECT(color->blue.spin), "value-changed",
+	g_signal_connect(G_OBJECT(color->blue.change), "value-changed",
 		G_CALLBACK(spin_button_color_changer), rt);
 }
 

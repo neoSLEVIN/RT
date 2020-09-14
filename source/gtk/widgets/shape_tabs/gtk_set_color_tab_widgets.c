@@ -24,9 +24,9 @@ void	gtk_set_color_tab_widgets(t_color_tab *color_tab, FLT3 *color)
 	color_tab->v_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	color_tab->grid = gtk_grid_new();
 	color_tab->red =
-		gtk_set_spinner_float("Red:", (FLT2){0.0f, 1.0f}, color->x, 0.001f);
+		gtk_set_changer_float("Red:", (FLT2){0.0f, 1.0f}, color->x, 0.001f);
 	color_tab->green =
-		gtk_set_spinner_float("Green:", (FLT2){0.0f, 1.0f}, color->y, 0.001f);
+		gtk_set_changer_float("Green:", (FLT2){0.0f, 1.0f}, color->y, 0.001f);
 	color_tab->blue =
-		gtk_set_spinner_float("Blue:", (FLT2){0.0f, 1.0f}, color->z, 0.001f);
+		gtk_set_changer_float("Blue:", (FLT2){0.0f, 1.0f}, color->z, 0.001f);
 }

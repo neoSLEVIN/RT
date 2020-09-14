@@ -17,8 +17,7 @@ static gboolean	fov_scale_moved_safe(gpointer data)
 	t_rt	*rt;
 
 	rt = (t_rt*)data;
-	rt->scene->cam.fov =
-		gtk_spin_button_get_value(GTK_SPIN_BUTTON(rt->gtk->ui.camera.fov.spin));
+	rt->scene->cam.fov = GTK_CHANGER_GET_VALUE(rt->gtk->ui.camera.fov.change);
 	init_dto_cam(rt->scene->cam.dto, rt->scene->cam.fov,
 				rt->scene->cam.display);
 	rt->info->update_cam = TRUE;
@@ -26,7 +25,7 @@ static gboolean	fov_scale_moved_safe(gpointer data)
 	return (FALSE);
 }
 
-void			fov_scale_moved(GtkSpinButton *button, gpointer data)
+void			fov_scale_moved(GtkWidget *button, gpointer data)
 {
 	(void)button;
 	g_idle_add(fov_scale_moved_safe, data);

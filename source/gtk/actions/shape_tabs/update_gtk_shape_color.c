@@ -14,7 +14,7 @@
 
 void	update_gtk_shape_color(t_color_tab *tab, FLT3 color)
 {
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->red.spin), color.x);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->green.spin), color.y);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab->blue.spin), color.z);
+	GTK_CHANGER_SET_VALUE(tab->red.change, color.x);
+	GTK_CHANGER_SET_VALUE(tab->green.change, color.y);
+	GTK_CHANGER_SET_VALUE(tab->blue.change, color.z);
 }

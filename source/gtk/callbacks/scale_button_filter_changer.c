@@ -15,26 +15,23 @@
 static gboolean	filter_spin_button_changer_safe(gpointer data)
 {
 	t_rt		*rt;
-	t_spinner	*blur;
-	t_spinner	*sepia;
-	t_spinner	*noise;
+	t_changer	*blur;
+	t_changer	*sepia;
+	t_changer	*noise;
 
 	rt = (t_rt*)data;
 	blur = &rt->gtk->ui.settings.blur;
 	sepia = &rt->gtk->ui.settings.sepia;
 	noise = &rt->gtk->ui.settings.noise;
-	rt->scene->filter_params.x =
-			gtk_spin_button_get_value(GTK_SPIN_BUTTON(blur->spin));
-	rt->scene->filter_params.y =
-			gtk_spin_button_get_value(GTK_SPIN_BUTTON(sepia->spin));
-	rt->scene->filter_params.z =
-			gtk_spin_button_get_value(GTK_SPIN_BUTTON(noise->spin));
+	rt->scene->filter_params.x = GTK_CHANGER_GET_VALUE(blur->change);
+	rt->scene->filter_params.y = GTK_CHANGER_GET_VALUE(sepia->change);
+	rt->scene->filter_params.z = GTK_CHANGER_GET_VALUE(noise->change);
 	update_filter_params(rt->ocl);
 	rt->info->update = TRUE;
 	return (FALSE);
 }
 
-void			filter_spin_button_changer(GtkSpinButton *button, gpointer data)
+void			filter_spin_button_changer(GtkWidget *button, gpointer data)
 {
 	(void)button;
 	g_idle_add(filter_spin_button_changer_safe, data);

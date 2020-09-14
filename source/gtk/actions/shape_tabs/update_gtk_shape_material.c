@@ -14,12 +14,8 @@
 
 void	update_gtk_shape_material(t_material_tab tab, MATERIAL shape_mat)
 {
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.transparency.spin),
-						shape_mat.transparency);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.refraction.spin),
-						shape_mat.refraction);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.reflective.spin),
-						shape_mat.reflective);
-	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tab.specular.spin),
-						shape_mat.specular);
+	GTK_CHANGER_SET_VALUE(tab.transparency.change, shape_mat.transparency);
+	GTK_CHANGER_SET_VALUE(tab.refraction.change, shape_mat.refraction);
+	GTK_CHANGER_SET_VALUE(tab.reflective.change, shape_mat.reflective);
+	GTK_CHANGER_SET_VALUE(tab.specular.change, shape_mat.specular);
 }

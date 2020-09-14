@@ -27,6 +27,13 @@
 # else
 #  define UI_WIDTH 475
 # endif
+# if IS_APPLE
+#  define GTK_CHANGER_GET_VALUE(c) gtk_spin_button_get_value(GTK_SPIN_BUTTON(c))
+#  define GTK_CHANGER_SET_VALUE(c, v) gtk_spin_button_set_value(GTK_SPIN_BUTTON(c), v)
+# else
+#  define GTK_CHANGER_GET_VALUE(c) gtk_range_get_value(GTK_RANGE(c))
+#  define GTK_CHANGER_SET_VALUE(c, v) gtk_range_set_value(GTK_RANGE(c), v)
+# endif
 # define GTK_SELECT GtkTreeSelection
 # define ASSERT_SHAPE_VOID(shape) if (!shape || !shape->dto) {return ;}
 # define ASSERT_LIGHT_VOID(light) if (!light || !light->dto) {return ;}
@@ -58,13 +65,22 @@ typedef struct		s_spinner
 }					t_spinner;
 
 /*
-** =================== Entity for scale and his label ====================
+** ====================== Entity for scale and his label =======================
 */
 typedef struct		s_scale
 {
 	GtkWidget		*scale;
 	GtkWidget		*label;
 }					t_scale;
+
+/*
+** =========== Entity for spin(for MAC)/scale(not MAC) and his label ===========
+*/
+typedef struct		s_changer
+{
+	GtkWidget		*change;
+	GtkWidget		*label;
+}					t_changer;
 
 /*
 ** =============================================================================
@@ -114,10 +130,10 @@ typedef struct		s_gtk_camera
 	GtkWidget		*x_axis;
 	GtkWidget		*display_frame;
 	GtkWidget		*display_grid;
-	t_spinner		display_width;
-	t_spinner		display_height;
-	t_spinner		fov;
-	t_spinner		fps;
+	t_changer		display_width;
+	t_changer		display_height;
+	t_changer		fov;
+	t_changer		fps;
 	GtkWidget		*pos_expander;
 	GtkWidget		*pos_grid;
 	t_spinner		pos[3];
@@ -196,10 +212,10 @@ typedef struct		s_material_tab
 {
 	GtkWidget		*label;
 	GtkWidget		*grid;
-	t_spinner		specular;
-	t_spinner		reflective;
-	t_spinner		transparency;
-	t_spinner		refraction;
+	t_changer		specular;
+	t_changer		reflective;
+	t_changer		transparency;
+	t_changer		refraction;
 }					t_material_tab;
 
 /*
@@ -228,9 +244,9 @@ typedef struct		s_color_tab
 	GtkWidget		*scrolled_window;
 	GtkWidget		*v_box;
 	GtkWidget		*grid;
-	t_spinner		red;
-	t_spinner		green;
-	t_spinner		blue;
+	t_changer		red;
+	t_changer		green;
+	t_changer		blue;
 }					t_color_tab;
 
 /*
@@ -431,20 +447,20 @@ typedef struct		s_gtk_settings
 	GtkWidget		*expander;
 	GtkWidget		*v_box;
 	GtkWidget		*grid_scale_params;
-	t_spinner		mirror;
-	t_spinner		step;
-	t_spinner		angle;
+	t_changer		mirror;
+	t_changer		step;
+	t_changer		angle;
 	GtkWidget		*grid;
 	GtkWidget		*anti_aliasing;
 	GtkWidget		*filter_label;
 	GtkWidget		*filter_combo;
 	GtkWidget		*v_filter_params;
 	GtkWidget		*grid_blur;
-	t_spinner		blur;
+	t_changer		blur;
 	GtkWidget		*grid_sepia;
-	t_spinner		sepia;
+	t_changer		sepia;
 	GtkWidget		*grid_noise;
-	t_spinner		noise;
+	t_changer		noise;
 }					t_gtk_settings;
 
 /*
@@ -554,6 +570,10 @@ t_scale				gtk_get_float_scale(const char *label, FLT2 range,
 void				gtk_set_spinner(t_spinner *spinner, INT2 range, int value,
 								const char *label);
 t_spinner			gtk_set_spinner_float(const char *label, FLT2 range,
+								cl_float value, cl_float step);
+void				gtk_set_changer(t_changer *changer, INT2 range, int value,
+								const char *label);
+t_changer			gtk_set_changer_float(const char *label, FLT2 range,
 								cl_float value, cl_float step);
 /*
 ** ============================= Shape tab widgets =============================
@@ -666,22 +686,20 @@ gboolean			texture_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
 gboolean			normal_map_tree_single_click(GtkTreeView *tree,
 								GdkEventButton *event, gpointer data);
-void				fps_scale_moved(GtkSpinButton *button, gpointer data);
+void				fps_scale_moved(GtkWidget *button, gpointer data);
 void				change_axis(GtkToggleButton *toggle_button, gpointer data);
 void				change_anti_aliasing(GtkToggleButton *toggle_button,
 								gpointer data);
 void				changing_filter_type(GtkComboBox *filter_combo,
 								gpointer data);
-void				mirror_scale_moved(GtkSpinButton *button, gpointer data);
-void				step_angle_scale_moved(GtkSpinButton *button,
+void				mirror_scale_moved(GtkWidget *button, gpointer data);
+void				step_angle_scale_moved(GtkWidget *button, gpointer data);
+void				filter_spin_button_changer(GtkWidget *button,
 								gpointer data);
-void				filter_spin_button_changer(GtkSpinButton *button,
+void				display_width_scale_moved(GtkWidget *button, gpointer data);
+void				display_height_scale_moved(GtkWidget *button,
 								gpointer data);
-void				display_width_scale_moved(GtkSpinButton *button,
-								gpointer data);
-void				display_height_scale_moved(GtkSpinButton *button,
-								gpointer data);
-void				fov_scale_moved(GtkSpinButton *button, gpointer data);
+void				fov_scale_moved(GtkWidget *button, gpointer data);
 void				camera_expander_callback(GObject *object,
 								GParamSpec *param_spec, gpointer data);
 void				spin_button_camera_position_changer(GtkSpinButton *button,
@@ -724,9 +742,8 @@ void				spin_button_shape_dot_b_changer(GtkSpinButton *button,
 								gpointer data);
 void				spin_button_shape_dot_c_changer(GtkSpinButton *button,
 								gpointer data);
-void				spin_button_color_changer(GtkSpinButton *button,
-								gpointer data);
-void				shape_material_scale_moved(GtkSpinButton *button,
+void				spin_button_color_changer(GtkWidget *button, gpointer data);
+void				shape_material_scale_moved(GtkWidget *button,
 								gpointer data);
 void				changing_texture_type(GtkComboBox *texture_combo,
 								gpointer data);

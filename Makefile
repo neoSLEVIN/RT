@@ -207,9 +207,10 @@ GTK_MODULE = source/gtk/utils/init_info.c \
 		source/gtk/utils/file_chooser_utils.c \
 		source/gtk/utils/file_chooser.c \
 		source/gtk/actions/do_change_off_dots.c \
+		source/gtk/widgets/gtk_set_changer_widgets.c \
+		source/gtk/actions/serialize_scene_to_json.c \
 
-SERIALIZER_MODULE = source/gtk/actions/serialize_scene_to_json.c \
-		source/serializer/api/serialize_str.c \
+SERIALIZER_MODULE = source/serializer/api/serialize_str.c \
 		source/serializer/api/serialize_value.c \
 		source/serializer/serialize_settings.c \
 		source/serializer/serialize_start.c \
