@@ -19,7 +19,7 @@ Execute `make run` for Running app
 
 ## Examples
 
-For more examples of GUI look at [GUI screenshots](./extras/app/)
+For more examples of GUI look at [GUI screenshots](./extras/gui/)
 
 For more examples of Scenes look at [scene screenshots](./extras/images/), [scene JSON files](./scene/) which you can open by app.
 
